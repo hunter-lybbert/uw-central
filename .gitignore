@@ -11,6 +11,9 @@ __pycache__/
 *.log
 *.gz
 
+# random maac stuff
+.DS_Store
+
 # Distribution / packaging
 .python-version
 .Python
