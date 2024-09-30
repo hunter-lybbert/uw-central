@@ -1,0 +1,103 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+
+\title{\bf { AMATH 567 Fall 2024 \\ Homework 2 ---
+    Due October 7 on Gradescope by 1:30pm} }
+
+
+\maketitle
+
+\begin{center}
+  All solutions must include significant justification to receive full credit.  If you handwrite your assignment you must either do so digitally or if it is written on paper you must \emph{scan} your work.  A standard photo is not sufficient.  \vskip 4pt
+
+  If you work with others on the homework, you must name your collaborators.
+\end{center}
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item From A\&F: 1.2.12. \\
+  \item From A\&F: 1.3.5.\\
+  \item Consider the function
+    \begin{align*}
+      \varphi(z) = z + \sqrt{z^2 - 1}, \quad z > 1.
+    \end{align*}
+    Show that
+    \begin{align*}
+      \log \varphi(z) = \int_1^z \sqrt{x^2 - 1}\, \D x.
+    \end{align*}
+\item Find all zeroes of $\tan (z), z \in \mathbb{C}$. What can you
+  conclude about the zeroes of $\tanh (z)=\sinh (z) / \cosh (z), z \in
+  \mathbb C$?\\
+\item Consider $f_\epsilon(z)=\epsilon /\left(\epsilon^2+z^2\right)$, where
+  $\epsilon$ is a small positive number, and $z \in \mathbb{C} /\{i
+  \epsilon,-i \epsilon\}$. Plot $\left|f_\epsilon(z)\right|$, for various
+  values of $\epsilon$. Discuss the influence the singularities of a
+  function in the complex plane have on its behavior on the real
+  line. Compute
+  \begin{align*}
+    \int_{-\infty}^\infty f_\epsilon(x) \D x.
+  \end{align*}\\
+\item Visualizing complex functions is not as easy as visualizing
+  real-valued functions, since we need 4 dimensions: two for the input,
+  two for the output. Different visualizations are commonly used, such
+  as showing 3-dimensional plots of the real and imaginary
+  parts. Plotting the modulus is informational, but it eliminates a
+  lot of information.
+  \begin{itemize}
+\item To see this, plot the real and imaginary part of the exponential function $\exp (z)=\exp (x+\I y)$, for $x \in[-1,1], y \in[-2 \pi, 2 \pi]$. Now plot the modulus over the same region, and compare.
+\item A "new" popular way to do this is to plot the modulus of the
+function with the color defined by the phase. The \href{https://dlmf.nist.gov/}{Digital Library of
+Mathematical Functions} has lots of examples. Create a plot of the
+$|\exp (z)|=|\exp (x+\I y)|$, for $x \in[-1,1]$, $y \in[-2 \pi, 2
+\pi]$. colored by the argument. Experimenting with other functions is
+highly encouraged! The book visual Complex Functions: An Introduction
+with Phase Portraits by Elias Wegert (Birkhäuser, 2012) is a good
+companion to our textbook, if you think geometrically.
+\end{itemize}
+\item From A\&F: 2.1.1 \\
+\item From A\&F: 2.1.7 \\
+\item Show that the derivative of $f(z)=|z|^2$ is defined at $z=0$, but nowhere else.\\
+\item Derive the polar-coordinates form of the Cauchy-Riemann equations
+$$
+u_r=\frac{1}{r} v_\theta, \quad v_r=-\frac{1}{r} u_\theta.
+$$
+where $x=r \cos \theta$ and $y=r \sin \theta$
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
