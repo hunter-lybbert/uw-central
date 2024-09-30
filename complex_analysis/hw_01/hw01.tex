@@ -1,0 +1,320 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+
+\title{\bf { AMATH 567 Fall 2024 \\ Homework 1 ---
+    Due Sept. 30 on Gradescope by 1:30pm\\
+  The 48 hour late penalty is waived for this assignment} }
+
+
+\maketitle
+
+\begin{center}
+  All solutions must include significant justification to receive full credit.  If you handwrite your assignment you must either do so digitally or if it is written on paper you must \emph{scan} your work.  A standard photo is not sufficient.  \vskip 4pt
+
+  If you work with others on the homework, you must name your collaborators.
+\end{center}
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item  From A\&F: 1.1.1: (b, e)
+Express each of the following complex numbers in exponential form: \\
+b) $-i$
+\textit{Solution:}
+\begin{eqnarray*}
+-i &=& 0 -i \\
+   &=& 0 + i(-1) \\
+   &=& \cos(\frac{3\pi}{2}) + i \sin(\frac{3\pi}{2}) \\
+   &=& e^{i\frac{3\pi}{2}}
+\end{eqnarray*}
+\qed \\
+e) $\frac{1}{2}-\frac{\sqrt{3}}{2}i$
+\textit{Solution:}
+\begin{eqnarray*}
+\frac{1}{2} - \frac{\sqrt{3}}{2}i &=& \cos(\frac{5\pi}{3}) + i \sin(\frac{5\pi}{3}) \\
+					    &=& e^{i\frac{5\pi}{3}}
+\end{eqnarray*}
+\qed \\
+
+\item From A\&F: 1.1.2: (b, c, d)
+Express each of the following in the form $a + bi$, where $a$ and $b$ are real \\
+b) $\frac{1}{1 + i}$
+\textit{Solution:}
+\begin{eqnarray*}
+\frac{1}{1 + i} &=& \frac{1}{1 + i} \frac{(1 - i)}{(1 - i)} \\
+		     &=& \frac{1 - i}{1 + i - i - i^2} \\
+		     &=& \frac{1 - i}{1 + 1} \\
+		     &=& \frac{1 - i}{2} \\
+		     &=& \frac{1}{2} - \frac{1}{2}i
+\end{eqnarray*}
+\qed \\
+c) $(1 + i)^3$
+\textit{Solution:}
+\begin{eqnarray*}
+(1 + i)^3 &=& (1 + i)(1 + i)(1 + i) \\
+              &=& (1 + i + i + i^2)(1 + i) \\ 
+              &=& (1 + 2i - 1)(1 + i) \\
+              &=& 2i(1 + i) \\
+              &=& 2i + 2i^2 \\
+              &=& 2i - 2 \\
+              &=& -2 + 2i
+\end{eqnarray*}
+\qed \\
+d) $|3 + 4i|$
+\textit{Solution:}
+\begin{eqnarray*}
+|3 + 4i| &=& \sqrt{3^2 + 4^2} \\
+              &=& \sqrt{9 + 16} \\ 
+              &=& \sqrt{25} \\
+              &=& 5 \\
+              &=& 5 + 0i
+\end{eqnarray*}
+\qed \\
+
+
+\item From A\&F: 1.1.3: (d)  Solve for the roots of the following equations \\
+d) $z^4 + 2z^2 + 2 = 0$ \textit{Solution:} \\
+We begin by making a substitution $z^2 = x$ giving us a simpler quadratic equation $x^2 + 2x + 2 = 0$ which we apply the quadratic formula to obtain
+\begin{eqnarray*}
+x &=& \frac{-2 \pm \sqrt{4 - 8}}{2} \\
+   &=& \frac{-2 \pm \sqrt{-4}}{2} \\
+   &=& \frac{-2 \pm 2i}{2} \\
+   &=& -1 \pm i \quad \text{thus} \\
+x &=& -1 + i, -1 - i. \\
+\end{eqnarray*}
+Plugging this back into our substitution yields
+\begin{eqnarray*}
+z^2 &=& x \\
+z^2 &=& -1 + i \\
+\sqrt{z^2} &=& \sqrt{-1 + i} \\
+z &=& \pm \sqrt{-1 + i} \quad \text{and} \\
+z &=& \pm \sqrt{-1 - i} \quad \text{where $x = -1 - i$}.
+\end{eqnarray*}
+We don't stop here, but further convert these complex solutions into polar form $x + iy = \rho(cos(\theta) + i\sin(\theta))$ where $\rho = \sqrt{x^2 + y^2}$ as follows. 
+Let's begin where $z = \pm \sqrt{-1 + i}$.
+First, we rewrite $-1 + i$ by calculating $\rho$ and $\theta$ which end up being $\rho = \sqrt{2}$ and $\theta = \frac{3\pi}{4}$. Thus,
+\begin{eqnarray*}
+\pm \sqrt{-1 + i} &=& \pm (-1 + i)^\frac{1}{2} \\
+			&=& \pm (\sqrt{2}(\cos{\frac{3\pi}{4}}) + i\sin{\frac{3\pi}{4}})^\frac{1}{2} \\
+			&=& \pm (\sqrt{2}e^{i \frac{3\pi}{4}})^\frac{1}{2} \\
+			&=& \pm 2^{\frac{1}{4}}e^{i \frac{3\pi}{8}}.
+\end{eqnarray*}
+The $z = \pm \sqrt{-1 -i}$ case is similar except when we calculate $\theta$ for the complex number $ -1 -i $ we get $\theta = \frac{5\pi}{4}$.
+Therefore, we have
+\begin{eqnarray*}
+z &=& \pm 2^{\frac{1}{4}}e^{i \frac{3\pi}{8}} \quad \text{and} \\
+   &=& \pm 2^{\frac{1}{4}}e^{i \frac{5\pi}{8}}.
+\end{eqnarray*}
+However, we want to simplify this even more precisely then to leave these roots with the $\pm$ notation.
+Recall Euler's Identity, $e^{i\pi} + 1 = 0$, thus $-1 = e^{i\pi}$. We use this substitution in the cases where $\pm$ resolves to $-$ to simplify further:
+\begin{eqnarray*}
+z &=& -2^{\frac{1}{4}}e^{i \frac{3\pi}{8}} \\
+   &=& (-1) 2^{\frac{1}{4}}e^{i \frac{3\pi}{8}} \\
+   &=& (e^{i\pi}) 2^{\frac{1}{4}}e^{i \frac{3\pi}{8}} \\
+   &=& 2^{\frac{1}{4}}e^{i\pi}e^{i \frac{3\pi}{8}} \\
+   &=& 2^{\frac{1}{4}}e^{i\pi + i \frac{3\pi}{8}} \\
+   &=& 2^{\frac{1}{4}}e^{i \frac{11\pi}{8}} \quad \text{and} \\
+z &=& -2^{\frac{1}{4}}e^{i \frac{5\pi}{8}} = 2^{\frac{1}{4}}e^{i \frac{13\pi}{8}}.
+\end{eqnarray*}
+In conclusion our final set of roots solving the equation $z^4 + 2z^2 + 2 = 0$ are the following:
+$$
+z = 2^{\frac{1}{4}}e^{i \frac{3\pi}{8}}, \enspace
+2^{\frac{1}{4}}e^{i \frac{5\pi}{8}}, \enspace
+2^{\frac{1}{4}}e^{i \frac{11\pi}{8}}, \enspace
+2^{\frac{1}{4}}e^{i \frac{13\pi}{8}}.
+$$ \\
+\qed \\
+
+\item From A\&F: 1.1.4: (d,f)  Establish the following results:\\
+d) $\Re(z) \leq |z|$ \textit{Solution:} \\
+We start by reminding ourselves of a few definitions. The complex number $z = x +iy$ where $\Re(z) = x$.
+Additionally, the absolute value or modulus is defined as $|z| = \sqrt{x^2 + y^2}$.
+Therefore, it is equivalent to show that $x \leq \sqrt{x^2 + y^2}$.
+Suppose we don't know the relationship between these two quantities, we will show that it must be so.
+\begin{eqnarray*}
+x &\stackrel{?}{\leq}& \sqrt{x^2 + y^2} \\
+x^2 &\stackrel{?}{\leq}& \sqrt{x^2 + y^2}^2 \\
+x^2 &\stackrel{?}{\leq}& x^2 + y^2
+\end{eqnarray*}
+When $y = 0$ this gives us
+$$ x^2 = x^2. $$
+When $y \neq 0$ then $y^2 > 0$ thus
+$$ x^2 < x^2 + y^2.$$
+Since, $x^2 \leq x^2 + y^2$, performing the opposite operations of the first few algebraic steps we get $x \leq \sqrt{x^2 + y^2}$.
+Which is equivalent to $\Re(z) \leq |z|$ as established at the beginning. \\
+\qed \\
+f) $|z_1z_2| = |z_1||z_2|$ \textit{Solution:} \\
+Define $z_1 = x_1 + iy_1$ and $z_2 = x_2 + iy_2$.
+Now time for some fun algebra!
+\begin{eqnarray*}
+|z_1z_2| &=& |(x_1 + iy_1)(x_2 + iy_2)| \\
+	      &=& |x_1x_2 + ix_1y_2 + iy_1x_2 + i^2y_1y_2| \\
+	      &=& |(x_1x_2 - y_1y_2) + i(x_1y_2 + y_1x_2)| \\
+	      &=& \sqrt{(x_1x_2 - y_1y_2)^2 + (x_1y_2 + y_1x_2)^2} \\
+	      &=& \sqrt{x_1^2x_2^2 -2x_1x_2y_1y_2 + y_1^2y_2^2 + x_1^2y_2^2 + 2x_1x_2y_1y_2 + y_1^2x_2^2} \\
+	      &=& \sqrt{x_1^2x_2^2  + y_1^2y_2^2 + x_1^2y_2^2 + y_1^2x_2^2} \\
+	      &=& \sqrt{(x_1^2 + y_1^2)(x_2^2 + y_2^2)} \\
+	      &=& \sqrt{x_1^2 + y_1^2}\sqrt{x_2^2 + y_2^2} \\
+	      &=& |z_1||z_2| \\
+\end{eqnarray*}
+\qed \\
+
+\item For $a, b \in \mathbb C$, define
+  \begin{align*}
+    a^b = e^{b \log a},
+  \end{align*}
+  where $a = r e^{i \theta}$, $- \pi < \theta \leq \pi$ and
+  \begin{align*}
+    \log a = \log r + i \theta,
+  \end{align*}
+  is the principal branch of the logarithm.  Find the real and
+  imaginary parts of
+  \begin{align*}
+    i^i \quad \text{and} \quad (1 + i)^i.
+  \end{align*}
+\textit{Solution:} \\
+\textbf{Part 1}  $i^i$ \\
+Using the first equation we get
+$$i^i = e^{i\log{i}}.$$
+Before we use the next equation, let's determine $\rho$ and $\theta$ for the complex number $i$.
+$$\rho = \sqrt{x^2 + y^2} = \sqrt{0^2 + 1^2} = \sqrt{0 + 1} = \sqrt{1} = 1$$
+We need to find $\theta$ s.t.
+\begin{eqnarray*}
+\rho \cos(\theta) = 1 \cos(\theta) = \cos(\theta) &=& 0 \\
+\rho \sin(\theta) = 1 \sin(\theta) = \sin(\theta)  &=& 1
+\end{eqnarray*}
+therefore $\theta = \frac{\pi}{2}$.
+Now combining this information with the provided equation for the principal branch of the logarithm we get
+\begin{eqnarray*}
+i^i &=& e^{i\log{i}} \\
+    &=& e^{i(\log{1}+i\frac{\pi}{2})} \\
+    &=& e^{i(\log{1}+i^2\frac{\pi}{2})} \\
+    &=& e^{(i\log{1}-\frac{\pi}{2})} \\
+    &=& e^{i\log{1}}e^{-\frac{\pi}{2}} \\
+    &=& (\cos(\log{1}) + i\sin(\log{1}))e^{-\frac{\pi}{2}} \\
+    &=& \frac{\cos(\log{1})}{e^{\frac{\pi}{2}}} + i\frac{\sin(\log{1}))}{e^{\frac{\pi}{2}}} \\
+    &=& \frac{\cos(0)}{e^{\frac{\pi}{2}}} + i\frac{\sin(0))}{e^{\frac{\pi}{2}}} \\
+    &=& \frac{1}{e^{\frac{\pi}{2}}} + i\frac{0}{e^{\frac{\pi}{2}}} \\
+    &=& e^{-\frac{\pi}{2}} + i0 \\
+    &=& e^{-\frac{\pi}{2}}.
+\end{eqnarray*}
+In conclusion, $\Re{(i^i)} = e^{-\frac{\pi}{2}}$ and $\Im{(i^i)} = 0$. \\
+\qed \\
+\textbf{Part 2} $(1 + i)^i$ \\
+Using the first equation we get
+$$(1 + i)^i = e^{i\log{(1 + i)}}.$$
+Before we use the next equation, let's determine $\rho$ and $\theta$ for the complex number $i$.
+$$\rho = \sqrt{x^2 + y^2} = \sqrt{1^2 + 1^2} = \sqrt{1 + 1} = \sqrt{2}$$
+We need to find $\theta$ s.t.
+\begin{eqnarray*}
+\rho \cos(\theta) = \sqrt{2} \cos(\theta) &=& 1 \\
+\rho \sin(\theta) = \sqrt{2} \sin(\theta) &=& 1
+\end{eqnarray*}
+therefore $\theta = \frac{\pi}{4}$.
+Now combining this information with the provided equation for the principal branch of the logarithm we get
+\begin{eqnarray*}
+(1 + i)^i &=& e^{i\log{(1 + i)}} \\
+    &=& e^{i(\log{\sqrt{2}}+i\frac{\pi}{4})} \\
+    &=& e^{i(\log{\sqrt{2}}+i^2\frac{\pi}{4})} \\
+    &=& e^{(i\log{\sqrt{2}}-\frac{\pi}{4})} \\
+    &=& e^{i\log{\sqrt{2}}}e^{-\frac{\pi}{4}} \\
+    &=& (\cos(\log{\sqrt{2}}) + i\sin(\log{\sqrt{2}}))e^{-\frac{\pi}{4}} \\
+    &=& \frac{\cos(\log{\sqrt{2}})}{e^{\frac{\pi}{4}}} + i\frac{\sin(\log{\sqrt{2}}))}{e^{\frac{\pi}{4}}} \\
+    &=& \frac{\cos(\frac{1}{2}\log{2})}{e^{\frac{\pi}{4}}} + i\frac{\sin(\frac{1}{2}\log{2}))}{e^{\frac{\pi}{4}}}.
+\end{eqnarray*}
+In conclusion, $$\Re{((1 + i)^i)} = \frac{\cos(\frac{1}{2}\log{2})}{e^{\frac{\pi}{4}}} \quad \text{and} \quad \Im{((1 + i)^i)} = \frac{\sin(\frac{1}{2}\log{2}))}{e^{\frac{\pi}{4}}}.$$ \qed \\
+
+\item Consider the function $e(z):=\sum_{n=0}^{\infty}
+  \frac{z^n}{n!}$, which is defined for all $z \in \mathbb{C}$ (you
+  need not show this). Using only the power series, show that
+  $e\left(z_1+z_2\right)=e\left(z_1\right) e\left(z_2\right)$. Can you
+  find other power series with the same property? \\
+
+  
+\item Consider the complex-valued expression
+$$
+f(z)=z^{1 / 2}
+$$
+where $z=x+i y$, with $x, y \in \mathbb{R}$. Derive explicit
+expressions for the real and imaginary part(s) of $f(z)$ in terms of
+$x$ and $y$. If you make any choices (e.g. for branch cuts), show how
+they impact your answer. Your answer should not contain any trig
+functions.\\
+
+
+
+\item (Solution of the cubic) Consider the cubic equation
+
+$$
+x^3+a x^2+b x+c=0,
+$$
+
+where $a, b$ and $c$ are given numbers.
+\begin{itemize}
+\item Use the change of variables $x=y-a / 3$ to reduce the equation to the form
+
+$$
+y^3+p y+q=0
+$$
+
+
+Find expressions for $p$ and $q$.
+\item Let $y=u+v$. We're replacing one unknown with two, so we get to impose another constraint later. Check that
+
+$$
+u^3+v^3+(3 u v+p)(u+v)+q=0 \text {. }
+$$
+
+\item Now we impose $3 u v+p=0$, so that
+
+$$
+u^3 v^3=-p^3 / 27
+$$
+
+Also, from above, we have
+
+$$
+u^3+v^3=-q .
+$$
+
+Find a quadratic equation satisfied by both $u^3$ and $v^3$.
+\item Solve this quadratic equation, finding expressions for $u$ and $v$.
+\item Finally, obtain an expression for $x$. How many different solutions does your expression give rise to?
+\item Use your result to solve the cubic $x^3+3 x^2+6 x+8=0$.
+\item (Bombelli's equation) Use your result to solve the cubic $x^3-15
+  x-4=0$, writing your result explicitly in terms of real and
+  imaginary parts.
+  \end{itemize}
+
+
+
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
