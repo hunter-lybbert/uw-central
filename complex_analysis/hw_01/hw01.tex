@@ -1,6 +1,7 @@
 \documentclass[10pt]{amsart}
 \usepackage[margin=1.4in]{geometry}
 \usepackage{amssymb,amsmath,enumitem,url}
+\usepackage{graphicx}
 
 \newcommand{\D}{\mathrm{d}}
 \newcommand{\I}{\mathrm{i}}
@@ -246,11 +247,38 @@ Now combining this information with the provided equation for the principal bran
 \end{eqnarray*}
 In conclusion, $$\Re{((1 + i)^i)} = \frac{\cos(\frac{1}{2}\log{2})}{e^{\frac{\pi}{4}}} \quad \text{and} \quad \Im{((1 + i)^i)} = \frac{\sin(\frac{1}{2}\log{2}))}{e^{\frac{\pi}{4}}}.$$ \qed \\
 
+
 \item Consider the function $e(z):=\sum_{n=0}^{\infty}
   \frac{z^n}{n!}$, which is defined for all $z \in \mathbb{C}$ (you
   need not show this). Using only the power series, show that
   $e\left(z_1+z_2\right)=e\left(z_1\right) e\left(z_2\right)$. Can you
   find other power series with the same property? \\
+\textit{Solution:} \\
+Let's start from the left $e\left(z_1+z_2\right)$.
+Immediately we will utilize the binomial theorem, $(a + b)^n = \sum_{k=0}^{n} {n \choose k}a^k b^{n-k} $, to rewrite $(z_1+z_2)^n$. \\
+\begin{eqnarray*}
+e\left(z_1+z_2\right) &=& \sum_{n=0}^{\infty} \frac{(z_1+z_2)^n}{n!} \\
+			       &=& \sum_{n=0}^{\infty} \frac{1}{n!} \sum_{k=0}^{n} {n \choose k}z_1^k z_2^{n-k} \\
+			       &=& \sum_{n=0}^{\infty} \frac{1}{n!} \sum_{k=0}^{n} \frac{n!}{(n-k)! k!}z_1^k z_2^{n-k} \\
+			       &=& \sum_{n=0}^{\infty} \frac{n!}{n!} \sum_{k=0}^{n} \frac{z_2^{n-k}}{(n-k)!} \frac{z_1^k}{k!} \\
+			       &=& \sum_{n=0}^{\infty} \sum_{k=0}^{n} \frac{z_2^{n-k}}{(n-k)!} \frac{z_1^k}{k!} \\
+\end{eqnarray*}
+Now, let's start from the right and see if we can get it in the same form.
+\begin{eqnarray*}
+e\left(z_1\right) e\left(z_2\right) &=& \sum_{n=0}^{\infty} \frac{(z_1)^n}{n!} \sum_{m=0}^{\infty} \frac{(z_2)^m}{m!} \\
+			       		        &=& \sum_{n=0}^{\infty} \sum_{m=0}^{\infty} \frac{(z_1)^n}{n!} \frac{(z_2)^m}{m!}
+\end{eqnarray*}
+We have to try and rewrite the sum a little to look more like the binomial version we arrived at from the left.
+In order to talk through this we will draw a picture.\\
+\begin{figure}
+    \graphicspath{ {./images/} }
+    \includegraphics{lattice1}
+\end{figure}
+
+\begin{figure}
+    \graphicspath{ {./images/} }
+    \includegraphics{lattice2}
+\end{figure}
 
   
 \item Consider the complex-valued expression
