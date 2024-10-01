@@ -1,7 +1,8 @@
 \documentclass[10pt]{amsart}
 \usepackage[margin=1.4in]{geometry}
 \usepackage{amssymb,amsmath,enumitem,url}
-\usepackage{graphicx}
+\usepackage{graphicx,subfig}
+\graphicspath{ {./images/} }
 
 \newcommand{\D}{\mathrm{d}}
 \newcommand{\I}{\mathrm{i}}
@@ -269,17 +270,26 @@ e\left(z_1\right) e\left(z_2\right) &=& \sum_{n=0}^{\infty} \frac{(z_1)^n}{n!} \
 			       		        &=& \sum_{n=0}^{\infty} \sum_{m=0}^{\infty} \frac{(z_1)^n}{n!} \frac{(z_2)^m}{m!}
 \end{eqnarray*}
 We have to try and rewrite the sum a little to look more like the binomial version we arrived at from the left.
-In order to talk through this we will draw a picture.\\
-\begin{figure}
-    \graphicspath{ {./images/} }
-    \includegraphics{lattice1}
-\end{figure}
-
-\begin{figure}
-    \graphicspath{ {./images/} }
-    \includegraphics{lattice2}
-\end{figure}
-
+In order to talk through this we will draw a picture.
+%\begin{figure}[h]
+%  \subfloat[The lattice of terms being summed in the $m$ direction followed by the $n$ direction.]{\includegraphics[width=0.4\textwidth]{lattice1}\label{fig:f1}} \quad \quad
+%  \subfloat[The lattice of terms being summed along the diagonals]{\includegraphics[width=0.4\textwidth]{lattice2}\label{fig:f2}}
+%  \caption{We use these lattices to demonstrate the change of indices in the summation in the second half of problem 6.}
+%\end{figure}
+As depicted in Figure \ref{fig:f1}, the double infinite sum of the product of these two polynomials can be represented by a lattice.
+Each point represents one element in the sum where the $m$ index is increasing along the typical $x$-axis while the $n$ index is increasing along the typical $y$-axis.
+What we want to do is change our summing indices from summing all $m$ terms from $0$ to $\infty$ before incrementing the $n$ index to summing over every term in $j^\text{th}$ diagonal.
+Therefore we get the following sum
+$$\sum_{j=0}^{\infty} \sum_{l = 0}^{j} L_{j-l, l}$$
+where $j$ represents which diagonal we are on and $l$ represents which index along $j^{\text{th}}$ diagonal and $L_{j-l, j}$ is the corresponding entry from the lattice $L$.
+Notice the $j-l$ in the lattice index is equivalent to the $m$ index.
+Now we rewrite the lattice term as the actual entries from the cross product of the two polynomials
+$$\sum_{j=0}^{\infty} \sum_{l = 0}^{j} L_{j-l, l} = \sum_{j=0}^{\infty} \sum_{l = 0}^{j} \frac{z_2^{j-l}}{(j - l)!} \frac{z_1^{l}}{l!}. $$
+To arrive here we have basically just made the substitutions $n = j$ and $m = j - l$.
+Since this has turned out be in the same form as when we started from the left direction the two are equivalent.
+Therefore
+$$ e\left(z_1+z_2\right)=e\left(z_1\right) e\left(z_2\right) $$
+\qed
   
 \item Consider the complex-valued expression
 $$
@@ -290,7 +300,39 @@ expressions for the real and imaginary part(s) of $f(z)$ in terms of
 $x$ and $y$. If you make any choices (e.g. for branch cuts), show how
 they impact your answer. Your answer should not contain any trig
 functions.\\
-
+\textit{Solution:} \\
+First, note the following once again
+\begin{eqnarray*}
+z &=& x +iy \\
+x &=& \rho \sin(\theta) \\
+y &=& \rho \cos(\theta)
+\end{eqnarray*}
+Applying these to $f(z)=z^{1 / 2}$ we see
+\begin{eqnarray*}
+f(z) &=& z^{1 / 2} \\
+      &=& (\rho \cos \theta + i \rho \sin \theta)^{1 / 2} \\
+      &=& \sqrt{\rho}(\cos \theta + i \sin \theta)^{1 / 2} \\
+      &=& \sqrt{\rho}(e^{i \pi})^{1 / 2} \\
+      &=& \sqrt{\rho}e^\frac{i \pi}{2} \\
+      &=& \sqrt{\rho}\left(\cos \frac{\theta}{2} +i \sin\frac{\theta}{2}\right). \\
+\end{eqnarray*}
+We need to remind ourselves of the following half angle trig identities
+$$ \cos \frac{\theta}{2} = \text{sgn} \left(\cos \frac{\theta}{2}\right) \sqrt{ \frac{ 1 + \cos \theta }{ 2 }} $$
+$$ \sin \frac{\theta}{2} = \text{sgn} \left(\sin \frac{\theta}{2}\right) \sqrt{ \frac{ 1 - \cos \theta }{ 2 }}. $$
+Before we make these substitutions let's actualize the value of their signs by liming the range of values that $\theta$ can take on.
+Let's limit it such that $\theta \in [0, \pi]$, then $\text{sgn} \left(\cos \frac{\theta}{2}\right)$ and $\text{sgn} \left(\cos \frac{\theta}{2}\right)$ are both positive.
+Continuing where we left off earlier, we plug in these half angle identities
+\begin{eqnarray*}
+\sqrt{\rho}\left(\cos \frac{\theta}{2} +i \sin\frac{\theta}{2}\right) &=& \sqrt{\rho}\left(\sqrt{ \frac{ 1 + \cos \theta }{ 2 }} +i \sqrt{ \frac{ 1 - \cos \theta }{ 2 }}\right) \\
+      &=& \sqrt{ \frac{ \rho + \rho \cos \theta }{ 2 }} +i \sqrt{ \frac{ \rho - \rho \cos \theta }{ 2 }} \\
+      &=& \sqrt{ \frac{ \sqrt{x^2 + y^2} + x }{ 2 }} +i \sqrt{ \frac{ \sqrt{x^2 + y^2} - x }{ 2 }}
+\end{eqnarray*}
+therefore, we have $$\Re{f(z)} = \sqrt{ \frac{ \sqrt{x^2 + y^2} + x }{ 2 }}$$ and $$\Im{(f(z)} = \sqrt{ \frac{ \sqrt{x^2 + y^2} - x }{ 2 }}.$$
+On the other hand, if we had chosen to limit $\theta$ to the other half of the unit circle such that $\theta \in [\pi, 2\pi]$, then $\text{sgn} \left(\cos \frac{\theta}{2}\right)$ would now be negative and $\text{sgn} \left(\cos \frac{\theta}{2}\right)$ would still be positive.
+This small difference would result in only a sign change for the substituted term which would carry through to the end resulting in the following solution
+$$f(z) = -\sqrt{ \frac{ \sqrt{x^2 + y^2} + x }{ 2 }} +i \sqrt{ \frac{ \sqrt{x^2 + y^2} - x }{ 2 }}$$
+therefore, in this case we have $$\Re{f(z)} = -\sqrt{ \frac{ \sqrt{x^2 + y^2} + x }{ 2 }}$$ and $$\Im{(f(z)} = \sqrt{ \frac{ \sqrt{x^2 + y^2} - x }{ 2 }}.$$
+\qed
 
 
 \item (Solution of the cubic) Consider the cubic equation
