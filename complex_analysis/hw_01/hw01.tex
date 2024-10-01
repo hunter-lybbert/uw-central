@@ -387,11 +387,44 @@ $$
 u^3+v^3=-q .
 $$
 
-Find a quadratic equation satisfied by both $u^3$ and $v^3$.
+Find a quadratic equation satisfied by both $u^3$ and $v^3$. \\
+\textit{Solution:} \\
+We manipulate the above to get
+\begin{eqnarray*}
+u^3+v^3&=&-q \\
+u^3&=&-q - v^3.
+\end{eqnarray*}
+Now plugging this in to $u^3 v^3=-p^3 / 27$ we quickly arrive at our quadratic satisfied by either $v^3$ or $u^3$
+\begin{eqnarray*}
+\left(-q - v^3\right) v^3 &=& -p^3 / 27 \\
+-qv^3 - v^6 &=& -p^3 / 27 \\
+0 &=& v^6 + qv^3 - p^3 / 27.
+\end{eqnarray*}
+The $u^3$ version of this comes from making an equivalent substitution and the same algebra as above, after solving $u^3+v^3=-q$ for $v^3$ in terms of $u^3$.
+
+\item Solve this quadratic equation, finding expressions for $u$ and $v$.
+\textit{Solution:} \\
+Using the quadratic formula we get
+$$u^3 = \frac{-q \pm \sqrt{q^2 + \frac{4p^3}{27}}}{2}.$$
+Before we move on let's determine $v^3$ based on what we found $u^3$ to be. Plugging the equation for $u^3$ into $u^3+v^3=-q$
+\begin{eqnarray*}
+u^3+v^3 &=& -q \\
+\frac{-q \pm \sqrt{q^2 + \frac{4p^3}{27}}}{2} + v^3 &=& -q \\
+v^3 &=& -q - \left(\frac{-q \pm \sqrt{q^2 + \frac{4p^3}{27}}}{2}\right) \\
+v^3 &=& -q + \frac{q \mp \sqrt{q^2 + \frac{4p^3}{27}}}{2} \\
+v^3 &=& -\frac{2q}{2} + \frac{q}{2} \mp \frac{\sqrt{q^2 + \frac{4p^3}{27}}}{2} \\
+v^3 &=& -\frac{q}{2} \mp \frac{\sqrt{q^2 + \frac{4p^3}{27}}}{2} \\
+v^3 &=& \frac{-q \mp \sqrt{q^2 + \frac{4p^3}{27}}}{2}
+\end{eqnarray*}
+Importantly, notice that the only difference between $u^3$ and $v^3$ is they will have an opposite sign in front of the square root in the numerator.
+Therefore we have the expressions for $u$ and $v$ are as follows
+$$u = \left(\frac{-q \pm \sqrt{q^2 + \frac{4p^3}{27}}}{2}\right)^{\frac{1}{3}}$$
+$$v = \left(\frac{-q \mp \sqrt{q^2 + \frac{4p^3}{27}}}{2}\right)^{\frac{1}{3}}.$$
+
+
+\item Finally, obtain an expression for $x$. How many different solutions does your expression give rise to?
 \textit{Solution:} \\
 More Math!
-\item Solve this quadratic equation, finding expressions for $u$ and $v$.
-\item Finally, obtain an expression for $x$. How many different solutions does your expression give rise to?
 \item Use your result to solve the cubic $x^3+3 x^2+6 x+8=0$.
 \item (Bombelli's equation) Use your result to solve the cubic $x^3-15
   x-4=0$, writing your result explicitly in terms of real and
