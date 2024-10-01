@@ -349,13 +349,31 @@ $$
 y^3+p y+q=0
 $$
 
-
-Find expressions for $p$ and $q$.
+Find expressions for $p$ and $q$. \\
+\textit{Solution:} \\
+$$\left(y - \frac{a}{3}\right)^3 + a\left(y - \frac{a}{3}\right)^2 + b\left(y - \frac{a}{3}\right) + c $$
+\begin{eqnarray*}
+&=& \left(y^2 - \frac{2a}{3}y + \frac{a^2}{9}\right)\left(y - \frac{a}{3}\right) + a\left(y^2 - \frac{2a}{3}y + \frac{a^2}{9}\right) + by - \frac{ba}{3} + c \\
+&=& y^3 - ay^2 + \frac{1}{3}a^2 y + \frac{a^3}{27} + ay^2 - \frac{2a^2}{3}y + \frac{a^3}{9} + by - \frac{ba}{3} + c \\
+&=& y^3 + \frac{1}{3}a^2 y + \frac{a^3}{27} - \frac{2a^2}{3}y + \frac{a^3}{9} + by - \frac{ba}{3} + c \\
+&=& y^3 + \frac{1}{3}a^2 y  - \frac{2a^2}{3}y + by + \frac{a^3}{27} + \frac{a^3}{9} - \frac{ba}{3} + c \\
+&=& y^3 + \left(\frac{1}{3}a^2  - \frac{2a^2}{3} + b\right)y + \left(\frac{a^3}{27} + \frac{a^3}{9} - \frac{ba}{3}\right) + c
+\end{eqnarray*}
+thus $p$ and $q$ are defined as follows $$p = \frac{1}{3}a^2  - \frac{2a^2}{3} + b$$ $$q = \frac{a^3}{27} + \frac{a^3}{9} - \frac{ba}{3}.$$
 \item Let $y=u+v$. We're replacing one unknown with two, so we get to impose another constraint later. Check that
 
 $$
 u^3+v^3+(3 u v+p)(u+v)+q=0 \text {. }
 $$
+\textit{Solution:} \\
+Let's plug this substitution, $y=u+v$, into our last equation $y^3+p y+q=0$
+\begin{eqnarray*}
+0 &=& y^3+p y+q \\
+   &=& (u + v)^3 + p(u + v) + q \\
+   &=& u^3 + 3u^2v + 3uv^2 + v^3 + up + vp + q \\
+   &=& u^3 + v^3 + 3u^2v + 3uv^2 + up + vp + q \\
+   &=& u^3 + v^3 + (3uv +  p)(u + v) + q.
+\end{eqnarray*}
 
 \item Now we impose $3 u v+p=0$, so that
 
@@ -370,6 +388,8 @@ u^3+v^3=-q .
 $$
 
 Find a quadratic equation satisfied by both $u^3$ and $v^3$.
+\textit{Solution:} \\
+More Math!
 \item Solve this quadratic equation, finding expressions for $u$ and $v$.
 \item Finally, obtain an expression for $x$. How many different solutions does your expression give rise to?
 \item Use your result to solve the cubic $x^3+3 x^2+6 x+8=0$.
