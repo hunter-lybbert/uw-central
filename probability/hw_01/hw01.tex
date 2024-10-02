@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}
 \include{amsmath}
-\usepackage{dsfont}													% gives you \mathds{} font
+\usepackage{amsmath,amssymb,dsfont,amsthm}													% gives you \mathds{} font
 
 \title{AMATH 561 Autumn 2024 \\ Problem Set 1}
 %\author{}
@@ -9,14 +9,71 @@
 \begin{document}
 \maketitle
 
-{\it Note: Submit electronically to Canvas. }
+{\it Note: Submit electronically to Canvas.}
 \\
 
 \noindent {\bf 1.} Describe the probability space for the following experiments: a) a biased coin is tossed three times; b)  two balls are drawn without replacement from an urn which originally contained two blue and two red balls. \\
 a) \textit{ Solution} \\
-Actual math here \\
+Let's assign the probability of getting a heads when tossing this biased coin once as $p_0$ and the probability of getting a tails as $1 - p_0$. 
+Now to describe the probability space we need to define our outcome space $\Omega$, the set of relevant events $\mathcal{F}$ (a $\sigma$-algebra) and the
+probability measure $P$ then we will have our probability space $\left(\Omega, \mathcal{F}, P\right)$. In our experiment of 3 tosses of the coin we have 
+$$\Omega = \{HHH, HHT, HTH, THH, TTT, TTH, THT, HTT\}$$
+And for simplicity let's define $\mathcal{F} = 2^\Omega$ which means any possible subset of $\Omega$ is an event.
+Now let's define $P: \mathcal{F} \rightarrow \mathbb{R}$.
+Let $A \in \mathcal{F}$ then we say $$P(A) = \sum_{\omega \in A} p(\omega).$$
+Where $p(\omega) = p_0^{h_{\omega}}(1 - p_0)^{t_{\omega}}$ with ${h_{\omega}}$ being the number of heads $H$ in outcome $\omega$ and ${t_{\omega}}$ being the number of tails $T$ in outcome $\omega$. 
+Therefore we can rewrite $P(A)$ as follows:
+$$P(A) = \sum_{\omega \in A} p(\omega) = \sum_{\omega \in A} p_0^{h_{\omega}}(1 - p_0)^{t_{\omega}}.$$
+Let's calculate an example and see if it matches our intuition.
+Define $B \in \mathcal{F}$ as the event such that at least one $H$ occurs in the 3 tosses.
+Therefore $B = \{HHH, HHT, HTH, THH, HTT, THT, TTH\}$. Now
+\begin{eqnarray*}
+P(B) &=& \sum_{\omega \in B} p(\omega) = \sum_{\omega \in B} p_0^{h_{\omega}}(1 - p_0)^{t_{\omega}} \\
+&=& p_0^3(1 - p_0)^0 + p_0^2(1 - p_0)^1 + p_0^2(1 - p_0)^1 + p_0^2(1 - p_0)^1 \\
+&& + p_0^1(1 - p_0)^2 + p_0^1(1 - p_0)^2 + p_0^1(1 - p_0)^2.
+\end{eqnarray*}
+\\
+\qed
+
+\noindent
 b) \textit{ Solution} \\
-Actual math here \\
+Now we analyze the experiment where two balls are drawn without replacement from an urn which originally contained two blue and two red balls.
+It might be helpful to denote ball one and two as $u_1$ and $u_2$ respectively.
+Let's begin by looking at the outcome space $\Omega$. 
+In our two step experiment we get the following possible outcomes 
+$$\Omega = \{bb, br, rb, rr\}.$$
+Once again, for simplicity let's define $\mathcal{F} = 2^\Omega$ which means any possible subset of $\Omega$ is an event.
+Now let's define $P: \mathcal{F} \rightarrow \mathbb{R}$.
+Let $A \in \mathcal{F}$ then we say $$P(A) = \sum_{\omega \in A} p(\omega)$$ again.
+Now $p(\omega)$ is a little tricker to define since the probability for the second draw depends on what the first draw was. 
+We have not described conditional probability in class yet, but I will borrow the notation and language of it here anyway.
+With this in mind we define
+$$ p(\omega) = p(\omega_1\omega_2)= p(u_1 = \omega_1) p(u_2 = \omega_2 | u_1 = \omega_1)$$ with $\omega$ being broken down in to $\omega_1\omega_2$ where $\omega_1$ and $\omega_2$ are the particular color ball being drawn first or second respectively in outcome $\omega$.
+We can define $p(u_1 = \omega_1)$ and $p(u_2 = \omega_2 | u_1 = \omega_1)$ more explicitly with the following rules.
+$$
+p(u_1 = \omega_1) = \frac{1}{2} \quad \text{for} \: \omega \in \{b, r\}
+$$
+since there are 2 of each color and 4 balls total.
+Additionally we determine
+$$p(u_2 = \omega_2 | u_1 = \omega_1) = \frac{1}{3} \quad \text{if} \: \omega_2 = \omega_1$$
+and
+$$p(u_2 = \omega_2 | u_1 = \omega_1) = \frac{2}{3} \quad \text{if} \: \omega_2 \neq \omega_1$$
+since at the time of the second ball draw there is 1 ball of one color and 2 balls of another color with 3 balls total remaining.
+Therefore we can rewrite $P(A)$ as follows:
+$$P(A) = \sum_{\omega \in A} p(\omega) = \sum_{\omega \in A} p(\omega_1\omega_2)= \sum_{\omega \in A} p(u_1 = \omega_1) p(u_2 = \omega_2 | u_1 = \omega_1).$$
+Let's calculate an example and see if it matches our intuition.
+Define $B \in \mathcal{F}$ as the event where the second ball drawn is red $u_2 = r$.
+Therefore $B = \{br, rr\}$. Now
+\begin{eqnarray*}
+P(B) &=& \sum_{\omega \in B} p(\omega) = \sum_{\omega \in B} p(\omega_1\omega_2) = \sum_{\omega \in B} p(u_1 = \omega_1) p(u_2 = \omega_2 | u_1 = \omega_1)\\
+&=& p(u_1 = b) p(u_2 = r | u_1 = b) + p(u_1 = r) p(u_2 = r | u_1 = r) \\
+&=& \frac{1}{2} \frac{2}{3} + \frac{1}{2} \frac{1}{3} \\
+&=& \frac{1}{3} + \frac{1}{6} \\
+&=& \frac{1}{2}.
+\end{eqnarray*}
+Thus $P(B) = P(\{br, rr\}) = \frac{1}{2}$ which is what we'd expect since this particular event $B$ is comprised of half of the four possible outcomes in $\Omega$.
+\\
+\qed
 
 \noindent {\bf 2.} (No translation-invariant random integer). Show that there is no probability measure $P$ on the integers $\mathds{Z}$ with the discrete
 $\sigma$-algebra $2^{\mathds{Z}}$ with the translation-invariance property $P(E + n) = P(E)$ for every event $E \in 2^{\mathds{Z}}$ and every integer $n$. $E+n$ is obtained by adding $n$ to every element of $E$.
