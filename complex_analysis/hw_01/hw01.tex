@@ -24,21 +24,24 @@
 
 \newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
 
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{09-30-24 (accpted through 10-02-24)} \\
+\text{AMATH 567} \\
+% header containing your name, student number, due date, course, and the homework number as a title.
 
-\title{\bf { AMATH 567 Fall 2024 \\ Homework 1 ---
-    Due Sept. 30 on Gradescope by 1:30pm\\
-  The 48 hour late penalty is waived for this assignment} }
+\title{\bf {Homework 1} }
 
 
 \maketitle
 
-\begin{center}
-  All solutions must include significant justification to receive full credit.  If you handwrite your assignment you must either do so digitally or if it is written on paper you must \emph{scan} your work.  A standard photo is not sufficient.  \vskip 4pt
-
-  If you work with others on the homework, you must name your collaborators.
-\end{center}
-
-
+\noindent
+Collaborators*: Nghi Nguyen, Crimson Stambaugh, Matthew Watkins, Christina Giannella-Nicolaides, Tomáš Ševček, Emily Zhang, Nate Ward \\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a colaborator.}
+\normalsize
 \mline
 \begin{enumerate}[label={\bf {\arabic*}:}]
 \item  From A\&F: 1.1.1: (b, e)
@@ -297,10 +300,9 @@ f(z_1 + z_2) = \sum_{n=0}^\infty a_n\frac{(z_1 + z_2)^n}{n!} &=& \sum_{n=0}^{\in
 											   &=& \sum_{n=0}^{\infty} \frac{a_n}{n!} \sum_{k=0}^{n} \frac{n!}{(n-k)! k!}z_1^k z_2^{n-k} \\
 											   &=& \sum_{n=0}^{\infty} \frac{n!}{n!} \sum_{k=0}^{n} \frac{a_n}{(n-k)! k!}z_1^k z_2^{n-k} \\
 											   &=& \sum_{n=0}^{\infty} \sum_{k=0}^{n} a_n\frac{z_2^{n-k}}{(n-k)!}\frac{z_1^k}{ k!} \\
-											   &=& \sum_{n=0}^{\infty} \sum_{m=0}^{\infty} a_n\frac{z_2^m}{m!}\frac{z_1^n}{ n!} \\
-											   &=& \sum_{n=0}^{\infty} \frac{z_1^n}{ n!}\sum_{m=0}^{\infty} a_n\frac{z_2^m}{m!} \\
-											   &=& \text{TBD}
+											   &=& \sum_{n=0}^{\infty} \sum_{m=0}^{\infty} a_n\frac{z_2^m}{m!}\frac{z_1^n}{ n!}
 \end{eqnarray*}
+Which eventually leads us to the fact that any power series equivalent to a function of the form $f(z) = Ce^z$ where $C$ is some constant, will satisfy this property. \\
 \qed
   
 \item Consider the complex-valued expression
@@ -536,12 +538,22 @@ x &=& \left(\frac{-q + \sqrt{q^2 + \frac{4p^3}{27}}}{2}\right)^{\frac{1}{3}} + \
 
 Now where $k=1$ and $\ell=2$
 \begin{eqnarray*}
-x &=& \text{TBD}
+x &=& e^{i\frac{2\pi}{3}} \left(\frac{-q + \sqrt{q^2 + \frac{4p^3}{27}}}{2}\right)^{\frac{1}{3}} + e^{i\frac{4\pi}{3}} \left(\frac{-q - \sqrt{q^2 + \frac{4p^3}{27}}}{2}\right)^{\frac{1}{3}} -\frac{a}{3} \\
+   &=& e^{i\frac{2\pi}{3}} \left(\frac{4 + \sqrt{(-4)^2 + \frac{4 \cdot (-15)^3}{27}}}{2}\right)^{\frac{1}{3}} + e^{i\frac{4\pi}{3}} \left(\frac{4 - \sqrt{(-4)^2 + \frac{4 \cdot (-15)^3}{27}}}{2}\right)^{\frac{1}{3}} -\frac{3}{3} \\
+   &=& e^{i\frac{2\pi}{3}} \left(\frac{4 + \sqrt{16 - 500}}{2}\right)^{\frac{1}{3}} + e^{i\frac{4\pi}{3}} \left(\frac{-4 - \sqrt{16 - 500}}{2}\right)^{\frac{1}{3}} -1 \\
+   &=& e^{i\frac{2\pi}{3}} \left(2 + \frac{\sqrt{-484}}{2}\right)^{\frac{1}{3}} +e^{i\frac{4\pi}{3}}  \left(2 - \frac{\sqrt{-484}}{2}\right)^{\frac{1}{3}} -1 \\
+   &=& e^{i\frac{2\pi}{3}} \left(2 + \frac{i22}{2}\right)^{\frac{1}{3}} + e^{i\frac{4\pi}{3}} \left(2 - \frac{i22}{2}\right)^{\frac{1}{3}} -1 \\
+   &=& e^{i\frac{2\pi}{3}} \left(2 + i11\right)^{\frac{1}{3}} + e^{i\frac{4\pi}{3}} \left(2 - i11\right)^{\frac{1}{3}} -1 \\
 \end{eqnarray*}
 
 Now where $k=2$ and $\ell=1$
 \begin{eqnarray*}
-x &=& \text{TBD}
+x &=& e^{i\frac{4\pi}{3}} \left(\frac{-q + \sqrt{q^2 + \frac{4p^3}{27}}}{2}\right)^{\frac{1}{3}} + e^{i\frac{2\pi}{3}} \left(\frac{-q - \sqrt{q^2 + \frac{4p^3}{27}}}{2}\right)^{\frac{1}{3}} -\frac{a}{3} \\
+   &=& e^{i\frac{4\pi}{3}} \left(\frac{4 + \sqrt{(-4)^2 + \frac{4 \cdot (-15)^3}{27}}}{2}\right)^{\frac{1}{3}} + e^{i\frac{2\pi}{3}} \left(\frac{4 - \sqrt{(-4)^2 + \frac{4 \cdot (-15)^3}{27}}}{2}\right)^{\frac{1}{3}} -\frac{3}{3} \\
+   &=& e^{i\frac{4\pi}{3}} \left(\frac{4 + \sqrt{16 - 500}}{2}\right)^{\frac{1}{3}} + e^{i\frac{2\pi}{3}} \left(\frac{-4 - \sqrt{16 - 500}}{2}\right)^{\frac{1}{3}} -1 \\
+   &=& e^{i\frac{4\pi}{3}} \left(2 + \frac{\sqrt{-484}}{2}\right)^{\frac{1}{3}} + e^{i\frac{2\pi}{3}} \left(2 - \frac{\sqrt{-484}}{2}\right)^{\frac{1}{3}} -1 \\
+   &=& e^{i\frac{4\pi}{3}} \left(2 + \frac{i22}{2}\right)^{\frac{1}{3}} + e^{i\frac{2\pi}{3}} \left(2 - \frac{i22}{2}\right)^{\frac{1}{3}} -1 \\
+   &=& e^{i\frac{4\pi}{3}} \left(2 + i11\right)^{\frac{1}{3}} + e^{i\frac{2\pi}{3}} \left(2 - i11\right)^{\frac{1}{3}} -1 \\
 \end{eqnarray*}
 \qed
   \end{itemize}
