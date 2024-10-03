@@ -59,7 +59,39 @@ Hints from Office Hours: \\
 \item show the intersection of the plane with a sphere is a circle \\
 \end{itemize}
 \textit{Solution:} \\
-\textbf{Incomplete} \\
+Let's first define an darbitrary complex number $z = x + iy$ and the center of our circle in the complex plane $c = a + ib$.
+The following is the equation for a circle on the complex plane
+\begin{eqnarray*}
+|z - c|^2 &=& r^2 \\
+|x + iy - a - ib|^2 &=& r^2 \\
+|(x - a) + i(y -b)|^2 &=& r^2 \\
+\sqrt{(x - a)^2 + (y - b)^2}^2 &=& r^2 \\
+(x - a)^2 + (y - b)^2 &=& r^2
+\end{eqnarray*}
+From the discussion in A\&F pg16-18, we know that we have the following formulae for converting between the complex plane and the 3 space $(X, Y, Z)$
+$$X = \frac{4x}{|z|^2 + 4} \quad Y = \frac{4y}{|z|^2 + 4} \quad Z = \frac{2|z|^2}{|z|^2 + 4}.$$
+Let's cmobine these
+\begin{eqnarray*}
+(x - a)^2 + (y - b)^2 &=& r^2 \\
+x^2 -2ax + a^2 + y^2 -2by + b^2 &=& r^2 \\
+x^2 + y^2 -2ax + a^2 -2by + b^2 &=& r^2 \\
+x^2 + y^2 &=& r^2 +2ax - a^2 +2by - b^2 \\
+|z|^2 &=& r^2 +2ax - a^2 +2by - b^2 \\
+\end{eqnarray*}
+We want to find $A$, $B$, $C$, and $D$ that are real s.t. $$AX + BY + CZ = D$$
+\begin{eqnarray*}
+X &=& \frac{4x}{r^2 +2ax - a^2 +2by - b^2 + 4} \\
+Y &=& \frac{4y}{r^2 +2ax - a^2 +2by - b^2 + 4} \\
+Z &=& \frac{2\left(r^2 +2ax - a^2 +2by - b^2\right)}{r^2 +2ax - a^2 +2by - b^2 + 4}
+\end{eqnarray*}
+Then our equation is
+\begin{eqnarray*}
+&& A\frac{4x}{r^2 +2ax - a^2 +2by - b^2 + 4}  \\
+&+& B\frac{4y}{r^2 +2ax - a^2 +2by - b^2 + 4} \\
+&+& C\frac{2\left(r^2 +2ax - a^2 +2by - b^2\right)}{r^2 +2ax - a^2 +2by - b^2 + 4} \\
+&=& D
+\end{eqnarray*}
+\textbf{Almost Complete} \\
 
 \item From A\&F: 1.3.5.\\
 Show that the functions $\Re(z)$ and $\Im(z)$ are nowhere differentiable. \\
@@ -113,10 +145,6 @@ Therefore $f(z) = \Im(z)$ is nowhere differentiable. \\
     \begin{align*}
       \log \varphi(z) = \int_1^z \frac{\D x}{\sqrt{x^2 - 1}}.
     \end{align*}
-Office Hour Hints:
-\begin{itemize}
-\item $z$ is real!
-\end{itemize}
 \textit{Solution:} \\
 \textbf{Incomplete} \\
 \item Find all zeroes of $\tan (z), z \in \mathbb{C}$. What can you
@@ -173,18 +201,41 @@ $$ u(x,y) = y^3 - 3x^2y \implies u_x = -6xy, \: u_y = 3y^2 -3x^2$$
 $$v(x,y) = x^3 - 3xy^2 + 2 \implies v_x = 3x^2 - 3y^2, \: v_y = -6xy$$
 Therefore, $v_x = 3x^2 - 3y^2 = - (3y^2 -3x^2) = - u_y$ and $u_x = -6xy = -6xy = v_y$ both hold.
 In conclusion $f(x, y) = y^3 - 3x^2y + i(x^3 - 3xy^2 + 2)$ satisfies the Cauchy-Riemann (C-R) equations.
-And the analytic function of $z$ is \textbf{To Be Continued after you know what the analytic form of this function is}. \\
+To determine the analytic function notice
+\begin{eqnarray*}
+f(x, y) &=& y^3 - 3x^2y + i(x^3 - 3xy^2 + 2) \\
+	 &=& y^3 - 3x^2y + ix^3 - i3xy^2 + i2
+\end{eqnarray*}
+\begin{eqnarray*}
+z^3 &=& (x + iy)^3 \\
+      &=& (x + iy)(x + iy)(x + iy) \\
+      &=& (x^2 + i2xy - y^2)(x + iy) \\
+      &=& x^3 + i3x^2y - 3xy^2 - iy^3 \\
+      &=& -i(ix^3 - 3x^2y - i3xy^2 + y^3) \\
+      &=& -i(y^3 - 3x^2y + ix^3 - i3xy^2) \\
+      &=& -i(f(x,y) - 2i).
+\end{eqnarray*}
+Continuing
+\begin{eqnarray*}
+z^3 &=& -i(f(x,y) - 2i) \\
+\frac{z^3}{-i} &=& f(x,y) - 2i \\
+\frac{z^3}{-i}\frac{i}{i} &=& f(x,y) - 2i \\
+iz^3 &=& f(x,y) - 2i \\
+iz^3 + 2i &=& f(x,y).
+\end{eqnarray*}
+Therefore, the analytic function of $z$ is $f(z) = iz^3 + 2i$. \\
 \qed
 
 \noindent
-c) $f(x, y) = e^y(\cos\theta + i\sin\theta)$ \\
+c) $f(x, y) = e^y(\cos x + i\sin y)$ \\
 \textit{Solution:} \\
 Identify $u$ and $v$ and their partial derivatives
-$$ u(x,y) = ... \implies u_x = ..., \: u_y = ...$$
-$$v(x,y) = ... \implies v_x = ..., \: v_y = ...$$
-Therefore, $v_x = ... = ... = - u_y$ and $u_x = ... = ... = v_y$ both hold.
-In conclusion $f(x, y) = e^y(\cos\theta + i\sin\theta)$ ?satisfies? the Cauchy-Riemann (C-R) equations.
-And the analytic function of $z$ is \textbf{To Be Continued after you know what the analytic form of this function is}. \\
+$$ f(x, y) = e^y(\cos x + i\sin y) = e^y\cos x + ie^y\sin y $$
+$$ u(x,y) = e^y\cos x \implies u_x = -e^y \sin x, \: u_y = e^y\cos x $$
+$$ v(x,y) = e^y\sin y \implies v_x = 0, \: v_y = e^y\sin y + e^y \cos y $$
+Therefore neither
+$$v_x = 0 \neq - e^y\cos x = - u_y$$ nor $$u_x = -e^y \sin x \neq e^y\sin y + e^y \cos y = v_y$$ hold.
+In conclusion $f(x, y) = e^y(\cos x + i\sin y)$ does not satisfy the Cauchy-Riemann (C-R) equations. \\
 \qed
 \item From A\&F: 2.1.7 \\
 Consider the complex analytic function, $\Omega(z) = \phi(x, y) + i\psi(x, y)$, in a domain $D$.
@@ -192,7 +243,14 @@ Let us transform from $z$ to $w$ using $w = f(z)$, $w = u + iv$ where $f(z)$ is 
 Establish the following: \\
 \begin{eqnarray*}
 \frac{\partial\phi}{\partial x} &=& \frac{\partial u}{\partial x} \frac{\partial\phi}{\partial u} + \frac{\partial v}{\partial x} \frac{\partial\phi}{\partial v} \\
+\end{eqnarray*}
+\textit{Solution:}\\
+Does this mean 
+\begin{eqnarray*}
+\Omega(f(z)) &=& \phi(u(x, y), v(x, y)) + i\psi(u(x, y), v(x, y))
+\end{eqnarray*}
 \\
+\begin{eqnarray*}
 \frac{\partial^2\phi}{\partial x^2} &=& \frac{\partial^2 u}{\partial x^2} \frac{\partial\phi}{\partial u}
 							- \frac{\partial^2 u}{\partial x \partial y} \frac{\partial\phi}{\partial v}
 							+ \left(\frac{\partial v}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
