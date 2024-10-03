@@ -187,6 +187,29 @@ In conclusion $f(x, y) = e^y(\cos\theta + i\sin\theta)$ ?satisfies? the Cauchy-R
 And the analytic function of $z$ is \textbf{To Be Continued after you know what the analytic form of this function is}. \\
 \qed
 \item From A\&F: 2.1.7 \\
+Consider the complex analytic function, $\Omega(z) = \phi(x, y) + i\psi(x, y)$, in a domain $D$.
+Let us transform from $z$ to $w$ using $w = f(z)$, $w = u + iv$ where $f(z)$ is analytic in $D$, with the corresponding domain in the $w$ plane, $D'$.
+Establish the following: \\
+\begin{eqnarray*}
+\frac{\partial\phi}{\partial x} &=& \frac{\partial u}{\partial x} \frac{\partial\phi}{\partial u} + \frac{\partial v}{\partial x} \frac{\partial\phi}{\partial v} \\
+\\
+\frac{\partial^2\phi}{\partial x^2} &=& \frac{\partial^2 u}{\partial x^2} \frac{\partial\phi}{\partial u}
+							- \frac{\partial^2 u}{\partial x \partial y} \frac{\partial\phi}{\partial v}
+							+ \left(\frac{\partial v}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+							- 2 \frac{\partial u}{\partial x} \frac{\partial u}{\partial y} \frac{\partial^2 \phi}{\partial u \partial v}
+							+ \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} \\
+\end{eqnarray*}
+Also find the corresponding formulae for $\frac{\partial \phi}{\partial y}$ and $\frac{\partial^2 \phi }{\partial y^2}$.
+Recall that $f'(z) = \frac{\partial u }{\partial x} + i\frac{\partial u}{\partial y}$, and $u(x, y)$ satisfies Laplace's equation the domain D.
+Show that
+$$
+\nabla_{x, y}^2 \phi = 
+\frac{\partial^2\phi}{\partial x^2} + \frac{\partial^2 \phi }{\partial y^2} = 
+\left(u_x^2 + y_y^2\right) \left(\frac{\partial^2\phi}{\partial u^2} + \frac{\partial^2 \phi }{\partial v^2}\right) =
+\left| f'(z)\right|^2 \nabla_{u, v}^2 \phi
+$$
+Consequently, we find that if $\phi$ satisfies Laplace's equation $\nabla_{x, y}^2 \phi = 0$ in the domain $D$,
+then so long as $f'(z) \neq 0$ in $D$ it also satisfies Laplace's equation $\nabla_{u, v}^2 \phi = 0$ in domain $D'$. \\
 \textbf{Hint:} No Hints yet... \\
 \textit{Solution:} \\
 \textbf{Incomplete} \\
