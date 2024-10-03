@@ -149,11 +149,35 @@ companion to our textbook, if you think geometrically.
 \item From A\&F: 2.1.1 \\
 Which of the following satisfy the Cauchy-Riemann (C-R) equations? If they satisfy the C-R equations, give the analytic function of z. \\
 a) $f(x, y) = x - iy + 1$ \\
-\textbf{Hint:} Just compute it baby, should be no \\
+\textit{Solution:} \\
+Identify $u$ and $v$ and their partial derivatives
+$$ u(x,y) = x + 1 \implies u_x = 1, \: u_y = 0$$
+$$v(x,y) = - y \implies v_x = 0, \: v_y = -1$$
+Therefore, $v_x = 0 = - 0 = - u_y$ holds, however $u_x = 1 \neq - 1 = v_y$ does not hold.
+In conclusion $f(x, y) = x - iy + 1$ does not satisfy the Cauchy-Riemann (C-R) equations.\\
+\qed
+
+\noindent
 b) $f(x, y) = y^3 - 3x^2y + i(x^3 - 3xy^2 + 2)$ \\
-\textbf{Hint:} Just compute it baby, should be yes. What is the analytic function? \\
+\textit{Solution:} \\
+Identify $u$ and $v$ and their partial derivatives
+$$ u(x,y) = y^3 - 3x^2y \implies u_x = -6xy, \: u_y = 3y^2 -3x^2$$
+$$v(x,y) = x^3 - 3xy^2 + 2 \implies v_x = 3x^2 - 3y^2, \: v_y = -6xy$$
+Therefore, $v_x = 3x^2 - 3y^2 = - (3y^2 -3x^2) = - u_y$ and $u_x = -6xy = -6xy = v_y$ both hold.
+In conclusion $f(x, y) = y^3 - 3x^2y + i(x^3 - 3xy^2 + 2)$ satisfies the Cauchy-Riemann (C-R) equations.
+And the analytic function of $z$ is \textbf{To Be Continued after you know what the analytic form of this function is}. \\
+\qed
+
+\noindent
 c) $f(x, y) = e^y(\cos\theta + i\sin\theta)$ \\
-\textbf{Hint:} Just compute it baby, tbd
+\textit{Solution:} \\
+Identify $u$ and $v$ and their partial derivatives
+$$ u(x,y) = y^3 - 3x^2y \implies u_x = -6xy, \: u_y = 3y^2 -3x^2$$
+$$v(x,y) = x^3 - 3xy^2 + 2 \implies v_x = 3x^2 - 3y^2, \: v_y = -6xy$$
+Therefore, $v_x = 3x^2 - 3y^2 = - (3y^2 -3x^2) = - u_y$ and $u_x = -6xy = -6xy = v_y$ both hold.
+In conclusion $f(x, y) = y^3 - 3x^2y + i(x^3 - 3xy^2 + 2)$ satisfies the Cauchy-Riemann (C-R) equations.
+And the analytic function of $z$ is \textbf{To Be Continued after you know what the analytic form of this function is}. \\
+\qed
 \item From A\&F: 2.1.7 \\
 \textbf{Hint:} No Hints yet...
 \item Show that the derivative of $f(z)=|z|^2$ is defined at $z=0$, but nowhere else.\\
@@ -198,7 +222,9 @@ Now we need to calculate the derivatives using the chain rule
 $$U_r = u_xx_r + u_yy_r$$
 $$U_\theta = u_xx_\theta + u_yy_\theta$$
 $$V_r = v_xx_r + v_yy_r$$
-$$V_\theta = v_xx_\theta + v_yy_\theta$$
+$$V_\theta = v_xx_\theta + v_yy_\theta.$$
+
+Now let's compute these. First the building blocks are $$x_r = \cos \theta$$ $$x_\theta = r \sin \theta$$ $$y_r = \sin \theta$$ $$y_\theta = - r \cos \theta$$
 \end{enumerate}
 
 \end{document}
