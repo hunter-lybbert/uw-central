@@ -59,7 +59,7 @@ Hints from Office Hours: \\
 \item show the intersection of the plane with a sphere is a circle \\
 \end{itemize}
 \textit{Solution:} \\
-
+\textbf{Incomplete} \\
 
 \item From A\&F: 1.3.5.\\
 Show that the functions $\Re(z)$ and $\Im(z)$ are nowhere differentiable. \\
@@ -115,11 +115,15 @@ Therefore $f(z) = \Im(z)$ is nowhere differentiable. \\
     \end{align*}
 Office Hour Hints:
 \begin{itemize}
-\item $z$ is real! \\
+\item $z$ is real!
 \end{itemize}
+\textit{Solution:} \\
+\textbf{Incomplete} \\
 \item Find all zeroes of $\tan (z), z \in \mathbb{C}$. What can you
   conclude about the zeroes of $\tanh (z)=\sinh (z) / \cosh (z), z \in
   \mathbb C$?\\
+\textit{Solution:} \\
+\textbf{Incomplete} \\
 \item Consider $f_\epsilon(z)=\epsilon /\left(\epsilon^2+z^2\right)$, where
   $\epsilon$ is a small positive number, and $z \in \mathbb{C} /\{i
   \epsilon,-i \epsilon\}$. Plot $\left|f_\epsilon(z)\right|$, for various
@@ -129,6 +133,8 @@ Office Hour Hints:
   \begin{align*}
     \int_{-\infty}^\infty f_\epsilon(x) \D x.
   \end{align*}\\
+\textit{Solution:} \\
+\textbf{Incomplete} \\
 \item Visualizing complex functions is not as easy as visualizing
   real-valued functions, since we need 4 dimensions: two for the input,
   two for the output. Different visualizations are commonly used, such
@@ -146,6 +152,8 @@ highly encouraged! The book visual Complex Functions: An Introduction
 with Phase Portraits by Elias Wegert (Birkhäuser, 2012) is a good
 companion to our textbook, if you think geometrically.
 \end{itemize}
+\textit{Solution:} \\
+\textbf{Incomplete} \\
 \item From A\&F: 2.1.1 \\
 Which of the following satisfy the Cauchy-Riemann (C-R) equations? If they satisfy the C-R equations, give the analytic function of z. \\
 a) $f(x, y) = x - iy + 1$ \\
@@ -172,14 +180,16 @@ And the analytic function of $z$ is \textbf{To Be Continued after you know what 
 c) $f(x, y) = e^y(\cos\theta + i\sin\theta)$ \\
 \textit{Solution:} \\
 Identify $u$ and $v$ and their partial derivatives
-$$ u(x,y) = y^3 - 3x^2y \implies u_x = -6xy, \: u_y = 3y^2 -3x^2$$
-$$v(x,y) = x^3 - 3xy^2 + 2 \implies v_x = 3x^2 - 3y^2, \: v_y = -6xy$$
-Therefore, $v_x = 3x^2 - 3y^2 = - (3y^2 -3x^2) = - u_y$ and $u_x = -6xy = -6xy = v_y$ both hold.
-In conclusion $f(x, y) = y^3 - 3x^2y + i(x^3 - 3xy^2 + 2)$ satisfies the Cauchy-Riemann (C-R) equations.
+$$ u(x,y) = ... \implies u_x = ..., \: u_y = ...$$
+$$v(x,y) = ... \implies v_x = ..., \: v_y = ...$$
+Therefore, $v_x = ... = ... = - u_y$ and $u_x = ... = ... = v_y$ both hold.
+In conclusion $f(x, y) = e^y(\cos\theta + i\sin\theta)$ ?satisfies? the Cauchy-Riemann (C-R) equations.
 And the analytic function of $z$ is \textbf{To Be Continued after you know what the analytic form of this function is}. \\
 \qed
 \item From A\&F: 2.1.7 \\
-\textbf{Hint:} No Hints yet...
+\textbf{Hint:} No Hints yet... \\
+\textit{Solution:} \\
+\textbf{Incomplete} \\
 \item Show that the derivative of $f(z)=|z|^2$ is defined at $z=0$, but nowhere else.\\
 \textit{Solution:} \\
 Once again we are going to use the C-R equations and the fact that satisfying them is a necessary condition for differentiability.
@@ -218,13 +228,55 @@ f(z) &=& u(x, y) + i v(x, y) \\
       &=& u(r \cos \theta, r \sin \theta) + i v(r \cos \theta, r \sin \theta) \\
       &=& U(r, \theta) + iV(r, \theta)
 \end{eqnarray*}
-Now we need to calculate the derivatives using the chain rule
+We need to calculate the derivatives using the chain rule
 $$U_r = u_xx_r + u_yy_r$$
 $$U_\theta = u_xx_\theta + u_yy_\theta$$
 $$V_r = v_xx_r + v_yy_r$$
 $$V_\theta = v_xx_\theta + v_yy_\theta.$$
 
-Now let's compute these. First the building blocks are $$x_r = \cos \theta$$ $$x_\theta = r \sin \theta$$ $$y_r = \sin \theta$$ $$y_\theta = - r \cos \theta$$
+Now we compute the necessary partials and plug them back in
+\begin{eqnarray*}
+x_r &=& \cos \theta \\
+x_\theta &=& - r \sin \theta \\
+y_r &=& \sin \theta \\
+y_\theta &=& r \cos \theta
+\end{eqnarray*}
+$$\downarrow$$
+\begin{eqnarray*}
+U_r &=& u_x \cos \theta + u_y \sin \theta \\
+U_\theta &=& - u_x r \sin \theta + u_y r \cos \theta \\
+V_r &=& v_x \cos \theta  + v_y  \sin \theta \\
+V_\theta &=& - v_x r \sin \theta + v_y r \cos \theta.
+\end{eqnarray*}
+Now try to make them look like each other with the C-R equations
+\begin{eqnarray*}
+U_r &=& u_x \cos \theta + u_y \sin \theta \\
+       &=& v_y \cos \theta + u_y \sin \theta
+\end{eqnarray*}
+then
+\begin{eqnarray*}
+V_\theta &=& - v_x r \sin \theta + v_y r \cos \theta \\
+	      &=&  u_y r \sin \theta + v_y r \cos \theta \\
+	      &=&  r (u_y \sin \theta + v_y \cos \theta ) \\
+	      &=&  r (v_y \cos \theta + u_y \sin \theta) \\
+	      &=&  r U_r
+\end{eqnarray*}
+Therefore $U_r = \frac{1}{r}V_\theta$.
+\begin{eqnarray*}
+V_r &=& v_x \cos \theta  + v_y  \sin \theta \\
+       &=& -u_y \cos \theta  + v_y  \sin \theta
+\end{eqnarray*}
+then
+\begin{eqnarray*}
+U_\theta &=& - u_x r \sin \theta + u_y r \cos \theta \\
+	      &=& - v_y r \sin \theta + u_y r \cos \theta \\
+	      &=& - r (v_y \sin \theta - u_y \cos \theta) \\
+	      &=& - r (- u_y \cos \theta + v_y \sin \theta) \\
+	      &=& - r V_r
+\end{eqnarray*}
+Therefore $V_r = - \frac{1}{r}U_\theta$.
+And with this we have derived the polar-coordinates form of the Cauchy-Riemann equations. \\
+\qed
 \end{enumerate}
 
 \end{document}
