@@ -30,32 +30,93 @@
 
 \newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
 
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{10-07-24} \\
+\text{AMATH 567} \\
 
-\title{\bf { AMATH 567 Fall 2024 \\ Homework 2 ---
-    Due October 7 on Gradescope by 1:30pm} }
+\title{\bf { Homework 2 } }
 
 
 \maketitle
-
-\begin{center}
-  All solutions must include significant justification to receive full credit.  If you handwrite your assignment you must either do so digitally or if it is written on paper you must \emph{scan} your work.  A standard photo is not sufficient.  \vskip 4pt
-
-  If you work with others on the homework, you must name your collaborators.
-\end{center}
-
+\noindent
+Collaborators*: TBD \\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a colaborator.}
+\normalsize
 
 \mline
 \begin{enumerate}[label={\bf {\arabic*}:}]
 \item From A\&F: 1.2.12. \\
-  \item From A\&F: 1.3.5.\\
-  \item Consider the function
+Show that a circle in the $z$ plane corresponds to a circle on the sphere.
+(Note the remark following the reference to Figure 1.2.7 in Section 1.2.2)\\
+Hints from Office Hours: \\
+\begin{itemize}
+\item Use 1.2.25 equations
+\item perhaps start with a circle centered at the origin for the intuition
+\item show the intersection of the plane with a sphere is a circle \\
+\end{itemize}
+\textit{Solution:} \\
+
+
+\item From A\&F: 1.3.5.\\
+Show that the functions $\Re(z)$ and $\Im(z)$ are nowhere differentiable. \\
+\textit{Solution:} \\
+\textbf{Part 1:} $f(z) = \Re(z)$ \\
+Let's begin with the definition of the derivative 
+\begin{eqnarray*}
+\lim_{h \rightarrow 0} \frac{f(z + h) - f(z)}{h} &=& \lim_{h \rightarrow 0} \frac{f(x_z + x_h + i (y_z + y_h) ) - x_z}{h} \\
+								 &=& \lim_{h \rightarrow 0} \frac{x_z + x_h - x_z}{x_h + iy_h} \\
+								 &=& \lim_{h \rightarrow 0} \frac{x_h}{x_h + iy_h} = \frac{0}{0}.						
+\end{eqnarray*}
+Now we want to use L'Hôpital's rule so we create two cases fixing $y_h$ and $x_h$ each in turn.
+Starting from where we left off
+$$ \lim_{h \rightarrow 0} \frac{x_h}{x_h + iy_h} = \lim_{h \rightarrow 0} \frac{ \frac{d}{dx_h}x_h}{\frac{d}{dx_h}(x_h + iy_h)} = \lim_{h \rightarrow 0} \frac{1}{1} = 1 \: \text{when $y_h$ is fixed} $$
+$$ \lim_{h \rightarrow 0} \frac{x_h}{x_h + iy_h} = \lim_{h \rightarrow 0} \frac{ \frac{d}{dy_h}x_h}{\frac{d}{dy_h}(x_h + iy_h)} = \lim_{h \rightarrow 0} \frac{0}{i} = 0 \: \text{when $x_h$ is fixed}. $$
+Since we get a different result at an arbitrary $z$ depending on which $x_h$ and $y_h$ is currently fixed the limit does not exist and therefore $f(z) = \Re(z)$ is nowhere differentiable. \\
+\qed
+
+\noindent
+\textbf{Part 2:} $f(z) = \Im(z)$ \\
+For this one we will use a different method. Recall that the Cauchy-Riemann equations are a necessary condition that must hold if $f(z)$ is differentiable (A\&F pg. 33). Therefore we can show that the Cauchy-Riemann equations do not hold and therefore the function is non differentiable. We use the fact that $f(z) = u(x, y) + i v(x, y)$ and 
+$$f(z) = \Im(z) = y \quad\text{since $z = x +iy$}$$
+to get 
+\begin{eqnarray*}
+u(x, y) &=& y \\
+v(x, y) &=& 0.
+\end{eqnarray*}
+Now we want to check if both of the following hold
+$$u_x = v_y$$
+$$v_x = - u_y.$$
+Let's calculate them
+$$u_x = 0, v_y = 0, v_x = 0, u_y = 1$$
+Therefore the first condition holds
+\begin{eqnarray*}
+u_x &=& v_y \\
+0 &=& 0 \\
+\end{eqnarray*}
+however, the second does not
+\begin{eqnarray*}
+v_x = - u_y \\
+0 \neq - 1.
+\end{eqnarray*}
+Therefore $f(z) = \Im(z)$ is nowhere differentiable. \\
+\qed
+
+\item Consider the function
     \begin{align*}
       \varphi(z) = z + \sqrt{z^2 - 1}, \quad z > 1.
     \end{align*}
     Show that
     \begin{align*}
-      \log \varphi(z) = \int_1^z \sqrt{x^2 - 1}\, \D x.
+      \log \varphi(z) = \int_1^z \frac{\D x}{\sqrt{x^2 - 1}}.
     \end{align*}
+Office Hour Hints:
+\begin{itemize}
+\item $z$ is real! \\
+\end{itemize}
 \item Find all zeroes of $\tan (z), z \in \mathbb{C}$. What can you
   conclude about the zeroes of $\tanh (z)=\sinh (z) / \cosh (z), z \in
   \mathbb C$?\\
@@ -86,13 +147,58 @@ with Phase Portraits by Elias Wegert (Birkhäuser, 2012) is a good
 companion to our textbook, if you think geometrically.
 \end{itemize}
 \item From A\&F: 2.1.1 \\
+Which of the following satisfy the Cauchy-Riemann (C-R) equations? If they satisfy the C-R equations, give the analytic function of z. \\
+a) $f(x, y) = x - iy + 1$ \\
+\textbf{Hint:} Just compute it baby, should be no \\
+b) $f(x, y) = y^3 - 3x^2y + i(x^3 - 3xy^2 + 2)$ \\
+\textbf{Hint:} Just compute it baby, should be yes. What is the analytic function? \\
+c) $f(x, y) = e^y(\cos\theta + i\sin\theta)$ \\
+\textbf{Hint:} Just compute it baby, tbd
 \item From A\&F: 2.1.7 \\
+\textbf{Hint:} No Hints yet...
 \item Show that the derivative of $f(z)=|z|^2$ is defined at $z=0$, but nowhere else.\\
+\textit{Solution:} \\
+Once again we are going to use the C-R equations and the fact that satisfying them is a necessary condition for differentiability.
+\begin{eqnarray*}
+f(z) &=&|z|^2 \\
+      &=&\sqrt{x^2 + y^2}^2 \\
+      &=& x^2 + y^2 \\
+      &=& x^2 + y^2 + i \cdot 0
+\end{eqnarray*}
+Therefore $u(x, y) = x^2 + y^2$ and $v(x, y) = 0$. Now let's calculate the necessary partials
+$$u_x = 2x$$ $$v_y = 0$$ $$v_x = 0$$ $$u_y = 2y.$$
+Now we need the following to hold for $f(z)$ to be differentiable
+\begin{eqnarray*}
+u_x &=& v_y \\
+2x &=& 0
+\end{eqnarray*}
+\text{and}
+\begin{eqnarray*}
+v_x &=& - u_y \\
+0 &=& - 2y.
+\end{eqnarray*}
+Both of these only hold if $x=0$ and $y=0$ or in other words if $z=0$.
+Which means the C-R equations only hold at $z=0$ and the derivative of $f(z) = |z|^2$ is defined at $z=0$ but nowhere else. \\
+\qed
+
 \item Derive the polar-coordinates form of the Cauchy-Riemann equations
 $$
 u_r=\frac{1}{r} v_\theta, \quad v_r=-\frac{1}{r} u_\theta.
 $$
-where $x=r \cos \theta$ and $y=r \sin \theta$
+where $x=r \cos \theta$ and $y=r \sin \theta$ \\
+\textit{Solution:} \\
+We know we can represent $f(z) = u(x, y) + i v(x, y)$.
+Let's make a substitution to polar coordinates
+\begin{eqnarray*}
+f(z) &=& u(x, y) + i v(x, y) \\
+      &=& u(r \cos \theta, r \sin \theta) + i v(r \cos \theta, r \sin \theta) \\
+      &=& U(r, \theta) + iV(r, \theta)
+\end{eqnarray*}
+Now we need to calculate the derivatives using the chain rule
+$$U_r = u_xx_r + u_yy_r$$
+$$U_\theta = u_xx_\theta + u_yy_\theta$$
+$$V_r = v_xx_r + v_yy_r$$
+$$V_\theta = v_xx_\theta + v_yy_\theta$$
 \end{enumerate}
 
 \end{document}
