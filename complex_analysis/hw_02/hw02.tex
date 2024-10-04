@@ -176,10 +176,22 @@ Let's have some fun with trig identities
 							  &=& \frac{\sin x \cos x\cosh^2 y + i \cos^2 x \sinh y \cosh y + i\sin^2 x\cosh y \sinh y - \cos x \sin x  \sinh^2} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
 							  &=& \frac{(\sin x \cos x\cosh^2 y - \cos x \sin x  \sinh^2 y) + i (\cos^2 x \sinh y \cosh y + \sin^2 x\cosh y \sinh y)} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
 							  &=& \frac{\sin x \cos x(\cosh^2 y - \sinh^2 y) + i \sinh y \cosh y (\cos^2 x + \sin^2 x)} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
-							  &=& \frac{\sin x \cos x(\cosh^2 y - \sinh^2 y) + i \sinh y \cosh y } {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
+							  &=& \frac{\sin x \cos x + i \sinh y \cosh y} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
 \end{eqnarray*}
-is this true $ \cosh^2 y - \sinh^2 y = 1$ ? \\
+Since $\sin x \cos x$ is always real, nothing will cancel out the $i$ in $i \sinh y \cosh y$ unless $\sinh y \cosh y = 0$.
+Therefore we need both of the following to hold
+$$ \sin x \cos x = 0 $$
+$$ \sinh y \cosh y = 0. $$
+Looking first at $ \sin x \cos x = 0 $ we know this is 0 if $\sin x = 0$ or $\cos x = 0$ therefore $x \in \{0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}\}.$
+Now we need $\sinh y \cosh y = 0$ to hold, which implies $y = 0$ since $\cosh y$ is never 0 and $\sinh y = 0$ only when $y = 0$ therefore $y = 0$.
+Putting in this definite value of $y$ to the above we end up with
+\begin{eqnarray*}
+&& \frac{\sin x \cos x + i \sinh y \cosh y} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
+&=& \frac{\sin x \cos x} {\cos^2 x} \\ \\
+\end{eqnarray*}
+Now we don't want $\cos^2x = 0$ in our denominator so now $x \in \{0, \pi\}$ or other multiples of $\pi$.
 \qed
+\\
 
 \item Consider $f_\epsilon(z)=\epsilon /\left(\epsilon^2+z^2\right)$, where
   $\epsilon$ is a small positive number, and $z \in \mathbb{C} /\{i
