@@ -91,13 +91,14 @@ Then our equation is
 &+& C\frac{2\left(r^2 +2ax - a^2 +2by - b^2\right)}{r^2 +2ax - a^2 +2by - b^2 + 4} \\
 &=& D
 \end{eqnarray*}
+We have projected the circle from the complex plane onto the sphere. Notice we've constructed this equation showing they all lie in the plane. The intersection of the sphere and this plane is a subset of a circle on the plane. Since we were working with equalities throughout it is actually the whole circle on the sphere.
 \textbf{Almost Complete} \\
 
 \item From A\&F: 1.3.5.\\
 Show that the functions $\Re(z)$ and $\Im(z)$ are nowhere differentiable. \\
 \textit{Solution:} \\
 \textbf{Part 1:} $f(z) = \Re(z)$ \\
-Let's begin with the definition of the derivative 
+Let's begin with the definition of the derivative
 \begin{eqnarray*}
 \lim_{h \rightarrow 0} \frac{f(z + h) - f(z)}{h} &=& \lim_{h \rightarrow 0} \frac{f(x_z + x_h + i (y_z + y_h) ) - x_z}{h} \\
 								 &=& \lim_{h \rightarrow 0} \frac{x_z + x_h - x_z}{x_h + iy_h} \\
@@ -146,12 +147,40 @@ Therefore $f(z) = \Im(z)$ is nowhere differentiable. \\
       \log \varphi(z) = \int_1^z \frac{\D x}{\sqrt{x^2 - 1}}.
     \end{align*}
 \textit{Solution:} \\
-\textbf{Incomplete} \\
+Let's begin from evaluating the integral on the right and showing that the result is what we have on the left. First we substitute $x = \sec\theta$, $\D x = \sec\theta\tan\theta \D \theta$
+\begin{eqnarray*}
+\int_1^z \frac{\D x}{\sqrt{x^2 - 1}} &=& \int_0^{arc\sec z} \frac{\sec\theta\tan\theta \D \theta}{\sqrt{{\sec^2\theta} - 1}} \\ \\
+&=& \int_0^{arc\sec z} \frac{ \sec \theta \tan \theta \D \theta}{\sqrt{\tan^2 \theta}} \\ \\
+&=& \int_0^{arc\sec z} \frac{ \sec \theta \tan \theta \D \theta}{\tan \theta} \\ \\
+&=& \int_0^{arc\sec z} \sec \theta \D \theta \\
+&=& \log\left| \sec \theta + \tan\theta \right| |_{0}^{arc\sec z} \\
+&=& \log\left| \sec (arc\sec z) + \tan(arc\sec z)\right| - \log\left| \sec 0 + \tan 0 \right| \\
+&=& \log\left| z + \sqrt{\tan^2(arc\sec z)}\right| - \log\left| 1 + 0 \right| \\
+&=& \log\left| z + \sqrt{\sec^2(arc\sec z) - 1}\right| \\
+&=& \log\left| z + \sqrt{z^2 - 1} \right| \\
+&=& \log\left| z + \sqrt{z^2 - 1} \right| \\
+&=& \log\left|\varphi(z)\right| \\
+&=& \log(\varphi(z)) \quad \text{since} \: z > 1 \: \text{then} \: \varphi(z) > 0 
+\end{eqnarray*}
+\qed
 \item Find all zeroes of $\tan (z), z \in \mathbb{C}$. What can you
   conclude about the zeroes of $\tanh (z)=\sinh (z) / \cosh (z), z \in
   \mathbb C$?\\
 \textit{Solution:} \\
-\textbf{Incomplete} \\
+Let's have some fun with trig identities
+\begin{eqnarray*}
+\tan(z) = \frac{\sin(x + iy)}{\cos(x + iy)} &=& \frac{\sin x\cos iy + \cos x \sin iy }{\cos x \cos iy  - \sin x \sin iy} \\ \\
+							  &=& \frac{\sin x\cosh y + i \cos x \sinh y }{\cos x \cosh y  - i\sin x \sinh y } \\ \\
+							  &=& \frac{\sin x\cosh y + i \cos x \sinh y }{\cos x \cosh y  - i\sin x \sinh y } \frac{(\cos x \cosh y  + i\sin x \sinh y )}{(\cos x \cosh y  + i\sin x \sinh y )} \\ \\
+							  &=& \frac{\sin x\cosh y + i \cos x \sinh y }{\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } (\cos x \cosh y  + i\sin x \sinh y ) \\ \\
+							  &=& \frac{\sin x \cos x\cosh^2 y + i \cos^2 x \sinh y \cosh y + i\sin^2 x\cosh y \sinh y - \cos x \sin x  \sinh^2} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
+							  &=& \frac{(\sin x \cos x\cosh^2 y - \cos x \sin x  \sinh^2 y) + i (\cos^2 x \sinh y \cosh y + \sin^2 x\cosh y \sinh y)} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
+							  &=& \frac{\sin x \cos x(\cosh^2 y - \sinh^2 y) + i \sinh y \cosh y (\cos^2 x + \sin^2 x)} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
+							  &=& \frac{\sin x \cos x(\cosh^2 y - \sinh^2 y) + i \sinh y \cosh y } {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
+\end{eqnarray*}
+is this true $ \cosh^2 y - \sinh^2 y = 1$ ? \\
+\qed
+
 \item Consider $f_\epsilon(z)=\epsilon /\left(\epsilon^2+z^2\right)$, where
   $\epsilon$ is a small positive number, and $z \in \mathbb{C} /\{i
   \epsilon,-i \epsilon\}$. Plot $\left|f_\epsilon(z)\right|$, for various
