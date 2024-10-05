@@ -167,29 +167,60 @@ Let's begin from evaluating the integral on the right and showing that the resul
   conclude about the zeroes of $\tanh (z)=\sinh (z) / \cosh (z), z \in
   \mathbb C$?\\
 \textit{Solution:} \\
-Let's have some fun with trig identities
+Let's have some fun with trig identities 
+$$\tan(z) = \frac{\sin(x + iy)}{\cos(x + iy)} = \frac{\sin x\cos iy + \cos x \sin iy }{\cos x \cos iy  - \sin x \sin iy}$$
+Now it's important to note the following before we proceed:
 \begin{eqnarray*}
-\tan(z) = \frac{\sin(x + iy)}{\cos(x + iy)} &=& \frac{\sin x\cos iy + \cos x \sin iy }{\cos x \cos iy  - \sin x \sin iy} \\ \\
-							  &=& \frac{\sin x\cosh y + i \cos x \sinh y }{\cos x \cosh y  - i\sin x \sinh y } \\ \\
-							  &=& \frac{\sin x\cosh y + i \cos x \sinh y }{\cos x \cosh y  - i\sin x \sinh y } \frac{(\cos x \cosh y  + i\sin x \sinh y )}{(\cos x \cosh y  + i\sin x \sinh y )} \\ \\
-							  &=& \frac{\sin x\cosh y + i \cos x \sinh y }{\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } (\cos x \cosh y  + i\sin x \sinh y ) \\ \\
-							  &=& \frac{\sin x \cos x\cosh^2 y + i \cos^2 x \sinh y \cosh y + i\sin^2 x\cosh y \sinh y - \cos x \sin x  \sinh^2} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
-							  &=& \frac{(\sin x \cos x\cosh^2 y - \cos x \sin x  \sinh^2 y) + i (\cos^2 x \sinh y \cosh y + \sin^2 x\cosh y \sinh y)} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
-							  &=& \frac{\sin x \cos x(\cosh^2 y - \sinh^2 y) + i \sinh y \cosh y (\cos^2 x + \sin^2 x)} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
-							  &=& \frac{\sin x \cos x + i \sinh y \cosh y} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
+\cos iy &=& \frac{e^{i(iy)} + e^{-i(iy)}}{2}  = \frac{e^{-y} + e^{y}}{2} = \frac{e^{y} + e^{-y}}{2} =\cosh y \\ \\
+\sin iy &=& \frac{e^{i(iy)} - e^{-i(iy)}}{2i} = \frac{-i}{-i} \frac{e^{-y} - e^{y}}{2i} = \frac{-i(e^{-y} - e^{y})}{2} = i \frac{e^{y} - e^{-y}}{2} = i \sinh y
+\end{eqnarray*}
+\begin{eqnarray*}
+\frac{\sin x\cos iy + \cos x \sin iy }{\cos x \cos iy  - \sin x \sin iy} &=& \frac{\sin x\cosh y + i \cos x \sinh y }{\cos x \cosh y  - i\sin x \sinh y } \\ \\
+&=& \frac{\sin x\cosh y + i \cos x \sinh y }{\cos x \cosh y  - i\sin x \sinh y } \frac{(\cos x \cosh y  + i\sin x \sinh y )}{(\cos x \cosh y  + i\sin x \sinh y )} \\ \\
+&=& \frac{\sin x\cosh y + i \cos x \sinh y }{\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } (\cos x \cosh y  + i\sin x \sinh y ) \\ \\
+&=& \frac{\sin x \cos x\cosh^2 y + i \cos^2 x \sinh y \cosh y + i\sin^2 x\cosh y \sinh y - \cos x \sin x  \sinh^2} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
+&=& \frac{(\sin x \cos x\cosh^2 y - \cos x \sin x  \sinh^2 y) + i (\cos^2 x \sinh y \cosh y + \sin^2 x\cosh y \sinh y)} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
+&=& \frac{\sin x \cos x(\cosh^2 y - \sinh^2 y) + i \sinh y \cosh y (\cos^2 x + \sin^2 x)} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
+&=& \frac{\sin x \cos x + i \sinh y \cosh y} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
 \end{eqnarray*}
 Since $\sin x \cos x$ is always real, nothing will cancel out the $i$ in $i \sinh y \cosh y$ unless $\sinh y \cosh y = 0$.
 Therefore we need both of the following to hold
 $$ \sin x \cos x = 0 $$
 $$ \sinh y \cosh y = 0. $$
-Looking first at $ \sin x \cos x = 0 $ we know this is 0 if $\sin x = 0$ or $\cos x = 0$ therefore $x \in \{0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}\}.$
+Looking first at $ \sin x \cos x = 0 $ we know this is 0 if $\sin x = 0$ or $\cos x = 0$ therefore $x = \frac{k\pi}{2}, \: k \in \mathbb{Z}.$
 Now we need $\sinh y \cosh y = 0$ to hold, which implies $y = 0$ since $\cosh y$ is never 0 and $\sinh y = 0$ only when $y = 0$ therefore $y = 0$.
-Putting in this definite value of $y$ to the above we end up with
+Putting in this definite value of $y$ to the above we end up with \\
+$$\frac{\sin x \cos x + i \sinh y \cosh y} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } = \frac{\sin x \cos x} {\cos^2 x}$$ \\
+Now we don't want $\cos^2x = 0$ in our denominator so now we limit $x = k\pi$, $k \in \mathbb{Z}$
+Therefore, the zeros of $\tan (z), z \in \mathbb{C}$ are $z = k\pi$ for $k \in \mathbb{Z}$ since $z = x + iy$, $x = k\pi$, and $y = 0$ as established above.\\
+
+\noindent
+From the above argument and conclusion about the zeroes of $\tan (z), z \in \mathbb{C}$ we can also draw some conclusions about the zeroes of $\tanh (z), z \in \mathbb{C}$.
+What we learn is
 \begin{eqnarray*}
-&& \frac{\sin x \cos x + i \sinh y \cosh y} {\cos^2 x \cosh^2 y  + \sin^2 x \sinh^2 y } \\ \\
-&=& \frac{\sin x \cos x} {\cos^2 x} \\ \\
+\tanh z = \frac{\sinh z}{\cosh z} &=& \frac{\frac{e^z - e^{-z}}{2}}{\frac{e^z + e^{-z}}{2}} \\ \\
+ 					       &=& \frac{e^z - e^{-z}}{e^z + e^{-z}} \\ \\
+					       &=& \frac{e^z - e^{-z}}{e^z + e^{-z}} \frac{e^z}{e^z} \\ \\
+					       &=& \frac{e^{2z} -  1}{e^{2z} + 1}. \\
 \end{eqnarray*}
-Now we don't want $\cos^2x = 0$ in our denominator so now $x \in \{0, \pi\}$ or other multiples of $\pi$.
+In order for $e^{2z} -  1 = 0$ this implies $e^{2z} = 1$.
+\begin{eqnarray*}
+1 &=& e^{2z} \\
+   &=& e^{2(x + iy)} \\
+   &=& e^{2x}e^{2iy} \\
+   &=& e^{2x}(\cos(2y) + i \sin(2y)) \\
+\end{eqnarray*}
+For the expression on the right to be equal to $1$ the imaginary part of the right side needs to satisfy $i \sin(2y) = 0$.
+This only holds at $y = \ell \pi$, $\ell \in \mathbb{Z}$.
+Now we have 
+\begin{eqnarray*}
+1 &=& e^{2x}(\cos(2y) + i \sin(2y)) \\
+   &=& e^{2x}(\cos(\ell 2\pi) + i \sin(\ell 2 \pi)) \\
+   &=& e^{2x}(1 + 0) \\
+   &=& e^{2x} \\
+\end{eqnarray*}
+Which implies $x = 0$ in order to satisfy $ e^{2x} = 1$.
+In conclusion the zeroes of $\tanh(z), \: z \in \mathbb{C}$ are at $ z = i \ell \pi, \: \ell \in \mathbb{Z}$. Interestingly enough the zeroes of $\tan(z)$ are at real multiples of $\pi$ and the zeroes of $\tanh(z)$ are at the imaginary multiples of $\pi$.
 \qed
 \\
 
@@ -282,15 +313,24 @@ In conclusion $f(x, y) = e^y(\cos x + i\sin y)$ does not satisfy the Cauchy-Riem
 Consider the complex analytic function, $\Omega(z) = \phi(x, y) + i\psi(x, y)$, in a domain $D$.
 Let us transform from $z$ to $w$ using $w = f(z)$, $w = u + iv$ where $f(z)$ is analytic in $D$, with the corresponding domain in the $w$ plane, $D'$.
 Establish the following: \\
-\begin{eqnarray*}
-\frac{\partial\phi}{\partial x} &=& \frac{\partial u}{\partial x} \frac{\partial\phi}{\partial u} + \frac{\partial v}{\partial x} \frac{\partial\phi}{\partial v} \\
-\end{eqnarray*}
+\textbf{Part 1:}
+$$
+\frac{\partial\phi}{\partial x} = \frac{\partial u}{\partial x} \frac{\partial\phi}{\partial u} + \frac{\partial v}{\partial x} \frac{\partial\phi}{\partial v}
+$$
 \textit{Solution:}\\
-Does this mean 
-\begin{eqnarray*}
-\Omega(f(z)) &=& \phi(u(x, y), v(x, y)) + i\psi(u(x, y), v(x, y))
-\end{eqnarray*}
-\\
+Notation is very important for this problem. 
+Notice the problem sets up that $f(z) = w$ where $w = u + iv$.
+We typically say $f(z)$ can be written in a form s.t. $f(z) = u(x,y) + iv(x, y)$ so we really have $f(z) = w = u(x,y) + iv(x,y)$ where $x$ and $y$ are the real and imaginary parts of $z$, respectively.
+This gives us \\
+$$
+\Omega(f(z)) = \Omega(w) = \phi(u(x, y), v(x, y)) + i\psi(u(x, y), v(x, y)).
+$$ \\
+Therefore we arrive at a function $\phi(u(x, y), v(x, y))$.
+Taking the derivative of this with respect to $x$ requires the chain rule.
+Applying the chain rule once, we immediately get the following \\
+$$\frac{\partial\phi}{\partial x} = \frac{\partial\phi}{\partial u} \frac{\partial u}{\partial x} + \frac{\partial\phi}{\partial v} \frac{\partial v}{\partial x}.$$
+\qed \\
+\textbf{Part 2:}
 \begin{eqnarray*}
 \frac{\partial^2\phi}{\partial x^2} &=& \frac{\partial^2 u}{\partial x^2} \frac{\partial\phi}{\partial u}
 							- \frac{\partial^2 u}{\partial x \partial y} \frac{\partial\phi}{\partial v}
@@ -298,8 +338,128 @@ Does this mean
 							- 2 \frac{\partial u}{\partial x} \frac{\partial u}{\partial y} \frac{\partial^2 \phi}{\partial u \partial v}
 							+ \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} \\
 \end{eqnarray*}
-Also find the corresponding formulae for $\frac{\partial \phi}{\partial y}$ and $\frac{\partial^2 \phi }{\partial y^2}$.
-Recall that $f'(z) = \frac{\partial u }{\partial x} + i\frac{\partial u}{\partial y}$, and $u(x, y)$ satisfies Laplace's equation the domain D.
+\textit{Solution:} \\
+Starting from our previous result
+\begin{eqnarray*}
+\frac{\partial\phi}{\partial x} &=& \frac{\partial\phi}{\partial u} \frac{\partial u}{\partial x} + \frac{\partial\phi}{\partial v} \frac{\partial v}{\partial x} \\ \\
+\frac{\partial}{\partial x} \left(\frac{\partial\phi}{\partial x}\right) &=& \frac{\partial}{\partial x} \left(\frac{\partial\phi}{\partial u} \frac{\partial u}{\partial x} + \frac{\partial\phi}{\partial v} \frac{\partial v}{\partial x}\right) \\ \\
+\frac{\partial^2\phi}{\partial x^2} &=& \frac{\partial}{\partial x} \left(\frac{\partial\phi}{\partial u} \frac{\partial u}{\partial x} + \frac{\partial\phi}{\partial v} \frac{\partial v}{\partial x}\right) \\ \\
+						&=& \frac{\partial}{\partial x} \left(\frac{\partial\phi}{\partial u} \frac{\partial u}{\partial x}\right)
+							+ \frac{\partial}{\partial x}  \left(\frac{\partial\phi}{\partial v} \frac{\partial v}{\partial x}\right) \\ \\
+						&=& \left[ 
+							\frac{\partial}{\partial x} \left( \frac{\partial\phi}{\partial u} \right) \cdot \frac{\partial u}{\partial x}
+							+ \frac{\partial\phi}{\partial u} \cdot \frac{\partial}{\partial x} \left(\frac{\partial u}{\partial x} \right)
+						\right] \\ \\
+						&& + \left[ 
+							\frac{\partial}{\partial x} \left( \frac{\partial\phi}{\partial v} \right) \cdot \frac{\partial v}{\partial x}
+							+ \frac{\partial\phi}{\partial v} \cdot \frac{\partial}{\partial x} \left(\frac{\partial v}{\partial x} \right)
+						\right] \\ \\
+						&=& \left[ 
+							\left( \frac{\partial^2 \phi}{\partial u^2} \frac{\partial u}{\partial x} + \frac{\partial^2 \phi}{\partial u \partial v} \frac{\partial v}{\partial x} \right) \frac{\partial u}{\partial x}
+							+ \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2}
+						\right] \\ \\
+						&& + \left[ 
+							\left( \frac{\partial^2 \phi}{\partial v \partial u} \frac{\partial u}{\partial x} + \frac{\partial^2 \phi}{\partial v^2} \frac{\partial v}{\partial x} \right) \frac{\partial v}{\partial x}
+							+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial x^2}
+						\right] \\ \\
+						&=& \frac{\partial^2 \phi}{\partial u^2} \left(\frac{\partial u}{\partial x}\right)^2 + \frac{\partial^2 \phi}{\partial u \partial v} \frac{\partial v}{\partial x} \frac{\partial u}{\partial x}
+							+ \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2} \\ \\
+						&& + \frac{\partial^2 \phi}{\partial v \partial u} \frac{\partial u}{\partial x}\frac{\partial v}{\partial x} + \frac{\partial^2 \phi}{\partial v^2} \left(\frac{\partial v}{\partial x}\right)^2
+							+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial x^2} \\ \\
+\end{eqnarray*}
+Now let's utilize the fact that $f(z)$ is analytic therefore it satisfies the Cauchy-Riemann equations implying
+$$\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y} \quad \text{and} \quad \frac{\partial v}{\partial x} = - \frac{\partial u}{\partial y}.$$
+Making use of the second equality we proceed in our calculation of $\frac{\partial^2\phi}{\partial x^2}$ by making few substitutions
+\begin{eqnarray*}
+\frac{\partial^2\phi}{\partial x^2} &=& \frac{\partial^2 \phi}{\partial u^2} \left(\frac{\partial u}{\partial x}\right)^2 + \frac{\partial^2 \phi}{\partial u \partial v} \left(- \frac{\partial u}{\partial y}\right) \frac{\partial u}{\partial x}
+							+ \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2} \\
+						&& + \frac{\partial^2 \phi}{\partial v \partial u} \frac{\partial u}{\partial x}\left(- \frac{\partial u}{\partial y}\right) + \frac{\partial^2 \phi}{\partial v^2} \left(- \frac{\partial u}{\partial y}\right)^2
+							+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial x^2} \\ \\
+						&=& \frac{\partial^2 \phi}{\partial u^2} \left(\frac{\partial u}{\partial x}\right)^2
+							- 2 \frac{\partial u}{\partial x} \frac{\partial u}{\partial y} \frac{\partial^2 \phi}{\partial u \partial v}
+							+ \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2}
+							+ \frac{\partial^2 \phi}{\partial v^2} \left(\frac{\partial u}{\partial y}\right)^2
+							+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial x^2} \\ \\
+						&=& \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2}
+							+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial x^2}
+							+  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+							- 2 \frac{\partial u}{\partial x} \frac{\partial u}{\partial y} \frac{\partial^2 \phi}{\partial u \partial v}
+							+  \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\
+						&=& \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2}
+							+ \frac{\partial\phi}{\partial v}  \frac{\partial}{\partial x} \left(\frac{\partial v}{\partial x}\right)
+							+  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+							- 2 \frac{\partial u}{\partial x} \frac{\partial u}{\partial y} \frac{\partial^2 \phi}{\partial u \partial v}
+							+  \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\
+						&=& \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2}
+							+ \frac{\partial\phi}{\partial v}  \frac{\partial}{\partial x} \left(- \frac{\partial u}{\partial y}\right)
+							+  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+							- 2 \frac{\partial u}{\partial x} \frac{\partial u}{\partial y} \frac{\partial^2 \phi}{\partial u \partial v}
+							+  \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\
+						&=& \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2}
+							- \frac{\partial\phi}{\partial v} \frac{\partial^2 u}{\partial x \partial y}
+							+  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+							- 2 \frac{\partial u}{\partial x} \frac{\partial u}{\partial y} \frac{\partial^2 \phi}{\partial u \partial v}
+							+  \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2}.
+\end{eqnarray*}
+\qed \\
+\noindent
+\textbf{Part 3:} 
+Also find the corresponding formulae for $\frac{\partial \phi}{\partial y}$ and $\frac{\partial^2 \phi }{\partial y^2}$. \\
+\textit{Solution:} \\
+Recall that we are looking at $\phi(u(x, y), v(x, y))$\\
+Taking the derivative of this with respect to $y$ requires the chain rule.
+Applying the chain rule once, we immediately get the following \\
+$$\frac{\partial\phi}{\partial y} = \frac{\partial\phi}{\partial u} \frac{\partial u}{\partial y} + \frac{\partial\phi}{\partial v} \frac{\partial v}{\partial y}.$$
+And now continuing on with the second derivative we get:
+\begin{eqnarray*}
+\frac{\partial\phi}{\partial y} &=& \frac{\partial\phi}{\partial u} \frac{\partial u}{\partial y} + \frac{\partial\phi}{\partial v} \frac{\partial v}{\partial y} \\ \\
+\frac{\partial}{\partial y} \left(\frac{\partial\phi}{\partial y}\right) &=& \frac{\partial}{\partial y} \left(\frac{\partial\phi}{\partial u} \frac{\partial u}{\partial y} + \frac{\partial\phi}{\partial v} \frac{\partial v}{\partial y}\right) \\ \\
+\frac{\partial^2\phi}{\partial y^2} &=& \frac{\partial}{\partial y} \left(\frac{\partial\phi}{\partial u} \frac{\partial u}{\partial y} + \frac{\partial\phi}{\partial v} \frac{\partial v}{\partial y}\right) \\ \\
+						&=& \frac{\partial}{\partial y} \left(\frac{\partial\phi}{\partial u} \frac{\partial u}{\partial y}\right)
+							+ \frac{\partial}{\partial y}  \left(\frac{\partial\phi}{\partial v} \frac{\partial v}{\partial y}\right) \\ \\
+						&=& \left[ 
+							\frac{\partial}{\partial y} \left( \frac{\partial\phi}{\partial u} \right) \cdot \frac{\partial u}{\partial y}
+							+ \frac{\partial\phi}{\partial u} \cdot \frac{\partial}{\partial y} \left(\frac{\partial u}{\partial y} \right)
+						\right] \\ \\
+						&& + \left[ 
+							\frac{\partial}{\partial y} \left( \frac{\partial\phi}{\partial v} \right) \cdot \frac{\partial v}{\partial y}
+							+ \frac{\partial\phi}{\partial v} \cdot \frac{\partial}{\partial y} \left(\frac{\partial v}{\partial y} \right)
+						\right] \\ \\
+						&=& \left[ 
+							\left( \frac{\partial^2 \phi}{\partial u^2} \frac{\partial u}{\partial y} + \frac{\partial^2 \phi}{\partial u \partial v} \frac{\partial v}{\partial y} \right) \frac{\partial u}{\partial y}
+							+ \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial y^2}
+						\right] \\ \\
+						&& + \left[ 
+							\left( \frac{\partial^2 \phi}{\partial v \partial u} \frac{\partial u}{\partial y} + \frac{\partial^2 \phi}{\partial v^2} \frac{\partial v}{\partial y} \right) \frac{\partial v}{\partial y}
+							+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial y^2}
+						\right] \\ \\
+						&=& \frac{\partial^2 \phi}{\partial u^2} \left(\frac{\partial u}{\partial y}\right)^2 + \frac{\partial^2 \phi}{\partial u \partial v} \frac{\partial v}{\partial y} \frac{\partial u}{\partial y}
+							+ \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial y^2} \\ \\
+						&& + \frac{\partial^2 \phi}{\partial v \partial u} \frac{\partial u}{\partial y}\frac{\partial v}{\partial y} + \frac{\partial^2 \phi}{\partial v^2} \left(\frac{\partial v}{\partial y}\right)^2
+							+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial y^2} \\ \\
+\end{eqnarray*}
+We need to decide where our substitutions are going to take place
+\begin{eqnarray*}
+\frac{\partial^2\phi}{\partial y^2} &=& \frac{\partial^2 \phi}{\partial u^2} \left(\frac{\partial u}{\partial y}\right)^2 + \frac{\partial^2 \phi}{\partial u \partial v} \frac{\partial v}{\partial y} \left(- \frac{\partial v}{\partial x}\right)
+							+ \frac{\partial\phi}{\partial u} \frac{\partial}{\partial y} \left(- \frac{\partial v}{\partial x} \right)\\ \\
+						&& + \frac{\partial^2 \phi}{\partial v \partial u} \left(- \frac{\partial v}{\partial x}\right)\frac{\partial v}{\partial y} + \frac{\partial^2 \phi}{\partial v^2} \left(\frac{\partial v}{\partial y}\right)^2
+							+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial y^2} \\ \\
+						&=& \frac{\partial^2 \phi}{\partial u^2} \left(\frac{\partial u}{\partial y}\right)^2
+							-2 \frac{\partial^2 \phi}{\partial u \partial v} \frac{\partial v}{\partial y} \frac{\partial v}{\partial x}
+							- \frac{\partial\phi}{\partial u} \frac{\partial^2 v}{\partial x \partial y}
+							+ \frac{\partial^2 \phi}{\partial v^2} \left(\frac{\partial v}{\partial y}\right)^2
+							+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial y^2} \\ \\
+						&=& \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial y^2} 
+							- \frac{\partial\phi}{\partial u} \frac{\partial^2 v}{\partial x \partial y}
+							+ \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+							-2 \frac{\partial^2 \phi}{\partial u \partial v} \frac{\partial v}{\partial y} \frac{\partial v}{\partial x}
+							+ \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2}. \\ \\
+\end{eqnarray*}
+Therefore we have derived the similar formula for $\frac{\partial^2 \phi }{\partial y^2}$ as we had for $\frac{\partial^2 \phi }{\partial x^2}$.
+\qed \\
+
+\noindent
+\textbf{Part 3:}  Recall that $f'(z) = \frac{\partial u }{\partial x} + i\frac{\partial u}{\partial y}$, and $u(x, y)$ satisfies Laplace's equation the domain D.
 Show that
 $$
 \nabla_{x, y}^2 \phi = 
@@ -307,11 +467,107 @@ $$
 \left(u_x^2 + y_y^2\right) \left(\frac{\partial^2\phi}{\partial u^2} + \frac{\partial^2 \phi }{\partial v^2}\right) =
 \left| f'(z)\right|^2 \nabla_{u, v}^2 \phi
 $$
+\textit{Solution:}
+The first equality comes by definition of $\nabla_{x, y}^2 \phi$.
+Similarly the third equality comes from the definition of $f'(z)$, the modulus and $\nabla_{u, v}^2 \phi$.
+So what we really need to show is that
+$$
+\frac{\partial^2\phi}{\partial x^2} + \frac{\partial^2 \phi }{\partial y^2} = 
+\left(u_x^2 + u_y^2\right) \left(\frac{\partial^2\phi}{\partial u^2} + \frac{\partial^2 \phi }{\partial v^2}\right).
+$$
+Lets get to it
+\begin{eqnarray*}
+\frac{\partial^2\phi}{\partial x^2} + \frac{\partial^2 \phi }{\partial y^2} &=& \left[\frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2}
+													- \frac{\partial\phi}{\partial v} \frac{\partial^2 u}{\partial x \partial y}
+													+  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													-2 \frac{\partial u}{\partial x} \frac{\partial u}{\partial y} \frac{\partial^2 \phi}{\partial u \partial v}
+													+  \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \right] \\ \\
+												  && + \left[\frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial y^2} 
+													- \frac{\partial\phi}{\partial u} \frac{\partial^2 v}{\partial x \partial y}
+													+ \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													-2 \frac{\partial^2 \phi}{\partial u \partial v} \frac{\partial v}{\partial y} \frac{\partial v}{\partial x}
+													+ \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} \right]\\ \\
+												   &=& \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2}
+													+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial y^2} 
+													- \frac{\partial\phi}{\partial v} \frac{\partial^2 u}{\partial x \partial y}
+													- \frac{\partial\phi}{\partial u} \frac{\partial^2 v}{\partial x \partial y}
+													-2 \frac{\partial u}{\partial x} \frac{\partial u}{\partial y} \frac{\partial^2 \phi}{\partial u \partial v}
+													-2 \frac{\partial^2 \phi}{\partial u \partial v} \frac{\partial v}{\partial y} \frac{\partial v}{\partial x} \\ \\
+												   && +  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													+ \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													+ \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} 
+													+  \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
+												   &=& \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2}
+													+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial y^2} 
+													- \frac{\partial\phi}{\partial v} \frac{\partial^2 u}{\partial x \partial y}
+													- \frac{\partial\phi}{\partial u} \frac{\partial^2 v}{\partial x \partial y}
+													-2 \frac{\partial u}{\partial x} \frac{\partial u}{\partial y} \frac{\partial^2 \phi}{\partial u \partial v}
+													-2 \frac{\partial^2 \phi}{\partial u \partial v} \frac{\partial v}{\partial y} \frac{\partial v}{\partial x} \\ \\
+												    && +  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													 + \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} 
+													 + \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
+												&=& \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2}
+													+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial y^2} 
+													- \frac{\partial\phi}{\partial v} \frac{\partial^2 u}{\partial x \partial y}
+													- \frac{\partial\phi}{\partial u} \frac{\partial^2 v}{\partial x \partial y}
+													-2 \frac{\partial u}{\partial x} \frac{\partial u}{\partial y} \frac{\partial^2 \phi}{\partial u \partial v}
+													+2 \frac{\partial^2 \phi}{\partial u \partial v} \frac{\partial u}{\partial x} \frac{\partial u}{\partial y} \\ \\
+												    && +  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													 + \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} 
+													 + \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
+												&=& \frac{\partial\phi}{\partial u} \frac{\partial^2 u}{\partial x^2}
+													- \frac{\partial\phi}{\partial u} \frac{\partial^2 v}{\partial x \partial y} 
+													+ \frac{\partial\phi}{\partial v} \frac{\partial^2 v}{\partial y^2} 
+													- \frac{\partial\phi}{\partial v} \frac{\partial^2 u}{\partial x \partial y}\\ \\
+												    && +  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													 + \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} 
+													 + \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
+												&=& \frac{\partial\phi}{\partial u} \left(\frac{\partial^2 u}{\partial x^2} - \frac{\partial^2 v}{\partial x \partial y} \right)
+													+ \frac{\partial\phi}{\partial v} \left(\frac{\partial^2 v}{\partial y^2} - \frac{\partial^2 u}{\partial x \partial y} \right)\\ \\
+												    && +  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													 + \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} 
+													 + \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
+												&=& \frac{\partial\phi}{\partial u} \left(\frac{\partial^2 u}{\partial x^2} - \frac{\partial}{\partial x} \left(\frac{\partial v}{\partial y} \right)\right)
+													+ \frac{\partial\phi}{\partial v} \left(\frac{\partial^2 v}{\partial y^2} - \frac{\partial}{\partial y} \left(\frac{\partial u}{\partial x} \right) \right) \\ \\
+												    && +  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													 + \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} 
+													 + \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
+												&=& \frac{\partial\phi}{\partial u} \left(\frac{\partial^2 u}{\partial x^2} - \frac{\partial}{\partial x} \left(\frac{\partial u}{\partial x} \right)\right)
+													+ \frac{\partial\phi}{\partial v} \left(\frac{\partial^2 v}{\partial y^2} - \frac{\partial}{\partial y} \left(\frac{\partial v}{\partial y} \right) \right) \\ \\
+												    && +  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													 + \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} 
+													 + \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
+												&=& \frac{\partial\phi}{\partial u} \left(\frac{\partial^2 u}{\partial x^2} - \frac{\partial^2 u}{\partial x^2} \right)
+													+ \frac{\partial\phi}{\partial v} \left(\frac{\partial^2 v}{\partial y^2} - \frac{\partial^2 v}{\partial y^2} \right) \\ \\
+												    && +  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													 + \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} 
+													 + \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
+												&=& \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													 + \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} 
+													 + \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
+\end{eqnarray*}
+\begin{eqnarray*}
+\left(u_x^2 + u_y^2\right) \left(\frac{\partial^2\phi}{\partial u^2} + \frac{\partial^2 \phi }{\partial v^2}\right) &=& u_x^2\frac{\partial^2\phi}{\partial u^2}
+	+ u_x^2\frac{\partial^2 \phi }{\partial v^2}
+	+ u_y^2\frac{\partial^2\phi}{\partial u^2}
+	+ u_y^2\frac{\partial^2 \phi }{\partial v^2} \\ \\
+&=& \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2\phi}{\partial u^2}
+	+ \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi }{\partial v^2}
+	+ \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2\phi}{\partial u^2}
+	+ \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi }{\partial v^2} \\ \\
+\end{eqnarray*}
+\qed \\
+\noindent
 Consequently, we find that if $\phi$ satisfies Laplace's equation $\nabla_{x, y}^2 \phi = 0$ in the domain $D$,
 then so long as $f'(z) \neq 0$ in $D$ it also satisfies Laplace's equation $\nabla_{u, v}^2 \phi = 0$ in domain $D'$. \\
-\textbf{Hint:} No Hints yet... \\
-\textit{Solution:} \\
-\textbf{Incomplete} \\
 \item Show that the derivative of $f(z)=|z|^2$ is defined at $z=0$, but nowhere else.\\
 \textit{Solution:} \\
 Once again we are going to use the C-R equations and the fact that satisfying them is a necessary condition for differentiability.
