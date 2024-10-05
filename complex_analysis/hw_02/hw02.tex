@@ -525,7 +525,10 @@ Lets get to it
 												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
 													 + \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} 
 													 + \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
-												&=& \frac{\partial\phi}{\partial u} \left(\frac{\partial^2 u}{\partial x^2} - \frac{\partial^2 v}{\partial x \partial y} \right)
+\end{eqnarray*}
+Now using substitutions from the C-R equations again
+\begin{eqnarray*}
+\frac{\partial^2\phi}{\partial x^2} + \frac{\partial^2 \phi }{\partial y^2} &=& \frac{\partial\phi}{\partial u} \left(\frac{\partial^2 u}{\partial x^2} - \frac{\partial^2 v}{\partial x \partial y} \right)
 													+ \frac{\partial\phi}{\partial v} \left(\frac{\partial^2 v}{\partial y^2} - \frac{\partial^2 u}{\partial x \partial y} \right)\\ \\
 												    && +  \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
 												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
@@ -553,16 +556,19 @@ Lets get to it
 												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
 													 + \left(\frac{\partial v}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial v^2} 
 													 + \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
-\end{eqnarray*}
-\begin{eqnarray*}
-\left(u_x^2 + u_y^2\right) \left(\frac{\partial^2\phi}{\partial u^2} + \frac{\partial^2 \phi }{\partial v^2}\right) &=& u_x^2\frac{\partial^2\phi}{\partial u^2}
-	+ u_x^2\frac{\partial^2 \phi }{\partial v^2}
-	+ u_y^2\frac{\partial^2\phi}{\partial u^2}
-	+ u_y^2\frac{\partial^2 \phi }{\partial v^2} \\ \\
-&=& \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2\phi}{\partial u^2}
-	+ \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi }{\partial v^2}
-	+ \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2\phi}{\partial u^2}
-	+ \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi }{\partial v^2} \\ \\
+												&=& \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													 + \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial v^2} 
+													 + \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
+												&=& \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial u^2}
+													+ \left(\frac{\partial u}{\partial x}\right)^2 \frac{\partial^2 \phi}{\partial v^2}
+												        	 + \left(\frac{\partial u}{\partial y}\right)^2 \frac{\partial^2 \phi}{\partial u^2}												  
+													 + \left(\frac{\partial u}{\partial y}\right)^2\frac{\partial^2 \phi}{\partial v^2} \\ \\
+												&=& u_x^2\frac{\partial^2\phi}{\partial u^2}
+													+ u_x^2\frac{\partial^2 \phi }{\partial v^2}
+													+ u_y^2\frac{\partial^2\phi}{\partial u^2}
+													+ u_y^2\frac{\partial^2 \phi }{\partial v^2} \\ \\
+												&=& \left(u_x^2 + u_y^2\right) \left(\frac{\partial^2\phi}{\partial u^2} + \frac{\partial^2 \phi }{\partial v^2}\right)
 \end{eqnarray*}
 \qed \\
 \noindent
