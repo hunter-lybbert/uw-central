@@ -3,6 +3,8 @@
 \usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
 
 \usepackage{amssymb,amsmath,enumitem,url}
+\usepackage{graphicx,subfig}
+\graphicspath{ {./images/} }
 
 \newcommand{\D}{\mathrm{d}}
 \newcommand{\I}{\mathrm{i}}
@@ -234,6 +236,16 @@ In conclusion the zeroes of $\tanh(z), \: z \in \mathbb{C}$ are at $ z = i \ell 
     \int_{-\infty}^\infty f_\epsilon(x) \D x.
   \end{align*} \\
 \textit{Solution:} \\
+
+\begin{figure}[h]
+	\includegraphics[width=1\textwidth]{f_sub_epsilon_vis.png}\label{fig:f1}
+ 	\caption{
+		Plot $\left|f_\epsilon(z)\right| = \left| \frac{\epsilon}{\epsilon^2+z^2}\right|$, for various 
+		values of $\epsilon$. Discuss the influence the singularities of a 
+		function in the complex plane have on its behavior on the real line.
+	}
+\end{figure}
+\noindent
 Using the substation $x = \epsilon \tan \theta$ and $\D x = \epsilon \sec^2 \theta \D \theta$
 \begin{eqnarray*}
 \int_{-\infty}^\infty f_\epsilon(x) \D x = \int_{-\infty}^\infty \frac{\epsilon} {\epsilon^2+x^2} \D x = \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}} \frac{\epsilon^2 \sec^2 \theta} {\epsilon^2 + \epsilon^2 \tan^2\theta}  \D \theta.
@@ -268,7 +280,16 @@ with Phase Portraits by Elias Wegert (Birkhäuser, 2012) is a good
 companion to our textbook, if you think geometrically.
 \end{itemize}
 \textit{Solution:} \\
-\textbf{Incomplete} \\
+
+\begin{figure}[h]
+	\includegraphics[width=1\textwidth]{exp_z_vis.png}\label{fig:f2}
+ 	\caption{
+		We plot the real and imaginary part of the exponential function $\exp (z)=\exp (x+\I y)$, for $x \in[-1,1], y \in[-2 \pi, 2 \pi]$.
+		We also plot the modulus over the same region to compare.
+		This all corresponds to problem 6.
+	}
+\end{figure}
+
 \item From A\&F: 2.1.1 \\
 Which of the following satisfy the Cauchy-Riemann (C-R) equations? If they satisfy the C-R equations, give the analytic function of z. \\
 a) $f(x, y) = x - iy + 1$ \\
