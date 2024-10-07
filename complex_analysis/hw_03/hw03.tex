@@ -1,11 +1,14 @@
 \documentclass[10pt]{amsart}
 \usepackage[margin=1.4in]{geometry}
 \usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
 
 \usepackage{amssymb,amsmath,enumitem,url}
 
 \newcommand{\D}{\mathrm{d}}
 \newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\sech}{sech}
+% \DeclareMathOperator{\cot}{cot}
 \DeclareMathOperator{\E}{e}
 \DeclareMathOperator{\OO}{O}
 \DeclareMathOperator{\oo}{o}
@@ -57,12 +60,84 @@ Show that the set of all values of the multivalued function $\log(z^a)$ is not n
   single-valued. What happens for $n=4,5$ ? For $n>5$ ? You may assume
   that all the $a_j$ are distinct.\\
 \textit{Solution:} \\
-\item From A\&F: 2.2.5a. While you're at it, also derive a formula for $\operatorname{arccot}(z)$ in terms of the logarithm.\\
+\item From A\&F: 2.2.5a. \\
 Derive the following formulae: \\
 a) $$\coth^{-1}(z) = \frac{1}{2}\log\frac{z + 1}{z - 1}$$
 \textit{Solution:} \\
-b) $$\sec h^{-1}(z) = \log \left(\frac{1 + (1 - z^2)^{\frac{1}{2}}}{z}\right)$$
+We begin with solving for $w$ in $z = \coth{w}$ with $w, z \in \mathbb{C}$. 
+\begin{eqnarray*}
+z = \coth{w} &=& \frac{\cosh w}{\sinh w} = \frac{ \frac{e^{w} + e^{-w}}{\cancel{2}} }{ \frac{e^{w} - e^{-w}}{\cancel{2}} } = \frac{ e^{w} + e^{-w} }{ e^{w} - e^{-w} } \\
+	  &=& \frac{e^{w}}{e^{w}} \frac{ e^{w} + e^{-w} }{ e^{w} - e^{-w} } = \frac{ e^{2w} + 1}{ e^{2w} - 1 }
+\end{eqnarray*}
+Now let's proceed by multiplying both sides by the denominator
+\begin{eqnarray*}
+z\left( e^{2w} - 1\right) &=&  e^{2w} + 1\\
+ze^{2w} - z &=&  e^{2w} + 1\\
+ze^{2w} - e^{2w} &=& z + 1\\
+e^{2w}(z - 1) &=& z + 1\\
+e^{2w} &=& \frac{z + 1}{z - 1 }\\
+\log \left(e^{2w}\right) &=& \log \left(\frac{z + 1}{z - 1} \right) + 2i\pi k, \: k \in \mathbb{Z} \\ \\
+2w &=& \log \left(\frac{z + 1}{z - 1} \right) + 2i\pi k, \: k \in \mathbb{Z} \\ \\
+w &=& \frac{1}{2}\log \left(\frac{z + 1}{z - 1} \right) + i\pi k, \: k \in \mathbb{Z} \\
+\end{eqnarray*}
+This is to show
+$$\coth^{-1}(z) = \operatorname{arccot}(\coth w) = w = \frac{1}{2}\log \left(\frac{z + 1}{z - 1} \right) + i\pi k, \: k \in \mathbb{Z}.$$
+More directly we have 
+$$\coth^{-1}(z) = \frac{1}{2}\log \left(\frac{z + 1}{z - 1} \right) + i\pi k, \: k \in \mathbb{Z}.$$
+as required. 
+\textbf{TODO:} determine what your choice of $k$ should be \qed \\
+b) $$\sech^{-1}(z) = \log \left(\frac{1 + (1 - z^2)^{\frac{1}{2}}}{z}\right)$$
 \textit{Solution:} \\
+We begin with solving for $w$ in $z = \sech{w}$ with $w, z \in \mathbb{C}$. 
+\begin{eqnarray*}
+z = \sech{w} &=& \frac{1}{\cosh w} = \frac{1}{\frac{e^{w} + e^{-w}}{2}} = \frac{2}{e^{w} + e^{-w}} \\
+	  &=& \frac{e^{w}}{e^{w}} \frac{2}{e^{w} + e^{-w}} = \frac{ 2e^{w}}{ e^{2w} + 1 }
+\end{eqnarray*}
+Now let's proceed by multiplying both sides by the denominator
+\begin{eqnarray*}
+z\left( e^{2w} + 1 \right) &=&  2e^{w}\\
+ze^{2w} + z &=&  2e^{w}\\
+ze^{2w} - 2e^{w}+ z &=&  0\\
+\end{eqnarray*}
+We now use the quadratic formula to solve for $e^{w}$
+\begin{eqnarray*}
+e^{w} &=& \frac{2 + \left(4 - 4z^2\right)^{\frac{1}{2}}}{2z} \\
+e^{w} &=& \frac{\cancel2 + \cancel2\left(1 - z^2\right)^{\frac{1}{2}}}{\cancel2z} \\
+\log e^{w} &=& \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z} \\
+w &=& \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z} \\
+\end{eqnarray*}
+This is to show
+$$\sech^{-1}(z) = \sech^{-1}(\sech w) = w = \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z}.$$
+More directly we have 
+$$\sech^{-1}(z) = \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z}.$$
+as required. 
+\textbf{TODO:} determine what your choice of $k$ should be and how to denote the related cuts made for the $\sqrt{\cdot}$ function.
+\qed \\
+\\
+While you're at it, also derive a formula for $\operatorname{arccot}(z)$ in terms of the logarithm. \\
+\textit{Solution:} \\
+Let's begin by solving for $w$ in this equation $z = \cot w$ with $w, z \in \mathbb{C}$.
+\begin{eqnarray*}
+z = \cot w &=& \frac{\cos w}{\sin w} = \frac{ \frac{e^{iw} + e^{-iw}}{\cancel{2}} }{ \frac{e^{iw} - e^{-iw}}{\cancel{2}i} } = \frac{ i\left(e^{iw} + e^{-iw} \right)}{ e^{iw} - e^{-iw} } \\
+	  &=& \frac{e^{iw}}{e^{iw}} \frac{ i\left(e^{iw} + e^{-iw} \right)}{ e^{iw} - e^{-iw} } = \frac{ i\left(e^{2iw} + 1 \right)}{ e^{2iw} - 1 }
+\end{eqnarray*}
+Now let's proceed by multiplying both sides by the denominator
+\begin{eqnarray*}
+z(e^{2iw} - 1) &=& i\left(e^{2iw} + 1 \right) \\
+ze^{2iw} - z &=& ie^{2iw} + i \\
+ze^{2iw} - z - ie^{2iw} - i &=& 0 \\
+e^{2iw}(z - i) &=& z + i \\ 
+e^{2iw} &=& \frac{z + i}{z - i} \\
+\log \left(e^{2iw}\right) &=& \log \left(\frac{z + i}{z - i} \right) + 2i\pi k, \: k \in \mathbb{Z} \\ \\
+2iw &=& \log \left(\frac{z + i}{z - i} \right) + 2i\pi k, \: k \in \mathbb{Z} \\
+w &=& \frac{1}{2i}\log \left(\frac{z + i}{z - i} \right) + \pi k, \: k \in \mathbb{Z} \\
+\end{eqnarray*}
+This is to show
+$$\operatorname{arccot}(z) = \operatorname{arccot}(\cot w) = w = \frac{1}{2i}\log \left(\frac{z + i}{z - i} \right) + \pi k, \: k \in \mathbb{Z}.$$
+More directly we have 
+$$ \operatorname{arccot}(z) = \frac{1}{2i}\log \left(\frac{z + i}{z - i} \right) + \pi k, \: k \in \mathbb{Z}$$
+as required. 
+\textbf{TODO:} determine what your choice of $k$ should be \qed \\
 
 \item Let
   \begin{align*}
