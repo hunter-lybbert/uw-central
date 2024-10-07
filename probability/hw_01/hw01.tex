@@ -1,30 +1,197 @@
-\documentclass[11pt]{article}
-\include{amsmath}
-\usepackage{dsfont}													% gives you \mathds{} font
-
-\title{AMATH 561 Autumn 2024 \\ Problem Set 1}
-%\author{}
-\date{Due: Mon 10/7 at 10am}
+\documentclass[10pt]{amsart}
+\usepackage{amsmath,amssymb,dsfont,amsthm}													% gives you \mathds{} font
 
 \begin{document}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{10-07-24} \\
+\text{AMATH 561}
+\title{Problem Set 1}
 \maketitle
-
-{\it Note: Submit electronically to Canvas. }
+\noindent
+{\bf 1.} Describe the probability space for the following experiments: a) a biased coin is tossed three times; b)  two balls are drawn without replacement from an urn which originally contained two blue and two red balls. \\
+a) \textit{ Solution} \\
+Let's assign the probability of getting a heads when tossing this biased coin once as $p_0$ and the probability of getting a tails as $1 - p_0$. 
+Now to describe the probability space we need to define our outcome space $\Omega$, the set of relevant events $\mathcal{F}$ (a $\sigma$-algebra) and the
+probability measure $P$ then we will have our probability space $\left(\Omega, \mathcal{F}, P\right)$. In our experiment of 3 tosses of the coin we have 
+$$\Omega = \{HHH, HHT, HTH, THH, TTT, TTH, THT, HTT\}$$
+And for simplicity let's define $\mathcal{F} = 2^\Omega$ which means any possible subset of $\Omega$ is an event.
+Now let's define $P: \mathcal{F} \rightarrow \mathds{R}$.
+Let $A \in \mathcal{F}$ then we say $$P(A) = \sum_{\omega \in A} p(\omega).$$
+Where $p(\omega) = p_0^{h_{\omega}}(1 - p_0)^{t_{\omega}}$ with ${h_{\omega}}$ being the number of heads $H$ in outcome $\omega$ and ${t_{\omega}}$ being the number of tails $T$ in outcome $\omega$. 
+Therefore we can rewrite $P(A)$ as follows:
+$$P(A) = \sum_{\omega \in A} p(\omega) = \sum_{\omega \in A} p_0^{h_{\omega}}(1 - p_0)^{t_{\omega}}.$$
+Let's calculate an example and see if it matches our intuition.
+Define $B \in \mathcal{F}$ as the event such that at least one $H$ occurs in the 3 tosses.
+Therefore $B = \{HHH, HHT, HTH, THH, HTT, THT, TTH\}$. Now
+\begin{eqnarray*}
+P(B) &=& \sum_{\omega \in B} p(\omega) = \sum_{\omega \in B} p_0^{h_{\omega}}(1 - p_0)^{t_{\omega}} \\
+&=& p_0^3(1 - p_0)^0 + p_0^2(1 - p_0)^1 + p_0^2(1 - p_0)^1 + p_0^2(1 - p_0)^1 \\
+&& + p_0^1(1 - p_0)^2 + p_0^1(1 - p_0)^2 + p_0^1(1 - p_0)^2.
+\end{eqnarray*}
 \\
+\qed
 
-\noindent {\bf 1.} Describe the probability space for the following experiments: a) a biased coin is tossed three times; b)  two balls are drawn without replacement from an urn which originally contained two blue and two red balls.
+\noindent
+b) \textit{ Solution} \\
+Now we analyze the experiment where two balls are drawn without replacement from an urn which originally contained two blue and two red balls.
+It might be helpful to denote ball one and two as $u_1$ and $u_2$ respectively.
+Let's begin by looking at the outcome space $\Omega$. 
+In our two step experiment we get the following possible outcomes 
+$$\Omega = \{bb, br, rb, rr\}.$$
+Once again, for simplicity let's define $\mathcal{F} = 2^\Omega$ which means any possible subset of $\Omega$ is an event.
+Now let's define $P: \mathcal{F} \rightarrow \mathds{R}$.
+Let $A \in \mathcal{F}$ then we say $$P(A) = \sum_{\omega \in A} p(\omega)$$ again.
+Now $p(\omega)$ is a little tricker to define since the probability for the second draw depends on what the first draw was. 
+We have not described conditional probability in class yet, but I will borrow the notation and language of it here anyway.
+With this in mind we define
+$$ p(\omega) = p(\omega_1\omega_2)= p(u_1 = \omega_1) p(u_2 = \omega_2 | u_1 = \omega_1)$$ with $\omega$ being broken down in to $\omega_1\omega_2$ where $\omega_1$ and $\omega_2$ are the particular color ball being drawn first or second respectively in outcome $\omega$.
+We can define $p(u_1 = \omega_1)$ and $p(u_2 = \omega_2 | u_1 = \omega_1)$ more explicitly with the following rules.
+$$
+p(u_1 = \omega_1) = \frac{1}{2} \quad \text{for} \: \omega \in \{b, r\}
+$$
+since there are 2 of each color and 4 balls total.
+Additionally we determine
+$$p(u_2 = \omega_2 | u_1 = \omega_1) = \frac{1}{3} \quad \text{if} \: \omega_2 = \omega_1$$
+and
+$$p(u_2 = \omega_2 | u_1 = \omega_1) = \frac{2}{3} \quad \text{if} \: \omega_2 \neq \omega_1$$
+since at the time of the second ball draw there is 1 ball of one color and 2 balls of another color with 3 balls total remaining.
+Therefore we can rewrite $P(A)$ as follows:
+$$P(A) = \sum_{\omega \in A} p(\omega) = \sum_{\omega \in A} p(\omega_1\omega_2)= \sum_{\omega \in A} p(u_1 = \omega_1) p(u_2 = \omega_2 | u_1 = \omega_1).$$
+Let's calculate an example and see if it matches our intuition.
+Define $B \in \mathcal{F}$ as the event where the second ball drawn is red $u_2 = r$.
+Therefore $B = \{br, rr\}$. Now
+\begin{eqnarray*}
+P(B) &=& \sum_{\omega \in B} p(\omega) = \sum_{\omega \in B} p(\omega_1\omega_2) = \sum_{\omega \in B} p(u_1 = \omega_1) p(u_2 = \omega_2 | u_1 = \omega_1)\\
+&=& p(u_1 = b) p(u_2 = r | u_1 = b) + p(u_1 = r) p(u_2 = r | u_1 = r) \\
+&=& \frac{1}{2} \frac{2}{3} + \frac{1}{2} \frac{1}{3} \\
+&=& \frac{1}{3} + \frac{1}{6} \\
+&=& \frac{1}{2}.
+\end{eqnarray*}
+Thus $P(B) = P(\{br, rr\}) = \frac{1}{2}$ which is what we'd expect since this particular event $B$ is comprised of half of the four possible outcomes in $\Omega$.
 \\
+\qed
 
 \noindent {\bf 2.} (No translation-invariant random integer). Show that there is no probability measure $P$ on the integers $\mathds{Z}$ with the discrete
 $\sigma$-algebra $2^{\mathds{Z}}$ with the translation-invariance property $P(E + n) = P(E)$ for every event $E \in 2^{\mathds{Z}}$ and every integer $n$. $E+n$ is obtained by adding $n$ to every element of $E$.
 \\
+\textit{ Solution} \\
+Let's assume by way of contradiction, that there is a probability measure $P$ on the integers $\mathds{Z}$ with a discrete $\sigma$-algebra $2^{\mathds{Z}}$ and with the translation-invariance property $P(E + n) = P(E)$ for every event $E \in 2^{\mathds{Z}}$ and every integer $n$.
+Now take the event $E = \{0\}$ which is just a singleton set containing only 0.
+Using our assumption $P(E + n) = P(E)$ we get $$P(\{0\} + n) = P(\{n\}) = P(\{0\}) \: \forall n \in \mathds{Z}.$$
+Let's assign the value of $P(\{n\}) = P(\{0\}) = p$ for all $n \in \mathds{Z}$.
+Now we have the following $$P(\Omega) = \sum_{\omega \in \Omega} P(\omega) = \sum_{\omega \in \Omega} p.$$
+If $ p \neq 0$ this sum will blow up to $\infty$ therefore $p = 0$.
+However, this means $P(\Omega) = 0$ but that contradicts the assumption that $P$ is a probability measure since that would require $P(\Omega)= 1$.
+Therefore there is no probability measure $P$ on the integers $\mathds{Z}$ with the discrete $\sigma$-algebra $2^{\mathds{Z}}$ with the translation-invariance property. \\
+\qed
 
 \noindent {\bf 3.}  (No translation-invariant random real). Show that there is no probability measure $P$ on the reals $\mathds{R}$ with the Borel
 $\sigma$-algebra $\mathcal{B}(\mathds{R})$ with the translation-invariance property $P(E + x) = P(E)$ for every event $E \in \mathcal{B}(\mathds{R})$ and every real $x$. Borel $\sigma$-algebra $\mathcal{B}(\mathds{R})$ is the $\sigma$-algebra generated by intervals $(a,b] \subset \mathds{R}$.
 \\
+\textit{ Solution} \\
+Let's assume by way of contradiction, that there is a probability measure $P$ on the reals $\mathds{R}$ with the Borel $\sigma$-algebra
+$\mathcal{B}(\mathds{R})$ with the translation-invariance property $P(E + x) = P(E)$ for every event $E \in \mathcal{B}(\mathds{R})$ and every real $x$.
+Let $I = (0,1]$ be the interval of real numbers between 0 and 1.
+Consider the sets $I_n = I + n$ for $n \in \mathds{Z}$, where each $I_n$ is a translation of the interval $I$: $I_n = (n, n+1]$.
+The sets \(I_n\) are disjoint for different values of $n$ that is
+$$
+I_n \cap I_m = \emptyset \quad \text{for } n \neq m.
+$$
+The way these sets are constructed we also get that, the union of these disjoint sets covers the entire real line:
+$$
+\mathbb{R} = \cup_{n \in \mathbb{Z}} I_n.
+$$
+\noindent
+By translation invariance of $P$, we have $P(I_n) = P(I) \: \text{for all } n \in \mathbb{Z}$.
+Let $p = P(I)$. Then, since $P$ is a probability measure we have
+$$
+P(\mathbb{R}) = P\left( \cup_{n \in \mathbb{Z}} I_n \right) = \sum_{n \in \mathbb{Z}} P(I_n) = \sum_{n \in \mathbb{Z}} p.
+$$
+Since the sum $\sum_{n \in \mathbb{Z}} p$ includes infinitely many terms, it will go to $\infty$ unless $p = 0$. Thus, $p = 0$, meaning $P(I) = 0$.
+Since $P(I) = 0$, by translation invariance, $P(I_n) = 0$ for all $n \in \mathbb{Z}$. Therefore:
+$$
+P\left( \cup_{n \in \mathbb{Z}} I_n \right) = P(\mathbb{R}) = 0.
+$$
+However, this contradicts our assumptions which required the fact that $P(\mathbb{R}) = 1$.
+Therefore, no probability measure $P$ on the reals $\mathds{R}$ with the Borel $\sigma$-algebra
+$\mathcal{B}(\mathds{R})$ with the translation-invariance property. \\
+\qed
 
-\noindent {\bf 4.} Let $\Omega=\mathds{R}$, $\mathcal{F}=$ all subsets of $\mathds{R}$ so that $A$ or $A^c$ is countable. Let $P(A)=0$ in the first case and $P(A)=1$ in the second. Show that $(\Omega, \mathcal{F}, P)$ is a probability space.
-
-
+\noindent {\bf 4.}
+Let $\Omega=\mathds{R}$, $\mathcal{F}=$ all subsets of $\mathds{R}$ so that $A$ or $A^c$ is countable.
+Let $P(A)=0$ in the first case and $P(A)=1$ in the second.
+Show that $(\Omega, \mathcal{F}, P)$ is a probability space. \\
+\textit{Solution:} \\
+We want to show $(\Omega, \mathcal{F}, P)$ is a probability space. Therefore, we need to prove the following:
+\begin{itemize}
+\item $\mathcal{F}$ is a $\sigma$-algebra
+	\begin{itemize}
+		\item Is non-empty \\
+		Showing $\mathcal{F}$ is non empty is trivial since we know there exists at least one set $A$ s.t. $A$ or $A^c$ is countable.
+		For example, take the singleton set $B = \{0\}$ since $B \in \mathbb{R}$ and is countable then $B \in \mathcal{F}$.
+		\item If $A \in \mathcal{F}$ then $A^c \in \mathcal{F}$ \\
+		Let $A \in \mathcal{F}$ then either $A$ is countable or $A^c$ is countable. \\
+		\textbf{Case 1:} ($A$ is countable) then $A^c$ is uncountable. 
+		However, $(A^c)^c$ is countable therefore by construction of $\mathcal{F}$ $A^c$ we can conclude $A^c \in \mathcal{F}$ as well. \\
+		\textbf{Case 2:} ($A$ is uncountable) then $A^c$ is countable, therefore by construction of $\mathcal{F}$, it immediately follows that $A^c \in \mathcal{F}$.
+		\item Let $A_i$, $i \in \mathbb{N}$ be a countable collection of sets in $\mathcal{F}$, then their union is also in $\mathcal{F}$. \\
+		We will argue this by going through cases where every $A_i$ is countable, at least one $A_i$ has a countable compliment, and every $A_i$ has a countable compliment. \\
+		\textbf{Case 1:} (Every $A_i$ is countable) which implies $P(A_i) = 0$ for all $i$.
+		The union $\cup_{i=1}^\infty A_i$ is also countable (the countable union of countable sets is countable), then we have
+		$$ P\left(\cup_{i=1}^\infty A_i\right) = 0 \quad \text{and} \quad \cup_{i=1}^\infty A_i \in \mathcal{F}.$$
+		\textbf{Case 2:} (At least one $A_i$ has a countable compliment) Without loss of generality, let $A_1$ be such that $A_1^c$ is countable.
+		Then $P(A_1) = 1$. Therefore, $\cup_{i=1}^\infty A_i$ must also be uncountable (since it contains $A_1$) and then we get
+		$$ P\left(\cup_{i=1}^\infty A_i\right) = 1 \quad \text{and} \quad \cup_{i=1}^\infty A_i \in \mathcal{F}.$$
+		\textbf{Case 3:} (Every $A_i$ has a countable compliment) then $P(A_i) = 1$ for all $i$
+		Then $P(A_1) = 1$. Therefore, $\cup_{i=1}^\infty A_i$ must also be uncountable (since it is the union of uncountable sets) and then we get
+		$$ P\left(\cup_{i=1}^\infty A_i\right) = 1 \quad \text{and} \quad \cup_{i=1}^\infty A_i \in \mathcal{F}.$$
+		Therefore $\mathcal{F}$ is a $\sigma$-algebra. \qed
+	\end{itemize}
+\item $P$ is a probability measure
+	\begin{itemize}
+		\item $P(A) \geq P(\emptyset) = 0 \: \forall A \in \mathcal{F}$ \\
+		Take $A \in \mathcal{F}$ to be countable, then $P(A) = 0$.
+		If $A$ is instead uncountable, then $P(A) = 1$. In any case $P(A) \geq 0$.
+		Therefore by definition of $P$ we have this first property satisfied.
+		\item $P(\Omega) = 1$ \\
+		The set $\Omega = \mathbb{R}$ is uncountable, therefore $P(\Omega) = 1$, again by the definition of $P$ as given in the problem statement.
+		\item $P(\cup_i A_i) = \sum_i P(A_i)$ for a countable sequence of disjoint sets $A_i \in \mathcal{F}$ \\
+		We will need to look at this in terms of similar cases as we did in the third part of the $\sigma$-algebra proof.
+		Recall those cases are where every $A_i$ is countable, at least one $A_i$ has a countable compliment, and every $A_i$ has a countable compliment. \\
+		\textbf{Case 1:} (Every $A_i$ is countable) which implies $P(A_i) = 0$ for all $i$. 
+		And the countable union of countable sets is countable so we have
+		$$P\left(\cup_{i=1}^\infty A_i\right) = 0$$
+		which is the left side of what we want to show.
+		We also have the right side is equal to 0 as well since
+		$$\sum_i P(A_i) = \sum_i 0 = 0$$.
+		Therefore in this case we have
+		$$P(\cup_i A_i) = \sum_i P(A_i)$$ \\
+		\textbf{Case 2:} (At least one $A_i$ has a countable compliment) Without loss of generality, let $A_1$ be such that $A_1^c$ is countable.
+		We then have $P(A_1) = 1.$
+		Now since each of the $A_{i \:\text{s.t.}\: i \neq 1}$ are disjoint from $A_1$ then they can't have a countable compliment.
+		This is due to the fact that if an $A_k$ had a countable compliment then $A_k$ would be uncountable and therefore intersect with $A_1$ at some point.
+		Now, since each $A_{i \:\text{s.t.}\: i \neq 1}$ does not have a countable compliment then they are countable and thus $P(A_i) = 0 \: \forall i \neq 1$.
+		Therefore we have
+		$$P(\cup_i A_i) = P(A_1) = 1$$
+		Since the union $\cup_i A_i$ is uncountable. Now
+		$$ \sum_i P(A_i) = 1 + \sum_{i \neq 1} P(A_i) = 1 + \sum_{i \neq 1} 0 = 1$$
+		Therefore in this case we also have
+		$$P(\cup_i A_i) = \sum_i P(A_i)$$ \\
+		\textbf{Case 3:} (Every $A_i$ has a countable compliment) then $P(A_i) = 1$ for all $i$.
+		We also have that the countable union of uncountable sets is uncountable $\cup_i A_i$.
+		And thus $P(\cup_i A_i) = 1$.
+		Now looking at the sum
+		$$\sum_i P(A_i) = \sum_i 1 = \infty.$$
+		However, since all $A_i$ sets are disjoint this case would never actually occur. 
+		When all sets have a countable compliment, because then the intersection of these uncountable sets would be none empty and they would thus not be disjoint.
+		This case leads to a contradiction. 
+		Therefore have thus shown all valid cases lead to $$P(\cup_i A_i) = \sum_i P(A_i)$$
+		And thus $P$ is a probability measure. \\
+		We have now shown $(\Omega, \mathcal{F}, P)$ is a probability space.
+	\end{itemize}
+\end{itemize}
 
 \end{document}  
