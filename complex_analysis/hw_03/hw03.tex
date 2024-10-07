@@ -1,0 +1,127 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{10-14-24} \\
+\text{AMATH 567} \\
+
+\title{\bf { Homework 3} }
+
+
+\maketitle
+\noindent
+Collaborators*: TBD \\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a colaborator.}
+\normalsize
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item From A\&F: 2.2.4. \\
+\item Describe the Riemann surface on which the multi-valued function
+  $w(z)$, defined by $w^2=\prod_{j=1}^{n=3}\left(z-a_j\right)$ is
+  single-valued. What happens for $n=4,5$ ? For $n>5$ ? You may assume
+  that all the $a_j$ are distinct.\\
+\item From A\&F: 2.2.5a. While you're at it, also derive a formula for $\operatorname{arccot}(z)$ in terms of the logarithm.\\
+
+\item Let
+  \begin{align*}
+    s(z) = z^{1/2} = \rho^{1/2} \E^{\I \theta/2}, \quad \theta \in [-\pi,\pi),
+  \end{align*}
+  denote the principal branch of the square root.  Show that the
+  functions
+  \begin{align*}
+    f_1(z) = s(z^2 -1), \quad f_2(z) = s(z-1) s(z+1),
+  \end{align*}
+  are not equal as functions on $\mathbb C$ --- first produce plots and then use a mathematical argument.  Determine the branch cut for $f_2(z)$ (Note: My
+  cartoon of what the branch cut for $f_1$ looks like in lecture was
+  not accurate).  Find the relationship between $f_1(z)$ and $f_2(z)$.\\
+
+  \item Consider the function
+    \begin{align*}
+     \psi(z) = \int_1^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
+      (-\infty, 1),
+    \end{align*}
+    where the path of integration is a straight line from $1$ to $z$.
+    \begin{itemize}
+   \item  Show that
+    \begin{align*}
+      \psi(z) = \log \varphi(z), \quad \varphi(z) = z + (z^2 -
+      1)^{1/2}, \quad z \not \in
+      (-\infty, 1),
+    \end{align*}
+   for an appropriate choice of branch cut for $(z^2 -
+   1)^{1/2}$.  Here $\log z$ denotes the principal branch.
+   \item Find an expression for
+   \begin{align*}
+     \gamma(z) = \int_{-1}^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
+      (-1, \infty),
+   \end{align*}
+   in terms of $\varphi(z)$ and the principal branch of the logarithm.  Again, the path of integration is a
+   straight line.\\
+ \end{itemize}
+
+ \item Show that $\varphi,$ from the previous problem, maps $\mathbb C \setminus [-1,1]$ onto the
+   exterior of the unit disk, $\{ z \in \mathbb C ~:~ |z| > 1\}$.
+   Furthermore
+   \begin{align*}
+     \frac 1 2 \left( \varphi(z) + 1/\varphi(z) \right) = z, \quad \mathbb C \setminus [-1,1].
+   \end{align*}
+
+   \item (Sharpness of the Bernstein--Walsh inequality)  The
+     Bernstein--Walsh inequality states that if a polynomial $p_n$ of
+     degree $n$ satisfies $\max_{-1 \leq x \leq 1} |p_n(x)| \leq 1$
+     then
+     \begin{align*}
+       |p_n(z)| \leq |\varphi(z)|^n, \quad z \in \mathbb C \setminus [-1,1].
+     \end{align*}
+     Show that
+     \begin{align*}
+        T_n(z) = \frac 1 2 \left( \varphi(z)^n + \varphi(z)^{-n}
+       \right), \quad z \in \mathbb C \setminus [-1,1]
+     \end{align*}
+     is a polynomial that satisfies
+     \begin{align*}
+       \max_{-1 \leq x \leq 1} |T_n(x)| &= 1,\\
+       \lim_{n \to \infty} |T_n(z)|^{1/n} &= |\varphi(z)|,
+     \end{align*}
+     for any fixed $z \in \mathbb C \setminus [-1,1]$.
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
