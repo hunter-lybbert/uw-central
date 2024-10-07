@@ -102,18 +102,18 @@ I_n \cap I_m = \emptyset \quad \text{for } n \neq m.
 $$
 The way these sets are constructed we also get that, the union of these disjoint sets covers the entire real line:
 $$
-\mathbb{R} = \bigcup_{n \in \mathbb{Z}} I_n.
+\mathbb{R} = \cup_{n \in \mathbb{Z}} I_n.
 $$
 \noindent
 By translation invariance of $P$, we have $P(I_n) = P(I) \: \text{for all } n \in \mathbb{Z}$.
 Let $p = P(I)$. Then, since $P$ is a probability measure we have
 $$
-P(\mathbb{R}) = P\left( \bigcup_{n \in \mathbb{Z}} I_n \right) = \sum_{n \in \mathbb{Z}} P(I_n) = \sum_{n \in \mathbb{Z}} p.
+P(\mathbb{R}) = P\left( \cup_{n \in \mathbb{Z}} I_n \right) = \sum_{n \in \mathbb{Z}} P(I_n) = \sum_{n \in \mathbb{Z}} p.
 $$
 Since the sum $\sum_{n \in \mathbb{Z}} p$ includes infinitely many terms, it will go to $\infty$ unless $p = 0$. Thus, $p = 0$, meaning $P(I) = 0$.
 Since $P(I) = 0$, by translation invariance, $P(I_n) = 0$ for all $n \in \mathbb{Z}$. Therefore:
 $$
-P\left( \bigcup_{n \in \mathbb{Z}} I_n \right) = P(\mathbb{R}) = 0.
+P\left( \cup_{n \in \mathbb{Z}} I_n \right) = P(\mathbb{R}) = 0.
 $$
 However, this contradicts our assumptions which required the fact that $P(\mathbb{R}) = 1$.
 Therefore, no probability measure $P$ on the reals $\mathds{R}$ with the Borel $\sigma$-algebra
@@ -131,28 +131,67 @@ We want to show $(\Omega, \mathcal{F}, P)$ is a probability space. Therefore, we
 	\begin{itemize}
 		\item Is non-empty \\
 		Showing $\mathcal{F}$ is non empty is trivial since we know there exists at least one set $A$ s.t. $A$ or $A^c$ is countable.
-		For example, take the singleton set $B = \{0\}$ since $B \in \mathbb{R}$ and is countable then $B \in \mathcal{F}$. \qed
+		For example, take the singleton set $B = \{0\}$ since $B \in \mathbb{R}$ and is countable then $B \in \mathcal{F}$.
 		\item If $A \in \mathcal{F}$ then $A^c \in \mathcal{F}$ \\
 		Let $A \in \mathcal{F}$ then either $A$ is countable or $A^c$ is countable. \\
-		Case 1: ($A$ is countable) then $A^c$ is uncountable. 
+		\textbf{Case 1:} ($A$ is countable) then $A^c$ is uncountable. 
 		However, $(A^c)^c$ is countable therefore by construction of $\mathcal{F}$ $A^c$ we can conclude $A^c \in \mathcal{F}$ as well. \\
-		Case 2: ($A$ is uncountable) then $A^c$ is countable, therefore by construction of $\mathcal{F}$, it immediately follows that $A^c \in \mathcal{F}$. \qed
+		\textbf{Case 2:} ($A$ is uncountable) then $A^c$ is countable, therefore by construction of $\mathcal{F}$, it immediately follows that $A^c \in \mathcal{F}$.
 		\item Let $A_i$, $i \in \mathbb{N}$ be a countable collection of sets in $\mathcal{F}$, then their union is also in $\mathcal{F}$. \\
-		We will argue this by going through cases of having two sets $A$ and $B$ each be countable, uncountable, and one of each. Suppose \\
-		\textbf{Incomplete}
+		We will argue this by going through cases where every $A_i$ is countable, at least one $A_i$ has a countable compliment, and every $A_i$ has a countable compliment. \\
+		\textbf{Case 1:} (Every $A_i$ is countable) which implies $P(A_i) = 0$ for all $i$.
+		The union $\cup_{i=1}^\infty A_i$ is also countable (the countable union of countable sets is countable), then we have
+		$$ P\left(\cup_{i=1}^\infty A_i\right) = 0 \quad \text{and} \quad \cup_{i=1}^\infty A_i \in \mathcal{F}.$$
+		\textbf{Case 2:} (At least one $A_i$ has a countable compliment) Without loss of generality, let $A_1$ be such that $A_1^c$ is countable.
+		Then $P(A_1) = 1$. Therefore, $\cup_{i=1}^\infty A_i$ must also be uncountable (since it contains $A_1$) and then we get
+		$$ P\left(\cup_{i=1}^\infty A_i\right) = 1 \quad \text{and} \quad \cup_{i=1}^\infty A_i \in \mathcal{F}.$$
+		\textbf{Case 3:} (Every $A_i$ has a countable compliment) then $P(A_i) = 1$ for all $i$
+		Then $P(A_1) = 1$. Therefore, $\cup_{i=1}^\infty A_i$ must also be uncountable (since it is the union of uncountable sets) and then we get
+		$$ P\left(\cup_{i=1}^\infty A_i\right) = 1 \quad \text{and} \quad \cup_{i=1}^\infty A_i \in \mathcal{F}.$$
+		Therefore $\mathcal{F}$ is a $\sigma$-algebra. \qed
 	\end{itemize}
 \item $P$ is a probability measure
 	\begin{itemize}
 		\item $P(A) \geq P(\emptyset) = 0 \: \forall A \in \mathcal{F}$ \\
-		\textbf{Incomplete}
+		Take $A \in \mathcal{F}$ to be countable, then $P(A) = 0$.
+		If $A$ is instead uncountable, then $P(A) = 1$. In any case $P(A) \geq 0$.
+		Therefore by definition of $P$ we have this first property satisfied.
 		\item $P(\Omega) = 1$ \\
-		\textbf{Incomplete}
+		The set $\Omega = \mathbb{R}$ is uncountable, therefore $P(\Omega) = 1$, again by the definition of $P$ as given in the problem statement.
 		\item $P(\cup_i A_i) = \sum_i P(A_i)$ for a countable sequence of disjoint sets $A_i \in \mathcal{F}$ \\
-		\textbf{Incomplete}
+		We will need to look at this in terms of similar cases as we did in the third part of the $\sigma$-algebra proof.
+		Recall those cases are where every $A_i$ is countable, at least one $A_i$ has a countable compliment, and every $A_i$ has a countable compliment. \\
+		\textbf{Case 1:} (Every $A_i$ is countable) which implies $P(A_i) = 0$ for all $i$. 
+		And the countable union of countable sets is countable so we have
+		$$P\left(\cup_{i=1}^\infty A_i\right) = 0$$
+		which is the left side of what we want to show.
+		We also have the right side is equal to 0 as well since
+		$$\sum_i P(A_i) = \sum_i 0 = 0$$.
+		Therefore in this case we have
+		$$P(\cup_i A_i) = \sum_i P(A_i)$$ \\
+		\textbf{Case 2:} (At least one $A_i$ has a countable compliment) Without loss of generality, let $A_1$ be such that $A_1^c$ is countable.
+		We then have $P(A_1) = 1.$
+		Now since each of the $A_{i \:\text{s.t.}\: i \neq 1}$ are disjoint from $A_1$ then they can't have a countable compliment.
+		This is due to the fact that if an $A_k$ had a countable compliment then $A_k$ would be uncountable and therefore intersect with $A_1$ at some point.
+		Now, since each $A_{i \:\text{s.t.}\: i \neq 1}$ does not have a countable compliment then they are countable and thus $P(A_i) = 0 \: \forall i \neq 1$.
+		Therefore we have
+		$$P(\cup_i A_i) = P(A_1) = 1$$
+		Since the union $\cup_i A_i$ is uncountable. Now
+		$$ \sum_i P(A_i) = 1 + \sum_{i \neq 1} P(A_i) = 1 + \sum_{i \neq 1} 0 = 1$$
+		Therefore in this case we also have
+		$$P(\cup_i A_i) = \sum_i P(A_i)$$ \\
+		\textbf{Case 3:} (Every $A_i$ has a countable compliment) then $P(A_i) = 1$ for all $i$.
+		We also have that the countable union of uncountable sets is uncountable $\cup_i A_i$.
+		And thus $P(\cup_i A_i) = 1$.
+		Now looking at the sum
+		$$\sum_i P(A_i) = \sum_i 1 = \infty.$$
+		However, since all $A_i$ sets are disjoint this case would never actually occur. 
+		When all sets have a countable compliment, because then the intersection of these uncountable sets would be none empty and they would thus not be disjoint.
+		This case leads to a contradiction. 
+		Therefore have thus shown all valid cases lead to $$P(\cup_i A_i) = \sum_i P(A_i)$$
+		And thus $P$ is a probability measure. \\
+		We have now shown $(\Omega, \mathcal{F}, P)$ is a probability space.
 	\end{itemize}
 \end{itemize}
-
-
-
 
 \end{document}  
