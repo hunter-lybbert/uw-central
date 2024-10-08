@@ -2,6 +2,8 @@
 \usepackage[margin=1.4in]{geometry}
 \usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
 \usepackage{cancel}
+\usepackage{graphicx,subfig}
+\graphicspath{ {./images/} }
 
 \usepackage{amssymb,amsmath,enumitem,url}
 
@@ -152,6 +154,11 @@ as required.
   cartoon of what the branch cut for $f_1$ looks like in lecture was
   not accurate).  Find the relationship between $f_1(z)$ and $f_2(z)$.\\
 \textit{Solution:} \\
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{problem_4_vis.png}
+ 	\caption{Plot $\left|f_\epsilon(z)\right| = \left| \frac{\epsilon}{\epsilon^2+z^2}\right|$, for various values of $\epsilon$.}\label{fig:f1}
+\end{figure}
 
   \item Consider the function
     \begin{align*}
