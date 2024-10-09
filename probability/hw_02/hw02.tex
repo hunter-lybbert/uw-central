@@ -2,6 +2,8 @@
 \include{amsmath}
 \usepackage{dsfont}													% gives you \mathds{} font
 
+\newcommand{\D}{\mathrm{d}}
+
 \begin{document}
 
 \noindent
@@ -12,13 +14,63 @@
 \title{Problem Set 2}
 \maketitle
 
-\noindent {\bf 1.} Suppose $X$ and $Y$ are random variables on $(\Omega, \mathcal{F},P)$ and let $A\in \mathcal{F}$. Show that if we let $Z(\omega)=X(\omega)$ for $\omega \in A$ and $Z(\omega)=Y(\omega)$ for $\omega \in A^c$, then $Z$ is a random variable. 
+\noindent {\bf 1.} Suppose $X$ and $Y$ are random variables on $(\Omega, \mathcal{F},P)$ and let $A\in \mathcal{F}$. Show that if we let $Z(\omega)=X(\omega)$ for $\omega \in A$ and $Z(\omega)=Y(\omega)$ for $\omega \in A^c$, then $Z$ is a random variable. \\
+\textit{Solution:} \\
+We need to show that $Z$ is a random variable as it is defined.
+That is we need to show it is a function that maps from a sample space $\Omega$ to the real numbers.
+Starting from knowing $X$ and $Y$ are random variables that means we have:
+$$ X: \Omega \rightarrow \mathbb{R} $$ and $$ Y: \Omega \rightarrow \mathbb{R}.$$
+Now rewriting $Z$ a little more mathematically we have 
+$$
+Z(\omega)= \begin{cases}
+ 	X(\omega), & \omega \in A, \\
+	Y(\omega), & \omega \in A^c
+\end{cases}
+$$
+where \( A \in \mathcal{F}\).
+Note, since A is an event in \(\mathcal{F}\), every $\omega \in A$ must also be in $\Omega$ since \(\mathcal{F}\) is a collection of events composed of outcomes from \(\Omega\).
+In other words, \(\mathcal{F}\) is made up of subsets of \(\Omega\) which means $A \subseteq \Omega$ and thus \(A^c \subseteq \Omega\) as well.
+By definition of the compliment $A \cap  A^c = \emptyset $.
+Therefore $A$ and $A^c$ are a partition on $\Omega$.
+Since $Z$ is defined on  $\omega \in A$ or $\omega \in A^C$ then $Z$ is defined on all of $\Omega$.
+Now we have shown that the domain of $Z$ is $\Omega$.
+Additionally, since $X$ and $Y$ each map from $\Omega$ to $\mathbb{R}$, $Z$ must also map to $\mathbb{R}$ since it's output is determined by the output of $X$ and $Y$.
+Therefore $Z$ is function such that $$Z: \Omega \rightarrow \mathbb{R}$$
+and thus $Z$ is a random variable.
+\qed
 \\
 
-\noindent {\bf 2.} Suppose $X$ is a continuous random variable with distribution function $F_X$. Let $g$ be a strictly increasing continuous function. Define $Y=g(X)$. a) What is $F_Y$, the distribution function of $Y$? b) What is $f_Y$, the density function of $Y$?
+\noindent {\bf 2.} Suppose $X$ is a continuous random variable with distribution function $F_X$. Let $g$ be a strictly increasing continuous function. Define $Y=g(X)$. \\ \\
+\noindent
+a) What is $F_Y$, the distribution function of $Y$? \\
+\textit{Solution:} \\
+We know that there is some probability space that the random variable X is defined on, let that be $(\Omega, \mathcal{F},P)$.
+Therefore $X: \Omega \rightarrow \mathbb{R}$ and since $g$ is a strictly increasing continuous function $g: \mathbb{R} \rightarrow L$ where $L$ is the output space of $g$, $L$ could be $\mathbb{R}$ for example, then $g(X): \Omega \rightarrow \mathbb{R}$ (we take $L = \mathbb{R}$ for now as the most likely assumption).
+Note that since $Y = g(X)$ then $Y: \Omega \rightarrow \mathbb{R}$ is also true.
+In order to construct $F_Y$ we need to determine the relationship they have.
+\begin{eqnarray*}
+F_X = \int_{-\infty}^{x} f_X(x)\D x
+\end{eqnarray*}
+Therefore we get 
+\begin{eqnarray*}
+g(F_X) &=& \int_{-\infty}^{x} g(f_X(x))\D x \\
+F_Y &=& \int_{-\infty}^{x} F_y(x)\D x
+\end{eqnarray*}
+b) What is $f_Y$, the density function of $Y$? \\
+\textit{Solution:} \\
+And thus $f_Y = g(f_X(x))$.
 \\
 
-\noindent {\bf 3.} Suppose $X$ is a continuous random variable with distribution function $F_X$. Find $F_Y$ where $Y$ is given by a) $X^2$ b) $\sqrt{|X|}$ c) $\sin X$ d) $F_X(X)$.
+\noindent {\bf 3.} Suppose $X$ is a continuous random variable with distribution function $F_X$. Find $F_Y$ where $Y$ is given by \\
+
+\noindent a) $X^2$ \textit{Solution:} \\
+That is to say $Y = X^2$ This is going to be easy once I know how to change from X to Y. \\
+\noindent b) $\sqrt{|X|}$ \textit{Solution:} \\
+That is to say $Y = \sqrt{|X|}$ \\
+\noindent c) $\sin X$ \textit{Solution:} \\
+That is to say $Y = \sin X$ \\
+\noindent d) $F_X(X)$ \textit{Solution:} \\
+That is to say $Y = F_X(X)$ \\
 \\
 
 \noindent {\bf 4.}  Let $X: [0,1] \to \mathbf{R}$ be a function that maps every rational number in the interval $[0,1]$ to 0, and every irrational number to 1. We assume that the probability space where $X$ is defined is $([0,1],\mathcal{B}[0,1],P)$, where $\mathcal{B}[0,1]$ is the Borel $\sigma$-algebra on [0,1], and $P$ is the Lebesgue measure. 
