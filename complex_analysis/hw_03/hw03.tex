@@ -49,19 +49,46 @@
 Collaborators*: TBD \\
 \\
 \tiny
-\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a colaborator.}
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
 \normalsize
 \mline
 \begin{enumerate}[label={\bf {\arabic*}:}]
 \item From A\&F: 2.2.4. \\
 Let $\alpha$ be a real number.
-Show that the set of all values of the multivalued function $\log(z^a)$ is not necessarily the same as that of $\alpha \log z$. \\
+Show that the set of all values of the multivalued function $\log(z^\alpha)$ is not necessarily the same as that of $\alpha \log z$. \\
 \textit{Solution:} \\
+Let's begin by looking more closely at the values that the function $\alpha \log z$ can take on.
+Starting with $w = \alpha \log z$, notice we have
+\begin{eqnarray*}
+\alpha \log z &=& w \\
+\log z &=& \frac{w}{\alpha} \\
+z &=& \E^{\frac{w}{\alpha}}.
+\end{eqnarray*}
+Now recall that $w = u + iv$ therefore we also have
+\begin{eqnarray*}
+z &=& \E^{\frac{u + iv}{\alpha}} \\
+z &=& \E^{\frac{u}{\alpha}}\E^{\frac{iv}{\alpha}} \\
+\log z &=& \log\left(\E^{\frac{u}{\alpha}}\E^{\frac{iv}{\alpha}} \right) \\
+\log z &=& \log \E^{\frac{u}{\alpha}} + \log \E^{\frac{iv}{\alpha}} \\
+\log z &=& \frac{\log r}{\alpha} + \frac{i\theta}{\alpha} + \frac{2i\pi k}{\alpha}, \: k \in \mathbb{Z}. \\
+\end{eqnarray*}
+Where the last line comes from the fact that we have $w = r\E^{i\theta}$, $r = \E^u$, and $v = \theta + 2\pi k$ again with $k \in \mathbb{Z}$.
+Now considering the other side
+\begin{eqnarray*}
+\log(z^\alpha) &=& w \\
+z^\alpha &=& \E^w \\
+z &=& \left(\E^w\right)^\frac{1}{\alpha}. \\
+\end{eqnarray*}
+Therefore this is going to come down to the fact that this is not always going to be equivalent $\E^{\frac{w}{\alpha}} \neq = \left(\E^w\right)^\frac{1}{\alpha}$.
 \item Describe the Riemann surface on which the multi-valued function
   $w(z)$, defined by $w^2=\prod_{j=1}^{n=3}\left(z-a_j\right)$ is
   single-valued. What happens for $n=4,5$ ? For $n>5$ ? You may assume
   that all the $a_j$ are distinct.\\
 \textit{Solution:} \\
+Let's build up to what the the Riemann surface for $w^2=\prod_{j=1}^{n=3}\left(z-a_j\right)$ will look like.
+Beginning with $w^2 = z$ the branch point at the origin of the complex plane z = 0.
+is moved to the location $a_0$ instead of
+Reimann Surfacebe similar to that of $w^2 = z - a_0$ which is yet again similar to $w^2 = z$ except the branch point is moved to the location $a_0$ instead of the origin of the complex plane z = 0.
 \item From A\&F: 2.2.5a. \\
 Derive the following formulae: \\
 a) $$\coth^{-1}(z) = \frac{1}{2}\log\frac{z + 1}{z - 1}$$
