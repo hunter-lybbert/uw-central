@@ -59,11 +59,22 @@ Show that the set of all values of the multivalued function $\log(z^\alpha)$ is 
 \textit{Solution:} \\
 Let's begin by looking more closely at the values that the function $\alpha \log z$ can take on.
 Starting with $w = \alpha \log z$, notice we have
-\begin{eqnarray*}
-\alpha \log z &=& w \\
-\log z &=& \frac{w}{\alpha} \\
-z &=& \E^{\frac{w}{\alpha}}.
-\end{eqnarray*}
+\begin{align*}
+\alpha \log z &= \alpha \log\left( r\E^{i\theta} \right) \\
+		   &= \alpha \left(\log r + i\theta\right) \: \text{where we say} \:\: \theta = \theta_p + 2\pi k, \: k \in \mathbb{Z} \\
+		   &= \alpha \left(\log r + i\left(\theta_p + 2\pi k\right)\right), \: k \in \mathbb{Z} \\
+		   &= \alpha \left(\log r + i\theta_p + 2i\pi k \right), \: k \in \mathbb{Z} \\
+		   &= \alpha \log r + \alpha i \theta_p + \alpha 2i\pi k, \: k \in \mathbb{Z}. \\
+\end{align*}
+Now considering the other expression
+\begin{align*}
+\log \left( z^\alpha \right) &= \log \left( \left(r\E^{i\theta}\right)^\alpha\right) \\
+				     &= \log \left( r^\alpha \E^{i\theta\alpha}\right) \\
+				     &= \log r^\alpha + i\theta\alpha  \: \text{where we say} \:\: \theta = \theta_p + 2\pi k, \: k \in \mathbb{Z} \\
+				     &= \log r^\alpha + i\left(\theta_p + 2\pi k\right)\alpha  \: \text{where we say} \:\: \theta = \theta_p + 2\pi k, \: k \in \mathbb{Z} \\
+				     &= \log r^\alpha + i\left(\theta_p + 2\pi k\right)\alpha, \: k \in \mathbb{Z} \\
+				     &= \log r^\alpha + \alpha i \theta_p + \alpha 2i\pi k, \: k \in \mathbb{Z}. \\
+\end{align*}
 Now recall that $w = u + iv$ therefore we also have
 \begin{eqnarray*}
 z &=& \E^{\frac{u + iv}{\alpha}} \\
@@ -186,7 +197,7 @@ as required.
 	\includegraphics[width=1\textwidth]{problem_4_vis.png}
  	\caption{Plot $\left|f_\epsilon(z)\right| = \left| \frac{\epsilon}{\epsilon^2+z^2}\right|$, for various values of $\epsilon$.}\label{fig:f1}
 \end{figure}
-
+$z=t{{z}_{1}}+(1-t){{z}_{2}}$
   \item Consider the function
     \begin{align*}
      \psi(z) = \int_1^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
