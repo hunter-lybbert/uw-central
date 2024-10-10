@@ -75,22 +75,6 @@ Now considering the other expression
 				     &= \log r^\alpha + i\left(\theta_p + 2\pi k\right)\alpha, \: k \in \mathbb{Z} \\
 				     &= \log r^\alpha + \alpha i \theta_p + \alpha 2i\pi k, \: k \in \mathbb{Z}. \\
 \end{align*}
-Now recall that $w = u + iv$ therefore we also have
-\begin{eqnarray*}
-z &=& \E^{\frac{u + iv}{\alpha}} \\
-z &=& \E^{\frac{u}{\alpha}}\E^{\frac{iv}{\alpha}} \\
-\log z &=& \log\left(\E^{\frac{u}{\alpha}}\E^{\frac{iv}{\alpha}} \right) \\
-\log z &=& \log \E^{\frac{u}{\alpha}} + \log \E^{\frac{iv}{\alpha}} \\
-\log z &=& \frac{\log r}{\alpha} + \frac{i\theta}{\alpha} + \frac{2i\pi k}{\alpha}, \: k \in \mathbb{Z}. \\
-\end{eqnarray*}
-Where the last line comes from the fact that we have $w = r\E^{i\theta}$, $r = \E^u$, and $v = \theta + 2\pi k$ again with $k \in \mathbb{Z}$.
-Now considering the other side
-\begin{eqnarray*}
-\log(z^\alpha) &=& w \\
-z^\alpha &=& \E^w \\
-z &=& \left(\E^w\right)^\frac{1}{\alpha}. \\
-\end{eqnarray*}
-Therefore this is going to come down to the fact that this is not always going to be equivalent $\E^{\frac{w}{\alpha}} \neq = \left(\E^w\right)^\frac{1}{\alpha}$.
 \item Describe the Riemann surface on which the multi-valued function
   $w(z)$, defined by $w^2=\prod_{j=1}^{n=3}\left(z-a_j\right)$ is
   single-valued. What happens for $n=4,5$ ? For $n>5$ ? You may assume
@@ -195,9 +179,10 @@ as required.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\textwidth]{problem_4_vis.png}
- 	\caption{Plot $\left|f_\epsilon(z)\right| = \left| \frac{\epsilon}{\epsilon^2+z^2}\right|$, for various values of $\epsilon$.}\label{fig:f1}
+ 	\caption{
+	From problem 4, plot lot $f_1(z) = s(z^2 -1)$, $f_2(z) = s(z-1) s(z+1)$, where $s(z) = z^{1/2} = \rho^{1/2} \E^{\I \theta/2},\:\:
+	\theta \in [-\pi,\pi)$, denote the principal branch of the square root.}\label{fig:f1}
 \end{figure}
-$z=t{{z}_{1}}+(1-t){{z}_{2}}$
   \item Consider the function
     \begin{align*}
      \psi(z) = \int_1^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
@@ -212,7 +197,9 @@ $z=t{{z}_{1}}+(1-t){{z}_{2}}$
       (-\infty, 1),
     \end{align*}
    for an appropriate choice of branch cut for $(z^2 -
-   1)^{1/2}$.  Here $\log z$ denotes the principal branch.
+   1)^{1/2}$.  Here $\log z$ denotes the principal branch. \\
+   \textit{Solution:} \\
+   We will first show that $\log \varphi(z)$ is analytic. After which we will also show that $\log \varphi(z)$ is indeed the anti-derivative of what we have in the integrand.
    \item Find an expression for
    \begin{align*}
      \gamma(z) = \int_{-1}^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
