@@ -46,7 +46,7 @@
 
 \maketitle
 \noindent
-Collaborators*: TBD \\
+Collaborators*: Laura Thomas \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -57,33 +57,92 @@ Collaborators*: TBD \\
 Let $\alpha$ be a real number.
 Show that the set of all values of the multivalued function $\log(z^\alpha)$ is not necessarily the same as that of $\alpha \log z$. \\
 \textit{Solution:} \\
-Let's begin by looking more closely at the values that the function $\alpha \log z$ can take on.
-Starting with $w = \alpha \log z$, notice we have
+Let's begin by looking at a precise counter example.
+Note when we use the $\log(z)$ we are taking the principal branch where $\theta \in [-\pi, \pi)$.
+Let $\alpha = 3$ and $z = i = \E^{i\frac{\pi}{2}}$, then 
 \begin{align*}
-\alpha \log z &= \alpha \log\left( r\E^{i\theta} \right) \\
-		   &= \alpha \left(\log r + i\theta\right) \: \text{where we say} \:\: \theta = \theta_p + 2\pi k, \: k \in \mathbb{Z} \\
-		   &= \alpha \left(\log r + i\left(\theta_p + 2\pi k\right)\right), \: k \in \mathbb{Z} \\
-		   &= \alpha \left(\log r + i\theta_p + 2i\pi k \right), \: k \in \mathbb{Z} \\
-		   &= \alpha \log r + \alpha i \theta_p + \alpha 2i\pi k, \: k \in \mathbb{Z}. \\
+\alpha \log z &=  3 \log \left( \E^{i\frac{\pi}{2}} \right) \\
+&= \frac{3 i \pi}{2}.
 \end{align*}
-Now considering the other expression
+Additionally,
 \begin{align*}
-\log \left( z^\alpha \right) &= \log \left( \left(r\E^{i\theta}\right)^\alpha\right) \\
-				     &= \log \left( r^\alpha \E^{i\theta\alpha}\right) \\
-				     &= \log r^\alpha + i\theta\alpha  \: \text{where we say} \:\: \theta = \theta_p + 2\pi k, \: k \in \mathbb{Z} \\
-				     &= \log r^\alpha + i\left(\theta_p + 2\pi k\right)\alpha  \: \text{where we say} \:\: \theta = \theta_p + 2\pi k, \: k \in \mathbb{Z} \\
-				     &= \log r^\alpha + i\left(\theta_p + 2\pi k\right)\alpha, \: k \in \mathbb{Z} \\
-				     &= \log r^\alpha + \alpha i \theta_p + \alpha 2i\pi k, \: k \in \mathbb{Z}. \\
+\log z^\alpha &=  \log \left( (\E^{i\frac{\pi}{2}})^3 \right) \\
+		    &=  \log \left(\E^{i\frac{3\pi}{2}}\right).
 \end{align*}
+Since $\frac{3\pi}{2}$ is not in our admissible range for $\theta$ we need to adjust it.
+Now 
+$$
+\E^{i\frac{3\pi}{2}} = \E^{i\left(\frac{3\pi}{2} + 2\pi k\right)} =  \E^{-i\frac{\pi}{2}},
+$$
+where $k \in \mathbb{Z}$ and then taken specifically to be $k=-1$.
+Now plugging this back into our calculation of our specific $\log z^\alpha$ we see
+$$
+\log z^\alpha = \log \left(\E^{i\frac{3\pi}{2}}\right) = \log \left(\E^{-i\frac{\pi}{2}}\right) = -i\frac{\pi}{2} \neq \frac{3 i \pi}{2} = \alpha \log z
+$$
+Therefore, the values of $\log \left(z^\alpha\right)$ are not necessarily the same as that of $\alpha \log z$.
+\qed \\
 \item Describe the Riemann surface on which the multi-valued function
   $w(z)$, defined by $w^2=\prod_{j=1}^{n=3}\left(z-a_j\right)$ is
   single-valued. What happens for $n=4,5$ ? For $n>5$ ? You may assume
   that all the $a_j$ are distinct.\\
 \textit{Solution:} \\
-Let's build up to what the the Riemann surface for $w^2=\prod_{j=1}^{n=3}\left(z-a_j\right)$ will look like.
-Beginning with $w^2 = z$ the branch point at the origin of the complex plane z = 0.
-is moved to the location $a_0$ instead of
-Reimann Surfacebe similar to that of $w^2 = z - a_0$ which is yet again similar to $w^2 = z$ except the branch point is moved to the location $a_0$ instead of the origin of the complex plane z = 0.
+Before describing the Reimann Surfaces for these cases, I want to establish how I am interpreting $()^\frac{1}{2}$ in the context of this problem.
+I am choosing the principal branch for the function $()^\frac{1}{2}$ such that $$\left((z - a_j)(z - a_i)\right)^\frac{1}{2} = (z - a_j)^\frac{1}{2}(z - a_i)^\frac{1}{2}.$$
+The branch cut will once again limit the values of $\theta$ to the interval $[-\pi, \pi)$.
+Any time we have multiple branch points we need first inspect if any of the branch cuts overlap.
+We have to be very careful about the behavior of overlapping branch cuts.
+For simplicity, we are taking all branch cuts to be from the branch point $a_j$ going to the left (such that it is the complex number where the $\Re z < \Re a_j$ that is the branch cut which binds $\theta \in [-\pi, \pi)$.
+Additionally we add a bit of notation to aid in our discussion of overlapping branch cuts. We write $f(z) = \prod_{j=1}^{n=3}\left(z-a_j\right)$ which can be broken down into components
+\begin{align*}
+f(z) &= \left(\prod_{j=1}^{n}\left(z-a_j\right)\right)^\frac{1}{2} \\
+      &= \prod_{j=1}^{n}\left(z-a_j\right)^\frac{1}{2} \\
+      &= (z - a_1)^\frac{1}{2}(z - a_2)^\frac{1}{2}...(z - a_n)^\frac{1}{2} \\
+      &= f_1(z)f_2(z)...f_n(z),
+\end{align*}
+where the second and third lines are equal due to our choice of branch cut as stated at the start of the problem.
+Now we need to draw a few pictures and go through a few cases.
+Let's begin with the case where $n = 3$ where we have $f(z) = f_1(z)f_2(z)f_3(z)$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{riemann_surface_3_4}
+ 	\caption{
+	From problem 2, Riemann Surface drawings where $n=3$ and $n=4$.}\label{fig:f2}
+\end{figure}
+Now looking at Figure \ref{fig:f2}, I have drawn a feasible Riemann surface step by step.
+In step 1) I represent each of the branch cuts starting at the branch points for each $f_1$, $f_2$, and $f_3$.
+Notice that $a_2$ and $a_3$ happen to be such that $\Re a_2 = \Re a_3$ therefore their branch cuts overlap from $(-\infty, a_2]$.
+Now we investigate the behavior of overlapping branch cuts.
+The branch cut for $a_2$ corresponds to where the sign of $f_2$ flips, similarly for $f_3$'s sign flipping.
+Notice if the branch cuts overlap, then both $f_2$ and $f_3$'s signs will flip from $+$ to $-$ at the same time.
+Notice
+$$
+f_2f_3 = (-f_2)(-f_3)
+$$
+therefore overlapping branch cuts actually can cancel on another out.
+However, also observe (as a preview to the example I give when $n=5$ in Figure \ref{fig:f3})
+$$
+f_1f_2f_3 \neq (-f_1)(-f_2)(-f_3) = -f_1f_2f_3.
+$$
+Therefore, we have that an even number of overlapping branch cuts cancel one another out, but an odd number of overlapping branch cuts is indeed still a branch cut.
+I will proceed to carefully describe the $n=3$ case, however these principles can easily be applied and understood as one inspects the drawings for the $n=4$ and $n=5$ cases.
+Now returning to our specific scenario drawn for $n=3$, applying what we have established for overlapping branch cuts, the $a_3$ branch cut cancels out the whole $a_2$ branch cut and only leaves the section of the $a_3$ branch cut from $a_3$ to $a_2$ (as depicted in part 2 of Figure \ref{fig:f2}).
+Additionally we have a branch cut from $a_1$ to $-\infty$ which evidently is the same as $\infty$ in the complex plane (Riemann Sphere). \\
+
+Now steps, 3-5 of Figure \ref{fig:f2}, proceed through the process of "stretching" these branch cuts apart in two copies of the complex sphere and lining them up appropriately with one another to form a Riemann Surface of a donut shape.
+The number of connections between these two copies of the complex sphere depends on the number of branch cuts that remain in the complex domain after we have worked out the overlapping cases.
+In Figure \ref{fig:f3} I have depicted the scenario when $n=5$ and $a_1$, $a_2$, $a_3$, $a_4$, $a_5$ happen to be dispersed in the complex plane such that we are left with 3 branch cuts.
+Therefore there are 3 places to line up the stretched branch cuts in the complex sphere.
+The resulting Riemann Surface in such a scenario is the depicted double torus.
+These are the types of Riemann Surfaces which result from a function such as $f(z) = \left(\prod_{j=1}^{n}\left(z-a_j\right)\right)^\frac{1}{2}$.
+\qed \\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{riemann_surface_5}
+ 	\caption{
+	From problem 2, Riemann Surface drawings where $n=5$.}\label{fig:f3}
+\end{figure}
+
 \item From A\&F: 2.2.5a. \\
 Derive the following formulae: \\
 a) $$\coth^{-1}(z) = \frac{1}{2}\log\frac{z + 1}{z - 1}$$
@@ -107,35 +166,10 @@ w &=& \frac{1}{2}\log \left(\frac{z + 1}{z - 1} \right) + i\pi k, \: k \in \math
 This is to show
 $$\coth^{-1}(z) = \operatorname{arccot}(\coth w) = w = \frac{1}{2}\log \left(\frac{z + 1}{z - 1} \right) + i\pi k, \: k \in \mathbb{Z}.$$
 More directly we have 
-$$\coth^{-1}(z) = \frac{1}{2}\log \left(\frac{z + 1}{z - 1} \right) + i\pi k, \: k \in \mathbb{Z}.$$
-as required. 
-\textbf{TODO:} determine what your choice of $k$ should be \qed \\
-b) $$\sech^{-1}(z) = \log \left(\frac{1 + (1 - z^2)^{\frac{1}{2}}}{z}\right)$$
-\textit{Solution:} \\
-We begin with solving for $w$ in $z = \sech{w}$ with $w, z \in \mathbb{C}$. 
-\begin{eqnarray*}
-z = \sech{w} &=& \frac{1}{\cosh w} = \frac{1}{\frac{e^{w} + e^{-w}}{2}} = \frac{2}{e^{w} + e^{-w}} \\
-	  &=& \frac{e^{w}}{e^{w}} \frac{2}{e^{w} + e^{-w}} = \frac{ 2e^{w}}{ e^{2w} + 1 }
-\end{eqnarray*}
-Now let's proceed by multiplying both sides by the denominator
-\begin{eqnarray*}
-z\left( e^{2w} + 1 \right) &=&  2e^{w}\\
-ze^{2w} + z &=&  2e^{w}\\
-ze^{2w} - 2e^{w}+ z &=&  0\\
-\end{eqnarray*}
-We now use the quadratic formula to solve for $e^{w}$
-\begin{eqnarray*}
-e^{w} &=& \frac{2 + \left(4 - 4z^2\right)^{\frac{1}{2}}}{2z} \\
-e^{w} &=& \frac{\cancel2 + \cancel2\left(1 - z^2\right)^{\frac{1}{2}}}{\cancel2z} \\
-\log e^{w} &=& \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z} \\
-w &=& \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z} \\
-\end{eqnarray*}
-This is to show
-$$\sech^{-1}(z) = \sech^{-1}(\sech w) = w = \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z}.$$
-More directly we have 
-$$\sech^{-1}(z) = \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z}.$$
-as required. 
-\textbf{TODO:} determine what your choice of $k$ should be and how to denote the related cuts made for the $\sqrt{\cdot}$ function.
+$$\coth^{-1}(z) = \frac{1}{2}\log \left(\frac{z + 1}{z - 1} \right).$$
+as required.
+Where the final statement comes from choosing the principal branch of the $\log$, meaning $\theta \in [-\pi, \pi)$.
+We also take $k = 0$.
 \qed \\
 \\
 While you're at it, also derive a formula for $\operatorname{arccot}(z)$ in terms of the logarithm. \\
@@ -161,7 +195,10 @@ $$\operatorname{arccot}(z) = \operatorname{arccot}(\cot w) = w = \frac{1}{2i}\lo
 More directly we have 
 $$ \operatorname{arccot}(z) = \frac{1}{2i}\log \left(\frac{z + i}{z - i} \right) + \pi k, \: k \in \mathbb{Z}$$
 as required. 
-\textbf{TODO:} determine what your choice of $k$ should be \qed \\
+Where the final statement comes from choosing the principal branch of the $\log$, meaning $\theta \in [-\pi, \pi)$.
+We also take $k = 0$.
+\qed
+\\
 
 \item Let
   \begin{align*}
@@ -183,6 +220,27 @@ as required.
 	From problem 4, plot lot $f_1(z) = s(z^2 -1)$, $f_2(z) = s(z-1) s(z+1)$, where $s(z) = z^{1/2} = \rho^{1/2} \E^{\I \theta/2},\:\:
 	\theta \in [-\pi,\pi)$, denote the principal branch of the square root.}\label{fig:f1}
 \end{figure}
+
+\noindent
+Let's consider the potential branch point for $f_1$ at $z=1$.
+\begin{align*}
+f_1(1 + \epsilon \E^{i \theta}) &= s\left(\left(1 + \epsilon \E^{i \theta} \right)^2 - 1\right) \\
+					    &= \left(\left(1 + \epsilon \E^{i \theta} \right)^2  - 1 \right)^{\frac{1}{2}} \\
+					    &= \left(1 + 2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}  - 1 \right)^{\frac{1}{2}} \\
+					    &= \left(2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}\right)^{\frac{1}{2}} \\	
+					    &\approx \left(2 \epsilon \E^{i \theta}\right)^{\frac{1}{2}} \\
+					    &= \left(2 \epsilon\right)^{\frac{1}{2}} \E^{\frac{i \theta}{2}}, \:\: \theta \in [-\pi, \pi).
+\end{align*}
+Now let's consider $f_1$ at $z=-1$
+\begin{align*}
+f_1(-1 + \epsilon \E^{i \theta}) &= s\left(\left(-1 + \epsilon \E^{i \theta} \right)^2 - 1\right) \\
+					    &= \left(\left(-1 + \epsilon \E^{i \theta} \right)^2  - 1 \right)^{\frac{1}{2}} \\
+					    &= \left(1 - 2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}  - 1 \right)^{\frac{1}{2}} \\
+					    &= \left(- 2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}\right)^{\frac{1}{2}} \\	
+					    &\approx \left(-2 \epsilon \E^{i \theta}\right)^{\frac{1}{2}} \\
+					    &= \left(-2 \epsilon\right)^{\frac{1}{2}} \E^{\frac{i \theta}{2}}, \:\: \theta \in [-\pi, \pi) \\
+					    &= i \left(2 \epsilon\right)^{\frac{1}{2}} \E^{\frac{i \theta}{2}}, \:\: \theta \in [-\pi, \pi) \\
+\end{align*}
   \item Consider the function
     \begin{align*}
      \psi(z) = \int_1^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
@@ -199,7 +257,22 @@ as required.
    for an appropriate choice of branch cut for $(z^2 -
    1)^{1/2}$.  Here $\log z$ denotes the principal branch. \\
    \textit{Solution:} \\
-   We will first show that $\log \varphi(z)$ is analytic. After which we will also show that $\log \varphi(z)$ is indeed the anti-derivative of what we have in the integrand.
+   We will first show that $\log \varphi(z)$ is analytic.
+   Showing that this function satisfies the Cauchy-Riemann equations or showing the formal definition of the derivative in terms of the $\lim$ is difficult. 
+   Rather, we will show $\log \varphi(z)$ is composed of analytic functions, given the correct choices of branches, where necessary. \textbf{TODO}...
+
+   
+   Now we will show that $\log \varphi(z)$ is indeed the anti-derivative of what we have in the integrand.
+   To show that $\log \varphi(z)$ is the anti-derivative of the integrand we begin by taking the derivative of $\log \varphi(z)$.
+   \begin{align*}
+   \frac{\D}{\D z} \log (z + (z^2 - 1)^{1/2}) &= \frac{1}{(z + (z^2 - 1)^{1/2})}\left( 1 + \frac{1}{2}\frac{2z}{(z^2 - 1)^{1/2}} \right) \\
+							     &= \frac{1}{(z + (z^2 - 1)^{1/2})}\left( \frac{(z^2 - 1)^{1/2}}{(z^2 - 1)^{1/2}} + \frac{z}{(z^2 - 1)^{1/2}} \right) \\
+							     &= \frac{1}{(z + (z^2 - 1)^{1/2})}\left( \frac{(z^2 - 1)^{1/2} + z}{(z^2 - 1)^{1/2}} \right) \\
+							     &= \frac{1}{(z^2 - 1)^{1/2}} \\
+   \end{align*}
+   Which is the same as our term in the integrand.
+   Now in this scenario we choose the branch cut for $(z^2 - 1)^{1/2}$ such that $(z^2 - 1)^{1/2} = (z + 1)^{1/2}(z - 1)^{1/2}$. 
+   That is the principal branch cut with $\theta \in [-\pi, \pi)$ and $k = 0$.
    \item Find an expression for
    \begin{align*}
      \gamma(z) = \int_{-1}^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
@@ -238,6 +311,39 @@ as required.
      for any fixed $z \in \mathbb C \setminus [-1,1]$. \\
 \textit{Solution:} \\
 \end{enumerate}
+
+
+\noindent
+\textbf{Bonus problem:} \\
+b) $$\sech^{-1}(z) = \log \left(\frac{1 + (1 - z^2)^{\frac{1}{2}}}{z}\right)$$
+\textit{Solution:} \\
+We begin with solving for $w$ in $z = \sech{w}$ with $w, z \in \mathbb{C}$. 
+\begin{eqnarray*}
+z = \sech{w} &=& \frac{1}{\cosh w} = \frac{1}{\frac{e^{w} + e^{-w}}{2}} = \frac{2}{e^{w} + e^{-w}} \\
+	  &=& \frac{e^{w}}{e^{w}} \frac{2}{e^{w} + e^{-w}} = \frac{ 2e^{w}}{ e^{2w} + 1 }
+\end{eqnarray*}
+Now let's proceed by multiplying both sides by the denominator
+\begin{eqnarray*}
+z\left( e^{2w} + 1 \right) &=&  2e^{w}\\
+ze^{2w} + z &=&  2e^{w}\\
+ze^{2w} - 2e^{w}+ z &=&  0\\
+\end{eqnarray*}
+We now use the quadratic formula to solve for $e^{w}$
+\begin{eqnarray*}
+e^{w} &=& \frac{2 + \left(4 - 4z^2\right)^{\frac{1}{2}}}{2z} \\
+e^{w} &=& \frac{\cancel2 + \cancel2\left(1 - z^2\right)^{\frac{1}{2}}}{\cancel2z} \\
+\log e^{w} &=& \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z} \\
+w &=& \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z} \\
+\end{eqnarray*}
+This is to show
+$$\sech^{-1}(z) = \sech^{-1}(\sech w) = w = \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z}.$$
+More directly we have 
+$$\sech^{-1}(z) = \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z}.$$
+as required. 
+Where the final statement comes from choosing the principal branch of the $\log$, meaning $\theta \in [-\pi, \pi)$.
+We also take $k = 0$.
+\qed \\
+
 
 \end{document}
 
