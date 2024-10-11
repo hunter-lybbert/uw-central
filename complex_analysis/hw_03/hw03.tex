@@ -213,6 +213,17 @@ We also take $k = 0$.
   cartoon of what the branch cut for $f_1$ looks like in lecture was
   not accurate).  Find the relationship between $f_1(z)$ and $f_2(z)$.\\
 \textit{Solution:} \\
+Notice in Figure \ref{fig:f1} we have two scenarios.
+One scenario we are plotting $f_1$ on the left two plots and then $f_2$ in the right plots.
+With $f_1$, we see a branch cut both between $-1$ and $1$ along the real axis as well as along the whole imaginary axis where $z$ is purely imaginary.
+However, on the $f_2$ plots we only see the branch cut between $-1$ and $1$ along the real axis.
+The shabby matplotlib plot appears to indicate there is still a branch cut from $-1$ to $-\infty$, however, as established in problem 2, when an even number of branch cuts overlap their sign switching cancels out resulting in no branch cut in that location.
+Now for a more mathematical argument or evidence that these functions are not the same as one another.
+Consider if we plug in $z = i$ to both $f_1$ and $f_2$
+\begin{align*}
+f_1(i) &= s(i^2 - 1) = s(-1 - 1) = (-2)^{1/2} = i\sqrt{2}
+f_2(i) &= s(i - 1)s(i + 1) = 
+\end{align*}
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\textwidth]{problem_4_vis.png}
