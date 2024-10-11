@@ -220,7 +220,7 @@ We also take $k = 0$.
 	From problem 4, plot lot $f_1(z) = s(z^2 -1)$, $f_2(z) = s(z-1) s(z+1)$, where $s(z) = z^{1/2} = \rho^{1/2} \E^{\I \theta/2},\:\:
 	\theta \in [-\pi,\pi)$, denote the principal branch of the square root.}\label{fig:f1}
 \end{figure}
-
+\textbf{Your mathematical argument can be to just show an example where they don't agree.}
 \noindent
 Let's consider the potential branch point for $f_1$ at $z=1$.
 \begin{align*}
@@ -259,7 +259,9 @@ f_1(-1 + \epsilon \E^{i \theta}) &= s\left(\left(-1 + \epsilon \E^{i \theta} \ri
    \textit{Solution:} \\
    We will first show that $\log \varphi(z)$ is analytic.
    Showing that this function satisfies the Cauchy-Riemann equations or showing the formal definition of the derivative in terms of the $\lim$ is difficult. 
-   Rather, we will show $\log \varphi(z)$ is composed of analytic functions, given the correct choices of branches, where necessary. \textbf{TODO}...
+   Rather, we will show $\log \varphi(z)$ is composed of analytic functions, given the correct choices of branches, where necessary.
+   First, we choose the branch cut of $(z^2 - 1)^{1/2}$ s.t. it is equal to $(z - 1)^{1/2} (z + 1)^{1/2}$ and we limit $\theta \in [-\pi, \pi)$.
+   Now talk about how $z + (z - 1)^{1/2} (z + 1)^{1/2}$ is not real negative or 0. \textbf{TODO}.
 
    
    Now we will show that $\log \varphi(z)$ is indeed the anti-derivative of what we have in the integrand.
@@ -273,15 +275,17 @@ f_1(-1 + \epsilon \E^{i \theta}) &= s\left(\left(-1 + \epsilon \E^{i \theta} \ri
    Which is the same as our term in the integrand.
    Now in this scenario we choose the branch cut for $(z^2 - 1)^{1/2}$ such that $(z^2 - 1)^{1/2} = (z + 1)^{1/2}(z - 1)^{1/2}$. 
    That is the principal branch cut with $\theta \in [-\pi, \pi)$ and $k = 0$.
+   Now we can use the FTC and compute $F(b) - F(a)$. \textbf{TODO}. Also maybe do the limit as you approach 1.
    \item Find an expression for
    \begin{align*}
      \gamma(z) = \int_{-1}^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
       (-1, \infty),
    \end{align*}
    in terms of $\varphi(z)$ and the principal branch of the logarithm.  Again, the path of integration is a
-   straight line.
+   straight line. \\
+   \textit{Solution:} \\
+   Use a similar argument as from before, but this time for $\log(-\varphi(z))$.
  \end{itemize}
- \textit{Solution:} \\
 
  \item Show that $\varphi,$ from the previous problem, maps $\mathbb C \setminus [-1,1]$ onto the
    exterior of the unit disk, $\{ z \in \mathbb C ~:~ |z| > 1\}$.
