@@ -233,25 +233,8 @@ f_2(i) &= s(i - 1)s(i + 1) =
 \end{figure}
 \textbf{Your mathematical argument can be to just show an example where they don't agree.}
 \noindent
-Let's consider the potential branch point for $f_1$ at $z=1$.
-\begin{align*}
-f_1(1 + \epsilon \E^{i \theta}) &= s\left(\left(1 + \epsilon \E^{i \theta} \right)^2 - 1\right) \\
-					    &= \left(\left(1 + \epsilon \E^{i \theta} \right)^2  - 1 \right)^{\frac{1}{2}} \\
-					    &= \left(1 + 2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}  - 1 \right)^{\frac{1}{2}} \\
-					    &= \left(2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}\right)^{\frac{1}{2}} \\	
-					    &\approx \left(2 \epsilon \E^{i \theta}\right)^{\frac{1}{2}} \\
-					    &= \left(2 \epsilon\right)^{\frac{1}{2}} \E^{\frac{i \theta}{2}}, \:\: \theta \in [-\pi, \pi).
-\end{align*}
-Now let's consider $f_1$ at $z=-1$
-\begin{align*}
-f_1(-1 + \epsilon \E^{i \theta}) &= s\left(\left(-1 + \epsilon \E^{i \theta} \right)^2 - 1\right) \\
-					    &= \left(\left(-1 + \epsilon \E^{i \theta} \right)^2  - 1 \right)^{\frac{1}{2}} \\
-					    &= \left(1 - 2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}  - 1 \right)^{\frac{1}{2}} \\
-					    &= \left(- 2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}\right)^{\frac{1}{2}} \\	
-					    &\approx \left(-2 \epsilon \E^{i \theta}\right)^{\frac{1}{2}} \\
-					    &= \left(-2 \epsilon\right)^{\frac{1}{2}} \E^{\frac{i \theta}{2}}, \:\: \theta \in [-\pi, \pi) \\
-					    &= i \left(2 \epsilon\right)^{\frac{1}{2}} \E^{\frac{i \theta}{2}}, \:\: \theta \in [-\pi, \pi) \\
-\end{align*}
+Come up with your counter example...
+
   \item Consider the function
     \begin{align*}
      \psi(z) = \int_1^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
@@ -272,10 +255,19 @@ f_1(-1 + \epsilon \E^{i \theta}) &= s\left(\left(-1 + \epsilon \E^{i \theta} \ri
    Showing that this function satisfies the Cauchy-Riemann equations or showing the formal definition of the derivative in terms of the $\lim$ is difficult. 
    Rather, we will show $\log \varphi(z)$ is composed of analytic functions, given the correct choices of branches, where necessary.
    First, we choose the branch cut of $(z^2 - 1)^{1/2}$ s.t. it is equal to $(z - 1)^{1/2} (z + 1)^{1/2}$ and we limit $\theta \in [-\pi, \pi)$.
-   Now talk about how $z + (z - 1)^{1/2} (z + 1)^{1/2}$ is not real negative or 0. \textbf{TODO}.
-
-   
-   Now we will show that $\log \varphi(z)$ is indeed the anti-derivative of what we have in the integrand.
+   Now we have \\
+   $$\varphi(z) = z + (z - 1)^{1/2}(z + 1)^{1/2}$$ \\
+   which is analytic away from the real axis between [-1,1]. This is because the sum of analytic functions is analytic (where $z$ is already analytic and $(z - 1)^{1/2}(z + 1)^{1/2}$ is as well because of branch cut choices already discussed). Now, here we take the branch cut for $\log z$ to be along the negative real axis such that $\theta \in [-\pi, \pi)$. If we can show the input to our $\log$ function ($\varphi(z)$) will not be 0 or purely real negative, we will have that $\log(\varphi(z))$ is analytic. The only way $\varphi(z)$ could be 0 is if $z = (z - 1)^{1/2}(z + 1)^{1/2}$. Lets assume by way of contradiction they are equal:
+   \begin{align*}
+   z &= (z - 1)^{1/2}(z + 1)^{1/2} \\
+   z^2 &= (z - 1)(z + 1) \\
+   z^2 &= z^2 - 1 \\
+   0 &\neq - 1
+   \end{align*}
+   which is not true therefore our assumption is false, and thus $\varphi(z)$ will never be 0.
+   Concerning $\varphi(z)$ being real negative, it will suffice to show that $(z - 1)^{1/2}(z + 1)^{1/2}$ is never real negative (since the our assumption $z \not \in (-\infty, 1)$ guaruntees that what we are adding to that product will not be real negative).
+   Now, our choice of branch cut for the square root actually guarantees that $(z - 1)^{1/2}(z + 1)^{1/2}$ will be at least non real negative since we are choosing the branch cut that chooses the principal branch.
+   Continuing on, we will show that $\log \varphi(z)$ is indeed the anti-derivative of what we have in the integrand.
    To show that $\log \varphi(z)$ is the anti-derivative of the integrand we begin by taking the derivative of $\log \varphi(z)$.
    \begin{align*}
    \frac{\D}{\D z} \log (z + (z^2 - 1)^{1/2}) &= \frac{1}{(z + (z^2 - 1)^{1/2})}\left( 1 + \frac{1}{2}\frac{2z}{(z^2 - 1)^{1/2}} \right) \\
@@ -284,9 +276,17 @@ f_1(-1 + \epsilon \E^{i \theta}) &= s\left(\left(-1 + \epsilon \E^{i \theta} \ri
 							     &= \frac{1}{(z^2 - 1)^{1/2}} \\
    \end{align*}
    Which is the same as our term in the integrand.
-   Now in this scenario we choose the branch cut for $(z^2 - 1)^{1/2}$ such that $(z^2 - 1)^{1/2} = (z + 1)^{1/2}(z - 1)^{1/2}$. 
-   That is the principal branch cut with $\theta \in [-\pi, \pi)$ and $k = 0$.
-   Now we can use the FTC and compute $F(b) - F(a)$. \textbf{TODO}. Also maybe do the limit as you approach 1.
+   Since, $F(z)$ is analytic in the region we care about $(z)$ and $F^\prime(z) = f(z)$ we can use the FTC to say
+   \begin{align*}
+   \psi(z) = \int_1^z \frac{\D w}{(w^2 - 1)^{1/2}} &= F(z) - F(1) \\
+							&= \log(\varphi(z)) - \log(\varphi(1)) \\
+							&= \log(z + (z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}}) - \log(1 + (1 - 1)^{\frac{1}{2}}(1 + 1)^{\frac{1}{2}}) \\
+							&= \log(z + (z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}}) - \log(1 + (0)^{\frac{1}{2}}(0)^{\frac{1}{2}}) \\
+							&= \log(z + (z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}}) - \log(1) \\
+							&= \log(z + (z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}}) \\
+							&= \log(\varphi(z))
+   \end{align*}
+   Therefore $\psi(z) = \log(\varphi(z))$.
    \item Find an expression for
    \begin{align*}
      \gamma(z) = \int_{-1}^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
@@ -359,6 +359,26 @@ Where the final statement comes from choosing the principal branch of the $\log$
 We also take $k = 0$.
 \qed \\
 
+\textbf{TODO} Delete me:
+Let's consider the potential branch point for $f_1$ at $z=1$.
+\begin{align*}
+f_1(1 + \epsilon \E^{i \theta}) &= s\left(\left(1 + \epsilon \E^{i \theta} \right)^2 - 1\right) \\
+					    &= \left(\left(1 + \epsilon \E^{i \theta} \right)^2  - 1 \right)^{\frac{1}{2}} \\
+					    &= \left(1 + 2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}  - 1 \right)^{\frac{1}{2}} \\
+					    &= \left(2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}\right)^{\frac{1}{2}} \\	
+					    &\approx \left(2 \epsilon \E^{i \theta}\right)^{\frac{1}{2}} \\
+					    &= \left(2 \epsilon\right)^{\frac{1}{2}} \E^{\frac{i \theta}{2}}, \:\: \theta \in [-\pi, \pi).
+\end{align*}
+Now let's consider $f_1$ at $z=-1$
+\begin{align*}
+f_1(-1 + \epsilon \E^{i \theta}) &= s\left(\left(-1 + \epsilon \E^{i \theta} \right)^2 - 1\right) \\
+					    &= \left(\left(-1 + \epsilon \E^{i \theta} \right)^2  - 1 \right)^{\frac{1}{2}} \\
+					    &= \left(1 - 2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}  - 1 \right)^{\frac{1}{2}} \\
+					    &= \left(- 2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}\right)^{\frac{1}{2}} \\	
+					    &\approx \left(-2 \epsilon \E^{i \theta}\right)^{\frac{1}{2}} \\
+					    &= \left(-2 \epsilon\right)^{\frac{1}{2}} \E^{\frac{i \theta}{2}}, \:\: \theta \in [-\pi, \pi) \\
+					    &= i \left(2 \epsilon\right)^{\frac{1}{2}} \E^{\frac{i \theta}{2}}, \:\: \theta \in [-\pi, \pi) \\
+\end{align*}
 
 \end{document}
 
