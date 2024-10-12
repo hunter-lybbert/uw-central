@@ -17,26 +17,54 @@
 \noindent {\bf 1.} Suppose $X$ and $Y$ are random variables on $(\Omega, \mathcal{F},P)$ and let $A\in \mathcal{F}$. Show that if we let $Z(\omega)=X(\omega)$ for $\omega \in A$ and $Z(\omega)=Y(\omega)$ for $\omega \in A^c$, then $Z$ is a random variable. \\
 \textit{Solution:} \\
 We need to show that $Z$ is a random variable as it is defined.
-That is we need to show it is a function that maps from a sample space $\Omega$ to the real numbers.
-Starting from knowing $X$ and $Y$ are random variables that means we have:
-$$ X: \Omega \rightarrow \mathbb{R} $$ and $$ Y: \Omega \rightarrow \mathbb{R}.$$
-Now rewriting $Z$ a little more mathematically we have 
+That is we need to show it is a function that maps from a sample space $\Omega$ to the real numbers and that for every Borel set $B \subset \mathbb{R}$ we have \\
+$$
+Z^{-1}(B) = \left\{\: \omega\: | Z(\omega) \in B \right\} \in \mathcal{F}.
+$$ \\
+Starting from knowing $X$ and $Y$ are random variables that means we have: \\
+$$ X: \Omega \rightarrow \mathbb{R}, \quad Y: \Omega \rightarrow \mathbb{R}.$$ \\
+Now rewriting $Z$ a little more mathematically we have \\
 $$
 Z(\omega)= \begin{cases}
  	X(\omega), & \omega \in A, \\
-	Y(\omega), & \omega \in A^c
+	Y(\omega), & \omega \in A^c.
 \end{cases}
-$$
-where \( A \in \mathcal{F}\).
-Note, since A is an event in \(\mathcal{F}\), every $\omega \in A$ must also be in $\Omega$ since \(\mathcal{F}\) is a collection of events composed of outcomes from \(\Omega\).
-In other words, \(\mathcal{F}\) is made up of subsets of \(\Omega\) which means $A \subseteq \Omega$ and thus \(A^c \subseteq \Omega\) as well.
+$$ \\
+Since \( A \in \mathcal{F}\), every $\omega \in A$ must also be in $\Omega$ since \(\mathcal{F}\) is made up of subsets of \(\Omega\) which means $A \subseteq \Omega$ and thus \(A^c \subseteq \Omega\) as well.
 By definition of the compliment $A \cap  A^c = \emptyset $.
 Therefore $A$ and $A^c$ are a partition on $\Omega$.
 Since $Z$ is defined on  $\omega \in A$ or $\omega \in A^C$ then $Z$ is defined on all of $\Omega$.
 Now we have shown that the domain of $Z$ is $\Omega$.
 Additionally, since $X$ and $Y$ each map from $\Omega$ to $\mathbb{R}$, $Z$ must also map to $\mathbb{R}$ since it's output is determined by the output of $X$ and $Y$.
-Therefore $Z$ is function such that $$Z: \Omega \rightarrow \mathbb{R}$$
-and thus $Z$ is a random variable.
+Therefore $Z$ is function such that $Z: \Omega \rightarrow \mathbb{R}.$ \\
+\\
+Now we begin the argument that $Z^{-1}(B) = \left\{ \omega | X(\omega) \in B \right\} \in \mathcal{F}.$
+First, since $X$ and $Y$ are random variables on our probability space we have that for every Borel set $B$ \\
+$$
+X^{-1}(B) = \left\{\: \omega\: | X(\omega) \in B \right\} \in \mathcal{F}
+$$
+and
+$$
+Y^{-1}(B) = \left\{\: \omega\: | Y(\omega) \in B \right\} \in \mathcal{F}.
+$$ \\
+Now it is important to observe that the $Z{-1}(B)$ is going to be some combination of the $X^{-1}(B)$ and $Y^{-1}(B)$. Let's take for example some $\omega^* \in A \subset \Omega$, then $Z(\omega^*) = X(\omega^*) = c$ for some constant $c \in \mathbb{R}$. Then if $c \in B$ then $\omega^* \in X^{-1}(B)$ and thus $\omega^* \in Z^{-1}(B)$. Therefore part of $Z^{-1}(B)$ can be written as \\
+$$A \cap X^{-1}(B).$$ \\
+Additionally, we can also write part of $Z^{-1}(B)$ as \\ 
+$$A^c \cap Y^{-1}(B).$$ \\
+Since $A$ and $A^c$ are a partition on $\Omega$ we know $A^c \cap Y^{-1}(B)$ and $A \cap X^{-1}(B)$ are disjoint.
+And they actually contain all of $Z^{-1}(B)$ since $Z$ is only defined by $X$ and $Y$ in each of those scenarios respecting $\omega \in A$ or $\omega \in A^c$.
+Therefore\\
+$$
+Z^{-1}(B) = \left( A \cap X^{-1}(B) \right) \cup \left(A^c \cap Y^{-1}(B) \right)
+$$ \\
+Now we need to finally demonstrate that $Z^{-1}(B) \in \mathcal{F}$.
+Recall we are given that $A \in \mathcal{F}$, and since $X$ is a R.V. then $X^{-1}(B) \in \mathcal{F}$ therefore\\ $$ A \cap X^{-1}(B) \in \mathcal{F}.$$ \\
+By a $\sigma$-algebra being closed under compliments we know $A^c \in \mathcal{F}$ and similar to $X$ since $Y$ is a R.V. then $Y^{-1}(B) \in \mathcal{F}$, therefore\\ $$A^c \cap Y^{-1}(B) \in \mathcal{F}. $$ \\
+And lastly the countable union of elements of $\mathcal{F}$ is therefore also in $\mathcal{F}$ hence \\
+$$
+Z^{-1}(B) = \left( A \cap X^{-1}(B) \right) \cup \left(A^c \cap Y^{-1}(B) \right) \in \mathcal{F}.
+$$ \\
+And thus $Z$ is a random variable on the probability space $(\Omega, \mathcal{F},P)$.
 \qed
 \\
 
@@ -49,33 +77,80 @@ Therefore $X: \Omega \rightarrow \mathbb{R}$ and since $g$ is a strictly increas
 Note that since $Y = g(X)$ then $Y: \Omega \rightarrow \mathbb{R}$ is also true.
 In order to construct $F_Y$ we need to determine the relationship they have.
 \begin{eqnarray*}
-F_X = \int_{-\infty}^{x} f_X(x)\D x
+F_Y(y) = P(Y \leq y) = P(g(X) \leq y) = P(X \leq g^{-1}(y)) = F_X(g^{-1}(y))
 \end{eqnarray*}
-Therefore we get 
-\begin{eqnarray*}
-g(F_X) &=& \int_{-\infty}^{x} g(f_X(x))\D x \\
-F_Y &=& \int_{-\infty}^{x} F_y(x)\D x
-\end{eqnarray*}
+Now we need to argue that $g$ is invertible as we claim above.\textbf{TODO}
+\qed \\
+
+\noindent
 b) What is $f_Y$, the density function of $Y$? \\
 \textit{Solution:} \\
-And thus $f_Y = g(f_X(x))$.
+Since
+\begin{align*}
+F_Y(y) = \int_{-\infty}^y f_Y(x) \D x
+\end{align*}
+we just need to differentiate $F_Y$ as follows \\
+$$
+\frac{\D}{\D y} F_Y(y) = \frac{\D}{\D y} F_X(g^{-1}(y)) = \frac{f_X(g^{-1}(y))}{g\prime(g^{-1}(y))}.
+$$
+\qed
 \\
 
 \noindent {\bf 3.} Suppose $X$ is a continuous random variable with distribution function $F_X$. Find $F_Y$ where $Y$ is given by \\
 
-\noindent a) $X^2$ \textit{Solution:} \\
-That is to say $Y = X^2$ This is going to be easy once I know how to change from X to Y. \\
-\noindent b) $\sqrt{|X|}$ \textit{Solution:} \\
-That is to say $Y = \sqrt{|X|}$ \\
+\noindent a) $X^2$ \\
+\textit{Solution:} \\
+That is to say $Y = X^2$
+\begin{align*}
+F_Y(y) &= P(Y \leq y) \\
+	   &= P(X^2 \leq y) \\
+	   &= P(-\sqrt{y} \leq X \leq \sqrt{y}) \\
+	   &= P(X \leq \sqrt{y})  - P(X \leq -\sqrt{y}) \\
+	   &= F_X(\sqrt{y})  - F_X(-\sqrt{y}) \\
+\end{align*}
+\qed
+\\
+\noindent b) $\sqrt{|X|}$ \\
+\textit{Solution:} \\
+That is to say $Y = \sqrt{|X|}$
+\begin{align*}
+F_Y(y) &= P(Y \leq y) \\
+	   &= P(\sqrt{|X|} \leq y) \\
+	   &= P(|X| \leq y^2) \\
+	   &= P(-y^2 \leq X \leq y^2) \\
+	   &= P(X \leq y^2)  - P(X \leq -y^2) \\
+	   &= F_X(y^2)  - F_X(-y^2) \\
+\end{align*}
+\qed
+\\
 \noindent c) $\sin X$ \textit{Solution:} \\
-That is to say $Y = \sin X$ \\
+That is to say $Y = \sin X$
+\begin{align*}
+F_Y(y) &= P(Y \leq y) \\
+	   &= P(\sin X \leq y) \\
+	   &= P( X \leq \arcsin y ) \\
+	   &= 
+\end{align*}
+\textbf{TODO} Finish part c argument for the periodicity of $\sin$.
+\\
 \noindent d) $F_X(X)$ \textit{Solution:} \\
-That is to say $Y = F_X(X)$ \\
+That is to say $Y = F_X(X)$
+\begin{align*}
+F_Y(y) &= P(Y \leq y) \\
+	   &= P(F_X(X) \leq y) \\
+	   &= P(X \leq F_X^{-1}(y)) \\
+	   &= F_X(F_X^{-1}(y)) \\
+	   &= y \\
+\end{align*}
+\qed
+\\
 \\
 
 \noindent {\bf 4.}  Let $X: [0,1] \to \mathbf{R}$ be a function that maps every rational number in the interval $[0,1]$ to 0, and every irrational number to 1. We assume that the probability space where $X$ is defined is $([0,1],\mathcal{B}[0,1],P)$, where $\mathcal{B}[0,1]$ is the Borel $\sigma$-algebra on [0,1], and $P$ is the Lebesgue measure. 
 
-(a) Is the set of rational numbers in [0,1] a Borel set? Show using definition of the Borel  $\sigma$-algebra on $[0,1]$. 
+(a) Is the set of rational numbers in [0,1] a Borel set? Show using definition of the Borel  $\sigma$-algebra on $[0,1]$. \\
+\textit{Solution:} \\
+I will argue that yes the set of rational numbers in $[0, 1]$ is a Borel set.
 
 (b) Is $X$ a random variable (and why)? If it is, what are its distribution function and expectation? Does $X$ have a density function? Is $X$ discrete?
 
