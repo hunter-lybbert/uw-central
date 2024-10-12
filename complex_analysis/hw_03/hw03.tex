@@ -287,6 +287,7 @@ Come up with your counter example...
 							&= \log(\varphi(z))
    \end{align*}
    Therefore $\psi(z) = \log(\varphi(z))$.
+   Technically I should evaluate a limit of $F(1 + \epsilon)$ as $\epsilon \rightarrow 0$ to be allowed to evaluate $F(1)$ in our usage of the FTC, since we had excluded 1 from our admissible input, but I will only come back to this if I have time.
    \item Find an expression for
    \begin{align*}
      \gamma(z) = \int_{-1}^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
@@ -295,7 +296,19 @@ Come up with your counter example...
    in terms of $\varphi(z)$ and the principal branch of the logarithm.  Again, the path of integration is a
    straight line. \\
    \textit{Solution:} \\
-   Use a similar argument as from before, but this time for $\log(-\varphi(z))$.
+   We will use a similar argument as in part 1, but this time we need to make slightly different choices of branch cuts to ensure the functions we care about are in analytic in the right regions.
+   I am proposing that solution will be \\
+   $$
+   \gamma(z) = \log(-\varphi(z)).
+   $$ \\
+   Let's verify all of the same things as we did in part 1.
+   That includes the following
+   \begin{itemize}
+   \item ensure $F^{\prime} = f(z)$
+   \item Choose the branch cut such that $\theta \in [0, 2\pi)$ and we exclude the region that is the real positive axis in order to ensure $\log$ is analytic where it needs to be
+   \item Choose the right branch cut for $()^\frac{1}{2}$ such that the cut is between [-1, 1]
+   \item recall that since we are not allowed to input real positive numbers to the sqrt function it will not put out real positive outputs either.
+   \end{itemize}
  \end{itemize}
 
  \item Show that $\varphi,$ from the previous problem, maps $\mathbb C \setminus [-1,1]$ onto the
