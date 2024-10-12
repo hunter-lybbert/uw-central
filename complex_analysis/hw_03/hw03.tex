@@ -46,7 +46,7 @@
 
 \maketitle
 \noindent
-Collaborators*: Laura Thomas \\
+Collaborators*: Laura Thomas, Erin Szalda-Petree, Christina Giannella-Nicolaides, Tomáš Ševček \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -322,6 +322,25 @@ Essentially the difference between these functions is $f_1(z)$ performs a multip
      \frac 1 2 \left( \varphi(z) + 1/\varphi(z) \right) = z, \quad \mathbb C \setminus [-1,1].
    \end{align*}
 \textit{Solution:} \\
+We want to show $\varphi(z) = z + \sqrt{z - 1}\sqrt{z + 1}$ maps everything off the real axis from [-1,1] onto the exterior of the unit disk. In other words we want to show that for $z \in \mathbb C \setminus [-1,1]$ we have 
+$$
+\left| \varphi(z) \right| > 1.
+$$
+\\
+The second statement can be shown as follows \\
+\begin{align*}
+\frac{1}{2}\left(\varphi(z) + \frac{1}{\varphi(z)}\right) &= \frac{1}{2}\left(\frac{\varphi(z)^2}{\varphi(z)} + \frac{1}{\varphi(z)}\right) \\
+   &= \frac{1}{2}\left(\frac{\varphi(z)^2 + 1}{\varphi(z)}\right) \\
+   &= \frac{1}{2}\left(\frac{(z + \sqrt{z - 1}\sqrt{z + 1})^2 + 1}{\varphi(z)}\right) \\
+   &= \frac{1}{2}\left(\frac{z^2 + 2 z \sqrt{z - 1}\sqrt{z + 1} + (z - 1)(z + 1) + 1}{\varphi(z)}\right) \\
+   &= \frac{1}{2}\left(\frac{z^2 + 2 z \sqrt{z - 1}\sqrt{z + 1} + z^2 - 1 + 1}{\varphi(z)}\right) \\
+   &= \frac{1}{2}\left(\frac{2z^2 + 2 z \sqrt{z - 1}\sqrt{z + 1}}{\varphi(z)}\right) \\
+   &= \frac{2z}{2}\left(\frac{z + \sqrt{z - 1}\sqrt{z + 1}}{\varphi(z)}\right) \\
+   &= \frac{2z}{2}\left(\frac{\varphi(z)}{\varphi(z)}\right) \\
+   &= z
+\end{align*}
+\qed
+\\
 
    \item (Sharpness of the Bernstein--Walsh inequality)  The
      Bernstein--Walsh inequality states that if a polynomial $p_n$ of
@@ -343,59 +362,6 @@ Essentially the difference between these functions is $f_1(z)$ performs a multip
      for any fixed $z \in \mathbb C \setminus [-1,1]$. \\
 \textit{Solution:} \\
 \end{enumerate}
-
-
-\noindent
-\textbf{Bonus problem:} \\
-b) $$\sech^{-1}(z) = \log \left(\frac{1 + (1 - z^2)^{\frac{1}{2}}}{z}\right)$$
-\textit{Solution:} \\
-We begin with solving for $w$ in $z = \sech{w}$ with $w, z \in \mathbb{C}$. 
-\begin{eqnarray*}
-z = \sech{w} &=& \frac{1}{\cosh w} = \frac{1}{\frac{e^{w} + e^{-w}}{2}} = \frac{2}{e^{w} + e^{-w}} \\
-	  &=& \frac{e^{w}}{e^{w}} \frac{2}{e^{w} + e^{-w}} = \frac{ 2e^{w}}{ e^{2w} + 1 }
-\end{eqnarray*}
-Now let's proceed by multiplying both sides by the denominator
-\begin{eqnarray*}
-z\left( e^{2w} + 1 \right) &=&  2e^{w}\\
-ze^{2w} + z &=&  2e^{w}\\
-ze^{2w} - 2e^{w}+ z &=&  0\\
-\end{eqnarray*}
-We now use the quadratic formula to solve for $e^{w}$
-\begin{eqnarray*}
-e^{w} &=& \frac{2 + \left(4 - 4z^2\right)^{\frac{1}{2}}}{2z} \\
-e^{w} &=& \frac{\cancel2 + \cancel2\left(1 - z^2\right)^{\frac{1}{2}}}{\cancel2z} \\
-\log e^{w} &=& \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z} \\
-w &=& \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z} \\
-\end{eqnarray*}
-This is to show
-$$\sech^{-1}(z) = \sech^{-1}(\sech w) = w = \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z}.$$
-More directly we have 
-$$\sech^{-1}(z) = \log\left(\frac{1 + \left(1 - z^2\right)^{\frac{1}{2}}}{z} \right) + 2i\pi k, \: k \in \mathbb{Z}.$$
-as required. 
-Where the final statement comes from choosing the principal branch of the $\log$, meaning $\theta \in [-\pi, \pi)$.
-We also take $k = 0$.
-\qed \\
-
-\textbf{TODO} Delete me:
-Let's consider the potential branch point for $f_1$ at $z=1$.
-\begin{align*}
-f_1(1 + \epsilon \E^{i \theta}) &= s\left(\left(1 + \epsilon \E^{i \theta} \right)^2 - 1\right) \\
-					    &= \left(\left(1 + \epsilon \E^{i \theta} \right)^2  - 1 \right)^{\frac{1}{2}} \\
-					    &= \left(1 + 2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}  - 1 \right)^{\frac{1}{2}} \\
-					    &= \left(2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}\right)^{\frac{1}{2}} \\	
-					    &\approx \left(2 \epsilon \E^{i \theta}\right)^{\frac{1}{2}} \\
-					    &= \left(2 \epsilon\right)^{\frac{1}{2}} \E^{\frac{i \theta}{2}}, \:\: \theta \in [-\pi, \pi).
-\end{align*}
-Now let's consider $f_1$ at $z=-1$
-\begin{align*}
-f_1(-1 + \epsilon \E^{i \theta}) &= s\left(\left(-1 + \epsilon \E^{i \theta} \right)^2 - 1\right) \\
-					    &= \left(\left(-1 + \epsilon \E^{i \theta} \right)^2  - 1 \right)^{\frac{1}{2}} \\
-					    &= \left(1 - 2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}  - 1 \right)^{\frac{1}{2}} \\
-					    &= \left(- 2 \epsilon \E^{i \theta} + \epsilon^2\E^{2 i \theta}\right)^{\frac{1}{2}} \\	
-					    &\approx \left(-2 \epsilon \E^{i \theta}\right)^{\frac{1}{2}} \\
-					    &= \left(-2 \epsilon\right)^{\frac{1}{2}} \E^{\frac{i \theta}{2}}, \:\: \theta \in [-\pi, \pi) \\
-					    &= i \left(2 \epsilon\right)^{\frac{1}{2}} \E^{\frac{i \theta}{2}}, \:\: \theta \in [-\pi, \pi) \\
-\end{align*}
 
 \end{document}
 
