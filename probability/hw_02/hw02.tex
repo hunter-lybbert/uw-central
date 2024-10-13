@@ -129,9 +129,10 @@ That is to say $Y = \sin X$
 F_Y(y) &= P(Y \leq y) \\
 	   &= P(\sin X \leq y) \\
 	   &= P( X \leq \arcsin y ) \\
-	   &= 
+	   &= \sum_{k \in \mathbb{Z}}P(\arcsin y + 2\pi k \leq X \leq \arcsin y + 2\pi (k + 1) ) \\
+	   &= \sum_{k \in \mathbb{Z}} \left[ P(X \leq \arcsin y + 2\pi (k + 1) ) - P(X \leq \arcsin y + 2\pi k)\right] \\
+	   &= \sum_{k \in \mathbb{Z}} \left[ F_X(\arcsin y + 2\pi (k + 1) ) - F_X(\arcsin y + 2\pi k)\right].
 \end{align*}
-\textbf{TODO} Finish part c argument for the periodicity of $\sin$.
 \\
 \noindent d) $F_X(X)$ \textit{Solution:} \\
 That is to say $Y = F_X(X)$
@@ -142,6 +143,10 @@ F_Y(y) &= P(Y \leq y) \\
 	   &= F_X(F_X^{-1}(y)) \\
 	   &= y \\
 \end{align*}
+Now there is a bit more to be said to ensure we are covering all of our bases here as we try to invert the nondecreasing but not necessarily always increasing function $F_X(x)$.
+We need to discuss how we will take the \\
+$$\sup_y \left\{\text{over the values in interval where $F_X(x)$ is constant}\right\}$$
+Something like this...\textbf{TODO}
 \qed
 \\
 \\
@@ -151,7 +156,22 @@ F_Y(y) &= P(Y \leq y) \\
 (a) Is the set of rational numbers in [0,1] a Borel set? Show using definition of the Borel  $\sigma$-algebra on $[0,1]$. \\
 \textit{Solution:} \\
 I will argue that yes the set of rational numbers in $[0, 1]$ is a Borel set.
-
+We will construct the set of rational numbers in a way such a that it is a countable union of sets, which are themselves the countable intersection of open sets and thus we will have a Borel set. First note we can write any number $x \in [0, 1]$ as \\
+$$
+\{x\} = \bigcap_{n=1}^{\infty} \left(x - \frac{1}{n}, x + \frac{1}{n}\right)\cap [0, 1]
+$$
+\\
+That is to say this countably infinity intersection of open sets is the singleton set $\{x\}$.
+Therefore we can also represent each of the rational numbers in $[0, 1]$ in this way as well.
+We do have to be careful that when near the boundary of [0, 1] n has to be sufficiently large.
+Now we construct the set of all rationals in $[0, 1]$ as follows: \\
+$$
+\mathbb{Q} \cap [0,1] = \bigcup_{q\in \mathbb{Q} \cap [0,1]}^\infty \{q\}.
+$$ \\
+Now we have that the rationals between 0 and 1, $\mathbb{Q} \cap [0, 1]$, can be written in the form of a countably infinite union of sets which themselves are countably infinite intersections of open sets, which is a Borel set. Hence $\mathbb{Q} \cap [0, 1]$ is a Borel set. \\
+\qed
+\\
 (b) Is $X$ a random variable (and why)? If it is, what are its distribution function and expectation? Does $X$ have a density function? Is $X$ discrete?
+\textbf{TODO}
 
 \end{document}  
