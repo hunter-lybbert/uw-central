@@ -1,6 +1,7 @@
 \documentclass[10pt]{amsart}
 \include{amsmath}
 \usepackage{dsfont}													% gives you \mathds{} font
+\usepackage{bbm}
 
 \newcommand{\D}{\mathrm{d}}
 
@@ -79,7 +80,19 @@ In order to construct $F_Y$ we need to determine the relationship they have.
 \begin{eqnarray*}
 F_Y(y) = P(Y \leq y) = P(g(X) \leq y) = P(X \leq g^{-1}(y)) = F_X(g^{-1}(y))
 \end{eqnarray*}
-Now we need to argue that $g$ is invertible as we claim above.\textbf{TODO}
+Now since $g$ is only given to be a strictly increasing continuous function there is some technicalities to address with respect to inverting it.
+We instead define the following:
+\begin{align*}
+h(y) = 
+\left\{
+    \begin{array}{lr}
+        g^{-1}(y) & \text{if } y \in (a, b) \\
+        -\infty & \text{if }  y \leq a \\
+        \infty & \text{if } y \geq b
+    \end{array}
+\right..
+\end{align*}
+Where $(a, b)$ is an arbitrary open interval. Now our expression for $F_Y(y)$ holds on these arbitrary intervals.
 \qed \\
 
 \noindent
@@ -144,9 +157,9 @@ F_Y(y) &= P(Y \leq y) \\
 	   &= y \\
 \end{align*}
 Now there is a bit more to be said to ensure we are covering all of our bases here as we try to invert the nondecreasing but not necessarily always increasing function $F_X(x)$.
-We need to discuss how we will take the \\
-$$\sup_y \left\{\text{over the values in interval where $F_X(x)$ is constant}\right\}$$
-Something like this...\textbf{TODO}
+We define the inverse $F_X^{-1}(y)$ as follows
+$$F_X^{-1}(y) = \sup \left\{x \in D : F_X(x) \leq y \right\}$$
+Once we have defined the inverse above, then we are done justifying the expression for the distribution function $F_Y(y)$.
 \qed
 \\
 \\
@@ -171,7 +184,58 @@ $$ \\
 Now we have that the rationals between 0 and 1, $\mathbb{Q} \cap [0, 1]$, can be written in the form of a countably infinite union of sets which themselves are countably infinite intersections of open sets, which is a Borel set. Hence $\mathbb{Q} \cap [0, 1]$ is a Borel set. \\
 \qed
 \\
-(b) Is $X$ a random variable (and why)? If it is, what are its distribution function and expectation? Does $X$ have a density function? Is $X$ discrete?
-\textbf{TODO}
+(b) Is $X$ a random variable (and why)? If it is, what are its distribution function and expectation? Does $X$ have a density function? Is $X$ discrete? \\
+\textit{Solution:} \\
+Yes $X$ is a random variable on the probability space $([0,1],\mathcal{B}[0,1],P)$ because the $X^{-1}(B) \in \mathcal F = \mathcal{B}[0,1]$, for every Borel set $B$. Notice we can equivalently think about $X$ as follows
+$$ X(\omega) = \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) $$
+Now let's define what exactly the pre-image would look like
+\begin{align*}
+X^{-1}(B) &= \left\{ \omega \left| X(\omega) \in B \right.\right\} \\
+	       &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) \in B \right.\right\}
+\end{align*}
+Let $B_0$ denote any Borel set s.t. it contains $0$ but not $1$, $B_1$ denote any Borel set s.t. it contains $1$ but not $0$, $B_{\{01\}}$ denote any Borel set s.t. it contains both $0$ and $1$, and lastly $B_*$ denote any Borel set s.t. it does not contain either $0$ or $1$. Then we have
+\begin{align*}
+X^{-1}(B_1) &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) \in B_1 \right.\right\} \\
+		  &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) = 1 \right.\right\} \\
+		  &= \left\{ \omega \left| \omega \in \mathbb{Q} \cap [0, 1] \right.\right\} \\
+		  &= \mathbb{Q} \cap [0, 1] \in \mathcal F.
+\end{align*}
+Which we already proved the rationals contained in $[0, 1]$ is a Borel set in the interval $[0, 1]$, therefore it is contained in $\mathcal F$.
+Next, we have
+\begin{align*}
+X^{-1}(B_0) &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) \in B_0 \right.\right\} \\
+		  &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) = 0 \right.\right\} \\
+		  &= \left\{ \omega \left| \omega \not \in \mathbb{Q} \cap [0, 1] \right.\right\} \\
+		  &= \left\{ \omega \left| \omega \in \left(\mathbb R \setminus \mathbb{Q}\right) \cap [0, 1] \right.\right\} \\
+		  &= \left(\mathbb R \setminus \mathbb{Q}\right) \cap [0, 1] \in \mathcal F.
+\end{align*}
+The set of irrational numbers in $[0, 1]$ is contained in $\mathcal F$, since $\mathcal F$ is closed under compliments.
+The irrational numbers are a complement to the rationals with respect to the reals, since any real number is either rational or irrational. Continuing on, we have
+\begin{align*}
+X^{-1}(B_{\{01\}}) &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) \in B_{\{01\}} \right.\right\} \\
+		  &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) = 1 \: \text{or} \: 0 \right.\right\} \\
+		  &= \left\{ \omega \left| \omega \in \left(\mathbb{Q} \cap [0, 1]\right) \cup \left(\left(\mathbb R \setminus \mathbb{Q}\right) \cap [0, 1]\right)\right.\right\} \\
+		  &= \left\{ \omega \left| \omega \in [0, 1]\right.\right\} \\
+		  &= [0, 1] \in \mathcal F,
+\end{align*}
+since $\mathcal F$ always contains $\Omega$ which is the interval $[0, 1]$ in our case. Lastly, 
+\begin{align*}
+X^{-1}(B_*) &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) \in B_* \right.\right\} = \emptyset \in \mathcal F, 
+\end{align*}
+since $\emptyset$ is also always contained in $\mathcal F$ and it is the compliment of $\Omega$ with respect to $\Omega$. Therefore X is a random variable on the given probability space.
+\\
+
+\noindent
+\textbf{TODO} \\
+The distribution function of $X$ is $F_X(x) = P(X \leq x) = ...$
+
+\noindent
+And the expectation of $X$ is...
+
+\noindent
+In order for $X$ to have a density function it would need to look like...
+
+\noindent
+In order for $X$ to be a discrete random variable...
 
 \end{document}  
