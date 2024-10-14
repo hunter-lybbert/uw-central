@@ -226,16 +226,22 @@ since $\emptyset$ is also always contained in $\mathcal F$ and it is the complim
 \\
 
 \noindent
-\textbf{TODO} \\
-The distribution function of $X$ is $F_X(x) = P(X \leq x) = ...$
-
-\noindent
-And the expectation of $X$ is...
-
-\noindent
-In order for $X$ to have a density function it would need to look like...
-
-\noindent
-In order for $X$ to be a discrete random variable...
+The distribution function of $X$ is like a heavy side function where the jump is at x = 1.
+This would look like
+\begin{align*}
+F_X(x) = 
+\left\{
+    \begin{array}{lr}
+        0 & \text{if } x \in (-\infty, 1) \\
+        1 & \text{if } x \in [1, \infty) \\
+    \end{array}
+\right..
+\end{align*}
+Since we can represent the random variable $X$ as the indicator function $\mathbbm{1}_{\mathbb{Q} \cap [0, 1]}$, we can calculate the expectation of $X$ as follows:
+$$\mathbb{E}[\mathbbm{1}_{\mathbb{Q} \cap [0, 1]}] = \int_0^1 \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(x) \, dx = 0.$$
+This makes sense because once again th rationals between 0 and 1 form a set of measure zero.
+Since $\mathbb{Q} \cap [0, 1]$ is built out of the union of singleton sets which each have measure zero, then they each individually have a probability of 0.
+Therefore it does not make sense to have a a density function for $X$.
+Now, $X$ can be considered a a discrete random variable, since there exists a set $S \subset \mathbb R$ with $\mu(S^c) = 0$. As the example given before.
 
 \end{document}  
