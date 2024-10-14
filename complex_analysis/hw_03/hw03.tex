@@ -271,6 +271,7 @@ Essentially the difference between these functions is $f_1(z)$ performs a multip
    which is not true therefore our assumption is false, and thus $\varphi(z)$ will never be 0.
    Concerning $\varphi(z)$ being real negative, it will suffice to show that $(z - 1)^{1/2}(z + 1)^{1/2}$ is never real negative (since the our assumption $z \not \in (-\infty, 1)$ guaruntees that what we are adding to that product will not be real negative).
    Now, our choice of branch cut for the square root actually guarantees that $(z - 1)^{1/2}(z + 1)^{1/2}$ will be at least non real negative since we are choosing the branch cut that chooses the principal branch.
+   
    Continuing on, we will show that $\log \varphi(z)$ is indeed the anti-derivative of what we have in the integrand.
    To show that $\log \varphi(z)$ is the anti-derivative of the integrand we begin by taking the derivative of $\log \varphi(z)$.
    \begin{align*}
@@ -305,14 +306,47 @@ Essentially the difference between these functions is $f_1(z)$ performs a multip
    $$
    \gamma(z) = \log(-\varphi(z)).
    $$ \\
-   Let's verify all of the same things as we did in part 1. \textbf{TODO}
+   Let's verify all of the same things as we did in part 1.
    That includes the following
    \begin{itemize}
-   \item ensure $F^{\prime} = f(z)$
-   \item Choose the branch cut such that $\theta \in [0, 2\pi)$ and we exclude the region that is the real positive axis in order to ensure $\log$ is analytic where it needs to be
-   \item Choose the right branch cut for $()^\frac{1}{2}$ such that the cut is between [-1, 1]
-   \item recall that since we are not allowed to input real positive numbers to the sqrt function it will not put out real positive outputs either.
-   \end{itemize}
+   \item Ensure what we define as $F^{\prime}(z)$ indeed has the relationship that $F^{\prime}(z) = f(z)$
+   I will show this with straight forward differentiation:
+   \begin{align*}
+   \frac{\D}{\D z} \log (-\varphi(z)) &= -\frac{1}{\varphi(z)} \left( \frac{\D}{\D z} \left( - \varphi(z) \right) \right) \\
+   						  &= -\frac{1}{(z + (z^2 - 1)^{1/2})}\left( - 1 - \frac{1}{2}\frac{2z}{(z^2 - 1)^{1/2}} \right) \\
+						  &= -\frac{1}{(z + (z^2 - 1)^{1/2})}\left( -\frac{(z^2 - 1)^{1/2}}{(z^2 - 1)^{1/2}} - \frac{z}{(z^2 - 1)^{1/2}} \right) \\
+						  &= - \frac{1}{(z + (z^2 - 1)^{1/2})}\left( - \frac{(z^2 - 1)^{1/2} + z}{(z^2 - 1)^{1/2}} \right) \\
+						  &= \frac{1}{(z + (z^2 - 1)^{1/2})}\left( \frac{(z^2 - 1)^{1/2} + z}{(z^2 - 1)^{1/2}} \right) \\
+						  &= \frac{1}{(z^2 - 1)^{1/2}}. \\
+   \end{align*}
+   Therefore our proposed $F(z)$ which we want to use in the fundamental theory of calculus satisfies that $F^\prime(z) = f(z)$ since the derivative is what we have as the integrand in the integral that is used to define $\gamma(z)$.
+   \item Next we want to show how our proposed expression $\log(-\varphi(z))$ is indeed an analytic function in the right regions of $\mathbb{C}$.
+   \begin{itemize}
+   \item Following similar logic as in part 1 of this problem, we choose the branch cut for the square function, $()^\frac{1}{2}$, such that the cut is between [-1, 1].
+   This is the principal branch cut limiting $\theta \in [-\pi, \pi)$.
+   Furthermore, we now have $\varphi(z)$ is analytic in the region outside of the real axis from $[-1, 1]$.
+   \item Next, we want to ensure the composition of $\log(-\varphi(z))$ is also analytic. We need to choose an appropriate branch cut for the $\log$ function. This time we choose the branch cut such that $\theta \in [0, 2\pi)$.
+   Therefore the branch cut for the log is the positive real axis.
+   Based on our prior argument in part 1, $\varphi(z)$ will never be real negative therefore $-\varphi(z)$ will never be real positive.
+   Hence, the input for $\log$ will never be on the branch cut we chose for $\log$, and thus $\log(-\varphi(z))$ will be analytic in the right region, $z \not \in (-1, \infty)$.
+ \end{itemize}
+ \item Now we want to apply the FTC.
+ Since $F(z) = \log(-\varphi(z))$ is analytic in the right regions and $F^\prime(z) = f(z)$ (where $f(z)$ is the expression in the integrand), we can evaluate the integral with the following:
+ \begin{align*}
+ \gamma(z) = \int_{-1}^z \frac{\D w}{(w^2 - 1)^{1/2}} &= F(z) - F(-1) \\
+							&= \log(-\varphi(z)) - \log(-\varphi(-1)) \\
+							&= \log(-\varphi(z)) - \log(-(-1 + (1 - (-1))^{\frac{1}{2}}(1 + (-1))^{\frac{1}{2}})) \\
+							&= \log(-\varphi(z)) - \log(-(-1 + \sqrt{2}\sqrt{0})) \\
+							&= \log(-\varphi(z)) - \log(-(-1 + 0)) \\
+							&= \log(-\varphi(z)) - \log(-(-1)) \\
+							&= \log(-\varphi(z))  - \log(1) \\
+							&= \log(-\varphi(z)).
+ \end{align*}
+ Therefore $\gamma(z) = \log(-\varphi(z))$.
+ Technically I should evaluate a limit of $F(1 + \epsilon)$ as $\epsilon \rightarrow 0$ to be allowed to evaluate $F(1)$ in our usage of the FTC, since we had excluded 1 from our admissible input, but I will only come back to this if I have time.
+ \qed
+ \\
+ \end{itemize}
  \end{itemize}
 
  \item Show that $\varphi,$ from the previous problem, maps $\mathbb C \setminus [-1,1]$ onto the
@@ -326,7 +360,52 @@ We want to show $\varphi(z) = z + \sqrt{z - 1}\sqrt{z + 1}$ maps everything off 
 $$
 \left| \varphi(z) \right| > 1.
 $$
-\textbf{TODO}
+Let us look at a few cases. First, suppose $z \in \mathbb C$ has a very large number, then
+$$
+(z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}} \approx z
+$$
+leading to
+$$
+\varphi(z) \approx 2z
+$$
+and therefore
+$$
+|\varphi(z)| \approx 2|z| > 1
+$$
+again only when $z$ is sufficiently large.
+We need to be a little more careful when $z$ is close to the branch cut on the real axis from [-1,1].
+Next, we will look at how the square root functions behave when $z = i\epsilon$ for some $\epsilon > 0$.
+We see
+\begin{align*}
+(i\epsilon -1)^{\frac{1}{2}}(i\epsilon + 1)^{\frac{1}{2}} &= (-1 + i\epsilon)^{\frac{1}{2}}(1 + i\epsilon)^{\frac{1}{2}} \\
+									      &= (\sqrt{1 + \epsilon^2}\E^{i\theta_1})^{\frac{1}{2}}(\sqrt{1 + \epsilon^2}\E^{i\theta_2})^{\frac{1}{2}} \\
+									      &= \sqrt{1 + \epsilon^2}\exp{\left(\frac{i(\theta_1 + \theta_2)}{2}\right)} \\
+									      &= \sqrt{1 + \epsilon^2}\exp{\frac{i(\theta_1 + \theta_2)}{2}} \\
+									      &= \sqrt{1 + \epsilon^2}\exp{i\theta}.
+\end{align*}
+Take this final expression to be some new complex number with it's argument $\theta$ to be $\frac{\theta_1 + \theta_2}{2}$.
+Then the modulus of this new complex number is $\sqrt{1 + \epsilon^2}$.
+We know $|z| = |i\epsilon| = \epsilon$ and using the reverse triangle inequality we have
+\begin{align*}
+\left| z + |(z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}}|\right| &= \left| i\epsilon + (- 1 + i\epsilon)^{\frac{1}{2}}(1 + i\epsilon)^{\frac{1}{2}}\right| \\
+										  &= \left| i\epsilon + (i\epsilon - 1)^{\frac{1}{2}}(i\epsilon + 1)^{\frac{1}{2}}\right| \\
+										  &= \left| i\epsilon + \sqrt{1 + \epsilon^2}\exp{i\theta}\right| \\
+										  &= \left| \epsilon\exp i\theta_3 + \sqrt{1 + \epsilon^2}\exp{i\theta}\right| \\
+										  &= \left| \epsilon\left(\cos\theta_3 + i\sin\theta_3\right) + \sqrt{1 + \epsilon^2}\left(\cos\theta + i\sin\theta\right)\right| \\
+										  &= \left| \left(\epsilon\cos\theta_3 + \sqrt{1 + \epsilon^2}\cos\theta\right) + i\left(\epsilon\sin\theta_3 + \sqrt{1 + \epsilon^2}\sin\theta\right) \right| \\
+										  &= \sqrt{\left(\epsilon\cos\theta_3 + \sqrt{1 + \epsilon^2}\cos\theta\right)^2 + \left(\epsilon\sin\theta_3 + \sqrt{1 + \epsilon^2}\sin\theta\right)^2 } \\
+										  &\approx \sqrt{\left(\sqrt{1 + \epsilon^2}\cos\theta\right)^2 + \left(\sqrt{1 + \epsilon^2}\sin\theta\right)^2 } \\
+										  &= \sqrt{(1 + \epsilon^2)\cos^2\theta + (1 +  \epsilon^2)\sin^2\theta } \\
+										  &= \sqrt{(1 + \epsilon^2)\left(\cos^2\theta + \sin^2\theta\right) } \\
+										  &= \sqrt{1 + \epsilon^2}.
+\end{align*}
+Where the approximation we use holds as $\epsilon$ gets extremely small.
+Moreover, 
+$$
+\lim_{\epsilon\rightarrow 0} \sqrt{1 + \epsilon^2} = 1.
+$$
+However, since we are disallowing values on the real axis from $[-1, 1]$ $\epsilon$ will never reach 0, and the value of this chain of equalities (and one approximation) will always be at least larger than 1. This holds similarly for when $\epsilon < 0$. There are just a few sign changes. In fact, the other case where $\epsilon$ is a negative number looks identical to this once the to complex numbers being summed inside the modulus are written in polar form (they would just have a different angle $\theta$). Therefore, $\varphi(z)$ maps everything in $\mathbb C \setminus [-1, 1]$ to the set $\{z \in \mathbb C : |z| > 1\}$.
+\\
 \\
 The second statement can be shown as follows \\
 \begin{align*}
