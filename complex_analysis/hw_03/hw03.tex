@@ -46,7 +46,7 @@
 
 \maketitle
 \noindent
-Collaborators*: Laura Thomas, Erin Szalda-Petree, Christina Giannella-Nicolaides, Tomáš Ševček \\
+Collaborators*: Laura Thomas, Erin Szalda-Petree, Christina Giannella-Nicolaides, Tomáš Ševček, Nate Ward, Anja Vogt \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -139,7 +139,7 @@ These are the types of Riemann Surfaces which result from a function such as $f(
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\textwidth]{riemann_surface_5}
- 	\caption{
+	\caption{
 	From problem 2, Riemann Surface drawings where $n=5$.}\label{fig:f3}
 \end{figure}
 
@@ -379,32 +379,36 @@ We see
 \begin{align*}
 (i\epsilon -1)^{\frac{1}{2}}(i\epsilon + 1)^{\frac{1}{2}} &= (-1 + i\epsilon)^{\frac{1}{2}}(1 + i\epsilon)^{\frac{1}{2}} \\
 									      &= (\sqrt{1 + \epsilon^2}\E^{i\theta_1})^{\frac{1}{2}}(\sqrt{1 + \epsilon^2}\E^{i\theta_2})^{\frac{1}{2}} \\
-									      &= \sqrt{1 + \epsilon^2}\exp{\left(\frac{i(\theta_1 + \theta_2)}{2}\right)} \\
-									      &= \sqrt{1 + \epsilon^2}\exp{\frac{i(\theta_1 + \theta_2)}{2}} \\
-									      &= \sqrt{1 + \epsilon^2}\exp{i\theta}.
+									      &= \sqrt[4]{1 + \epsilon^2}\exp{\left(\frac{i(\theta_1 + \theta_2)}{2}\right)} \\
+									      &= \sqrt[4]{1 + \epsilon^2}\exp{\frac{i(\theta_1 + \theta_2)}{2}} \\
+									      &= \sqrt[4]{1 + \epsilon^2}\exp{i\theta}.
 \end{align*}
 Take this final expression to be some new complex number with it's argument $\theta$ to be $\frac{\theta_1 + \theta_2}{2}$.
 Then the modulus of this new complex number is $\sqrt{1 + \epsilon^2}$.
 We know $|z| = |i\epsilon| = \epsilon$ and using the reverse triangle inequality we have
 \begin{align*}
-\left| z + |(z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}}|\right| &= \left| i\epsilon + (- 1 + i\epsilon)^{\frac{1}{2}}(1 + i\epsilon)^{\frac{1}{2}}\right| \\
+\left| z + (z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}}\right| &= \left| i\epsilon + (- 1 + i\epsilon)^{\frac{1}{2}}(1 + i\epsilon)^{\frac{1}{2}}\right| \\
 										  &= \left| i\epsilon + (i\epsilon - 1)^{\frac{1}{2}}(i\epsilon + 1)^{\frac{1}{2}}\right| \\
-										  &= \left| i\epsilon + \sqrt{1 + \epsilon^2}\exp{i\theta}\right| \\
-										  &= \left| \epsilon\exp i\theta_3 + \sqrt{1 + \epsilon^2}\exp{i\theta}\right| \\
-										  &= \left| \epsilon\left(\cos\theta_3 + i\sin\theta_3\right) + \sqrt{1 + \epsilon^2}\left(\cos\theta + i\sin\theta\right)\right| \\
-										  &= \left| \left(\epsilon\cos\theta_3 + \sqrt{1 + \epsilon^2}\cos\theta\right) + i\left(\epsilon\sin\theta_3 + \sqrt{1 + \epsilon^2}\sin\theta\right) \right| \\
-										  &= \sqrt{\left(\epsilon\cos\theta_3 + \sqrt{1 + \epsilon^2}\cos\theta\right)^2 + \left(\epsilon\sin\theta_3 + \sqrt{1 + \epsilon^2}\sin\theta\right)^2 } \\
-										  &\approx \sqrt{\left(\sqrt{1 + \epsilon^2}\cos\theta\right)^2 + \left(\sqrt{1 + \epsilon^2}\sin\theta\right)^2 } \\
-										  &= \sqrt{(1 + \epsilon^2)\cos^2\theta + (1 +  \epsilon^2)\sin^2\theta } \\
-										  &= \sqrt{(1 + \epsilon^2)\left(\cos^2\theta + \sin^2\theta\right) } \\
-										  &= \sqrt{1 + \epsilon^2}.
+										  &= \left| i\epsilon + \sqrt[4]{1 + \epsilon^2}\exp{i\theta}\right| \\
+										  &= \left| \epsilon\exp i\theta_3 + \sqrt[4]{1 + \epsilon^2}\exp{i\theta}\right| \\
+										  &= \left| \epsilon\left(\cos\theta_3 + i\sin\theta_3\right) + \sqrt[4]{1 + \epsilon^2}\left(\cos\theta + i\sin\theta\right)\right| \\
+										  &= \left| \left(\epsilon\cos\theta_3 + \sqrt[4]{1 + \epsilon^2}\cos\theta\right) + i\left(\epsilon\sin\theta_3 + \sqrt[4]{1 + \epsilon^2}\sin\theta\right) \right| \\
+										  &= \sqrt{\left(\epsilon\cos\theta_3 + \sqrt[4]{1 + \epsilon^2}\cos\theta\right)^2 + \left(\epsilon\sin\theta_3 + \sqrt[4]{1 + \epsilon^2}\sin\theta\right)^2 } \\
+										  &\approx \sqrt{\left(\sqrt[4]{1 + \epsilon^2}\cos\theta\right)^2 + \left(\sqrt[4]{1 + \epsilon^2}\sin\theta\right)^2 } \\
+										  &= \sqrt{\sqrt{1 + \epsilon^2}\cos^2\theta + \sqrt{1 + \epsilon^2}\sin^2\theta } \\
+										  &= \sqrt{\sqrt{1 + \epsilon^2}\left(\cos^2\theta + \sin^2\theta\right) } \\
+										  &= \sqrt[4]{1 + \epsilon^2}.
 \end{align*}
 Where the approximation we use holds as $\epsilon$ gets extremely small.
 Moreover, 
 $$
-\lim_{\epsilon\rightarrow 0} \sqrt{1 + \epsilon^2} = 1.
+\lim_{\epsilon\rightarrow 0} \sqrt[4]{1 + \epsilon^2} = 1.
 $$
-However, since we are disallowing values on the real axis from $[-1, 1]$ $\epsilon$ will never reach 0, and the value of this chain of equalities (and one approximation) will always be at least larger than 1. This holds similarly for when $\epsilon < 0$. There are just a few sign changes. In fact, the other case where $\epsilon$ is a negative number looks identical to this once the to complex numbers being summed inside the modulus are written in polar form (they would just have a different angle $\theta$). Therefore, $\varphi(z)$ maps everything in $\mathbb C \setminus [-1, 1]$ to the set $\{z \in \mathbb C : |z| > 1\}$.
+However, since we are disallowing values on the real axis from $[-1, 1]$ $\epsilon$ will never reach 0, and the value of this chain of equalities (and one approximation) will always be at least larger than 1.
+This holds similarly for when $\epsilon < 0$.
+There are just a few sign changes.
+In fact, the other case where $\epsilon$ is a negative number looks identical to this once the complex numbers being summed inside the modulus are written in polar form (they would just have a different angle $\theta$).
+Therefore, $\varphi(z)$ maps everything in $\mathbb C \setminus [-1, 1]$ to the set $\{z \in \mathbb C : |z| > 1\}$.
 \\
 \\
 The second statement can be shown as follows \\
@@ -441,10 +445,89 @@ The second statement can be shown as follows \\
      \end{align*}
      for any fixed $z \in \mathbb C \setminus [-1,1]$. \\
 \textit{Solution:} \\
-\textbf{TODO}
+We will first show that $$T_n(z) = \frac 1 2 \left( \varphi(z)^n + \varphi(z)^{-n} \right)$$ is indeed a polynomial.
+We will start with a few base cases. Let $n = 1$
+$$T_1(z) = \frac 1 2 \left( \varphi(z) + \varphi(z)^{-1} \right) = z \quad \text{(by our argument in 6)}$$
+which is a polynomial. Now notice,
+\begin{align*}
+\frac 1 2 \left( \varphi(z) + \varphi(z)^{-1} \right) &= z \\
+\left( \varphi(z) + \varphi(z)^{-1} \right)^2 &= 4z^2 \\
+\varphi(z)^2 + 2\varphi(z)\varphi(z)^{-1} + \varphi(z)^{-2} &= 4z^2 \\
+\varphi(z)^2 + 2 + \varphi(z)^{-2} &= 4z^2 \\
+\varphi(z)^2 + \varphi(z)^{-2} &= 4z^2 - 2 \\
+\frac 1 2 \left(\varphi(z)^2 + \varphi(z)^{-2}\right) &= 2z^2 - 1
+\end{align*}
+which is our $n = 2$ case. Continuing on we observe:
+\begin{align*}
+\frac 1 2 \left( \varphi(z) + \varphi(z)^{-1} \right) &= z \\
+\left( \varphi(z) + \varphi(z)^{-1} \right)^3 &= 8z^3 \\
+\varphi(z)^3 + 3\varphi(z)^2\varphi(z)^{-1} + 3\varphi(z)\varphi(z)^{-2} + \varphi(z)^{-3} &= 8z^3 \\
+\varphi(z)^3 + 3\varphi(z) + 3\varphi(z)^{-1} + \varphi(z)^{-3} &= 8z^3 \\
+\varphi(z)^3 + \varphi(z)^{-3} &= 8z^3 - 3\left(\varphi(z) + \varphi(z)^{-1}\right) \\
+\varphi(z)^3 + \varphi(z)^{-3} &= 8z^3 - 6z \\
+\frac 1 2 \left(\varphi(z)^3 + \varphi(z)^{-3}\right) &= 4z^3 - 3z \\
+\end{align*}
+which once again is our case for $n=3$.
+Furthermore, if I have time I will show an inductive step where we assume that 
+$T_n(z) = \frac 1 2 \left( \varphi(z)^n + \varphi(z)^{-n} \right)$ is a polynomial and wish to show that
+$$
+T_{n+1}(z) = \frac 1 2 \left( \varphi(z)^{n+1} + \varphi(z)^{-(n+1)} \right).
+$$
+Let's begin in a similar manner to the base cases.
+\begin{align*}
+\frac 1 2 \left( \varphi(z) + \varphi(z)^{-1} \right) &= z \\
+\left( \varphi(z) + \varphi(z)^{-1} \right)^{n + 1} &= (2z)^{n + 1} \\
+\sum_{k= 0}^{n + 1} \binom{n + 1}{k} \varphi(z)^{((n + 1) - k)} \varphi(z)^{-k} &= (2z)^{n + 1} \\
+\binom{n + 1}{0} \varphi(z)^{(n + 1)} + \binom{n + 1}{n + 1} \varphi(z)^{-(n + 1)} + \sum_{k= 1}^{n} \binom{n + 1}{k} \varphi(z)^{((n + 1) - k)} \varphi(z)^{-k} &= 2^{n + 1}z^{n + 1} \\
+\varphi(z)^{(n + 1)} + \varphi(z)^{-(n + 1)} + \sum_{k= 1}^{n} \binom{n + 1}{k} \varphi(z)^{((n + 1) - k)} \varphi(z)^{-k} &= 2^{n + 1}z^{n + 1} \\
+\frac 1 2 \left(\varphi(z)^{(n + 1)} + \varphi(z)^{-(n + 1)}\right) + \frac 1 2 \sum_{k= 1}^{n} \binom{n + 1}{k} \varphi(z)^{((n + 1) - k)} \varphi(z)^{-k} &= 2^nz^{n + 1}. \\
+\end{align*}
+Now we have
+\begin{align*}
+\frac 1 2 \left(\varphi(z)^{(n + 1)} + \varphi(z)^{-(n + 1)}\right) &= 2^nz^{n + 1} - \frac 1 2 \sum_{k= 1}^{n} \binom{n + 1}{k} \varphi(z)^{((n + 1) - k)} \varphi(z)^{-k} \\
+T_{n+1}(z) &= 2^nz^{n + 1} - \frac 1 2 \sum_{k= 1}^{n} \binom{n + 1}{k} \varphi(z)^{((n + 1) - k)} \varphi(z)^{-k} \\
+\end{align*}
+If we expand out the sum on the right, we can cleverly group the terms by common coefficients such as when $\binom{n}{k} = \binom{n}{n - k}$.
+We did this in the base cases of $n=2$ and $n=3$.
+Combining this with our inductive assumption, then $\left( \varphi(z)^n + \varphi(z)^{-n} \right) = 2T_n(z)$.
+Each of the pairs of terms will take this form with decreasing values of $n$.
+And thus each of those pairings represents another polynomial.
+Therefore, we have $$T_{n+1}(z) = 2^nz^{n + 1} - \frac 1 2 \hat P(z).$$
+Where $\hat P(z)$ is the reordered grouped and factored terms from the sum which results in a sum of polynomials of decreasing powers.
+\\
+
+\noindent
+Moreover, now that we know $T_n(z)$ is a polynomial for $n \in \mathbb N$, I will show that $\max_{-1 \leq x \leq 1} |T_n(x)| = 1$ holds (if I have time).
+\\
+
+\noindent
+Next I will also show $\lim_{n \to \infty} |T_n(z)|^{1/n} = |\varphi(z)|$. This I will show by finding an upper bound as well as a lower bound using the inverse triangle inequality (if I have time).
+\qed
 \end{enumerate}
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %%% Local Variables:
 %%% mode: latex
