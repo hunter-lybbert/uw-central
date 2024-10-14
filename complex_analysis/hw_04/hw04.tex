@@ -1,0 +1,73 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+
+\title{\bf { AMATH 567 Fall 2024 \\ Homework 4 ---
+    Due October 21 on Gradescope by 1:30pm} }
+
+
+\maketitle
+
+\begin{center}
+  All solutions must include significant justification to receive full credit.  If you handwrite your assignment you must either do so digitally or if it is written on paper you must \emph{scan} your work.  A standard photo is not sufficient.  \vskip 4pt
+
+  If you work with others on the homework, you must name your collaborators.
+\end{center}
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item From A\&F: 2.4.2 c, e.\\
+\item From A\&F: 2.4-4 a, b. Use the principal branch where the
+  argument is in $[-\pi,\pi)$. Discuss any ambiguities. \\
+\item From A\&F: 2.4.7 \\
+\item From A\&F: 2.4.8 \\
+\item From A\&F: 2.5.1 b, e \\
+\item Use the ideas from A\&F: 2.5.5 to evaluate $\int_0^\infty \E^{\I
+    z^3 t} \D z$, $t > 0$.  Express the result in terms of $\int_0^\infty \E^{-
+    r^3} \D r$. \\
+\item From A\&F: 2.5.6.  Repeat this exercise for
+  \begin{align*}
+    I_\epsilon = \int_{-\infty}^\infty \frac{\epsilon \D x}{x^2 +
+    \epsilon^2}, \quad \epsilon > 0.
+  \end{align*}\\
+\item Use a similar method to calculate
+  $\int_{-\infty}^{\infty} \frac{d x}{1+x^4}$.
+\item From A\&F: 2.6.1 a, e.
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
