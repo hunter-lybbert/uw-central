@@ -1,0 +1,247 @@
+\documentclass[10pt]{amsart}
+\include{amsmath}
+\usepackage{dsfont}													% gives you \mathds{} font
+\usepackage{bbm}
+
+\newcommand{\D}{\mathrm{d}}
+
+\begin{document}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{10-07-24} \\
+\text{AMATH 561}
+\title{Problem Set 2}
+\maketitle
+
+\noindent {\bf 1.} Suppose $X$ and $Y$ are random variables on $(\Omega, \mathcal{F},P)$ and let $A\in \mathcal{F}$. Show that if we let $Z(\omega)=X(\omega)$ for $\omega \in A$ and $Z(\omega)=Y(\omega)$ for $\omega \in A^c$, then $Z$ is a random variable. \\
+\textit{Solution:} \\
+We need to show that $Z$ is a random variable as it is defined.
+That is we need to show it is a function that maps from a sample space $\Omega$ to the real numbers and that for every Borel set $B \subset \mathbb{R}$ we have \\
+$$
+Z^{-1}(B) = \left\{\: \omega\: | Z(\omega) \in B \right\} \in \mathcal{F}.
+$$ \\
+Starting from knowing $X$ and $Y$ are random variables that means we have: \\
+$$ X: \Omega \rightarrow \mathbb{R}, \quad Y: \Omega \rightarrow \mathbb{R}.$$ \\
+Now rewriting $Z$ a little more mathematically we have \\
+$$
+Z(\omega)= \begin{cases}
+ 	X(\omega), & \omega \in A, \\
+	Y(\omega), & \omega \in A^c.
+\end{cases}
+$$ \\
+Since \( A \in \mathcal{F}\), every $\omega \in A$ must also be in $\Omega$ since \(\mathcal{F}\) is made up of subsets of \(\Omega\) which means $A \subseteq \Omega$ and thus \(A^c \subseteq \Omega\) as well.
+By definition of the compliment $A \cap  A^c = \emptyset $.
+Therefore $A$ and $A^c$ are a partition on $\Omega$.
+Since $Z$ is defined on  $\omega \in A$ or $\omega \in A^C$ then $Z$ is defined on all of $\Omega$.
+Now we have shown that the domain of $Z$ is $\Omega$.
+Additionally, since $X$ and $Y$ each map from $\Omega$ to $\mathbb{R}$, $Z$ must also map to $\mathbb{R}$ since it's output is determined by the output of $X$ and $Y$.
+Therefore $Z$ is function such that $Z: \Omega \rightarrow \mathbb{R}.$ \\
+\\
+Now we begin the argument that $Z^{-1}(B) = \left\{ \omega | X(\omega) \in B \right\} \in \mathcal{F}.$
+First, since $X$ and $Y$ are random variables on our probability space we have that for every Borel set $B$ \\
+$$
+X^{-1}(B) = \left\{\: \omega\: | X(\omega) \in B \right\} \in \mathcal{F}
+$$
+and
+$$
+Y^{-1}(B) = \left\{\: \omega\: | Y(\omega) \in B \right\} \in \mathcal{F}.
+$$ \\
+Now it is important to observe that the $Z{-1}(B)$ is going to be some combination of the $X^{-1}(B)$ and $Y^{-1}(B)$. Let's take for example some $\omega^* \in A \subset \Omega$, then $Z(\omega^*) = X(\omega^*) = c$ for some constant $c \in \mathbb{R}$. Then if $c \in B$ then $\omega^* \in X^{-1}(B)$ and thus $\omega^* \in Z^{-1}(B)$. Therefore part of $Z^{-1}(B)$ can be written as \\
+$$A \cap X^{-1}(B).$$ \\
+Additionally, we can also write part of $Z^{-1}(B)$ as \\ 
+$$A^c \cap Y^{-1}(B).$$ \\
+Since $A$ and $A^c$ are a partition on $\Omega$ we know $A^c \cap Y^{-1}(B)$ and $A \cap X^{-1}(B)$ are disjoint.
+And they actually contain all of $Z^{-1}(B)$ since $Z$ is only defined by $X$ and $Y$ in each of those scenarios respecting $\omega \in A$ or $\omega \in A^c$.
+Therefore\\
+$$
+Z^{-1}(B) = \left( A \cap X^{-1}(B) \right) \cup \left(A^c \cap Y^{-1}(B) \right)
+$$ \\
+Now we need to finally demonstrate that $Z^{-1}(B) \in \mathcal{F}$.
+Recall we are given that $A \in \mathcal{F}$, and since $X$ is a R.V. then $X^{-1}(B) \in \mathcal{F}$ therefore\\ $$ A \cap X^{-1}(B) \in \mathcal{F}.$$ \\
+By a $\sigma$-algebra being closed under compliments we know $A^c \in \mathcal{F}$ and similar to $X$ since $Y$ is a R.V. then $Y^{-1}(B) \in \mathcal{F}$, therefore\\ $$A^c \cap Y^{-1}(B) \in \mathcal{F}. $$ \\
+And lastly the countable union of elements of $\mathcal{F}$ is therefore also in $\mathcal{F}$ hence \\
+$$
+Z^{-1}(B) = \left( A \cap X^{-1}(B) \right) \cup \left(A^c \cap Y^{-1}(B) \right) \in \mathcal{F}.
+$$ \\
+And thus $Z$ is a random variable on the probability space $(\Omega, \mathcal{F},P)$.
+\qed
+\\
+
+\noindent {\bf 2.} Suppose $X$ is a continuous random variable with distribution function $F_X$. Let $g$ be a strictly increasing continuous function. Define $Y=g(X)$. \\ \\
+\noindent
+a) What is $F_Y$, the distribution function of $Y$? \\
+\textit{Solution:} \\
+We know that there is some probability space that the random variable X is defined on, let that be $(\Omega, \mathcal{F},P)$.
+Therefore $X: \Omega \rightarrow \mathbb{R}$ and since $g$ is a strictly increasing continuous function $g: \mathbb{R} \rightarrow L$ where $L$ is the output space of $g$, $L$ could be $\mathbb{R}$ for example, then $g(X): \Omega \rightarrow \mathbb{R}$ (we take $L = \mathbb{R}$ for now as the most likely assumption).
+Note that since $Y = g(X)$ then $Y: \Omega \rightarrow \mathbb{R}$ is also true.
+In order to construct $F_Y$ we need to determine the relationship they have.
+\begin{eqnarray*}
+F_Y(y) = P(Y \leq y) = P(g(X) \leq y) = P(X \leq g^{-1}(y)) = F_X(g^{-1}(y))
+\end{eqnarray*}
+Now since $g$ is only given to be a strictly increasing continuous function there is some technicalities to address with respect to inverting it.
+We instead define the following:
+\begin{align*}
+h(y) = 
+\left\{
+    \begin{array}{lr}
+        g^{-1}(y) & \text{if } y \in (a, b) \\
+        -\infty & \text{if }  y \leq a \\
+        \infty & \text{if } y \geq b
+    \end{array}
+\right..
+\end{align*}
+Where $(a, b)$ is an arbitrary open interval. Now our expression for $F_Y(y)$ holds on these arbitrary intervals.
+\qed \\
+
+\noindent
+b) What is $f_Y$, the density function of $Y$? \\
+\textit{Solution:} \\
+Since
+\begin{align*}
+F_Y(y) = \int_{-\infty}^y f_Y(x) \D x
+\end{align*}
+we just need to differentiate $F_Y$ as follows \\
+$$
+\frac{\D}{\D y} F_Y(y) = \frac{\D}{\D y} F_X(g^{-1}(y)) = \frac{f_X(g^{-1}(y))}{g\prime(g^{-1}(y))}.
+$$
+\qed
+\\
+
+\noindent {\bf 3.} Suppose $X$ is a continuous random variable with distribution function $F_X$. Find $F_Y$ where $Y$ is given by \\
+
+\noindent a) $X^2$ \\
+\textit{Solution:} \\
+That is to say $Y = X^2$
+\begin{align*}
+F_Y(y) &= P(Y \leq y) \\
+	   &= P(X^2 \leq y) \\
+	   &= P(-\sqrt{y} \leq X \leq \sqrt{y}) \\
+	   &= P(X \leq \sqrt{y})  - P(X \leq -\sqrt{y}) \\
+	   &= F_X(\sqrt{y})  - F_X(-\sqrt{y}) \\
+\end{align*}
+\qed
+\\
+\noindent b) $\sqrt{|X|}$ \\
+\textit{Solution:} \\
+That is to say $Y = \sqrt{|X|}$
+\begin{align*}
+F_Y(y) &= P(Y \leq y) \\
+	   &= P(\sqrt{|X|} \leq y) \\
+	   &= P(|X| \leq y^2) \\
+	   &= P(-y^2 \leq X \leq y^2) \\
+	   &= P(X \leq y^2)  - P(X \leq -y^2) \\
+	   &= F_X(y^2)  - F_X(-y^2) \\
+\end{align*}
+\qed
+\\
+\noindent c) $\sin X$ \textit{Solution:} \\
+That is to say $Y = \sin X$
+\begin{align*}
+F_Y(y) &= P(Y \leq y) \\
+	   &= P(\sin X \leq y) \\
+	   &= P( X \leq \arcsin y ) \\
+	   &= \sum_{k \in \mathbb{Z}}P(\arcsin y + 2\pi k \leq X \leq \arcsin y + 2\pi (k + 1) ) \\
+	   &= \sum_{k \in \mathbb{Z}} \left[ P(X \leq \arcsin y + 2\pi (k + 1) ) - P(X \leq \arcsin y + 2\pi k)\right] \\
+	   &= \sum_{k \in \mathbb{Z}} \left[ F_X(\arcsin y + 2\pi (k + 1) ) - F_X(\arcsin y + 2\pi k)\right].
+\end{align*}
+\\
+\noindent d) $F_X(X)$ \textit{Solution:} \\
+That is to say $Y = F_X(X)$
+\begin{align*}
+F_Y(y) &= P(Y \leq y) \\
+	   &= P(F_X(X) \leq y) \\
+	   &= P(X \leq F_X^{-1}(y)) \\
+	   &= F_X(F_X^{-1}(y)) \\
+	   &= y \\
+\end{align*}
+Now there is a bit more to be said to ensure we are covering all of our bases here as we try to invert the nondecreasing but not necessarily always increasing function $F_X(x)$.
+We define the inverse $F_X^{-1}(y)$ as follows
+$$F_X^{-1}(y) = \sup \left\{x \in D : F_X(x) \leq y \right\}$$
+Once we have defined the inverse above, then we are done justifying the expression for the distribution function $F_Y(y)$.
+\qed
+\\
+\\
+
+\noindent {\bf 4.}  Let $X: [0,1] \to \mathbf{R}$ be a function that maps every rational number in the interval $[0,1]$ to 0, and every irrational number to 1. We assume that the probability space where $X$ is defined is $([0,1],\mathcal{B}[0,1],P)$, where $\mathcal{B}[0,1]$ is the Borel $\sigma$-algebra on [0,1], and $P$ is the Lebesgue measure. 
+
+(a) Is the set of rational numbers in [0,1] a Borel set? Show using definition of the Borel  $\sigma$-algebra on $[0,1]$. \\
+\textit{Solution:} \\
+I will argue that yes the set of rational numbers in $[0, 1]$ is a Borel set.
+We will construct the set of rational numbers in a way such a that it is a countable union of sets, which are themselves the countable intersection of open sets and thus we will have a Borel set. First note we can write any number $x \in [0, 1]$ as \\
+$$
+\{x\} = \bigcap_{n=1}^{\infty} \left(x - \frac{1}{n}, x + \frac{1}{n}\right)\cap [0, 1]
+$$
+\\
+That is to say this countably infinity intersection of open sets is the singleton set $\{x\}$.
+Therefore we can also represent each of the rational numbers in $[0, 1]$ in this way as well.
+We do have to be careful that when near the boundary of [0, 1] n has to be sufficiently large.
+Now we construct the set of all rationals in $[0, 1]$ as follows: \\
+$$
+\mathbb{Q} \cap [0,1] = \bigcup_{q\in \mathbb{Q} \cap [0,1]}^\infty \{q\}.
+$$ \\
+Now we have that the rationals between 0 and 1, $\mathbb{Q} \cap [0, 1]$, can be written in the form of a countably infinite union of sets which themselves are countably infinite intersections of open sets, which is a Borel set. Hence $\mathbb{Q} \cap [0, 1]$ is a Borel set. \\
+\qed
+\\
+(b) Is $X$ a random variable (and why)? If it is, what are its distribution function and expectation? Does $X$ have a density function? Is $X$ discrete? \\
+\textit{Solution:} \\
+Yes $X$ is a random variable on the probability space $([0,1],\mathcal{B}[0,1],P)$ because the $X^{-1}(B) \in \mathcal F = \mathcal{B}[0,1]$, for every Borel set $B$. Notice we can equivalently think about $X$ as follows
+$$ X(\omega) = \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) $$
+Now let's define what exactly the pre-image would look like
+\begin{align*}
+X^{-1}(B) &= \left\{ \omega \left| X(\omega) \in B \right.\right\} \\
+	       &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) \in B \right.\right\}
+\end{align*}
+Let $B_0$ denote any Borel set s.t. it contains $0$ but not $1$, $B_1$ denote any Borel set s.t. it contains $1$ but not $0$, $B_{\{01\}}$ denote any Borel set s.t. it contains both $0$ and $1$, and lastly $B_*$ denote any Borel set s.t. it does not contain either $0$ or $1$. Then we have
+\begin{align*}
+X^{-1}(B_1) &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) \in B_1 \right.\right\} \\
+		  &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) = 1 \right.\right\} \\
+		  &= \left\{ \omega \left| \omega \in \mathbb{Q} \cap [0, 1] \right.\right\} \\
+		  &= \mathbb{Q} \cap [0, 1] \in \mathcal F.
+\end{align*}
+Which we already proved the rationals contained in $[0, 1]$ is a Borel set in the interval $[0, 1]$, therefore it is contained in $\mathcal F$.
+Next, we have
+\begin{align*}
+X^{-1}(B_0) &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) \in B_0 \right.\right\} \\
+		  &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) = 0 \right.\right\} \\
+		  &= \left\{ \omega \left| \omega \not \in \mathbb{Q} \cap [0, 1] \right.\right\} \\
+		  &= \left\{ \omega \left| \omega \in \left(\mathbb R \setminus \mathbb{Q}\right) \cap [0, 1] \right.\right\} \\
+		  &= \left(\mathbb R \setminus \mathbb{Q}\right) \cap [0, 1] \in \mathcal F.
+\end{align*}
+The set of irrational numbers in $[0, 1]$ is contained in $\mathcal F$, since $\mathcal F$ is closed under compliments.
+The irrational numbers are a complement to the rationals with respect to the reals, since any real number is either rational or irrational. Continuing on, we have
+\begin{align*}
+X^{-1}(B_{\{01\}}) &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) \in B_{\{01\}} \right.\right\} \\
+		  &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) = 1 \: \text{or} \: 0 \right.\right\} \\
+		  &= \left\{ \omega \left| \omega \in \left(\mathbb{Q} \cap [0, 1]\right) \cup \left(\left(\mathbb R \setminus \mathbb{Q}\right) \cap [0, 1]\right)\right.\right\} \\
+		  &= \left\{ \omega \left| \omega \in [0, 1]\right.\right\} \\
+		  &= [0, 1] \in \mathcal F,
+\end{align*}
+since $\mathcal F$ always contains $\Omega$ which is the interval $[0, 1]$ in our case. Lastly, 
+\begin{align*}
+X^{-1}(B_*) &= \left\{ \omega \left| \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(\omega) \in B_* \right.\right\} = \emptyset \in \mathcal F, 
+\end{align*}
+since $\emptyset$ is also always contained in $\mathcal F$ and it is the compliment of $\Omega$ with respect to $\Omega$. Therefore X is a random variable on the given probability space.
+\\
+
+\noindent
+The distribution function of $X$ is like a heavy side function where the jump is at x = 1.
+This would look like
+\begin{align*}
+F_X(x) = 
+\left\{
+    \begin{array}{lr}
+        0 & \text{if } x \in (-\infty, 1) \\
+        1 & \text{if } x \in [1, \infty) \\
+    \end{array}
+\right..
+\end{align*}
+Since we can represent the random variable $X$ as the indicator function $\mathbbm{1}_{\mathbb{Q} \cap [0, 1]}$, we can calculate the expectation of $X$ as follows:
+$$\mathbb{E}[\mathbbm{1}_{\mathbb{Q} \cap [0, 1]}] = \int_0^1 \mathbbm{1}_{\mathbb{Q} \cap [0, 1]}(x) \, dx = 0.$$
+This makes sense because once again th rationals between 0 and 1 form a set of measure zero.
+Since $\mathbb{Q} \cap [0, 1]$ is built out of the union of singleton sets which each have measure zero, then they each individually have a probability of 0.
+Therefore it does not make sense to have a a density function for $X$.
+Now, $X$ can be considered a a discrete random variable, since there exists a set $S \subset \mathbb R$ with $\mu(S^c) = 0$. As the example given before.
+
+\end{document}  
