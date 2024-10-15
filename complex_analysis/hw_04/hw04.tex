@@ -55,14 +55,78 @@ Collaborators*: TODO \\
 Evaluate the integral $\oint_Cf(z)\D z$, where C is the unit circle enclosing the origin, and $f(z)$ is given as follows: \\
 c) $$f(z) = \frac {1} {\bar z}$$
 \textit{Solution:} \\
-e) $$f(z) = e^{\bar z}$$
+We want to evaluate
+$$
+\oint_C\frac {1} {\bar z} \D z
+$$
+on the parameterized unit circle $z = \E^{i\theta}$ where $\theta \in [0, 2\pi)$, where $\bar z = \E^{-i\theta}$ on the unit circle.
+Note, before we do the substitution we need $\D z = i\E^{i\theta} \D \theta$. Now our integral is
+\begin{align*}
+\oint_C\frac {1} {\bar z} \D z &= \oint_0^{2\pi}\frac {1} {\E^{-i\theta}} i\E^{i \theta}\D \theta \\
+					  &= \oint_0^{2\pi} i \E^{2i \theta} \D \theta \\
+					  &= \left( \left. \frac 1 2 \E^{2i\theta} \right|_0^{2\pi}\right) \\
+					  &= \frac 1 2 \E^{4\pi i} - \frac 1 2 \E^{0} \\
+					  &= \frac 1 2 - \frac 1 2 \\
+					  &= 0
+\end{align*}
+\qed
+\\
+e) $$f(z) = \E^{\bar z}$$
 \textit{Solution:} \\
+We will use the same substitutions from the previous part
+\begin{align*}
+\oint_C\E^{\bar z} \D z &= \oint_0^{2\pi}\E^{\E^{-i\theta}} i\E^{i \theta}\D \theta \\
+				  &= \oint_0^{2\pi} \sum_{j=1}^{\infty} \frac{\left(\E^{-i\theta}\right)^j}{j!} i\E^{i\theta} \D \theta \\
+				  &= \sum_{j=1}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta.
+\end{align*}
+We are justified in reordering the integral of the infinite sum to be the infinite sum of the integrals since the original series converges absolutely.
+I will now just look at the integral inside the sum
+\begin{align*}
+\oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta &= \oint_0^{2\pi} i \frac{\E^{-i\theta j}\E^{i\theta}}{j!} \D \theta \\
+	&= \oint_0^{2\pi} i \frac{\E^{-i\theta j + i\theta}}{j!} \D \theta \\
+	&=\oint_0^{2\pi} i \frac{\E^{i\theta\left( - j + 1\right)}}{j!} \D \theta \\
+	&=\oint_0^{2\pi} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \D \theta \\
+	&= \left. \frac{1}{1 - j} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \right|_0^{2 \pi} \\
+	&= \frac{1}{1 - j} \frac{i\E^{i2\pi\left(1 - j\right)}}{j!} - \frac{1}{1 - j} \frac{i\E^0}{j!} \\
+	&= \frac{i}{\left(1 - j\right)j!}\left(\E^{i2\pi\left(1 - j\right)} - 1 \right) \\
+	&= \frac{i}{\left(1 - j\right)j!}\left(1 - 1 \right) \\
+	&= 0. \\
+\end{align*}
+I want to clarify why $\E^{i2\pi\left(1 - j\right)} = 1$.
+Since $j \in \{1, 2, 3, ...\}$, then $1 - j$ is an integer and we have $\E^{i2\pi \ell}$ where $\ell \in \mathbb Z$ which is always $1$.
+\qed
+\\
+
 \item From A\&F: 2.4.4 a, b.
 Use the principal branch where the argument is in $[-\pi,\pi)$.
 Discuss any ambiguities. 
 Use the principal branch of $\log(z)$ and $z^{\frac{1}{2}}$ where the argument is in $[-\pi,\pi)$ to evaluate the following: \\
 a) $$\int_{-1}^{1}\log z \D z$$
 \textit{Solution:} \\
+We want to parameterize this once again using $z = r\E^{i\theta}$ where $\theta \in [-\pi,\pi)$. Now our integral is
+\begin{align*}
+\int_{-1}^{1}\log z \D z &= \int_{-\pi}^{0}\log \left(\E^{i\theta}\right) i \E^{i\theta} \D \theta \\
+	&= \int_{-\pi}^{0} i\theta i \E^{i\theta} \D \theta.
+\end{align*}
+Let's use integration by parts, woohoo! We will assign the substitutions as follows:
+\begin{align*}
+u &= i\theta \\
+\D u &= i \D \theta\\
+\\
+\D v &= i\E^{i \theta} \D \theta \\
+v &= \E^{i \theta}.
+\end{align*}
+Plugging this in we have
+\begin{align*}
+\int_{-\pi}^{0} i\theta i \E^{i\theta} \D \theta &= \left. i\theta \E^{i\theta}\right|_{-\pi}^0 - \int_{-\pi}^0 i \E^{i \theta} \D \theta \\
+	&= \left(-i\pi \E^{-i\pi} - 0 \right) - \left. \E^{i\theta}\right|_{-\pi}^0 \\
+	&= -i\pi \E^{-i\pi} - \left(\E^{-i\pi} - \E^{0} \right) \\
+	&= i\pi - \left(\E^{-i\pi} - 1 \right) \\
+	&= i\pi - \left(-1 - 1 \right) \\
+	&= i\pi + 2 \\
+\end{align*}
+This is weird \textbf{TODO}.
+\\
 b) $$\int_{-1}^{1}z^{\frac{1}{2}} \D z$$
 \textit{Solution:} \\
 \item From A\&F: 2.4.7 \\
