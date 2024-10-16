@@ -44,7 +44,7 @@
 
 \maketitle
 \noindent
-Collaborators*: TODO \\
+Collaborators*: Nate Ward \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -94,6 +94,11 @@ I will now just look at the integral inside the sum
 \end{align*}
 I want to clarify why $\E^{i2\pi\left(1 - j\right)} = 1$.
 Since $j \in \{1, 2, 3, ...\}$, then $1 - j$ is an integer and we have $\E^{i2\pi \ell}$ where $\ell \in \mathbb Z$ which is always $1$.
+Now we return to the original problem
+$$
+\sum_{j=1}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta = \sum_{j=1}^{\infty} 0 = 0.
+$$
+Now we have completed the requisite task.
 \qed
 \\
 
@@ -119,16 +124,33 @@ v &= \E^{i \theta}.
 Plugging this in we have
 \begin{align*}
 \int_{-\pi}^{0} i\theta i \E^{i\theta} \D \theta &= \left. i\theta \E^{i\theta}\right|_{-\pi}^0 - \int_{-\pi}^0 i \E^{i \theta} \D \theta \\
-	&= \left(-i\pi \E^{-i\pi} - 0 \right) - \left. \E^{i\theta}\right|_{-\pi}^0 \\
-	&= -i\pi \E^{-i\pi} - \left(\E^{-i\pi} - \E^{0} \right) \\
-	&= i\pi - \left(\E^{-i\pi} - 1 \right) \\
-	&= i\pi - \left(-1 - 1 \right) \\
-	&= i\pi + 2 \\
+	&= \left(0 - \left(-i\pi \E^{-i\pi}\right)\right) - \left. \E^{i\theta}\right|_{-\pi}^0 \\
+	&= 0 + i\pi \E^{-i\pi} - \left. \E^{i\theta}\right|_{-\pi}^0 \\
+	&= i\pi \E^{-i\pi} - \left(\E^{0} - \E^{-i\pi} \right) \\
+	&= - i\pi - \left(1 - \left( - 1 \right) \right) \\
+	&= - i\pi - \left(2\right) \\
+	&= - i\pi - 2. \\
 \end{align*}
-This is weird \textbf{TODO}.
+\qed
 \\
 b) $$\int_{-1}^{1}z^{\frac{1}{2}} \D z$$
 \textit{Solution:} \\
+We want to parameterize this once again using $z = r\E^{i\theta}$ where $\theta \in [-\pi,\pi)$. Now our integral is
+\begin{align*}
+\int_{-1}^{1} z^{\frac{1}{2}} \D z &= \int_{-\pi}^{0} \left(\E^{i\theta}\right)^{\frac{1}{2}} i \E^{i\theta} \D \theta \\
+	&= \int_{-\pi}^{0} i\E^{\frac{i\theta}{2}} \E^{i\theta} \D \theta \\
+	&= \int_{-\pi}^{0} i\E^{\frac{i3}{2}\theta} \D \theta \\
+	&= \left. \frac 2 3 \E^{\frac{i3}{2}\theta} \right|_{-\pi}^{0} \\
+	&= \frac 2 3 \E^{ - \frac{i3}{2} \pi} - \frac 2 3. \\
+\end{align*}
+Now remembering our branch cut limits $\theta$ to be within $[-\pi, \pi)$ we change the angle $-\frac 3 2 \pi$ to be $\frac 1 2 \pi$.
+Hence,
+\begin{align*}
+\frac 2 3 \E^{ - \frac{i3}{2} \pi} - \frac 2 3 &= \frac 2 3 \E^{ \frac{i\pi}{2}} - \frac 2 3 \\
+	&= \frac 2 3 \left( i - 1\right).
+\end{align*}
+\qed
+\\
 \item From A\&F: 2.4.7 \\
 Let C be an open (upper) semicircle of radius $R$ with its center at the origin, and consider $\int_C f(z) \D z$.
  Let $f(z) = \frac{1}{z^2 + a^2}$ for a real $a > 0$.
