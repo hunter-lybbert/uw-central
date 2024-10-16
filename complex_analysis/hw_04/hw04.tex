@@ -146,7 +146,8 @@ We want to parameterize this once again using $z = r\E^{i\theta}$ where $\theta 
 Now remembering our branch cut limits $\theta$ to be within $[-\pi, \pi)$ we change the angle $-\frac 3 2 \pi$ to be $\frac 1 2 \pi$.
 Hence,
 \begin{align*}
-\frac 2 3 \E^{ - \frac{i3}{2} \pi} - \frac 2 3 &= \frac 2 3 \E^{ \frac{i\pi}{2}} - \frac 2 3 \\
+\frac 2 3 \E^{ - \frac{i3}{2} \pi} - \frac 2 3 &= \frac 2 3 \E^{ - \frac{i2}{2} \pi} \E^{ - \frac{i\pi}{2}} - \frac 2 3 \\
+	&= \frac 2 3 \E^{ \frac{i\pi}{2}} - \frac 2 3 \\
 	&= \frac 2 3 \left( i - 1\right).
 \end{align*}
 \qed
@@ -159,6 +160,100 @@ $$
 \left| \int_C f(z) dz \right| \leq \frac{\pi R}{R^2 - a^2}, \quad R > a.
 $$
 \textit{Solution:} \\
+First, we want to show
+$$
+\left| f(z) \right| \leq \frac{1}{R^2 - a^2}
+$$
+where $R > a > 0$ and a $\in \mathbb R$.
+Let's consider the function more closely
+\begin{align*}
+f(z) =  \frac{1}{z^2 + a^2} &= \frac{1}{(x + \I y)^2 + a^2} \\
+	&= \frac{1}{x^2 + 2ixy - y^2 + a^2} \\
+	&= \frac{1}{x^2 - y^2 + a^2 + i2xy } \\
+	&= \frac{u - iv }{u - iv }\frac{1}{u + iv } \\
+	&= \frac{u - iv }{u^2 + v^2 } \\	
+\end{align*}
+where $u(x, y) = x^2 - y^2 + a^2$ and $v(x, y) = 2xy$.
+Then we calculate
+\begin{align*}
+\left| f(z) \right| = \left| \frac{u - iv }{u^2 + v^2 } \right| &= \left| \frac{u }{u^2 + v^2 } - i\frac{v}{u^2 + v^2 } \right| \\
+	&= \sqrt{
+		\left(\frac{u }{u^2 + v^2 }\right)^2 + \left(\frac{v }{u^2 + v^2 }\right)^2
+	} \\
+	&= \sqrt{
+		\frac{u^2 }{u^4 + 2u^2v^2 + v^4} + \frac{v^2 }{u^4 + 2u^2v^2 + v^4}
+	} \\
+	&= \sqrt{
+		\frac{u^2 + v^2 }{u^4 + 2u^2v^2 + v^4}
+	} \\
+	&= \sqrt{
+		\frac{u^2 + v^2 }{\left( u^2 + v^2 \right)^2}
+	} \\
+	&= \sqrt{
+		\frac{1}{u^2 + v^2}
+	} \\
+	&= \frac{1}{\sqrt{u^2 + v^2}}.
+\end{align*}
+If we plug our substitution back in we see
+\begin{align*}
+\frac{1}{\sqrt{u^2 + v^2}} &= \frac{1}{\sqrt{\left(x^2 - y^2 + a^2 \right)^2 + \left(2xy \right)^2}} \\
+	&= \frac{1}{\sqrt{\left(x^2 - y^2 + a^2 \right)\left(x^2 - y^2 + a^2 \right) + 4x^2y^2}} \\
+	&= \frac{1}{
+		\sqrt{
+			x^4 - x^2y^2 + x^2a^2 -x^2y^2 + y^4 - y^2a^2 + x^2a^2 - y^2a^2 + a^4 + 4x^2y^2
+		}
+	} \\
+	&= \frac{1}{
+		\sqrt{
+			x^4 + x^2a^2 + y^4 - y^2a^2 + x^2a^2 - y^2a^2 + a^4 + 2x^2y^2
+		}
+	}
+\end{align*}
+Now we add zero in a particular fashion, namely $- 4x^2a^2 + 4x^2a^2 $, so we can regroup the terms and refactor to get closer to what we desire
+\begin{align*}
+	&= \frac{1}{
+		\sqrt{
+			x^4 + x^2a^2 + y^4 - y^2a^2 + x^2a^2 - y^2a^2 + a^4 + 2x^2y^2 +\left( - 4x^2a^2 + 4x^2a^2 \right)
+		}
+	} \\
+	&= \frac{1}{
+		\sqrt{
+			x^4 + y^4 - y^2a^2 - y^2a^2 + a^4 + 2x^2y^2 - x^2a^2 - x^2a^2 + 4x^2a^2
+		}
+	} \\
+	&= \frac{1}{\sqrt{\left(x^2 + y^2 - a^2\right)^2 + \left(2xa\right)^2}}
+\end{align*}
+Using the fact that $\sqrt{a + b} \geq \sqrt{a}$ for $a, b > 0$, in our next step we get a smaller denominator which makes the overall expression greater or equal to the previous step. Note, equality only holds when $x=0$.
+\begin{align*}
+ \frac{1}{\sqrt{\left(x^2 + y^2 - a^2\right)^2 + \left(2xa\right)^2}}
+ 	&\leq \frac{1}{\sqrt{\left(x^2 + y^2 - a^2\right)^2}} \\
+	&= \frac{1}{x^2 + y^2 - a^2} \\
+	&= \frac{1}{|z|^2 - a^2} \\
+	&= \frac{1}{R^2 - a^2}
+\end{align*}
+Therefore $\left| f(z) \right| \leq \frac{1}{R^2 - a^2}$. \\
+
+\noindent
+Next we wish to show that 
+$$
+\left| \int_C f(z) dz \right| \leq \frac{\pi R}{R^2 - a^2}, \quad R > a.
+$$
+It may be helpful to use arc length. It is going to be $\frac 1 2 2\pi R = \pi R$.
+What is M again... well it was actually what you just calculated in the last problem.
+So we have 
+$$
+M = \frac{1}{R^2 - a^2}
+$$
+$$
+L = \int_a^b |z^\prime(t)| \D t = \frac 1 2 2 \pi R = \pi R
+$$
+And thus
+$$
+\left| \int_C f(z) dz \right| \leq ML \leq \frac{\pi R}{R^2 - a^2}
+$$
+by Theorem 2.4.2 from A\&F $f(z)$ needs to be continuous on contour C (it is since $a >0$ and $a < R$ there are no singularities or weirdness with $f$) \textbf{TODO:} revisit this problem and ensure that your logic works out right.
+\qed
+\\
 \item From A\&F: 2.4.8 \\
 Let $C$ be an arc of the circle $\left|z\right| = R(R > 1)$ of angle $\frac{\pi}{3}$.
 Show that 
