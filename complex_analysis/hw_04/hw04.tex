@@ -169,22 +169,23 @@ Let's consider the function more closely
 \begin{align*}
 f(z) =  \frac{1}{z^2 + a^2} &= \frac{1}{(x + \I y)^2 + a^2} \\
 	&= \frac{1}{x^2 + 2ixy - y^2 + a^2} \\
-	&= \frac{1}{x^2 - y^2 + a^2 + i2xy } \\
-	&= \frac{u - iv }{u - iv }\frac{1}{u + iv } \\
-	&= \frac{u - iv }{u^2 + v^2 } \\	
+	&= \frac{1}{x^2 - y^2 + a^2 + i2xy }. \\
 \end{align*}
-where $u(x, y) = x^2 - y^2 + a^2$ and $v(x, y) = 2xy$.
+Notice, we can write the real and imaginary parts of the complex number in the denominator as functions $u(x, y)$ and $v(x, y)$.
+Where $u(x, y) = x^2 - y^2 + a^2$ and $v(x, y) = 2xy$.
+Now we get 
+$$
+f(z) = \frac{1}{x^2 - y^2 + a^2 + i2xy }	 = \frac{u - iv }{u - iv }\frac{1}{u + iv } = \frac{u - iv }{u^2 + v^2 }
+$$
 Then we calculate
 \begin{align*}
-\left| f(z) \right| = \left| \frac{u - iv }{u^2 + v^2 } \right| &= \left| \frac{u }{u^2 + v^2 } - i\frac{v}{u^2 + v^2 } \right| \\
+\left| f(z) \right| &= \left| \frac{u - iv }{u^2 + v^2 } \right| \\
+	&= \left| \frac{u }{u^2 + v^2 } - i\frac{v}{u^2 + v^2 } \right| \\
 	&= \sqrt{
 		\left(\frac{u }{u^2 + v^2 }\right)^2 + \left(\frac{v }{u^2 + v^2 }\right)^2
 	} \\
 	&= \sqrt{
-		\frac{u^2 }{u^4 + 2u^2v^2 + v^4} + \frac{v^2 }{u^4 + 2u^2v^2 + v^4}
-	} \\
-	&= \sqrt{
-		\frac{u^2 + v^2 }{u^4 + 2u^2v^2 + v^4}
+		\frac{u^2 }{\left( u^2 + v^2 \right)^2} + \frac{v^2 }{\left( u^2 + v^2 \right)^2}
 	} \\
 	&= \sqrt{
 		\frac{u^2 + v^2 }{\left( u^2 + v^2 \right)^2}
@@ -207,7 +208,7 @@ If we plug our substitution back in we see
 		\sqrt{
 			x^4 + x^2a^2 + y^4 - y^2a^2 + x^2a^2 - y^2a^2 + a^4 + 2x^2y^2
 		}
-	}
+	}.
 \end{align*}
 Now we add zero in a particular fashion, namely $- 4x^2a^2 + 4x^2a^2 $, so we can regroup the terms and refactor to get closer to what we desire
 \begin{align*}
@@ -221,7 +222,7 @@ Now we add zero in a particular fashion, namely $- 4x^2a^2 + 4x^2a^2 $, so we ca
 			x^4 + y^4 - y^2a^2 - y^2a^2 + a^4 + 2x^2y^2 - x^2a^2 - x^2a^2 + 4x^2a^2
 		}
 	} \\
-	&= \frac{1}{\sqrt{\left(x^2 + y^2 - a^2\right)^2 + \left(2xa\right)^2}}
+	&= \frac{1}{\sqrt{\left(x^2 + y^2 - a^2\right)^2 + \left(2xa\right)^2}}.
 \end{align*}
 Using the fact that $\sqrt{a + b} \geq \sqrt{a}$ for $a, b > 0$, in our next step we get a smaller denominator which makes the overall expression greater or equal to the previous step. Note, equality only holds when $x=0$.
 \begin{align*}
@@ -232,30 +233,41 @@ Using the fact that $\sqrt{a + b} \geq \sqrt{a}$ for $a, b > 0$, in our next ste
 	&= \frac{1}{R^2 - a^2}
 \end{align*}
 Therefore $\left| f(z) \right| \leq \frac{1}{R^2 - a^2}$. \\
+\qed
 
 \noindent
 Next we wish to show that 
 $$
 \left| \int_C f(z) dz \right| \leq \frac{\pi R}{R^2 - a^2}, \quad R > a.
 $$
-It may be helpful to use arc length. It is going to be $\frac 1 2 2\pi R = \pi R$.
-What is M again... well it was actually what you just calculated in the last problem.
+By Theorem 2.4.2 from A\&F, if $f(z)$ is continuous on contour C, then
+$$
+\left| \int_C f(z) dz \right| \leq ML
+$$
+where $L$ is the length of $C$ and $M$ is an upper bound for $\left| f(z) \right|$.
+We have that $C$ is continuous, since $a >0$ and $a < R$ there are no singularities or weirdness with $f(z)$ on the specified contour.
 So we have 
 $$
 M = \frac{1}{R^2 - a^2}
 $$
+as we calculated in the first part of this problem.
+Additionally, we know the arc length of $C$ is easy to calculate because it is half the circumference of the circle with radius $R$. Therefore,
 $$
-L = \int_a^b |z^\prime(t)| \D t = \frac 1 2 2 \pi R = \pi R
+L = \int_a^b |z^\prime(t)| \D t = \frac 1 2 2 \pi R = \pi R.
 $$
 And thus
 $$
-\left| \int_C f(z) dz \right| \leq ML \leq \frac{\pi R}{R^2 - a^2}
+\left| \int_C f(z) dz \right| \leq ML \leq \pi R\frac{1}{R^2 - a^2} = \frac{\pi R}{R^2 - a^2}.
 $$
-by Theorem 2.4.2 from A\&F $f(z)$ needs to be continuous on contour C (it is since $a >0$ and $a < R$ there are no singularities or weirdness with $f$) \textbf{TODO:} revisit this problem and ensure that your logic works out right.
+Hence, 
+$$
+\left| \int_C f(z) dz \right| \leq \frac{\pi R}{R^2 - a^2}
+$$
+as desired.
 \qed
 \\
 \item From A\&F: 2.4.8 \\
-Let $C$ be an arc of the circle $\left|z\right| = R(R > 1)$ of angle $\frac{\pi}{3}$.
+Let $C$ be an arc of the circle $\left|z\right| = R$ with $(R > 1)$ of angle $\frac{\pi}{3}$.
 Show that 
 $$
 \left| \int_C \frac{\D z}{z^3 + 1} \right| \leq \frac \pi 3 \left( \frac{R}{R^3 - 1} \right)
@@ -265,6 +277,38 @@ $$
 \lim_{R \rightarrow \infty} \int_C \frac{\D z}{z^3 + 1} = 0
 $$
 \textit{Solution:} \\
+Similar to the previous problem we will utilize Theorem 2.4.2 from A\&F. This time, our arc length of the contour $C$ is
+$$
+L = \frac 1 6 2\pi R = \frac{\pi}{3} R.
+$$
+Next, we need to calculate $M$ as the upper bound for $\left| \frac{1}{z^3 + 1} \right|$.
+Let's follow a similar path as the previous problem
+\begin{align*}
+\left| f(z) \right| &= \left| \frac 1 {z^3 + 1} \right| \\
+	&= \left| \frac 1 {\left( x + iy \right)^3 + 1} \right| \\
+	&= \left| \frac 1 {x^3 -3y^2x + i3x^2y - iy^3 + 1} \right| \\
+	&= \left| \frac 1 {\left(x^3 -3y^2x + 1\right) + i\left(3x^2y - y^3\right)} \right|. \\
+\end{align*}
+Using $u(x, y) = x^3 -3y^2x + 1$ and $v(x, y) = 3x^2y - y^3$ we have,
+\begin{align*}
+	&= \left| \frac 1 {u + iv} \right| \\
+	&= \left| \frac{u - iv }{u^2 + v^2 } \right| \\
+	&= \frac{1}{\sqrt{u^2 + v^2}}.
+\end{align*}
+Substituting back in we have
+\begin{align*}
+& \frac{1}{\sqrt{\left( x^3 -3y^2x + 1 \right)^2 + \left( 3x^2y - y^3 \right)^2}} \\
+	&= \frac{1}{\sqrt{x^6 -3y^2x^4 + x^3 -3y^2x^4 + 9y^4x^2 - 3y^2x +  x^3 -3y^2x + 1 + \left( 3x^2y - y^3 \right)^2}} \\
+	&= \frac{1}{\sqrt{x^6 -3y^2x^4 + x^3 -3y^2x^4 + 9y^4x^2 - 3y^2x +  x^3 -3y^2x + 1 + 9x^4y^2 - 6x^2y^4 + y^6 }} \\
+	&= \frac{1}{\sqrt{x^6 + x^3 + 9y^4x^2 - 3y^2x +  x^3 -3y^2x + 1 -3y^2x^4 -3y^2x^4 + 9x^4y^2 - 6x^2y^4 + y^6 }} \\
+	&= \frac{1}{\sqrt{x^6 + 2x^3 + 9x^2y^4 - 6xy^2 + 1 +3x^4y^2 - 6x^2y^4 + y^6 }} \\
+	&= \frac{1}{\sqrt{x^6 + 2x^3 + 3x^2y^4 - 6xy^2 + 1 +3x^4y^2 + y^6 }} \\
+	&= ...
+\end{align*}
+\textbf{TODO} Figure out another way, I don't think this is it.
+\qed
+\\
+
 \item From A\&F: 2.5.1 b, e \\
 Evaluate $\oint_C f(z)\D z$, where $C$ is the unit circle centered at the origin, and $f(z)$ is given by the following: \\
 b) $$f(z) = \E^{z^2}$$ \\
