@@ -1,0 +1,52 @@
+\documentclass[10pt]{amsart}
+\include{amsmath}
+\usepackage{dsfont}													% gives you \mathds{} font
+
+\newcommand{\D}{\mathrm{d}}
+
+\begin{document}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{10-07-24} \\
+\text{AMATH 561}
+\title{Problem Set 3}
+\maketitle
+
+\noindent {\bf 1.} Give an example of a probability space $(\Omega, \mathcal{F},P)$, a random variable $X$ and a function $f$ such that $\sigma(f(X))$ is strictly smaller than $\sigma(X)$ but $\sigma(f(X)) \neq \{\emptyset,\Omega\}$. Give a function $g$ such that $\sigma(g(X))=\{\emptyset,\Omega\}$. Hint: Look at finite sample spaces with a small number of elements. \\
+\textit{Solution:} \\
+\textbf{Part one} \\
+Random variable $X$ and $f$ such that $\left|\sigma(f(X)) \right| < \left| \sigma(X) \right|$ and $\sigma(X)$ is not the trivial $\sigma$-algebra. \\
+\textbf{Part two}
+Now also give a function $g$ such that $\sigma(g(X))$ is the trivial $\sigma$-algebra, $\left\{ \emptyset, \Omega\right\}$.
+\\
+
+\noindent {\bf 2.} Give an example of events $A$, $B$, and $C$, each of probability strictly between 0 and 1, such that
+$P(A\cap B)=P(A)P(B), P(A\cap C)=P(A)P(C)$, and $P(A\cap B\cap C)=P(A)P(B)P(C)$ but $P(B\cap C)\neq P(B)P(C)$. Are $A$, $B$ and $C$ independent? Hint: You can let $\Omega$ be a set of eight equally likely points. \\
+\textit{Solution:} \\
+Think of this as an eight sided die...
+\\
+
+\noindent {\bf 3.} Let $(\Omega, \mathcal{F},P)$ be a probability space such that $\Omega$ is countably infinite, and $\mathcal{F}=2^{\Omega}$. Show that it is impossible for there to exist a countable collection of events $A_1, A_2,... \in \mathcal{F}$ which are independent, such that $P(A_i)=1/2$ for each $i$. Hint: First show that for each $\omega \in \Omega$ and each $n\in \mathds{N}$, we have $P({\omega})\leq 1/2^n$. Then derive a contradiction. \\
+\textit{Solution:} \\
+Literally just use the hint...
+\\
+
+\noindent {\bf 4.}  (a) Let $X \geq 0$ and $Y \geq 0$  be independent random variables with distribution functions $F$ and $G$. Find the distribution function of $XY$. \\
+\textit{Solution:} \\
+These are not explicitly dealing with discrete or continuous.
+Definitely review lecture notes.
+Since these are independent try using the formulae from the lecture on 10-16-24.
+\\
+
+(b) If $X \geq 0$ and $Y \geq 0$ are independent continuous random variables with density functions $f$ and $g$, find the density function of $XY$. \\
+\textit{Solution:} \\
+Notice these are continuous and you're dealing with densities.
+\\
+
+(c) If $X$ and $Y$ are independent exponentially distributed random variables with parameter $\lambda$, find the density function of $XY$.\\
+\textit{Solution:} \\
+TBD
+\\
+\end{document}  
