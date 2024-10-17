@@ -73,7 +73,7 @@ Note, before we do the substitution we need $\D z = i\E^{i\theta} \D \theta$. No
 \\
 e) $$f(z) = \E^{\bar z}$$
 \textit{Solution:} \\
-We will use the same substitutions from the previous part
+We will use the same substitutions from the previous part \textbf{TODO:} maybe change this back to regular integrals instead of contour integrals after you have parameterized.
 \begin{align*}
 \oint_C\E^{\bar z} \D z &= \oint_0^{2\pi}\E^{\E^{-i\theta}} i\E^{i \theta}\D \theta \\
 				  &= \oint_0^{2\pi} \sum_{j=1}^{\infty} \frac{\left(\E^{-i\theta}\right)^j}{j!} i\E^{i\theta} \D \theta \\
@@ -363,8 +363,65 @@ $$\lim_{R \rightarrow \infty} \int_C f(z) dz = 0.$$
 Evaluate $\oint_C f(z)\D z$, where $C$ is the unit circle centered at the origin, and $f(z)$ is given by the following: \\
 b) $$f(z) = \E^{z^2}$$ \\
 \textit{Solution:} \\
+Let's first break $f(z)$ up into real and imaginary parts so we can define $u(x, y)$ and $v(x, y)$ and check if the Cauchy-Riemann (C-R) equations hold.
+\begin{align*}
+f(z) &= \E^{z^2} \\
+	&= \E^{ x^2 + 2ixy - y^2} \\
+	&= \E^{x^2}\E^{2ixy}\E^{- y^2} \\
+	&= \E^{x^2}\E^{- y^2}\E^{2ixy} \\
+	&= \E^{x^2}\E^{- y^2}\left( \cos (2xy) + i \sin (2xy)\right) \\
+	&= \E^{x^2}\E^{- y^2}\cos (2xy) + i \E^{x^2}\E^{- y^2}\sin (2xy).
+\end{align*}
+Then we can assign $u(x, y) = \E^{x^2}\E^{- y^2}\cos (2xy)$ and $v(x, y) = \E^{x^2}\E^{- y^2}\sin (2xy)$.
+Now let's calculate the necessary derivatives to verify if $f(z)$ is analytic.
+We have
+\begin{align*}
+\frac {\partial u}{\partial x} &= \E^{-y^2}\left( 2x\E^{x^2}\cos (2xy) - \E^{x^2} \sin (2xy)2y\right) \\
+	&= \E^{x^2}\E^{-y^2}\left( 2x\cos (2xy) - \sin (2xy)2y\right) \\
+\frac {\partial v}{\partial y} &= \E^{x^2}\left( (-2y)\E^{-y^2}\sin(2xy) + \E^{-y^2}\cos (2xy)2x\right) \\
+	&= \E^{x^2}\E^{-y^2}\left( -2y\sin(2xy) + \cos (2xy)2x\right)
+\end{align*}
+which are equivalent.
+Additionally, we get
+\begin{align*}
+\frac {\partial v}{\partial x} &= \E^{- y^2} \left( 2x\E^{x^2}\sin (2xy) + \E^{x^2}\cos (2xy)2y \right) \\
+	&= \E^{x^2}\E^{- y^2} \left( 2x\sin (2xy) + \cos (2xy)2y \right) \\
+- \frac {\partial u}{\partial y} &= -\left( \E^{x^2} \left( -2y\E^{- y^2}\cos (2xy) - \E^{- y^2}\sin (2xy)2x \right) \right) \\
+	&= - \E^{x^2} \E^{- y^2} \left( -2y\cos (2xy) - \sin (2xy)2x \right) \\
+	&= \E^{x^2} \E^{-y^2} \left(2y\cos (2xy) + \sin (2xy)2x \right)
+\end{align*}
+which are also equal as desired.
+Therefore the C-R equations hold and f(z) is analytic everywhere.
+Now by the Theorem 2.5.2 from A\&F or Cauchy's Integral formula, we can conclude
+$$
+\oint_C f(z)\D z = \oint_C \E^{z^2} \D z = 0.
+$$
+\qed 
+\\
+Another method of direct verification.
+\begin{align*}
+\oint_C \E^{z^2} \D z  &= \int_{0}^{2\pi} \E^{ \left( \E^{i\theta}\right)^2} i \E^{i \theta}\D \theta \\
+	&= \int_{0}^{2\pi}i \left( \sum_{j=1}^{\infty} \frac{\left(\E^{2i\theta}\right)^j} {j!} \right) \E^{i \theta}\D \theta \\
+	&= \int_{0}^{2\pi}i \sum_{j=1}^{\infty} \frac{\E^{i\theta2j + i \theta}} {j!} \D \theta \\
+	&= \int_{0}^{2\pi}i \sum_{j=1}^{\infty} \frac{\E^{i\theta\left(2j + 1 \right)}} {j!} \D \theta \\
+	&= \sum_{j=1}^{\infty}  \int_{0}^{2\pi}\frac{i\E^{i\theta\left(2j + 1 \right)}} {j!} \D \theta \\
+\end{align*}
+Again this reordering of the integral and sum is justified by the absolute convergence of the infinite series. We don't need to worry about any terms being undefined by a divide by zero issue. So let's look at the integral inside the sum
+\begin{align*}
+\int_{0}^{2\pi}\frac{i\E^{i\theta\left(2j + 1 \right)}} {j!} \D \theta
+	&= \left. \frac{1}{2j + 1} \frac{\E^{i\theta\left(2j + 1 \right)}} {j!} \right|_0^{2\pi} \\
+	&= \frac{1}{2j + 1} \frac{\E^{i2\pi\left(2j + 1 \right)}} {j!}  - \frac{1}{2j + 1} \frac{\E^{i0\left(2j + 1 \right)}} {j!} \\
+	&= \frac{1}{2j + 1} \frac{\E^{i2\pi\left(2j + 1 \right)}} {j!}  - \frac{1}{\left(2j + 1\right)j!} \\
+	&= \frac{1}{\left(2j + 1\right)j!}  - \frac{1}{\left(2j + 1\right)j!} \\
+	&= 0 \\
+\end{align*}
+\qed
+\\
 e) $$f(z) = \frac{1}{2z^2 + 1} $$ \\
 \textit{Solution:} \\
+\textbf{TODO:} Definitely go the route of checking the analyticity of $f(z)$ with the C-R equations.
+\\
+
 \item Use the ideas from A\&F: 2.5.5 to evaluate $\int_0^\infty \E^{\I
     z^3 t} \D z$, $t > 0$.  Express the result in terms of $\int_0^\infty \E^{-
     r^3} \D r$. \\
