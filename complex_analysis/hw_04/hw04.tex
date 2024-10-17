@@ -85,7 +85,10 @@ I will now just look at the integral inside the sum
 \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta &= \oint_0^{2\pi} i \frac{\E^{-i\theta j}\E^{i\theta}}{j!} \D \theta \\
 	&= \oint_0^{2\pi} i \frac{\E^{-i\theta j + i\theta}}{j!} \D \theta \\
 	&=\oint_0^{2\pi} i \frac{\E^{i\theta\left( - j + 1\right)}}{j!} \D \theta \\
-	&=\oint_0^{2\pi} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \D \theta \\
+	&=\oint_0^{2\pi} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \D \theta
+\end{align*}
+\textbf{TODO:} Address the $j = 1$.
+\begin{align*}
 	&= \left. \frac{1}{1 - j} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \right|_0^{2 \pi} \\
 	&= \frac{1}{1 - j} \frac{i\E^{i2\pi\left(1 - j\right)}}{j!} - \frac{1}{1 - j} \frac{i\E^0}{j!} \\
 	&= \frac{i}{\left(1 - j\right)j!}\left(\E^{i2\pi\left(1 - j\right)} - 1 \right) \\
@@ -251,10 +254,19 @@ $$
 M = \frac{1}{R^2 - a^2}
 $$
 as we calculated in the first part of this problem.
-Additionally, we know the arc length of $C$ is easy to calculate because it is half the circumference of the circle with radius $R$. Therefore,
-$$
-L = \int_a^b |z^\prime(t)| \D t = \frac 1 2 2 \pi R = \pi R.
-$$
+Additionally, we know the arc length of $C$ is easy to calculate because it is half the circumference of the circle with radius $R$.
+To convince myself of this I will show the general arc length formula also provides this quick calculation.
+Let our parameterization of this contour be $$z(\theta) = R\E^{i\theta}$$ where $\theta \in [0, \pi)$. Then $$z^\prime(\theta) = Ri\E^{i\theta} = -R\sin\theta + iR\cos\theta.$$
+Therefore calculating arc length is as follows,
+\begin{align*}
+L &= \int_a^b |z^\prime(t)| \D t \\
+	&= \int_{0}^{\pi} \left| -R\sin\theta + iR\cos\theta \right| \D \theta \\
+	&= \int_{0}^{\pi} \sqrt{ R^2\sin^2\theta + R^2\cos^2\theta } \D \theta \\
+	&= \int_{0}^{\pi} \sqrt{ R^2\left(\sin^2\theta + \cos^2\theta\right) } \D \theta \\
+	&= \int_{0}^{\pi} R \D \theta \\
+	&= \pi R.
+\end{align*}
+Which is the same as half the circumference ($\frac 1 2 2\pi R = \pi R$).
 And thus
 $$
 \left| \int_C f(z) dz \right| \leq ML \leq \pi R\frac{1}{R^2 - a^2} = \frac{\pi R}{R^2 - a^2}.
@@ -277,35 +289,42 @@ $$
 \lim_{R \rightarrow \infty} \int_C \frac{\D z}{z^3 + 1} = 0
 $$
 \textit{Solution:} \\
-Similar to the previous problem we will utilize Theorem 2.4.2 from A\&F. This time, our arc length of the contour $C$ is
+Similar to the previous problem, we will utilize Theorem 2.4.2 from A\&F.
+We are justified in this, since the contour $C$ is continuous on the arc of the circle $|z| = R$.
+This time, our arc length of the contour $C$ is
 $$
 L = \frac 1 6 2\pi R = \frac{\pi}{3} R.
 $$
 Next, we need to calculate $M$ as the upper bound for $\left| \frac{1}{z^3 + 1} \right|$.
-Let's follow a similar path as the previous problem
+Let's use a simpler method than in problem 3.
+$$
+\left| f(z) \right| = \left| \frac 1 {z^3 + 1} \right| = \frac 1 {\left|z^3 + 1\right|}.
+$$
+If we can get a lower bound for the denominator then we will have an upper bound for the whole expression. It falls out quickly from the inverse triangle inequality and the parameterization $z = R\E^{i\theta}$.
 \begin{align*}
-\left| f(z) \right| &= \left| \frac 1 {z^3 + 1} \right| \\
-	&= \left| \frac 1 {\left( x + iy \right)^3 + 1} \right| \\
-	&= \left| \frac 1 {x^3 -3y^2x + i3x^2y - iy^3 + 1} \right| \\
-	&= \left| \frac 1 {\left(x^3 -3y^2x + 1\right) + i\left(3x^2y - y^3\right)} \right|. \\
+\left| z^3 + 1\right| &= \left| R^3\E^{i3\theta} + 1\right| \\
+	&= \left| R^3\E^{i3\theta} - \left(-1\right)\right| \\
+	&\geq \left| \left|R^3\E^{i3\theta}\right| - \left|\left(-1\right)\right|\right| \\
+	&= \left| R^3 - 1\right| \\
+	&= R^3 - 1
 \end{align*}
-Using $u(x, y) = x^3 -3y^2x + 1$ and $v(x, y) = 3x^2y - y^3$ we have,
-\begin{align*}
-	&= \left| \frac 1 {u + iv} \right| \\
-	&= \left| \frac{u - iv }{u^2 + v^2 } \right| \\
-	&= \frac{1}{\sqrt{u^2 + v^2}}.
-\end{align*}
-Substituting back in we have
-\begin{align*}
-& \frac{1}{\sqrt{\left( x^3 -3y^2x + 1 \right)^2 + \left( 3x^2y - y^3 \right)^2}} \\
-	&= \frac{1}{\sqrt{x^6 -3y^2x^4 + x^3 -3y^2x^4 + 9y^4x^2 - 3y^2x +  x^3 -3y^2x + 1 + \left( 3x^2y - y^3 \right)^2}} \\
-	&= \frac{1}{\sqrt{x^6 -3y^2x^4 + x^3 -3y^2x^4 + 9y^4x^2 - 3y^2x +  x^3 -3y^2x + 1 + 9x^4y^2 - 6x^2y^4 + y^6 }} \\
-	&= \frac{1}{\sqrt{x^6 + x^3 + 9y^4x^2 - 3y^2x +  x^3 -3y^2x + 1 -3y^2x^4 -3y^2x^4 + 9x^4y^2 - 6x^2y^4 + y^6 }} \\
-	&= \frac{1}{\sqrt{x^6 + 2x^3 + 9x^2y^4 - 6xy^2 + 1 +3x^4y^2 - 6x^2y^4 + y^6 }} \\
-	&= \frac{1}{\sqrt{x^6 + 2x^3 + 3x^2y^4 - 6xy^2 + 1 +3x^4y^2 + y^6 }} \\
-	&= ...
-\end{align*}
-\textbf{TODO} Figure out another way, I don't think this is it.
+where the last equality holds because $R > 1$.
+Therefore, we have our lower bound for the denominator
+$$
+\left| z^3 + 1\right| \geq R^3 - 1.
+$$
+And thus we have an upper bound for the expression as follows:
+$$
+\left|f(z)\right| = \frac 1 {\left| z^3 + 1\right|} \leq \frac 1 {R^3 - 1} = M.
+$$
+Once again leaning on Theorem 2.4.2 from A\&F we have
+$$
+\left| \int_C f(z) dz \right| \leq ML \leq \frac {\pi}{3} R\frac{1}{R^3 - 1} = \frac {\pi}{3} \left(\frac{R}{R^3 - 1}\right).
+$$
+Hence,
+$$
+\left| \int_C f(z) dz \right| \leq \frac {\pi}{3} \left(\frac{R}{R^3 - 1}\right).
+$$
 \qed
 \\
 
