@@ -80,37 +80,33 @@ We will use the same substitutions from the previous part
 				  &= \sum_{j=1}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta.
 \end{align*}
 We are justified in reordering the integral of the infinite sum to be the infinite sum of the integrals since the original series converges absolutely.
-Notice,
+Notice we can pull out the first term where $j=1$ to get,
 $$
 \sum_{j=1}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta
 = \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^1}{1!} {\E^{i\theta}} \D \theta
-+ \sum_{j=2}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta
++ \sum_{j=2}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta.
 $$
-We need to look more closely at the first term that we pulled out, which is where $j=1$.
-Observe
+We need to look more closely at this first term, observe
 \begin{align*}
-\oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^1}{1!} {\E^{i\theta}} \D \theta \textbf{TODO this part}
+\oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^1}{1!} \E^{i\theta} \D \theta = \oint_0^{2\pi} i \frac{\E^{-i\theta}\E^{i\theta}}{1!} \D \theta = \oint_0^{2\pi} i \frac{1}{1} \D \theta = i\oint_0^{2\pi}\D \theta = 2\pi i.
 \end{align*}
-I will now just look at the integral inside the sum where $j = 2, 3, 4, ...$
+Now, I will focus on the integral inside the sum where $j = 2, 3, 4, ...$
 \begin{align*}
 \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta &= \oint_0^{2\pi} i \frac{\E^{-i\theta j}\E^{i\theta}}{j!} \D \theta \\
 	&= \oint_0^{2\pi} i \frac{\E^{-i\theta j + i\theta}}{j!} \D \theta \\
 	&=\oint_0^{2\pi} i \frac{\E^{i\theta\left( - j + 1\right)}}{j!} \D \theta \\
-	&=\oint_0^{2\pi} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \D \theta
-\end{align*}
-\textbf{TODO:} Address the $j = 1$.
-\begin{align*}
-\oint_0^{2\pi} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \D \theta &= \left. \frac{1}{1 - j} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \right|_0^{2 \pi} \\
+	&=\oint_0^{2\pi} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \D \theta \\
+	&= \left. \frac{1}{1 - j} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \right|_0^{2 \pi} \\
 	&= \frac{1}{1 - j} \frac{i\E^{i2\pi\left(1 - j\right)}}{j!} - \frac{1}{1 - j} \frac{i\E^0}{j!} \\
 	&= \frac{i}{\left(1 - j\right)j!}\left(\E^{i2\pi\left(1 - j\right)} - 1 \right) \\
 	&= \frac{i}{\left(1 - j\right)j!}\left(1 - 1 \right) \\
 	&= 0. \\
 \end{align*}
 I want to clarify why $\E^{i2\pi\left(1 - j\right)} = 1$.
-Since $j \in \{1, 2, 3, ...\}$, then $1 - j$ is an integer and we have $\E^{i2\pi \ell}$ where $\ell \in \mathbb Z$ which is always $1$.
+Since $j \in \{2, 3, ...\}$, then $1 - j$ is an integer and we have $\E^{i2\pi \ell}$ where $\ell \in \mathbb Z$, thus $\E^{i2\pi \ell} = 1$.
 Now we return to the original problem
 $$
-\sum_{j=1}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta = \sum_{j=1}^{\infty} 0 = 0.
+\sum_{j=1}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta =  2\pi i + \sum_{j=2}^{\infty} 0 = 2\pi i.
 $$
 Now we have completed the requisite task.
 \qed
@@ -189,7 +185,7 @@ Notice, we can write the real and imaginary parts of the complex number in the d
 Where $u(x, y) = x^2 - y^2 + a^2$ and $v(x, y) = 2xy$.
 Now we get 
 $$
-f(z) = \frac{1}{x^2 - y^2 + a^2 + i2xy }	 = \frac{u - iv }{u - iv }\frac{1}{u + iv } = \frac{u - iv }{u^2 + v^2 }
+f(z) = \frac{1}{x^2 - y^2 + a^2 + i2xy }	 = \frac{u - iv }{u - iv }\frac{1}{u + iv } = \frac{u - iv }{u^2 + v^2 }.
 $$
 Then we calculate
 \begin{align*}
@@ -228,12 +224,12 @@ Now we add zero in a particular fashion, namely $- 4x^2a^2 + 4x^2a^2 $, so we ca
 \begin{align*}
 	&= \frac{1}{
 		\sqrt{
-			x^4 + x^2a^2 + y^4 - y^2a^2 + x^2a^2 - y^2a^2 + a^4 + 2x^2y^2 +\left( - 4x^2a^2 + 4x^2a^2 \right)
+			x^4 + y^4 - y^2a^2 + 2x^2a^2 - y^2a^2 + a^4 + 2x^2y^2 +\left( - 4x^2a^2 + 4x^2a^2 \right)
 		}
 	} \\
 	&= \frac{1}{
 		\sqrt{
-			x^4 + y^4 - y^2a^2 - y^2a^2 + a^4 + 2x^2y^2 - x^2a^2 - x^2a^2 + 4x^2a^2
+			x^4 + y^4 - 2y^2a^2 + a^4 + 2x^2y^2 - 2x^2a^2 + 4x^2a^2
 		}
 	} \\
 	&= \frac{1}{\sqrt{\left(x^2 + y^2 - a^2\right)^2 + \left(2xa\right)^2}}.
@@ -259,7 +255,7 @@ $$
 \left| \int_C f(z) dz \right| \leq ML
 $$
 where $L$ is the length of $C$ and $M$ is an upper bound for $\left| f(z) \right|$.
-We have that $C$ is continuous, since $a >0$ and $a < R$ there are no singularities or weirdness with $f(z)$ on the specified contour.
+We have that $C$ is continuous, since $a >0$ and $a < R$ and there are no singularities or weirdness with $f(z)$ on the specified contour.
 So we have 
 $$
 M = \frac{1}{R^2 - a^2}
@@ -280,7 +276,7 @@ L &= \int_a^b |z^\prime(t)| \D t \\
 Which is the same as half the circumference ($\frac 1 2 2\pi R = \pi R$).
 And thus
 $$
-\left| \int_C f(z) dz \right| \leq ML \leq \pi R\frac{1}{R^2 - a^2} = \frac{\pi R}{R^2 - a^2}.
+\left| \int_C f(z) dz \right| \leq ML \leq \frac{1}{R^2 - a^2} \pi R = \frac{\pi R}{R^2 - a^2}.
 $$
 Hence, 
 $$
@@ -307,11 +303,11 @@ $$
 L = \frac 1 6 2\pi R = \frac{\pi}{3} R.
 $$
 Next, we need to calculate $M$ as the upper bound for $\left| \frac{1}{z^3 + 1} \right|$.
-Let's use a simpler method than in problem 3.
+Let's use a simpler method than in problem 3. Let's get on with it
 $$
 \left| f(z) \right| = \left| \frac 1 {z^3 + 1} \right| = \frac 1 {\left|z^3 + 1\right|}.
 $$
-If we can get a lower bound for the denominator then we will have an upper bound for the whole expression. It falls out quickly from the inverse triangle inequality and the parameterization $z = R\E^{i\theta}$.
+Notice, if we can get a lower bound for the denominator then we will have an upper bound for the whole expression. It falls out quickly using the parameterization $z = R\E^{i\theta}$ and applying the inverse triangle inequality.
 \begin{align*}
 \left| z^3 + 1\right| &= \left| R^3\E^{i3\theta} + 1\right| \\
 	&= \left| R^3\E^{i3\theta} - \left(-1\right)\right| \\
@@ -322,13 +318,13 @@ If we can get a lower bound for the denominator then we will have an upper bound
 where the last equality holds because $R > 1$.
 Therefore, we have our lower bound for the denominator
 $$
-\left| z^3 + 1\right| \geq R^3 - 1.
+\left| z^3 + 1\right| \geq R^3 - 1,
 $$
-And thus we have an upper bound for the expression as follows:
+and thus an upper bound for the expression
 $$
 \left|f(z)\right| = \frac 1 {\left| z^3 + 1\right|} \leq \frac 1 {R^3 - 1} = M.
 $$
-Once again leaning on Theorem 2.4.2 from A\&F we have
+Finally, applying Theorem 2.4.2 from A\&F we have
 $$
 \left| \int_C f(z) dz \right| \leq ML \leq \frac {\pi}{3} R\frac{1}{R^3 - 1} = \frac {\pi}{3} \left(\frac{R}{R^3 - 1}\right).
 $$
@@ -336,6 +332,30 @@ Hence,
 $$
 \left| \int_C f(z) dz \right| \leq \frac {\pi}{3} \left(\frac{R}{R^3 - 1}\right).
 $$
+\qed \\
+We will now take the limit of both sides of this inequality as $R$ goes to $\infty$
+$$
+\lim_{R \rightarrow \infty} \left| \int_C f(z) dz \right|
+\leq \lim_{R \rightarrow \infty} \frac {\pi}{3} \left(\frac{R}{R^3 - 1}\right) = \frac \infty \infty.
+$$
+Applying L'Hôpital's rule once, we have
+$$
+\lim_{R \rightarrow \infty} \frac {\pi}{3} \left(\frac{1}{3R^2 - 1}\right) = 0.
+$$
+Therefore,
+$$
+\lim_{R \rightarrow \infty} \left| \int_C f(z) dz \right| \leq 0.
+$$
+If the limit of the absolute value of something is less than or equal to 0, then the limit of that thing must be zero.
+This is the case because the absolute value is a non-negative function, so the ``$\leq 0 $" must be just an equality. Therefore,
+$$
+\lim_{R \rightarrow \infty} \left| \int_C f(z) dz \right| = 0.
+$$
+Note this also implies $\lim_{R \rightarrow \infty} -\left| \int_C f(z) dz \right| = 0$.
+Now we have that
+$$-\left| \int_C f(z) dz \right| \leq \int_C f(z) dz \leq \left| \int_C f(z) dz \right| $$
+and thus by the squeeze theorem,
+$$\lim_{R \rightarrow \infty} \int_C f(z) dz = 0.$$
 \qed
 \\
 
