@@ -80,7 +80,18 @@ We will use the same substitutions from the previous part
 				  &= \sum_{j=1}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta.
 \end{align*}
 We are justified in reordering the integral of the infinite sum to be the infinite sum of the integrals since the original series converges absolutely.
-I will now just look at the integral inside the sum
+Notice,
+$$
+\sum_{j=1}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta
+= \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^1}{1!} {\E^{i\theta}} \D \theta
++ \sum_{j=2}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta
+$$
+We need to look more closely at the first term that we pulled out, which is where $j=1$.
+Observe
+\begin{align*}
+\oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^1}{1!} {\E^{i\theta}} \D \theta \textbf{TODO this part}
+\end{align*}
+I will now just look at the integral inside the sum where $j = 2, 3, 4, ...$
 \begin{align*}
 \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta &= \oint_0^{2\pi} i \frac{\E^{-i\theta j}\E^{i\theta}}{j!} \D \theta \\
 	&= \oint_0^{2\pi} i \frac{\E^{-i\theta j + i\theta}}{j!} \D \theta \\
@@ -89,7 +100,7 @@ I will now just look at the integral inside the sum
 \end{align*}
 \textbf{TODO:} Address the $j = 1$.
 \begin{align*}
-	&= \left. \frac{1}{1 - j} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \right|_0^{2 \pi} \\
+\oint_0^{2\pi} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \D \theta &= \left. \frac{1}{1 - j} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \right|_0^{2 \pi} \\
 	&= \frac{1}{1 - j} \frac{i\E^{i2\pi\left(1 - j\right)}}{j!} - \frac{1}{1 - j} \frac{i\E^0}{j!} \\
 	&= \frac{i}{\left(1 - j\right)j!}\left(\E^{i2\pi\left(1 - j\right)} - 1 \right) \\
 	&= \frac{i}{\left(1 - j\right)j!}\left(1 - 1 \right) \\
