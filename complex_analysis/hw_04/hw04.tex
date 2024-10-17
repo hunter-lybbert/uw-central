@@ -419,7 +419,65 @@ Again this reordering of the integral and sum is justified by the absolute conve
 \\
 e) $$f(z) = \frac{1}{2z^2 + 1} $$ \\
 \textit{Solution:} \\
-\textbf{TODO:} Definitely go the route of checking the analyticity of $f(z)$ with the C-R equations.
+\textbf{TODO:} Definitely go the route of checking the analyticity of $f(z)$ with the C-R equations. \\
+Let's determine the real and imaginary parts of this function
+\begin{align*}
+f(z) = \frac 1 {2z^2 + 1} &= \frac 1 {2\left( x + iy\right)} \\
+	&= \frac 1 {2\left( x^2 +2ixy -y^2 \right) + 1} \\
+	&= \frac 1 {2x^2 +4ixy -3y^2 + 1} \\
+	&= \frac 1 {\left(2x^2 -3y^2 + 1\right) + i\left(4xy\right) } \\
+\end{align*}
+Let's assign place holders $p$ and $q$ to be the real and imaginary parts, respectively, of the denominator right now such that $p = 2x^2 -3y^2 + 1$ and $q = 4xy$.
+These are naturally functions of $x$ and $y$ but I will suppress the arguments for now.
+Then we multiply the top and bottom by the conjugate
+\begin{align*}
+&= \frac 1 {p + iq } \\
+	&= \frac {p - iq}  {p^2 + q^2 } \\
+	&= \frac {p}  {p^2 + q^2 } - i \frac {q}  {p^2 + q^2 }.
+\end{align*}
+We now assign
+$$
+u = \frac {p}  {p^2 + q^2 } = \frac{2x^2 -3y^2 + 1} {\left(2x^2 -3y^2 + 1\right)^2 + \left( 4xy \right)^2}
+$$
+and
+$$
+v = \frac {-q}  {p^2 + q^2 } = \frac{-4xy} {\left(2x^2 -3y^2 + 1\right)^2 + \left( 4xy \right)^2}.
+$$
+Similar to $p$ and $q$, I will suppress the arguments of the functions $u$ and $v$ for simplicity in notation and to ease the book keeping throughout these calculations.
+Once we calculate the correct partial derivatives, we can see if $f(z)$ is analytic.
+It may actually be useful to calculate this using the chain rule through the sequence of variables depending on $x$ and $y$.
+We need to calculate each of the following partials $u_x$, $v_y$, $v_x,$ and $u_y$.
+\begin{align*}
+u_x &= u_pp_x + u_qq_x \\
+v_y &= v_pp_y + v_qq_y \\
+v_x &= v_pp_x + v_qq_x \\
+u_y &= u_pp_y + u_qq_y \\
+\end{align*}
+Each of these partials is made up of combinations of 8 unique partials. I will calculate those explicitly now, then piece the right ones together to help us verify the C-R equations after.
+\begin{align*}
+u_p &= \frac{1\left(p^2 + q^2\right) - p\left(2p\right)}{\left(p^2 + q^2\right)^2}
+	\quad &u_q& = \frac{0\left(p^2 + q^2\right) - p\left(2q\right)}{\left(p^2 + q^2\right)^2} \\
+v_p &= \frac{0\left(p^2 + q^2\right) - (-q)\left(2p\right)}{\left(p^2 + q^2\right)^2} 
+	\quad &v_q& = \frac{(-1)\left(p^2 + q^2\right) - (-q)\left(2q\right)}{\left(p^2 + q^2\right)^2} \\	
+p_x &= 4x
+	\quad &p_y& = -6y \\
+q_x &= 4x 
+	\quad &q_y& = 4y \\	
+\end{align*}
+We are now ready to check the C-R equations.
+Beginning with $u_x = v_y$
+\begin{align*}
+u_x = u_pp_x + u_qq_x &= \left( \frac{1\left(p^2 + q^2\right) - p\left(2p\right)}{\left(p^2 + q^2\right)^2} \right)\left(4x\right)
+	+ \left(\frac{0\left(p^2 + q^2\right) - p\left(2q\right)}{\left(p^2 + q^2\right)^2}\right)\left(4x\right) \\
+	&= \left( \frac{\left(p^2 + q^2\right) - p\left(2p\right) - p\left(2q\right)}{\left(p^2 + q^2\right)^2} \right)\left(4x\right) \\
+	&= \frac{\left( p^2 + q^2 - 2p^2 - 2pq\right)4x}{\left(p^2 + q^2\right)^2} \\
+v_y = v_pp_y + v_qq_y &= \left( \frac{0\left(p^2 + q^2\right) - (-q)\left(2p\right)}{\left(p^2 + q^2\right)^2} \right)\left(-6y\right)
+	+ \left(\frac{(-1)\left(p^2 + q^2\right) - (-q)\left(2q\right)}{\left(p^2 + q^2\right)^2}\right) \left( 4y \right) \\
+	&= \left( \frac{ 2qp}{\left(p^2 + q^2\right)^2} \right)\left(-6y\right)
+	+ \left(\frac{-p^2 - q^2 + 2q^2}{\left(p^2 + q^2\right)^2}\right) \left( 4y \right) \\
+	&= \frac{ -12qpy + \left(-p^2 - q^2 + 2q^2\right)4y}{\left(p^2 + q^2\right)^2}
+\end{align*}
+\textbf{TODO:} It's not abundantly clear that this is the best route to verify this integrals value...
 \\
 
 \item Use the ideas from A\&F: 2.5.5 to evaluate $\int_0^\infty \E^{\I
