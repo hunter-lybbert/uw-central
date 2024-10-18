@@ -62,8 +62,8 @@ $$
 on the parameterized unit circle $z = \E^{i\theta}$ where $\theta \in [0, 2\pi)$, where $\bar z = \E^{-i\theta}$ on the unit circle.
 Note, before we do the substitution we need $\D z = i\E^{i\theta} \D \theta$. Now our integral is
 \begin{align*}
-\oint_C\frac {1} {\bar z} \D z &= \oint_0^{2\pi}\frac {1} {\E^{-i\theta}} i\E^{i \theta}\D \theta \\
-					  &= \oint_0^{2\pi} i \E^{2i \theta} \D \theta \\
+\oint_C\frac {1} {\bar z} \D z &= \int_0^{2\pi}\frac {1} {\E^{-i\theta}} i\E^{i \theta}\D \theta \\
+					  &= \int_0^{2\pi} i \E^{2i \theta} \D \theta \\
 					  &= \left( \left. \frac 1 2 \E^{2i\theta} \right|_0^{2\pi}\right) \\
 					  &= \frac 1 2 \E^{4\pi i} - \frac 1 2 \E^{0} \\
 					  &= \frac 1 2 - \frac 1 2 \\
@@ -73,29 +73,38 @@ Note, before we do the substitution we need $\D z = i\E^{i\theta} \D \theta$. No
 \\
 e) $$f(z) = \E^{\bar z}$$
 \textit{Solution:} \\
-We will use the same substitutions from the previous part \textbf{TODO:} maybe change this back to regular integrals instead of contour integrals after you have parameterized.
+We will use the same substitutions from the previous part
 \begin{align*}
-\oint_C\E^{\bar z} \D z &= \oint_0^{2\pi}\E^{\E^{-i\theta}} i\E^{i \theta}\D \theta \\
-				  &= \oint_0^{2\pi} \sum_{j=1}^{\infty} \frac{\left(\E^{-i\theta}\right)^j}{j!} i\E^{i\theta} \D \theta \\
-				  &= \sum_{j=1}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta.
+\oint_C\E^{\bar z} \D z &= \int_0^{2\pi}\E^{\E^{-i\theta}} i\E^{i \theta}\D \theta \\
+				  &= \int_0^{2\pi} \sum_{j=0}^{\infty} \frac{\left(\E^{-i\theta}\right)^j}{j!} i\E^{i\theta} \D \theta \\
+				  &= \sum_{j=0}^{\infty} \int_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta.
 \end{align*}
 We are justified in reordering the integral of the infinite sum to be the infinite sum of the integrals since the original series converges absolutely.
 Notice we can pull out the first term where $j=1$ to get,
 $$
-\sum_{j=1}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta
-= \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^1}{1!} {\E^{i\theta}} \D \theta
-+ \sum_{j=2}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta.
+\sum_{j=0}^{\infty} \int_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta
+= \int_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^0}{0!} {\E^{i\theta}} \D \theta
++ \int_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^1}{1!} {\E^{i\theta}} \D \theta
++ \sum_{j=2}^{\infty} \int_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta.
 $$
-We need to look more closely at this first term, observe
+We need to look more closely at this first two terms, observe
 \begin{align*}
-\oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^1}{1!} \E^{i\theta} \D \theta = \oint_0^{2\pi} i \frac{\E^{-i\theta}\E^{i\theta}}{1!} \D \theta = \oint_0^{2\pi} i \frac{1}{1} \D \theta = i\oint_0^{2\pi}\D \theta = 2\pi i.
+\int_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^0}{0!} {\E^{i\theta}} \D \theta
+= \int_0^{2\pi} i \E^{i\theta} \D \theta
+= \left. \E^{i\theta} \right|_0^{2\pi}
+= \E^{i2\pi} - \E^{0}
+= 0
+\end{align*}
+and
+\begin{align*}
+\int_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^1}{1!} \E^{i\theta} \D \theta = \int_0^{2\pi} i \frac{\E^{-i\theta}\E^{i\theta}}{1!} \D \theta = \int_0^{2\pi} i \frac{1}{1} \D \theta = i\int_0^{2\pi}\D \theta = 2\pi i.
 \end{align*}
 Now, I will focus on the integral inside the sum where $j = 2, 3, 4, ...$
 \begin{align*}
-\oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta &= \oint_0^{2\pi} i \frac{\E^{-i\theta j}\E^{i\theta}}{j!} \D \theta \\
-	&= \oint_0^{2\pi} i \frac{\E^{-i\theta j + i\theta}}{j!} \D \theta \\
-	&=\oint_0^{2\pi} i \frac{\E^{i\theta\left( - j + 1\right)}}{j!} \D \theta \\
-	&=\oint_0^{2\pi} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \D \theta \\
+\int_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta &= \int_0^{2\pi} i \frac{\E^{-i\theta j}\E^{i\theta}}{j!} \D \theta \\
+	&= \int_0^{2\pi} i \frac{\E^{-i\theta j + i\theta}}{j!} \D \theta \\
+	&= \int_0^{2\pi} i \frac{\E^{i\theta\left( - j + 1\right)}}{j!} \D \theta \\
+	&= \int_0^{2\pi} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \D \theta \\
 	&= \left. \frac{1}{1 - j} \frac{i\E^{i\theta\left(1 - j\right)}}{j!} \right|_0^{2 \pi} \\
 	&= \frac{1}{1 - j} \frac{i\E^{i2\pi\left(1 - j\right)}}{j!} - \frac{1}{1 - j} \frac{i\E^0}{j!} \\
 	&= \frac{i}{\left(1 - j\right)j!}\left(\E^{i2\pi\left(1 - j\right)} - 1 \right) \\
@@ -106,7 +115,7 @@ I want to clarify why $\E^{i2\pi\left(1 - j\right)} = 1$.
 Since $j \in \{2, 3, ...\}$, then $1 - j$ is an integer and we have $\E^{i2\pi \ell}$ where $\ell \in \mathbb Z$, thus $\E^{i2\pi \ell} = 1$.
 Now we return to the original problem
 $$
-\sum_{j=1}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta =  2\pi i + \sum_{j=2}^{\infty} 0 = 2\pi i.
+\sum_{j=0}^{\infty} \oint_0^{2\pi} i \frac{\left(\E^{-i\theta}\right)^j}{j!} {\E^{i\theta}} \D \theta = 0 + 2\pi i + \sum_{j=2}^{\infty} 0 = 2\pi i.
 $$
 Now we have completed the requisite task.
 \qed
@@ -377,7 +386,10 @@ Now let's calculate the necessary derivatives to verify if $f(z)$ is analytic.
 We have
 \begin{align*}
 \frac {\partial u}{\partial x} &= \E^{-y^2}\left( 2x\E^{x^2}\cos (2xy) - \E^{x^2} \sin (2xy)2y\right) \\
-	&= \E^{x^2}\E^{-y^2}\left( 2x\cos (2xy) - \sin (2xy)2y\right) \\
+	&= \E^{x^2}\E^{-y^2}\left( 2x\cos (2xy) - \sin (2xy)2y\right)
+\end{align*}
+and
+\begin{align*}
 \frac {\partial v}{\partial y} &= \E^{x^2}\left( (-2y)\E^{-y^2}\sin(2xy) + \E^{-y^2}\cos (2xy)2x\right) \\
 	&= \E^{x^2}\E^{-y^2}\left( -2y\sin(2xy) + \cos (2xy)2x\right)
 \end{align*}
@@ -385,99 +397,122 @@ which are equivalent.
 Additionally, we get
 \begin{align*}
 \frac {\partial v}{\partial x} &= \E^{- y^2} \left( 2x\E^{x^2}\sin (2xy) + \E^{x^2}\cos (2xy)2y \right) \\
-	&= \E^{x^2}\E^{- y^2} \left( 2x\sin (2xy) + \cos (2xy)2y \right) \\
+	&= \E^{x^2}\E^{- y^2} \left( 2x\sin (2xy) + \cos (2xy)2y \right)
+\end{align*}
+and
+\begin{align*}
 - \frac {\partial u}{\partial y} &= -\left( \E^{x^2} \left( -2y\E^{- y^2}\cos (2xy) - \E^{- y^2}\sin (2xy)2x \right) \right) \\
 	&= - \E^{x^2} \E^{- y^2} \left( -2y\cos (2xy) - \sin (2xy)2x \right) \\
 	&= \E^{x^2} \E^{-y^2} \left(2y\cos (2xy) + \sin (2xy)2x \right)
 \end{align*}
 which are also equal as desired.
 Therefore the C-R equations hold and f(z) is analytic everywhere.
-Now by the Theorem 2.5.2 from A\&F or Cauchy's Integral formula, we can conclude
+Now by the Theorem 2.5.2 from A\&F or Cauchy' Theorem, we can conclude
 $$
 \oint_C f(z)\D z = \oint_C \E^{z^2} \D z = 0.
 $$
 \qed 
 \\
-Another method of direct verification.
-\begin{align*}
-\oint_C \E^{z^2} \D z  &= \int_{0}^{2\pi} \E^{ \left( \E^{i\theta}\right)^2} i \E^{i \theta}\D \theta \\
-	&= \int_{0}^{2\pi}i \left( \sum_{j=1}^{\infty} \frac{\left(\E^{2i\theta}\right)^j} {j!} \right) \E^{i \theta}\D \theta \\
-	&= \int_{0}^{2\pi}i \sum_{j=1}^{\infty} \frac{\E^{i\theta2j + i \theta}} {j!} \D \theta \\
-	&= \int_{0}^{2\pi}i \sum_{j=1}^{\infty} \frac{\E^{i\theta\left(2j + 1 \right)}} {j!} \D \theta \\
-	&= \sum_{j=1}^{\infty}  \int_{0}^{2\pi}\frac{i\E^{i\theta\left(2j + 1 \right)}} {j!} \D \theta \\
-\end{align*}
-Again this reordering of the integral and sum is justified by the absolute convergence of the infinite series. We don't need to worry about any terms being undefined by a divide by zero issue. So let's look at the integral inside the sum
-\begin{align*}
-\int_{0}^{2\pi}\frac{i\E^{i\theta\left(2j + 1 \right)}} {j!} \D \theta
-	&= \left. \frac{1}{2j + 1} \frac{\E^{i\theta\left(2j + 1 \right)}} {j!} \right|_0^{2\pi} \\
-	&= \frac{1}{2j + 1} \frac{\E^{i2\pi\left(2j + 1 \right)}} {j!}  - \frac{1}{2j + 1} \frac{\E^{i0\left(2j + 1 \right)}} {j!} \\
-	&= \frac{1}{2j + 1} \frac{\E^{i2\pi\left(2j + 1 \right)}} {j!}  - \frac{1}{\left(2j + 1\right)j!} \\
-	&= \frac{1}{\left(2j + 1\right)j!}  - \frac{1}{\left(2j + 1\right)j!} \\
-	&= 0 \\
-\end{align*}
-\qed
-\\
 e) $$f(z) = \frac{1}{2z^2 + 1} $$ \\
 \textit{Solution:} \\
-\textbf{TODO:} Definitely go the route of checking the analyticity of $f(z)$ with the C-R equations. \\
-Let's determine the real and imaginary parts of this function
-\begin{align*}
-f(z) = \frac 1 {2z^2 + 1} &= \frac 1 {2\left( x + iy\right)} \\
-	&= \frac 1 {2\left( x^2 +2ixy -y^2 \right) + 1} \\
-	&= \frac 1 {2x^2 +4ixy -3y^2 + 1} \\
-	&= \frac 1 {\left(2x^2 -3y^2 + 1\right) + i\left(4xy\right) } \\
-\end{align*}
-Let's assign place holders $p$ and $q$ to be the real and imaginary parts, respectively, of the denominator right now such that $p = 2x^2 -3y^2 + 1$ and $q = 4xy$.
-These are naturally functions of $x$ and $y$ but I will suppress the arguments for now.
-Then we multiply the top and bottom by the conjugate
-\begin{align*}
-&= \frac 1 {p + iq } \\
-	&= \frac {p - iq}  {p^2 + q^2 } \\
-	&= \frac {p}  {p^2 + q^2 } - i \frac {q}  {p^2 + q^2 }.
-\end{align*}
-We now assign
+We want to calculate the following integral
 $$
-u = \frac {p}  {p^2 + q^2 } = \frac{2x^2 -3y^2 + 1} {\left(2x^2 -3y^2 + 1\right)^2 + \left( 4xy \right)^2}
+\oint_C f(z)\D z = \oint_C \frac{1}{2z^2 + 1} \D z.
 $$
-and
+First, let's break it down using partial fractions
 $$
-v = \frac {-q}  {p^2 + q^2 } = \frac{-4xy} {\left(2x^2 -3y^2 + 1\right)^2 + \left( 4xy \right)^2}.
+f(z) = \frac{1}{2z^2 + 1} = \frac{-\frac1 2 i}{\sqrt{2}z - i} + \frac{\frac1 2 i}{\sqrt{2}z + i}.
 $$
-Similar to $p$ and $q$, I will suppress the arguments of the functions $u$ and $v$ for simplicity in notation and to ease the book keeping throughout these calculations.
-Once we calculate the correct partial derivatives, we can see if $f(z)$ is analytic.
-It may actually be useful to calculate this using the chain rule through the sequence of variables depending on $x$ and $y$.
-We need to calculate each of the following partials $u_x$, $v_y$, $v_x,$ and $u_y$.
+Now to actually calculate the integral we look at
 \begin{align*}
-u_x &= u_pp_x + u_qq_x \\
-v_y &= v_pp_y + v_qq_y \\
-v_x &= v_pp_x + v_qq_x \\
-u_y &= u_pp_y + u_qq_y \\
+\oint_C \frac{1}{2z^2 + 1} \D z &= \oint_C \left(\frac{-\frac1 2 i}{\sqrt{2}z - i} + \frac{\frac1 2 i}{\sqrt{2}z + i} \right)\D z \\
+	&= \oint_C \frac{-\frac1 2 i}{\sqrt{2}z - i}\D z + \oint_C\frac{\frac1 2 i}{\sqrt{2}z + i} \D z.
 \end{align*}
-Each of these partials is made up of combinations of 8 unique partials. I will calculate those explicitly now, then piece the right ones together to help us verify the C-R equations after.
+Each of these integrals is analytic in the region we care about except for at $\frac i {\sqrt{2}}$ and $-\frac i {\sqrt{2}}$ where the denominators are $0$, respectively.
+However, we need to eliminate these two singularities by deforming our contour around each of them.
+It is important to establish the orientation of these contours now. I am choosing that my starting contour $C$ is clockwise, hence, the ensuing contours $C_1$ and $C_2$ will be counterclockwise.
+We take our contour $C$ and deform it such that we reroute it through a channel $t_1$ to circle $C_1$ of radius $\epsilon_1$ around $\frac i {\sqrt{2}} $ and back up through channel $t_2$ returning to the original contour $C$.
+Similarly, we deform $C$ to go around $- \frac i {\sqrt{2}}$, by passing through the channel $t_3$ around $- \frac i {\sqrt{2}}$ via $C_2$ (a circle centered at $- \frac i {\sqrt{2}}$ with radius $\epsilon_2$) and back to $C$ through $t_4$. See Figure \ref{fig:f1} for a rough cartoon of how we deform our contour.
+\\
+\begin{figure}[h]
+	\centering
+	\includegraphics{problem5contour}
+	\caption{
+		I am including this visual because it helps me make sense of how to eliminate the singularities and use Cauchy's Theorem (Theorem 2.5.2 A\&F) to calculate the integral. I am acknowledging that this graphic is of a poor resolution, I am still figuring out the best ways to include images in \LaTeX. Additionally I should have labeled that the vertical axis is the imaginary ($\Im$) axis and the horizontal axis is the real ($\Re$) axis.
+	}\label{fig:f1}
+\end{figure}
+
+\noindent
+Once we have constructed this deformed contour such that our function $f(z)$ is analytic in a simply connected domain $D$, and along our new contour in $D$, by Cauchy's Theorem we say (I acknowledge an abuse of notation by suppressing the integrand and differential terms and putting them once at the end)
+$$
+\left(\oint_C + \oint_{t_1} + \oint_{C_1} + \oint_{t_2} + \oint_{t_3}  + \oint_{C_2} + \oint_{t_4}\right) f(z) \D z = 0
+$$
+Notice the channel contours come in opposite pairs ($t_1$, $t_2$) and ($t_3$, $t_4$) such that $t_1$ cancels $t_2$ and similar for the other pair.
+Hence,
+$$
+\left(\oint_C + \oint_{C_1} + \oint_{C_2} \right) f(z) \D z = 0
+$$
+Now let's plug our actual function in here and solve for what we are looking for.
 \begin{align*}
-u_p &= \frac{1\left(p^2 + q^2\right) - p\left(2p\right)}{\left(p^2 + q^2\right)^2}
-	\quad &u_q& = \frac{0\left(p^2 + q^2\right) - p\left(2q\right)}{\left(p^2 + q^2\right)^2} \\
-v_p &= \frac{0\left(p^2 + q^2\right) - (-q)\left(2p\right)}{\left(p^2 + q^2\right)^2} 
-	\quad &v_q& = \frac{(-1)\left(p^2 + q^2\right) - (-q)\left(2q\right)}{\left(p^2 + q^2\right)^2} \\	
-p_x &= 4x
-	\quad &p_y& = -6y \\
-q_x &= 4x 
-	\quad &q_y& = 4y \\	
+\oint_C f(z) \D z + \oint_{C_1} f(z) \D z + \oint_{C_2} f(z) \D z &= 0 \\
+\oint_C \frac{1}{2z^2 + 1} \D z + \oint_{C_1} \frac{1}{2z^2 + 1} \D z + \oint_{C_2} \frac{1}{2z^2 + 1} \D z &= 0 \\
+\oint_C \frac{1}{2z^2 + 1} \D z
+	+ \oint_{C_1} \left( \frac{-\frac1 2 i}{\sqrt{2}z - i} + \frac{\frac1 2 i}{\sqrt{2}z + i}\right) \D z
+	+ \oint_{C_2} \left( \frac{-\frac1 2 i}{\sqrt{2}z - i} + \frac{\frac1 2 i}{\sqrt{2}z + i} \right) \D z &= 0 \\
+\oint_C \frac{1}{2z^2 + 1} \D z
+	+ \oint_{C_1} \frac{-\frac1 2 i}{\sqrt{2}z - i}  \D z
+	+ \cancel{\oint_{C_1} \frac{\frac1 2 i}{\sqrt{2}z + i} \D z}
+	+ \cancel{\oint_{C_2} \frac{-\frac1 2 i}{\sqrt{2}z - i}  \D z}
+	+ \oint_{C_2} \frac{\frac1 2 i}{\sqrt{2}z + i} \D z &= 0. \\
 \end{align*}
-We are now ready to check the C-R equations.
-Beginning with $u_x = v_y$
+Note, contour $C_1$ is centered at $\frac{i}{\sqrt{2}}$ so when integrating the half of the partial fraction result with a singularity at $- \frac{i}{\sqrt{2}}$ the function is analytic in the right regions and by Cauchy's Theorem this integral is $0$.
+Similarly for $C_2$ around $-\frac{i}{\sqrt{2}}$ the function with a singularity at $\frac{i}{\sqrt{2}}$.
+This explains the two integrals I crossed out in the previous step.
+We have now simplified our expression to
 \begin{align*}
-u_x = u_pp_x + u_qq_x &= \left( \frac{1\left(p^2 + q^2\right) - p\left(2p\right)}{\left(p^2 + q^2\right)^2} \right)\left(4x\right)
-	+ \left(\frac{0\left(p^2 + q^2\right) - p\left(2q\right)}{\left(p^2 + q^2\right)^2}\right)\left(4x\right) \\
-	&= \left( \frac{\left(p^2 + q^2\right) - p\left(2p\right) - p\left(2q\right)}{\left(p^2 + q^2\right)^2} \right)\left(4x\right) \\
-	&= \frac{\left( p^2 + q^2 - 2p^2 - 2pq\right)4x}{\left(p^2 + q^2\right)^2} \\
-v_y = v_pp_y + v_qq_y &= \left( \frac{0\left(p^2 + q^2\right) - (-q)\left(2p\right)}{\left(p^2 + q^2\right)^2} \right)\left(-6y\right)
-	+ \left(\frac{(-1)\left(p^2 + q^2\right) - (-q)\left(2q\right)}{\left(p^2 + q^2\right)^2}\right) \left( 4y \right) \\
-	&= \left( \frac{ 2qp}{\left(p^2 + q^2\right)^2} \right)\left(-6y\right)
-	+ \left(\frac{-p^2 - q^2 + 2q^2}{\left(p^2 + q^2\right)^2}\right) \left( 4y \right) \\
-	&= \frac{ -12qpy + \left(-p^2 - q^2 + 2q^2\right)4y}{\left(p^2 + q^2\right)^2}
+\oint_C \frac{1}{2z^2 + 1} \D z
+	+ \oint_{C_1} \frac{-\frac1 2 i}{\sqrt{2}z - i}  \D z
+	+ \oint_{C_2} \frac{\frac1 2 i}{\sqrt{2}z + i} \D z &= 0 \\
+\oint_C \frac{1}{2z^2 + 1} \D z
+ &= - \oint_{C_1} \frac{-\frac1 2 i}{\sqrt{2}z - i}  \D z
+	- \oint_{C_2} \frac{\frac1 2 i}{\sqrt{2}z + i} \D z.
 \end{align*}
-\textbf{TODO:} It's not abundantly clear that this is the best route to verify this integrals value...
+Recall, that our contour's $C_1$ and $C_2$ are both counterclockwise, so we can actual reorient them (where $-C_1$ and $-C_2$ are clockwise) and get
+\begin{align*}
+\oint_C \frac{1}{2z^2 + 1} \D z &= - \oint_{C_1} \frac{-\frac1 2 i}{\sqrt{2}z - i}  \D z
+	- \oint_{C_2} \frac{\frac1 2 i}{\sqrt{2}z + i} \D z \\
+\oint_C \frac{1}{2z^2 + 1} \D z &= \oint_{-C_1} \frac{-\frac1 2 i}{\sqrt{2}z - i}  \D z
+	+ \oint_{-C_2} \frac{\frac1 2 i}{\sqrt{2}z + i} \D z.
+\end{align*}
+We finally get to just compute each of these integrals.
+I will use a parameterization for each of these where $ z= r\E^{i\theta}$ where are $r$ is $\epsilon_1$ and $\epsilon_2$ for $C_1$ and $C_2$ respectively. Let's look at each remaining integral one at a time
+
+\begin{align*}
+\oint_{-C_1} \frac{-\frac1 2 i}{\sqrt{2}z - i}  \D z
+	&= \int_{0}^{2\pi} \frac{-\frac1 2 i}{\sqrt{2}\:\epsilon_1\E^{i\theta} - i} i\E^{i\theta}\D \theta \\
+	&= \left. -\frac1 2 i \frac{1}{\sqrt{2}\:\epsilon_1} \log\left(\sqrt{2}\:\epsilon_1\E^{i\theta} - i\right) \right|_{0}^{2\pi} \\
+	&= -\frac1 2 i \frac{1}{\sqrt{2}\:\epsilon_1} \log\left(\sqrt{2}\:\epsilon_1\E^{2\pi i} - i\right)
+	- \left(-\frac1 2 i \frac{1}{\sqrt{2}\:\epsilon_1} \log\left(\sqrt{2}\:\epsilon_1\E^{0} - i\right) \right) \\
+	&= -\frac i {\epsilon_1 2 \sqrt{2}} \log\left(\epsilon_1\sqrt{2} - i\right)
+	+ \frac i {\epsilon_1 2 \sqrt{2}} \log\left(\epsilon_1\sqrt{2} - i\right) \\
+	&= 0. \\
+\end{align*}
+Next,
+\begin{align*}
+\oint_{-C_2} \frac{\frac1 2 i}{\sqrt{2}z + i}  \D z
+	&= \int_{0}^{2\pi} \frac{\frac1 2 i}{\sqrt{2}\:\epsilon_2\E^{i\theta} + i} i\E^{i\theta}\D \theta \\
+	&= \left. \frac1 2 i \frac{1}{\sqrt{2}\:\epsilon_2} \log\left(\sqrt{2}\:\epsilon_2\E^{i\theta} + i\right) \right|_{0}^{2\pi} \\
+	&= \frac1 2 i \frac{1}{\sqrt{2}\:\epsilon_2} \log\left(\sqrt{2}\:\epsilon_2\E^{2\pi i} + i\right)
+	- \frac1 2 i \frac{1}{\sqrt{2}\:\epsilon_2} \log\left(\sqrt{2}\:\epsilon_2\E^{0} + i\right)  \\
+	&= -\frac i {\epsilon_2 2 \sqrt{2}} \log\left(\epsilon_2\sqrt{2} + i\right)
+	+ \frac i {\epsilon_2 2 \sqrt{2}} \log\left(\epsilon_2\sqrt{2} + i\right) \\
+	&= 0. \\
+\end{align*}
+Therefore we have found that 
+$$
+\oint_C \frac{1}{2z^2 + 1} \D z = \oint_{-C_1} \frac{-\frac1 2 i}{\sqrt{2}z - i}  \D z + \oint_{-C_2} \frac{\frac1 2 i}{\sqrt{2}z + i} \D z = 0 + 0 = 0
+$$
+\qed
 \\
 
 \item Use the ideas from A\&F: 2.5.5 to evaluate $\int_0^\infty \E^{\I
@@ -485,6 +520,8 @@ v_y = v_pp_y + v_qq_y &= \left( \frac{0\left(p^2 + q^2\right) - (-q)\left(2p\rig
     r^3} \D r$. \\
 The ideas we might need to use are ... it's actually really long! \\
 \textit{Solution:}\\
+t is a constant ... first get rid of t, claiming that in effect get rid of t and then the end result will depend on t. $z = z/cube_root(t)$
+
 \item From A\&F: 2.5.6. \\
 Consider the integral $$I = \int_{-\infty}^{\infty} \frac{\D x}{x^2 + 1}.$$
 Show how to evaluate this integral by considering
@@ -517,6 +554,7 @@ $$
 $$
 \\
 \textit{Solution:}\\
+\textbf{todo:} use thm 2.6.1 \\
 e)
 $$
 \E^{z^2}\left(\frac{1}{z^2} - \frac{1}{z^3}\right)
