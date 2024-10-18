@@ -44,12 +44,14 @@
 
 \maketitle
 \noindent
-Collaborators*: Nate Ward \\
+Collaborators*: Nate Ward, Erin, Hailey, Laura..., Cooper, Jenny \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
 \normalsize
 \mline
+\noindent
+\textbf{TODO:} Now that you know the `$\I$' symbol exists, consider changing each of the `$i$' characters to `$\I$' characters.
 \begin{enumerate}[label={\bf {\arabic*}:}]
 \item From A\&F: 2.4.2 c, e.\\
 Evaluate the integral $\oint_Cf(z)\D z$, where C is the unit circle enclosing the origin, and $f(z)$ is given as follows: \\
@@ -519,7 +521,8 @@ $$
     z^3 t} \D z$, $t > 0$.  Express the result in terms of $\int_0^\infty \E^{-
     r^3} \D r$. \\
 The ideas we might need to use are ... it's actually really long! \\
-\textit{Solution:}\\
+\textit{Solution:}\\ 
+\textbf{TODO:} \\
 t is a constant ... first get rid of t, claiming that in effect get rid of t and then the end result will depend on t. $z = z/cube_root(t)$
 
 \item From A\&F: 2.5.6. \\
@@ -530,21 +533,23 @@ where $C_{(\mathbb R)}$ is closed semicircle in the upper half plane with endpoi
 \textit{Hint:} use
 $$\frac{1}{z^2 + 1} = -\frac{1}{2i}\left(\frac{1}{z + i} - \frac{1}{z - i}\right),$$
 and show that the integral along the open semicircle in the upper half plane vanishes as $R \rightarrow \infty$.
-Verify your answer by usual integration in real variables.
-\textit{Solution:}\\
-\\
+Verify your answer by usual integration in real variables. \\
 
 \noindent
-Repeat this exercise for
+Do this this exercise once, for the following integral (a general form of the specific case given in this book exercise)
   \begin{align*}
     I_\epsilon = \int_{-\infty}^\infty \frac{\epsilon \D x}{x^2 +
     \epsilon^2}, \quad \epsilon > 0.
   \end{align*}\\
-Seems like I am supposed to do 2.5.6 and then for the given integral as well. \\
 \textit{Solution:}\\
+\textbf{TODO:} \\
+
+
 \item Use a similar method to calculate
   $\int_{-\infty}^{\infty} \frac{d x}{1+x^4}$. \\
 \textit{Solution:}\\
+\textbf{TODO:}
+\\
 
 \item From A\&F: 2.6.1 a, e.\\
 Evaluate the integrals $\oint_C f(z) \D z$, where $C$ is the unit circle centered at the origin and $f(z)$ is given by the following (use Eq. (1.2.19) as necessary): \\
@@ -554,13 +559,70 @@ $$
 $$
 \\
 \textit{Solution:}\\
-\textbf{todo:} use thm 2.6.1 \\
+\textbf{TODO:} You may need to say something more about why we can use this theorem here...this $f$ is analytic in the right places because of x, y, z...
+We use the general form of the Cauchy Integral Formula which is
+$$
+f^{(k)}(z) = \frac{k!}{2\pi i} \oint_C \frac{f(\xi)}{\left(\xi - z\right)^{k + 1}} \D \xi.
+$$
+We want to evaluate the integral 
+$$
+\oint_C \frac{\sin z}{z} \D z.
+$$
+Notice we can apply the Cauchy Integral Formula here to help simplify this task.
+Observe,
+\begin{align*}
+f^{(0)}(0) &= \frac{0!}{2\pi i} \oint_C \frac{\sin z}{(z)^{0 + 1}} \D z \\
+2\pi i f(0) &= \oint_C \frac{\sin z}{z} \D z \\
+2\pi i \sin(0) &= \oint_C \frac{\sin z}{z} \D z \\
+0 &= \oint_C \frac{\sin z}{z} \D z. \\
+\end{align*}
+Therefore 
+$$
+\oint_C \frac{\sin z}{z} \D z = 0.
+$$
+\qed
+\\
+
 e)
 $$
 \E^{z^2}\left(\frac{1}{z^2} - \frac{1}{z^3}\right)
 $$
 \\
 \textit{Solution:}\\
+\textbf{TODO:} You may need to say something more about why we can use this theorem here...this $f$ is analytic in the right places because of x, y, z...
+Nevertheless, we use the Cauchy Integral formula again, for each half of this function.
+We write
+$$
+\oint_C \E^{z^2}\left(\frac{1}{z^2} - \frac{1}{z^3}\right) \D z
+	= \oint_C \frac{\E^{z^2}}{z^2}\D z - \oint_C \frac{\E^{z^2}}{z^3} \D z.
+$$
+Now we can calculate each of these integrals separately.
+Before we do so, note the following first and second derivatives of the function $f(z) = \E^{z^2}$
+$$f^{(1)}(z) = 2z\E^{z^2} \quad f^{(2)}(z) = 2\E^{z^2} + 4z^2\E^{z^2}.$$
+Beginning with $\oint_C \frac{\E^{z^2}}{z^2}\D z$ we see
+\begin{align*}
+f^{(1)}(0) = \frac{1!}{2\pi i} \oint_C \frac{\E^{z^2}}{z^2}\D z \\
+\frac{2\pi i}{1!} f^{(1)}(0) = \oint_C \frac{\E^{z^2}}{z^2}\D z \\
+2\pi i f^{(1)}(0) = \oint_C \frac{\E^{z^2}}{z^2}\D z \\
+2\pi i\left( 2(0)\E^{(0)^2}\right) = \oint_C \frac{\E^{z^2}}{z^2}\D z \\
+0 = \oint_C \frac{\E^{z^2}}{z^2}\D z.
+\end{align*}
+And now for $\oint_C \frac{\E^{z^2}}{z^3} \D z$ we have
+\begin{align*}
+f^{(2)}(0) = \frac{2!}{2\pi i} \oint_C \frac{\E^{z^2}}{z^3}\D z \\
+\frac{2\pi i}{2!} f^{(2)}(0) = \oint_C \frac{\E^{z^2}}{z^3}\D z \\
+\pi i f^{(2)}(0) = \oint_C \frac{\E^{z^2}}{z^3}\D z \\
+\pi i \left(2\E^{(0)^2} + 4(0)^2\E^{(0)^2}\right) = \oint_C \frac{\E^{z^2}}{z^2}\D z \\
+\pi i 2 = \oint_C \frac{\E^{z^2}}{z^2}\D z \\
+2 \pi i = \oint_C \frac{\E^{z^2}}{z^2}\D z.
+\end{align*}
+Therefore
+$$
+\oint_C \E^{z^2}\left(\frac{1}{z^2} - \frac{1}{z^3}\right) \D z
+	= \oint_C \frac{\E^{z^2}}{z^2}\D z - \oint_C \frac{\E^{z^2}}{z^3} \D z
+	= 0 - 2 \pi i = - 2 \pi i.
+$$
+\qed
 \end{enumerate}
 
 \end{document}
