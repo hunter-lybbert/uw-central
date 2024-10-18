@@ -1,0 +1,535 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+\graphicspath{ {./images/} }
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\sech}{sech}
+% \DeclareMathOperator{\cot}{cot}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{10-14-24} \\
+\text{AMATH 567} \\
+
+\title{\bf { Homework 3} }
+
+
+\maketitle
+\noindent
+Collaborators*: Laura Thomas, Erin Szalda-Petree, Christina Giannella-Nicolaides, Tomáš Ševček, Nate Ward, Anja Vogt \\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
+\normalsize
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item From A\&F: 2.2.4. \\
+Let $\alpha$ be a real number.
+Show that the set of all values of the multivalued function $\log(z^\alpha)$ is not necessarily the same as that of $\alpha \log z$. \\
+\textit{Solution:} \\
+Let's begin by looking at a precise counter example.
+Note when we use the $\log(z)$ we are taking the principal branch where $\theta \in [-\pi, \pi)$.
+Let $\alpha = 3$ and $z = i = \E^{i\frac{\pi}{2}}$, then 
+\begin{align*}
+\alpha \log z &=  3 \log \left( \E^{i\frac{\pi}{2}} \right) \\
+&= \frac{3 i \pi}{2}.
+\end{align*}
+Additionally,
+\begin{align*}
+\log z^\alpha &=  \log \left( (\E^{i\frac{\pi}{2}})^3 \right) \\
+		    &=  \log \left(\E^{i\frac{3\pi}{2}}\right).
+\end{align*}
+Since $\frac{3\pi}{2}$ is not in our admissible range for $\theta$ we need to adjust it.
+Now 
+$$
+\E^{i\frac{3\pi}{2}} = \E^{i\left(\frac{3\pi}{2} + 2\pi k\right)} =  \E^{-i\frac{\pi}{2}},
+$$
+where $k \in \mathbb{Z}$ and then taken specifically to be $k=-1$.
+Now plugging this back into our calculation of our specific $\log z^\alpha$ we see
+$$
+\log z^\alpha = \log \left(\E^{i\frac{3\pi}{2}}\right) = \log \left(\E^{-i\frac{\pi}{2}}\right) = -i\frac{\pi}{2} \neq \frac{3 i \pi}{2} = \alpha \log z
+$$
+Therefore, the values of $\log \left(z^\alpha\right)$ are not necessarily the same as that of $\alpha \log z$.
+\qed \\
+\item Describe the Riemann surface on which the multi-valued function
+  $w(z)$, defined by $w^2=\prod_{j=1}^{n=3}\left(z-a_j\right)$ is
+  single-valued. What happens for $n=4,5$ ? For $n>5$ ? You may assume
+  that all the $a_j$ are distinct.\\
+\textit{Solution:} \\
+Before describing the Reimann Surfaces for these cases, I want to establish how I am interpreting $()^\frac{1}{2}$ in the context of this problem.
+I am choosing the principal branch for the function $()^\frac{1}{2}$ such that $$\left((z - a_j)(z - a_i)\right)^\frac{1}{2} = (z - a_j)^\frac{1}{2}(z - a_i)^\frac{1}{2}.$$
+The branch cut will once again limit the values of $\theta$ to the interval $[-\pi, \pi)$.
+Any time we have multiple branch points we need first inspect if any of the branch cuts overlap.
+We have to be very careful about the behavior of overlapping branch cuts.
+For simplicity, we are taking all branch cuts to be from the branch point $a_j$ going to the left (such that it is the complex number where the $\Re z < \Re a_j$ that is the branch cut which binds $\theta \in [-\pi, \pi)$.
+Additionally we add a bit of notation to aid in our discussion of overlapping branch cuts. We write $f(z) = \prod_{j=1}^{n=3}\left(z-a_j\right)$ which can be broken down into components
+\begin{align*}
+f(z) &= \left(\prod_{j=1}^{n}\left(z-a_j\right)\right)^\frac{1}{2} \\
+      &= \prod_{j=1}^{n}\left(z-a_j\right)^\frac{1}{2} \\
+      &= (z - a_1)^\frac{1}{2}(z - a_2)^\frac{1}{2}...(z - a_n)^\frac{1}{2} \\
+      &= f_1(z)f_2(z)...f_n(z),
+\end{align*}
+where the second and third lines are equal due to our choice of branch cut as stated at the start of the problem.
+Now we need to draw a few pictures and go through a few cases.
+Let's begin with the case where $n = 3$ where we have $f(z) = f_1(z)f_2(z)f_3(z)$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{riemann_surface_3_4}
+ 	\caption{
+	From problem 2, Riemann Surface drawings where $n=3$ and $n=4$.}\label{fig:f2}
+\end{figure}
+Now looking at Figure \ref{fig:f2}, I have drawn a feasible Riemann surface step by step.
+In step 1) I represent each of the branch cuts starting at the branch points for each $f_1$, $f_2$, and $f_3$.
+Notice that $a_2$ and $a_3$ happen to be such that $\Re a_2 = \Re a_3$ therefore their branch cuts overlap from $(-\infty, a_2]$.
+Now we investigate the behavior of overlapping branch cuts.
+The branch cut for $a_2$ corresponds to where the sign of $f_2$ flips, similarly for $f_3$'s sign flipping.
+Notice if the branch cuts overlap, then both $f_2$ and $f_3$'s signs will flip from $+$ to $-$ at the same time.
+Notice
+$$
+f_2f_3 = (-f_2)(-f_3)
+$$
+therefore overlapping branch cuts actually can cancel on another out.
+However, also observe (as a preview to the example I give when $n=5$ in Figure \ref{fig:f3})
+$$
+f_1f_2f_3 \neq (-f_1)(-f_2)(-f_3) = -f_1f_2f_3.
+$$
+Therefore, we have that an even number of overlapping branch cuts cancel one another out, but an odd number of overlapping branch cuts is indeed still a branch cut.
+I will proceed to carefully describe the $n=3$ case, however these principles can easily be applied and understood as one inspects the drawings for the $n=4$ and $n=5$ cases.
+Now returning to our specific scenario drawn for $n=3$, applying what we have established for overlapping branch cuts, the $a_3$ branch cut cancels out the whole $a_2$ branch cut and only leaves the section of the $a_3$ branch cut from $a_3$ to $a_2$ (as depicted in part 2 of Figure \ref{fig:f2}).
+Additionally we have a branch cut from $a_1$ to $-\infty$ which evidently is the same as $\infty$ in the complex plane (Riemann Sphere). \\
+
+Now steps, 3-5 of Figure \ref{fig:f2}, proceed through the process of "stretching" these branch cuts apart in two copies of the complex sphere and lining them up appropriately with one another to form a Riemann Surface of a donut shape.
+The number of connections between these two copies of the complex sphere depends on the number of branch cuts that remain in the complex domain after we have worked out the overlapping cases.
+In Figure \ref{fig:f3} I have depicted the scenario when $n=5$ and $a_1$, $a_2$, $a_3$, $a_4$, $a_5$ happen to be dispersed in the complex plane such that we are left with 3 branch cuts.
+Therefore there are 3 places to line up the stretched branch cuts in the complex sphere.
+The resulting Riemann Surface in such a scenario is the depicted double torus.
+These are the types of Riemann Surfaces which result from a function such as $f(z) = \left(\prod_{j=1}^{n}\left(z-a_j\right)\right)^\frac{1}{2}$.
+\qed \\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{riemann_surface_5}
+	\caption{
+	From problem 2, Riemann Surface drawings where $n=5$.}\label{fig:f3}
+\end{figure}
+
+\item From A\&F: 2.2.5a. \\
+Derive the following formulae: \\
+a) $$\coth^{-1}(z) = \frac{1}{2}\log\frac{z + 1}{z - 1}$$
+\textit{Solution:} \\
+We begin with solving for $w$ in $z = \coth{w}$ with $w, z \in \mathbb{C}$. 
+\begin{eqnarray*}
+z = \coth{w} &=& \frac{\cosh w}{\sinh w} = \frac{ \frac{e^{w} + e^{-w}}{\cancel{2}} }{ \frac{e^{w} - e^{-w}}{\cancel{2}} } = \frac{ e^{w} + e^{-w} }{ e^{w} - e^{-w} } \\
+	  &=& \frac{e^{w}}{e^{w}} \frac{ e^{w} + e^{-w} }{ e^{w} - e^{-w} } = \frac{ e^{2w} + 1}{ e^{2w} - 1 }
+\end{eqnarray*}
+Now let's proceed by multiplying both sides by the denominator
+\begin{eqnarray*}
+z\left( e^{2w} - 1\right) &=&  e^{2w} + 1\\
+ze^{2w} - z &=&  e^{2w} + 1\\
+ze^{2w} - e^{2w} &=& z + 1\\
+e^{2w}(z - 1) &=& z + 1\\
+e^{2w} &=& \frac{z + 1}{z - 1 }\\
+\log \left(e^{2w}\right) &=& \log \left(\frac{z + 1}{z - 1} \right) + 2i\pi k, \: k \in \mathbb{Z} \\ \\
+2w &=& \log \left(\frac{z + 1}{z - 1} \right) + 2i\pi k, \: k \in \mathbb{Z} \\ \\
+w &=& \frac{1}{2}\log \left(\frac{z + 1}{z - 1} \right) + i\pi k, \: k \in \mathbb{Z} \\
+\end{eqnarray*}
+This is to show
+$$\coth^{-1}(z) = \operatorname{arccot}(\coth w) = w = \frac{1}{2}\log \left(\frac{z + 1}{z - 1} \right) + i\pi k, \: k \in \mathbb{Z}.$$
+More directly we have 
+$$\coth^{-1}(z) = \frac{1}{2}\log \left(\frac{z + 1}{z - 1} \right).$$
+as required.
+Where the final statement comes from choosing the principal branch of the $\log$, meaning $\theta \in [-\pi, \pi)$.
+We also take $k = 0$.
+\qed \\
+\\
+While you're at it, also derive a formula for $\operatorname{arccot}(z)$ in terms of the logarithm. \\
+\textit{Solution:} \\
+Let's begin by solving for $w$ in this equation $z = \cot w$ with $w, z \in \mathbb{C}$.
+\begin{eqnarray*}
+z = \cot w &=& \frac{\cos w}{\sin w} = \frac{ \frac{e^{iw} + e^{-iw}}{\cancel{2}} }{ \frac{e^{iw} - e^{-iw}}{\cancel{2}i} } = \frac{ i\left(e^{iw} + e^{-iw} \right)}{ e^{iw} - e^{-iw} } \\
+	  &=& \frac{e^{iw}}{e^{iw}} \frac{ i\left(e^{iw} + e^{-iw} \right)}{ e^{iw} - e^{-iw} } = \frac{ i\left(e^{2iw} + 1 \right)}{ e^{2iw} - 1 }
+\end{eqnarray*}
+Now let's proceed by multiplying both sides by the denominator
+\begin{eqnarray*}
+z(e^{2iw} - 1) &=& i\left(e^{2iw} + 1 \right) \\
+ze^{2iw} - z &=& ie^{2iw} + i \\
+ze^{2iw} - z - ie^{2iw} - i &=& 0 \\
+e^{2iw}(z - i) &=& z + i \\ 
+e^{2iw} &=& \frac{z + i}{z - i} \\
+\log \left(e^{2iw}\right) &=& \log \left(\frac{z + i}{z - i} \right) + 2i\pi k, \: k \in \mathbb{Z} \\ \\
+2iw &=& \log \left(\frac{z + i}{z - i} \right) + 2i\pi k, \: k \in \mathbb{Z} \\
+w &=& \frac{1}{2i}\log \left(\frac{z + i}{z - i} \right) + \pi k, \: k \in \mathbb{Z} \\
+\end{eqnarray*}
+This is to show
+$$\operatorname{arccot}(z) = \operatorname{arccot}(\cot w) = w = \frac{1}{2i}\log \left(\frac{z + i}{z - i} \right) + \pi k, \: k \in \mathbb{Z}.$$
+More directly we have 
+$$ \operatorname{arccot}(z) = \frac{1}{2i}\log \left(\frac{z + i}{z - i} \right) + \pi k, \: k \in \mathbb{Z}$$
+as required. 
+Where the final statement comes from choosing the principal branch of the $\log$, meaning $\theta \in [-\pi, \pi)$.
+We also take $k = 0$.
+\qed
+\\
+
+\item Let
+  \begin{align*}
+    s(z) = z^{1/2} = \rho^{1/2} \E^{\I \theta/2}, \quad \theta \in [-\pi,\pi),
+  \end{align*}
+  denote the principal branch of the square root.  Show that the
+  functions
+  \begin{align*}
+    f_1(z) = s(z^2 -1), \quad f_2(z) = s(z-1) s(z+1),
+  \end{align*}
+  are not equal as functions on $\mathbb C$ --- first produce plots and then use a mathematical argument.  Determine the branch cut for $f_2(z)$ (Note: My
+  cartoon of what the branch cut for $f_1$ looks like in lecture was
+  not accurate).  Find the relationship between $f_1(z)$ and $f_2(z)$.\\
+\textit{Solution:} \\
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{problem_4_vis.png}
+ 	\caption{
+	From problem 4, plot lot $f_1(z) = s(z^2 -1)$, $f_2(z) = s(z-1) s(z+1)$, where $s(z) = z^{1/2} = \rho^{1/2} \E^{\I \theta/2},\:\:
+	\theta \in [-\pi,\pi)$, denote the principal branch of the square root.}\label{fig:f1}
+\end{figure}
+\noindent
+Notice in Figure \ref{fig:f1} we have two scenarios.
+One scenario we are plotting $f_1$ on the left two plots and then $f_2$ in the right plots.
+With $f_1$, we see a branch cut both between $-1$ and $1$ along the real axis as well as along the whole imaginary axis where $z$ is purely imaginary.
+However, on the $f_2$ plots we only see the branch cut between $-1$ and $1$ along the real axis.
+The shabby matplotlib plot appears to indicate there is still a branch cut from $-1$ to $-\infty$, however, as established in problem 2, when an even number of branch cuts overlap their sign switching cancels out resulting in no branch cut in that location.
+Now for a more mathematical argument or evidence that these functions are not the same as one another.
+Consider if we plug in $z = -2$ to both $f_1$ and $f_2$ \\
+\begin{align*}
+f_1(-2) &= s((-2)^2 - 1) = s(4 - 1) = (3)^{1/2} = \sqrt{3} \\
+f_2(-2) &= s(-2 - 1)s(-2 + 1) = s(-3)s(-1) = \sqrt{-3}\sqrt{-1} = i\cdot i \sqrt{3} = -\sqrt{3}
+\end{align*} \\
+Therefore, $f_1(z)$ and $f_2(z)$ are not equal as functions on $\mathbb{C}$.
+The relationship between $f_1(z)$ and $f_2(z)$ is that they can be equal given certain choice of branch cuts.
+However, closely looking at these two functions brings to realize the importance of order of operations in a complex valued function.
+Essentially the difference between these functions is $f_1(z)$ performs a multiplication prior to taking the square root while $f_2(z)$ distributes the square root to the factors and performs the square root calculation first before the multiplication between the two parts. It is very interesting how differently these functions behave as complex valued functions.
+\qed
+\\
+
+  \item Consider the function
+    \begin{align*}
+     \psi(z) = \int_1^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
+      (-\infty, 1),
+    \end{align*}
+    where the path of integration is a straight line from $1$ to $z$.
+    \begin{itemize}
+   \item  Show that
+    \begin{align*}
+      \psi(z) = \log \varphi(z), \quad \varphi(z) = z + (z^2 -
+      1)^{1/2}, \quad z \not \in
+      (-\infty, 1),
+    \end{align*}
+   for an appropriate choice of branch cut for $(z^2 -
+   1)^{1/2}$.  Here $\log z$ denotes the principal branch. \\
+   \textit{Solution:} \\
+   We will first show that $\log \varphi(z)$ is analytic.
+   Showing that this function satisfies the Cauchy-Riemann equations or showing the formal definition of the derivative in terms of the $\lim$ is difficult. 
+   Rather, we will show $\log \varphi(z)$ is composed of analytic functions, given the correct choices of branches, where necessary.
+   First, we choose the branch cut of $(z^2 - 1)^{1/2}$ s.t. it is equal to $(z - 1)^{1/2} (z + 1)^{1/2}$ and we limit $\theta \in [-\pi, \pi)$.
+   Now we have \\
+   $$\varphi(z) = z + (z - 1)^{1/2}(z + 1)^{1/2}$$ \\
+   which is analytic away from the real axis between [-1,1]. This is because the sum of analytic functions is analytic (where $z$ is already analytic and $(z - 1)^{1/2}(z + 1)^{1/2}$ is as well because of branch cut choices already discussed). Now, here we take the branch cut for $\log z$ to be along the negative real axis such that $\theta \in [-\pi, \pi)$. If we can show the input to our $\log$ function ($\varphi(z)$) will not be 0 or purely real negative, we will have that $\log(\varphi(z))$ is analytic. The only way $\varphi(z)$ could be 0 is if $z = (z - 1)^{1/2}(z + 1)^{1/2}$. Lets assume by way of contradiction they are equal:
+   \begin{align*}
+   z &= (z - 1)^{1/2}(z + 1)^{1/2} \\
+   z^2 &= (z - 1)(z + 1) \\
+   z^2 &= z^2 - 1 \\
+   0 &\neq - 1
+   \end{align*}
+   which is not true therefore our assumption is false, and thus $\varphi(z)$ will never be 0.
+   Concerning $\varphi(z)$ being real negative, it will suffice to show that $(z - 1)^{1/2}(z + 1)^{1/2}$ is never real negative (since the our assumption $z \not \in (-\infty, 1)$ guaruntees that what we are adding to that product will not be real negative).
+   Now, our choice of branch cut for the square root actually guarantees that $(z - 1)^{1/2}(z + 1)^{1/2}$ will be at least non real negative since we are choosing the branch cut that chooses the principal branch.
+   
+   Continuing on, we will show that $\log \varphi(z)$ is indeed the anti-derivative of what we have in the integrand.
+   To show that $\log \varphi(z)$ is the anti-derivative of the integrand we begin by taking the derivative of $\log \varphi(z)$.
+   \begin{align*}
+   \frac{\D}{\D z} \log (z + (z^2 - 1)^{1/2}) &= \frac{1}{(z + (z^2 - 1)^{1/2})}\left( 1 + \frac{1}{2}\frac{2z}{(z^2 - 1)^{1/2}} \right) \\
+							     &= \frac{1}{(z + (z^2 - 1)^{1/2})}\left( \frac{(z^2 - 1)^{1/2}}{(z^2 - 1)^{1/2}} + \frac{z}{(z^2 - 1)^{1/2}} \right) \\
+							     &= \frac{1}{(z + (z^2 - 1)^{1/2})}\left( \frac{(z^2 - 1)^{1/2} + z}{(z^2 - 1)^{1/2}} \right) \\
+							     &= \frac{1}{(z^2 - 1)^{1/2}} \\
+   \end{align*}
+   Which is the same as our term in the integrand.
+   Since, $F(z)$ is analytic in the region we care about $(z)$ and $F^\prime(z) = f(z)$ we can use the FTC to say
+   \begin{align*}
+   \psi(z) = \int_1^z \frac{\D w}{(w^2 - 1)^{1/2}} &= F(z) - F(1) \\
+							&= \log(\varphi(z)) - \log(\varphi(1)) \\
+							&= \log(z + (z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}}) - \log(1 + (1 - 1)^{\frac{1}{2}}(1 + 1)^{\frac{1}{2}}) \\
+							&= \log(z + (z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}}) - \log(1 + (0)^{\frac{1}{2}}(0)^{\frac{1}{2}}) \\
+							&= \log(z + (z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}}) - \log(1) \\
+							&= \log(z + (z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}}) \\
+							&= \log(\varphi(z))
+   \end{align*}
+   Therefore $\psi(z) = \log(\varphi(z))$.
+   Technically I should evaluate a limit of $F(1 + \epsilon)$ as $\epsilon \rightarrow 0$ to be allowed to evaluate $F(1)$ in our usage of the FTC, since we had excluded 1 from our admissible input, but I will only come back to this if I have time.
+   \item Find an expression for
+   \begin{align*}
+     \gamma(z) = \int_{-1}^z \frac{\D w}{(w^2 - 1)^{1/2}}, \quad z \not \in
+      (-1, \infty),
+   \end{align*}
+   in terms of $\varphi(z)$ and the principal branch of the logarithm.  Again, the path of integration is a
+   straight line. \\
+   \textit{Solution:} \\
+   We will use a similar argument as in part 1, but this time we need to make slightly different choices of branch cuts to ensure the functions we care about are in analytic in the right regions.
+   I am proposing that solution will be \\
+   $$
+   \gamma(z) = \log(-\varphi(z)).
+   $$ \\
+   Let's verify all of the same things as we did in part 1.
+   That includes the following
+   \begin{itemize}
+   \item Ensure what we define as $F^{\prime}(z)$ indeed has the relationship that $F^{\prime}(z) = f(z)$
+   I will show this with straight forward differentiation:
+   \begin{align*}
+   \frac{\D}{\D z} \log (-\varphi(z)) &= -\frac{1}{\varphi(z)} \left( \frac{\D}{\D z} \left( - \varphi(z) \right) \right) \\
+   						  &= -\frac{1}{(z + (z^2 - 1)^{1/2})}\left( - 1 - \frac{1}{2}\frac{2z}{(z^2 - 1)^{1/2}} \right) \\
+						  &= -\frac{1}{(z + (z^2 - 1)^{1/2})}\left( -\frac{(z^2 - 1)^{1/2}}{(z^2 - 1)^{1/2}} - \frac{z}{(z^2 - 1)^{1/2}} \right) \\
+						  &= - \frac{1}{(z + (z^2 - 1)^{1/2})}\left( - \frac{(z^2 - 1)^{1/2} + z}{(z^2 - 1)^{1/2}} \right) \\
+						  &= \frac{1}{(z + (z^2 - 1)^{1/2})}\left( \frac{(z^2 - 1)^{1/2} + z}{(z^2 - 1)^{1/2}} \right) \\
+						  &= \frac{1}{(z^2 - 1)^{1/2}}. \\
+   \end{align*}
+   Therefore our proposed $F(z)$ which we want to use in the fundamental theory of calculus satisfies that $F^\prime(z) = f(z)$ since the derivative is what we have as the integrand in the integral that is used to define $\gamma(z)$.
+   \item Next we want to show how our proposed expression $\log(-\varphi(z))$ is indeed an analytic function in the right regions of $\mathbb{C}$.
+   \begin{itemize}
+   \item Following similar logic as in part 1 of this problem, we choose the branch cut for the square function, $()^\frac{1}{2}$, such that the cut is between [-1, 1].
+   This is the principal branch cut limiting $\theta \in [-\pi, \pi)$.
+   Furthermore, we now have $\varphi(z)$ is analytic in the region outside of the real axis from $[-1, 1]$.
+   \item Next, we want to ensure the composition of $\log(-\varphi(z))$ is also analytic. We need to choose an appropriate branch cut for the $\log$ function. This time we choose the branch cut such that $\theta \in [0, 2\pi)$.
+   Therefore the branch cut for the log is the positive real axis.
+   Based on our prior argument in part 1, $\varphi(z)$ will never be real negative therefore $-\varphi(z)$ will never be real positive.
+   Hence, the input for $\log$ will never be on the branch cut we chose for $\log$, and thus $\log(-\varphi(z))$ will be analytic in the right region, $z \not \in (-1, \infty)$.
+ \end{itemize}
+ \item Now we want to apply the FTC.
+ Since $F(z) = \log(-\varphi(z))$ is analytic in the right regions and $F^\prime(z) = f(z)$ (where $f(z)$ is the expression in the integrand), we can evaluate the integral with the following:
+ \begin{align*}
+ \gamma(z) = \int_{-1}^z \frac{\D w}{(w^2 - 1)^{1/2}} &= F(z) - F(-1) \\
+							&= \log(-\varphi(z)) - \log(-\varphi(-1)) \\
+							&= \log(-\varphi(z)) - \log(-(-1 + (1 - (-1))^{\frac{1}{2}}(1 + (-1))^{\frac{1}{2}})) \\
+							&= \log(-\varphi(z)) - \log(-(-1 + \sqrt{2}\sqrt{0})) \\
+							&= \log(-\varphi(z)) - \log(-(-1 + 0)) \\
+							&= \log(-\varphi(z)) - \log(-(-1)) \\
+							&= \log(-\varphi(z))  - \log(1) \\
+							&= \log(-\varphi(z)).
+ \end{align*}
+ Therefore $\gamma(z) = \log(-\varphi(z))$.
+ Technically I should evaluate a limit of $F(1 + \epsilon)$ as $\epsilon \rightarrow 0$ to be allowed to evaluate $F(1)$ in our usage of the FTC, since we had excluded 1 from our admissible input, but I will only come back to this if I have time.
+ \qed
+ \\
+ \end{itemize}
+ \end{itemize}
+
+ \item Show that $\varphi,$ from the previous problem, maps $\mathbb C \setminus [-1,1]$ onto the
+   exterior of the unit disk, $\{ z \in \mathbb C ~:~ |z| > 1\}$.
+   Furthermore
+   \begin{align*}
+     \frac 1 2 \left( \varphi(z) + 1/\varphi(z) \right) = z, \quad \mathbb C \setminus [-1,1].
+   \end{align*}
+\textit{Solution:} \\
+We want to show $\varphi(z) = z + \sqrt{z - 1}\sqrt{z + 1}$ maps everything off the real axis from [-1,1] onto the exterior of the unit disk. In other words we want to show that for $z \in \mathbb C \setminus [-1,1]$ we have 
+$$
+\left| \varphi(z) \right| > 1.
+$$
+Let us look at a few cases. First, suppose $z \in \mathbb C$ has a very large number, then
+$$
+(z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}} \approx z
+$$
+leading to
+$$
+\varphi(z) \approx 2z
+$$
+and therefore
+$$
+|\varphi(z)| \approx 2|z| > 1
+$$
+again only when $z$ is sufficiently large.
+We need to be a little more careful when $z$ is close to the branch cut on the real axis from [-1,1].
+Next, we will look at how the square root functions behave when $z = i\epsilon$ for some $\epsilon > 0$.
+We see
+\begin{align*}
+(i\epsilon -1)^{\frac{1}{2}}(i\epsilon + 1)^{\frac{1}{2}} &= (-1 + i\epsilon)^{\frac{1}{2}}(1 + i\epsilon)^{\frac{1}{2}} \\
+									      &= (\sqrt{1 + \epsilon^2}\E^{i\theta_1})^{\frac{1}{2}}(\sqrt{1 + \epsilon^2}\E^{i\theta_2})^{\frac{1}{2}} \\
+									      &= \sqrt[4]{1 + \epsilon^2}\exp{\left(\frac{i(\theta_1 + \theta_2)}{2}\right)} \\
+									      &= \sqrt[4]{1 + \epsilon^2}\exp{\frac{i(\theta_1 + \theta_2)}{2}} \\
+									      &= \sqrt[4]{1 + \epsilon^2}\exp{i\theta}.
+\end{align*}
+Take this final expression to be some new complex number with it's argument $\theta$ to be $\frac{\theta_1 + \theta_2}{2}$.
+Then the modulus of this new complex number is $\sqrt{1 + \epsilon^2}$.
+We know $|z| = |i\epsilon| = \epsilon$ and using the reverse triangle inequality we have
+\begin{align*}
+\left| z + (z - 1)^{\frac{1}{2}}(z + 1)^{\frac{1}{2}}\right| &= \left| i\epsilon + (- 1 + i\epsilon)^{\frac{1}{2}}(1 + i\epsilon)^{\frac{1}{2}}\right| \\
+										  &= \left| i\epsilon + (i\epsilon - 1)^{\frac{1}{2}}(i\epsilon + 1)^{\frac{1}{2}}\right| \\
+										  &= \left| i\epsilon + \sqrt[4]{1 + \epsilon^2}\exp{i\theta}\right| \\
+										  &= \left| \epsilon\exp i\theta_3 + \sqrt[4]{1 + \epsilon^2}\exp{i\theta}\right| \\
+										  &= \left| \epsilon\left(\cos\theta_3 + i\sin\theta_3\right) + \sqrt[4]{1 + \epsilon^2}\left(\cos\theta + i\sin\theta\right)\right| \\
+										  &= \left| \left(\epsilon\cos\theta_3 + \sqrt[4]{1 + \epsilon^2}\cos\theta\right) + i\left(\epsilon\sin\theta_3 + \sqrt[4]{1 + \epsilon^2}\sin\theta\right) \right| \\
+										  &= \sqrt{\left(\epsilon\cos\theta_3 + \sqrt[4]{1 + \epsilon^2}\cos\theta\right)^2 + \left(\epsilon\sin\theta_3 + \sqrt[4]{1 + \epsilon^2}\sin\theta\right)^2 } \\
+										  &\approx \sqrt{\left(\sqrt[4]{1 + \epsilon^2}\cos\theta\right)^2 + \left(\sqrt[4]{1 + \epsilon^2}\sin\theta\right)^2 } \\
+										  &= \sqrt{\sqrt{1 + \epsilon^2}\cos^2\theta + \sqrt{1 + \epsilon^2}\sin^2\theta } \\
+										  &= \sqrt{\sqrt{1 + \epsilon^2}\left(\cos^2\theta + \sin^2\theta\right) } \\
+										  &= \sqrt[4]{1 + \epsilon^2}.
+\end{align*}
+Where the approximation we use holds as $\epsilon$ gets extremely small.
+Moreover, 
+$$
+\lim_{\epsilon\rightarrow 0} \sqrt[4]{1 + \epsilon^2} = 1.
+$$
+However, since we are disallowing values on the real axis from $[-1, 1]$ $\epsilon$ will never reach 0, and the value of this chain of equalities (and one approximation) will always be at least larger than 1.
+This holds similarly for when $\epsilon < 0$.
+There are just a few sign changes.
+In fact, the other case where $\epsilon$ is a negative number looks identical to this once the complex numbers being summed inside the modulus are written in polar form (they would just have a different angle $\theta$).
+Therefore, $\varphi(z)$ maps everything in $\mathbb C \setminus [-1, 1]$ to the set $\{z \in \mathbb C : |z| > 1\}$.
+\\
+\\
+The second statement can be shown as follows \\
+\begin{align*}
+\frac{1}{2}\left(\varphi(z) + \frac{1}{\varphi(z)}\right) &= \frac{1}{2}\left(\frac{\varphi(z)^2}{\varphi(z)} + \frac{1}{\varphi(z)}\right) \\
+   &= \frac{1}{2}\left(\frac{\varphi(z)^2 + 1}{\varphi(z)}\right) \\
+   &= \frac{1}{2}\left(\frac{(z + \sqrt{z - 1}\sqrt{z + 1})^2 + 1}{\varphi(z)}\right) \\
+   &= \frac{1}{2}\left(\frac{z^2 + 2 z \sqrt{z - 1}\sqrt{z + 1} + (z - 1)(z + 1) + 1}{\varphi(z)}\right) \\
+   &= \frac{1}{2}\left(\frac{z^2 + 2 z \sqrt{z - 1}\sqrt{z + 1} + z^2 - 1 + 1}{\varphi(z)}\right) \\
+   &= \frac{1}{2}\left(\frac{2z^2 + 2 z \sqrt{z - 1}\sqrt{z + 1}}{\varphi(z)}\right) \\
+   &= \frac{2z}{2}\left(\frac{z + \sqrt{z - 1}\sqrt{z + 1}}{\varphi(z)}\right) \\
+   &= \frac{2z}{2}\left(\frac{\varphi(z)}{\varphi(z)}\right) \\
+   &= z
+\end{align*}
+\qed
+\\
+
+   \item (Sharpness of the Bernstein--Walsh inequality)  The
+     Bernstein--Walsh inequality states that if a polynomial $p_n$ of
+     degree $n$ satisfies $\max_{-1 \leq x \leq 1} |p_n(x)| \leq 1$
+     then
+     \begin{align*}
+       |p_n(z)| \leq |\varphi(z)|^n, \quad z \in \mathbb C \setminus [-1,1].
+     \end{align*}
+     Show that
+     \begin{align*}
+        T_n(z) = \frac 1 2 \left( \varphi(z)^n + \varphi(z)^{-n}
+       \right), \quad z \in \mathbb C \setminus [-1,1]
+     \end{align*}
+     is a polynomial that satisfies
+     \begin{align*}
+       \max_{-1 \leq x \leq 1} |T_n(x)| &= 1,\\
+       \lim_{n \to \infty} |T_n(z)|^{1/n} &= |\varphi(z)|,
+     \end{align*}
+     for any fixed $z \in \mathbb C \setminus [-1,1]$. \\
+\textit{Solution:} \\
+We will first show that $$T_n(z) = \frac 1 2 \left( \varphi(z)^n + \varphi(z)^{-n} \right)$$ is indeed a polynomial.
+We will start with a few base cases. Let $n = 1$
+$$T_1(z) = \frac 1 2 \left( \varphi(z) + \varphi(z)^{-1} \right) = z \quad \text{(by our argument in 6)}$$
+which is a polynomial. Now notice,
+\begin{align*}
+\frac 1 2 \left( \varphi(z) + \varphi(z)^{-1} \right) &= z \\
+\left( \varphi(z) + \varphi(z)^{-1} \right)^2 &= 4z^2 \\
+\varphi(z)^2 + 2\varphi(z)\varphi(z)^{-1} + \varphi(z)^{-2} &= 4z^2 \\
+\varphi(z)^2 + 2 + \varphi(z)^{-2} &= 4z^2 \\
+\varphi(z)^2 + \varphi(z)^{-2} &= 4z^2 - 2 \\
+\frac 1 2 \left(\varphi(z)^2 + \varphi(z)^{-2}\right) &= 2z^2 - 1
+\end{align*}
+which is our $n = 2$ case. Continuing on we observe:
+\begin{align*}
+\frac 1 2 \left( \varphi(z) + \varphi(z)^{-1} \right) &= z \\
+\left( \varphi(z) + \varphi(z)^{-1} \right)^3 &= 8z^3 \\
+\varphi(z)^3 + 3\varphi(z)^2\varphi(z)^{-1} + 3\varphi(z)\varphi(z)^{-2} + \varphi(z)^{-3} &= 8z^3 \\
+\varphi(z)^3 + 3\varphi(z) + 3\varphi(z)^{-1} + \varphi(z)^{-3} &= 8z^3 \\
+\varphi(z)^3 + \varphi(z)^{-3} &= 8z^3 - 3\left(\varphi(z) + \varphi(z)^{-1}\right) \\
+\varphi(z)^3 + \varphi(z)^{-3} &= 8z^3 - 6z \\
+\frac 1 2 \left(\varphi(z)^3 + \varphi(z)^{-3}\right) &= 4z^3 - 3z \\
+\end{align*}
+which once again is our case for $n=3$.
+Furthermore, if I have time I will show an inductive step where we assume that 
+$T_n(z) = \frac 1 2 \left( \varphi(z)^n + \varphi(z)^{-n} \right)$ is a polynomial and wish to show that
+$$
+T_{n+1}(z) = \frac 1 2 \left( \varphi(z)^{n+1} + \varphi(z)^{-(n+1)} \right).
+$$
+Let's begin in a similar manner to the base cases.
+\begin{align*}
+\frac 1 2 \left( \varphi(z) + \varphi(z)^{-1} \right) &= z \\
+\left( \varphi(z) + \varphi(z)^{-1} \right)^{n + 1} &= (2z)^{n + 1} \\
+\sum_{k= 0}^{n + 1} \binom{n + 1}{k} \varphi(z)^{((n + 1) - k)} \varphi(z)^{-k} &= (2z)^{n + 1} \\
+\binom{n + 1}{0} \varphi(z)^{(n + 1)} + \binom{n + 1}{n + 1} \varphi(z)^{-(n + 1)} + \sum_{k= 1}^{n} \binom{n + 1}{k} \varphi(z)^{((n + 1) - k)} \varphi(z)^{-k} &= 2^{n + 1}z^{n + 1} \\
+\varphi(z)^{(n + 1)} + \varphi(z)^{-(n + 1)} + \sum_{k= 1}^{n} \binom{n + 1}{k} \varphi(z)^{((n + 1) - k)} \varphi(z)^{-k} &= 2^{n + 1}z^{n + 1} \\
+\frac 1 2 \left(\varphi(z)^{(n + 1)} + \varphi(z)^{-(n + 1)}\right) + \frac 1 2 \sum_{k= 1}^{n} \binom{n + 1}{k} \varphi(z)^{((n + 1) - k)} \varphi(z)^{-k} &= 2^nz^{n + 1}. \\
+\end{align*}
+Now we have
+\begin{align*}
+\frac 1 2 \left(\varphi(z)^{(n + 1)} + \varphi(z)^{-(n + 1)}\right) &= 2^nz^{n + 1} - \frac 1 2 \sum_{k= 1}^{n} \binom{n + 1}{k} \varphi(z)^{((n + 1) - k)} \varphi(z)^{-k} \\
+T_{n+1}(z) &= 2^nz^{n + 1} - \frac 1 2 \sum_{k= 1}^{n} \binom{n + 1}{k} \varphi(z)^{((n + 1) - k)} \varphi(z)^{-k} \\
+\end{align*}
+If we expand out the sum on the right, we can cleverly group the terms by common coefficients such as when $\binom{n}{k} = \binom{n}{n - k}$.
+We did this in the base cases of $n=2$ and $n=3$.
+Combining this with our inductive assumption, then $\left( \varphi(z)^n + \varphi(z)^{-n} \right) = 2T_n(z)$.
+Each of the pairs of terms will take this form with decreasing values of $n$.
+And thus each of those pairings represents another polynomial.
+Therefore, we have $$T_{n+1}(z) = 2^nz^{n + 1} - \frac 1 2 \hat P(z).$$
+Where $\hat P(z)$ is the reordered grouped and factored terms from the sum which results in a sum of polynomials of decreasing powers.
+\\
+
+\noindent
+Moreover, now that we know $T_n(z)$ is a polynomial for $n \in \mathbb N$, I will show that $\max_{-1 \leq x \leq 1} |T_n(x)| = 1$ holds (if I have time).
+\\
+
+\noindent
+Next I will also show $\lim_{n \to \infty} |T_n(z)|^{1/n} = |\varphi(z)|$. This I will show by finding an upper bound as well as a lower bound using the inverse triangle inequality (if I have time).
+\qed
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
