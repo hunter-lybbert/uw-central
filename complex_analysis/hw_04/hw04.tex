@@ -162,19 +162,22 @@ We want to parameterize this once again using $z = r\E^{i\theta}$ where $\theta 
 	&= \int_{-\pi}^{0} i\E^{\frac{i\theta}{2}} \E^{i\theta} \D \theta \\
 	&= \int_{-\pi}^{0} i\E^{\frac{i3}{2}\theta} \D \theta \\
 	&= \left. \frac 2 3 \E^{\frac{i3}{2}\theta} \right|_{-\pi}^{0} \\
-	&= \frac 2 3 \E^{ - \frac{i3}{2} \pi} - \frac 2 3. \\
+	&= \frac 2 3 - \frac 2 3 \E^{ - \frac{i3}{2} \pi}. \\
 \end{align*}
 Now remembering our branch cut limits $\theta$ to be within $[-\pi, \pi)$ we change the angle $-\frac 3 2 \pi$ to be $\frac 1 2 \pi$.
 Hence,
 \begin{align*}
-\frac 2 3 \E^{ - \frac{i3}{2} \pi} - \frac 2 3 &= \frac 2 3 \E^{ - \frac{i2}{2} \pi} \E^{ - \frac{i\pi}{2}} - \frac 2 3 \\
-	&= \frac 2 3 \E^{ \frac{i\pi}{2}} - \frac 2 3 \\
-	&= \frac 2 3 \left( i - 1\right).
+\frac 2 3 - \frac 2 3 \E^{ - \frac{i3}{2} \pi}
+	&= \frac 2 3 \left( 1 - \E^{ - \frac{i3}{2} \pi} \right) \\
+	&= \frac 2 3 \left( 1 - \E^{ - \frac{i2}{2} \pi} \E^{ - \frac{i\pi}{2}} \right) \\
+	&= \frac 2 3 \left( 1 - \left(-\E^{ - \frac{i\pi}{2}} \right) \right) \\
+	&= \frac 2 3 \left( 1 - \E^{\frac{i\pi}{2}} \right) \\
+	&= \frac 2 3 \left( 1 - i \right).
 \end{align*}
 \qed
 \\
 \item From A\&F: 2.4.7 \\
-Let C be an open (upper) semicircle of radius $R$ with its center at the origin, and consider $\int_C f(z) \D z$.
+Let $C$ be an open (upper) semicircle of radius $R$ with its center at the origin, and consider $\int_C f(z) \D z$.
  Let $f(z) = \frac{1}{z^2 + a^2}$ for a real $a > 0$.
 Show that $\left| f(z) \right| \leq \frac{1}{R^2 - a^2}$, $R > a$, and
 $$
@@ -521,19 +524,140 @@ $$
     z^3 t} \D z$, $t > 0$.  Express the result in terms of $\int_0^\infty \E^{-
     r^3} \D r$. \\
 The ideas we might need to use are ... it's actually really long! \\
-\textit{Solution:}\\ 
+\textit{Solution:}\\
+We want to evaluate the integral (with $t > 0$)
+$$\int_0^\infty \E^{\I z^3 t} \D z.$$
+Let's first do a quick change of variables to simplify the problem a bit.
+Let $w = z \sqrt[3]{t}$, additionally, $\D w = \D z \sqrt[3]{t}$.
+Therefore,
+$$
+\int_{0}^{\infty} \E^{iz^3t} \D z = \frac{1} {\sqrt[3]{t}} \int_{0}^{\infty} \E^{iw^3} \D w.
+$$
+It will suffice to work with the integral on the right and multiply by the scalar $\frac 1 {\sqrt[3] t}$ at the end.
+Instead of this real valued integral let's consider the following
+$$
+\oint_{C_{(R)}} \E^{iw^3} \D w,
+$$
+with the contour $C_{(R)}$ being the closed circular sector (think a slice of pizza) in the upper half plane with boundary points $0$, $R$, and $R\E^{\frac{i\pi}{6}}$.
+For notational convenience moving forward, I will use $f(w) = \E^{iw^3}$.
+\\
+
+\noindent
+I claim that $\oint_{C_{(R)}} f(w) \D w = 0$, since our integrand is analytic everywhere (including our contour and the region inside of it) by Cauchy's Theorem the integral will be 0.
+I will now verify that our function $f(w)$ is analytic.
+Firstly, the composition $g(h(z))$ of analytic functions $g(z)$ and $h(z)$, is analytic so long as the range of $h(z)$ does not include any points, branch cuts or regions in which $g(z)$ is not analytic.
+Secondly, it will be sufficient to show $iw^3$ is analytic since $\E^z$ is analytic everywhere.
+Let's verify this using the C-R equations
+We begin by separating $iw^3$ into real and imaginary parts
+\begin{align*}
+iw^3 &= i (x + iy)^3 \\
+	&= i(x^3 + i3x^2y - 3xy^2 -iy^3) \\
+	&= ix^3 - 3x^2y - i3xy^2 + y^3) \\
+	&=  - 3x^2y  + y^3 - i3xy^2 + ix^3 \\
+	&=  - 3x^2y  + y^3 + i\left(-3xy^2 + x^3\right).
+\end{align*}
+We have $$u(x, y) = - 3x^2y  + y^3 \quad \text{and} \quad v(x, y) = -3xy^2 + x^3.$$
+Now we compute the necessary partials (recall we need $u_x = v_y$ and $v_x = - u_y$)
+\begin{align*}
+u_x &= -6xy \\
+v_y &= -6xy \\
+v_x &= -3y^2 + 3x^2 \\
+-u_y &= -\left( -3x^2 + 3y^2 \right) = 3x^2 - 3y^2.
+\end{align*}
+Seeing that these partials satisfy the C-R equations we can conclude that $iw^3$ is analytic.
+Therefore $\E^{iw^3}$ is also analytic and our integral, $$\oint_{C_{(R)}} \E^{iw^3} \D w = 0$$ by Cauchy's Theorem. \\
+
+\noindent
+For further convenience let's break down our contour integral $\oint_{C_{(R)}} \E^{iw^3} \D w$ into the sum of 3 contour integrals, where the 3 new contours make up our original single contour
+$$
+\oint_{C_{(R)}} f(w) \D w = \oint_{C_{1}} f(w) \D w + \oint_{C_{2}} f(w) \D w + \oint_{C_{3}} f(w) \D w.
+$$
+To be clear, the contour $C_{(R)}$ traverses the circular sector in a counterclockwise fashion.
+The contour $C_1$ denotes the section of the $C_{(R)}$ contour which traverses from the point $z = R$ to $z = R\E^{\frac{i\pi}{6}}$ along the arc of the circle centered at the origin with radius $R$.
+Next, the contour $C_2$ denotes the section of the $C_{(R)}$ contour which traverses from $z = R\E^{\frac{i\pi}{6}}$ to the origin along a radius of the same circle.
+Finally, let the contour $C_3$ denote the section of $C_{(R)}$ which traverses along the real axis from the origin to the point $z=R$. \\
+
+\noindent
 \textbf{TODO:} \\
-t is a constant ... first get rid of t, claiming that in effect get rid of t and then the end result will depend on t. $z = z/cube_root(t)$
+Actually do this bounding section \\
+I am now going to show that $$\lim_{R \rightarrow \infty} \oint_{C_{1}} f(w) \D w = 0.$$
+I will do so by following a similar routine as done in problem 4.
+First we calculate an upper bound $M$ on $\left| f(w) \right| \leq M$.
+Then we will calculate $L$ the arc length of contour $C_1$.
+By theorem 2.4.2, this will give us
+$$
+\left| \oint_{C_1} f(w) \D w\right| \leq ML.
+$$
+Finally take the limit of both sides therefore
+$$
+\lim_{R \rightarrow \infty}\left| \oint_{C_1} f(w) \D w\right| \leq 0
+$$
+which should be an equality since the modulus is a nonnegative function.
+Following this same logic from problem 4, the squeeze theorem gives us that
+$$
+\lim_{R \rightarrow \infty} \oint_{C_1} f(w) \D w = 0
+$$
+Since we have
+\begin{align*}
+\oint_{C_{(R)}} f(w) \D w &= 0 \\
+\oint_{C_{1}} f(w) \D w + \oint_{C_{2}} f(w) \D w + \oint_{C_{3}} f(w) \D w &=0
+\end{align*}
+Now taking the limit as $R\rightarrow\infty$
+\begin{align}
+\lim_{R\rightarrow\infty}\left(\cancelto{0}{\oint_{C_{1}} f(w) \D w} + \oint_{C_{2}} f(w) \D w + \oint_{C_{3}} f(w) \D w \right) &=0 \nonumber \\
+\lim_{R\rightarrow\infty}\left(\oint_{C_{2}} f(w) \D w + \oint_{C_{3}} f(w) \D w \right) &=0.
+\label{eq:last}
+\end{align}
+Let's carefully parameterize the two remaining contour integrals. The contour $C_3$ along the real axis from $0$ to $R$ is essentially already a real valued integral letting $w = x$ we have
+$$
+\oint_{C_{3}} f(w) \D w = \oint_{C_{3}} \E^{iw^3} \D w = \int_{0}^{R} \E^{ix^3} \D x.
+$$
+Next the $C_2$ contour integral will be parameterized with $w = r\E^{\frac{i\pi}{6}}$
+\begin{align*}
+\oint_{C_{2}} f(w) \D w
+	&= \oint_{C_{2}} \E^{iw^3} \D w \\
+	&= \int_{R}^{0} \E^{i\left(r\E^{\frac{i\pi}{6}}\right)^3} \E^{\frac{i\pi}{6}} \D r \\
+	&= \int_{R}^{0} \E^{ir^3\E^{\frac{i\pi}{2}}} \E^{\frac{i\pi}{6}} \D r \\
+	&= \E^{\frac{i\pi}{6}} \int_{R}^{0} \E^{i^2r^3} \D r \\
+	&= \E^{\frac{i\pi}{6}} \int_{R}^{0} \E^{-r^3} \D r \\
+	&= - \E^{\frac{i\pi}{6}} \int_{0}^{R} \E^{-r^3} \D r.
+\end{align*}
+Therefore equation \eqref{eq:last} becomes
+\begin{align*}
+& \lim_{R\rightarrow\infty} \left(
+	\oint_{C_{2}} f(w) \D w + \oint_{C_{3}} f(w) \D w
+\right) \\
+	= & \lim_{R\rightarrow\infty}  \left(
+	- \E^{\frac{i\pi}{6}} \int_{0}^{R} \E^{-r^3} \D r + \int_{0}^{R} \E^{ix^3} \D x
+\right) \\
+= & \lim_{R\rightarrow\infty}  \left(
+	\int_{0}^{R} \E^{ix^3} \D x
+	- \E^{\frac{i\pi}{6}} \int_{0}^{R} \E^{-r^3} \D r 
+\right) = 0.
+\end{align*}
+Hence,
+$$
+\int_{0}^{\infty} \E^{ix^3} \D x =  \E^{\frac{i\pi}{6}} \int_{0}^{\infty} \E^{-r^3} \D r.
+$$
+And multiplying both sides by our scale factor from the substitution at the beginning we have
+\begin{align*}
+\int_{0}^{\infty} \E^{iz^3t} \D z &= \frac{1} {\sqrt[3]{t}} \int_{0}^{\infty} \E^{iw^3} \D w \\
+	&=  \E^{\frac{i\pi}{6}} \frac{1} {\sqrt[3]{t}}  \int_{0}^{\infty} \E^{-r^3} \D r
+\end{align*}
+as required.
+\qed
+\\
 
 \item From A\&F: 2.5.6. \\
-Consider the integral $$I = \int_{-\infty}^{\infty} \frac{\D x}{x^2 + 1}.$$
+This is the exercise from the book: \\
+``Consider the integral $$I = \int_{-\infty}^{\infty} \frac{\D x}{x^2 + 1}.$$
 Show how to evaluate this integral by considering
-$$\oint_{C_{(\mathbb R)}} \frac{\D z}{z^2 + 1},$$
-where $C_{(\mathbb R)}$ is closed semicircle in the upper half plane with endpoints at $(-R, 0)$ and $(R, 0)$ plus the $x$-axis.
+$$\oint_{C_{(R)}} \frac{\D z}{z^2 + 1},$$
+where $C_{(R)}$ is closed semicircle in the upper half plane with endpoints at $(-R, 0)$ and $(R, 0)$ plus the $x$-axis.
 \textit{Hint:} use
 $$\frac{1}{z^2 + 1} = -\frac{1}{2i}\left(\frac{1}{z + i} - \frac{1}{z - i}\right),$$
 and show that the integral along the open semicircle in the upper half plane vanishes as $R \rightarrow \infty$.
-Verify your answer by usual integration in real variables. \\
+Verify your answer by usual integration in real variables." \\
 
 \noindent
 Do this this exercise once, for the following integral (a general form of the specific case given in this book exercise)
@@ -541,15 +665,238 @@ Do this this exercise once, for the following integral (a general form of the sp
     I_\epsilon = \int_{-\infty}^\infty \frac{\epsilon \D x}{x^2 +
     \epsilon^2}, \quad \epsilon > 0.
   \end{align*}\\
-\textit{Solution:}\\
-\textbf{TODO:} \\
-
+\textit{Solution:} \\
+Let's consider the complex valued contour integral
+$$\oint_{C_{(R)}} \frac{\epsilon}{z^2 + \epsilon^2} \D z,$$
+where $C_{(R)}$ is closed semicircle in the upper half plane with endpoints at $(-R, 0)$ and $(R, 0)$ plus the $x$-axis.
+Before I break apart our function $f(z)$ using partial fractions, I want to analyze this integral a little more.
+The interior of our contour $C_{(R)}$ contains one singularity of our function $f(z)$ at $z = i\epsilon$ (the other singularity $-i\epsilon$ is outside of our contour so we don't worry about it).
+By Cauchy's theorem we know
+$$
+\oint_{C_{(R)}} f(z) \D z = \oint_{C_{(i\epsilon)}} f(z) \D z
+$$
+where the contour $C_{(i\epsilon)}$ is a counterclockwise traversal of the circle centered at $z = i\epsilon$ with radius little $r$.
+Additionally, observe that we can break the contour $C_{(R)}$ into two pieces, $C_1$, traversing an open (upper) semicircle of radius $R$ with its center at the origin, and $C_2$ traversing directly across the real axis from $-R$ to $R$. We now have
+\begin{align}
+\oint_{C_{(R)}} f(z) \D z &= \oint_{C_{(i\epsilon)}} f(z) \D z \nonumber \\
+\oint_{C_1} f(z) \D z + \oint_{C_2} f(z) \D z &= \oint_{C_{(i\epsilon)}} f(z) \D zs
+\label{eq:step1}
+\end{align}
+Before digging in and calculating any of these integrals let's analyze this for a moment.
+Notice, the integral $\oint_{C_2} f(z) \D z$ is similar to the integral we found a bound for in Problem 3.
+Siting our results from the same problem we can find the upper bound is
+$$\left| \oint_{C_2} f(z) \D z\right| \leq \frac{\epsilon \pi R}{R^2 - \epsilon^2}$$
+and it goes to $0$ as $R \rightarrow \infty$.
+Now siting the latter section of Problem 4, where we used the squeeze theorem to determine the value of the integral, we can also conclude that
+$$
+\oint_{C_2} f(z) \D z = 0.
+$$
+Putting this together in equation \eqref{eq:step1}, we see
+\begin{align}
+\oint_{C_1} f(z) \D z + \oint_{C_2} f(z) \D z &= \oint_{C_{(i\epsilon)}} f(z) \D z \nonumber \\
+\oint_{C_1} f(z) \D z + 0 &= \oint_{C_{(i\epsilon)}} f(z) \D z \nonumber \\
+\oint_{C_1} f(z) \D z &= \oint_{C_{(i\epsilon)}} f(z) \D z \nonumber \\
+\int_{-R}^R \frac{\epsilon}{z^2 + \epsilon^2} \D z &= \oint_{C_{(i\epsilon)}} f(z) \D z.
+\label{eq:step2}
+\end{align}
+Essentially, we have reduced our problem to a real valued integral on the left from $-R$ to $R$ (looking suspiciously similar to the integral we are supposed to compute from the beginning) and a single contour integral on the right.
+Let's calculate the contour integral on the right, next.
+Our first step is to break apart our function $f(z)$ using partial fractions
+\begin{align*}
+\oint_{C_{(i\epsilon)}} \frac{\epsilon}{z^2 + \epsilon^2} \D z &= \oint_{C_{(i\epsilon)}} \left(
+		\frac{-\frac 1 2 i}{z - i\epsilon} + \frac{\frac 1 2 i}{z + i\epsilon}
+	\right) \D z \\
+	&= \oint_{C_{(i\epsilon)}} \frac{-\frac 1 2 i}{z - i\epsilon} \D z
+	+ \oint_{C_{(i\epsilon)}} \frac{\frac 1 2 i}{z + i\epsilon} \D z
+\end{align*}
+Remember our contour $C_{(i\epsilon)}$ is centered at $z =i\epsilon$ so it does not hit the singularity ($-i\epsilon$) of the function in the integral on the right.
+Then by Cauchy's theorem,
+$$\oint_{C_{(i\epsilon)}} \frac{\frac 1 2 i}{z + i\epsilon} \D z = 0.$$
+Let's use the parameterization $z = r\E^{i\theta} + i\epsilon$, where $r<\epsilon$ is the radius of our circle centered at $i\epsilon$ to calculate the other integral here
+\begin{align*}
+\oint_{C_{(i\epsilon)}} \frac{-\frac 1 2 i}{z - i\epsilon} \D z
+	&= \int_0^{2\pi} \frac{-\frac 1 2 i}{r\E^{i\theta}} ir\E^{i\theta}\D \theta \\
+	&= \int_0^{2\pi} \frac{-\frac 1 2 i\left(ir\E^{i\theta}\right)}{r\E^{i\theta}} \D \theta \\
+	&= \int_0^{2\pi} -\frac1 2 i^2 \D \theta \\
+	&= \frac1 2 \int_0^{2\pi} \D \theta \\
+	&= \frac1 2 \left( \left. \theta \right|_0^{2\pi}\right) \\
+	&= \frac1 2 \left( 2\pi - 0 \right) \\
+	&= \pi
+\end{align*}
+Returning to equation \eqref{eq:step2}, we see
+\begin{align}
+\int_{-R}^R \frac{\epsilon}{z^2 + \epsilon^2} \D z &= \oint_{C_{(i\epsilon)}} f(z) \D z \nonumber \\
+\int_{-R}^R \frac{\epsilon}{z^2 + \epsilon^2} \D z &= \oint_{C_{(i\epsilon)}} \frac{-\frac 1 2 i}{z - i\epsilon} \D z
+	+ \oint_{C_{(i\epsilon)}} \frac{\frac 1 2 i}{z + i\epsilon} \D z \nonumber \\
+\int_{-R}^R \frac{\epsilon}{z^2 + \epsilon^2} \D z	 &= \pi + 0 \nonumber \\
+\int_{-R}^R \frac{\epsilon}{z^2 + \epsilon^2} \D z	 &= \pi.
+\label{eq:step3}
+\end{align}
+Recall earlier we have actually already taken $R\rightarrow\infty$ and thus equation \eqref{eq:step3} actually becomes
+$$
+\int_{-\infty}^\infty \frac{\epsilon}{z^2 + \epsilon^2} \D z = \pi.
+$$
+Let's verify if this is indeed the same as our original real valued integral
+$I_\epsilon = \int_{-\infty}^\infty \frac{\epsilon \D x}{x^2 + \epsilon^2}$, $\epsilon > 0.$
+We will use a $u$ substitution, namely $u = \frac x \epsilon$ and thus $\D u = \frac 1 \epsilon \D x$.
+Followed by a trig substitution, $u = \tan \theta$ and $\D u = \sec^2\theta \D \theta$. Here we go,
+\begin{align*}
+\int_{-\infty}^\infty \frac{\epsilon}{x^2 + \epsilon^2}  \D x
+	&= \int_{-\infty}^\infty \frac{\epsilon}{(\epsilon u)^2 + \epsilon^2} \epsilon \D u \\
+	&= \int_{-\infty}^\infty \frac{\epsilon^2}{\epsilon^2u^2 + \epsilon^2} \D u \\
+	&= \int_{-\infty}^\infty \frac{1}{u^2 + 1} \D u \\
+	&= \int_{-\infty}^\infty \frac{1}{u^2 + 1} \D u \\
+	&= \int_{-\frac \pi 2}^{\frac \pi 2} \frac{\sec^2\theta}{\tan^2\theta + 1} \D \theta \\
+	&= \int_{-\frac \pi 2}^{\frac \pi 2} \frac{\sec^2\theta}{\sec^2\theta} \D \theta \\
+	&= \int_{-\frac \pi 2}^{\frac \pi 2} \D \theta \\
+	&= \left. \theta \right|_{-\frac \pi 2}^{\frac \pi 2}\\
+	&= \frac \pi 2 - \left(-\frac \pi 2\right) \\
+	&= \pi.
+\end{align*}
+And thus we see, in this case it was equivalent to think about this real valued integral as the contour integral proposed at the beginning.
+\qed
+\\
 
 \item Use a similar method to calculate
   $\int_{-\infty}^{\infty} \frac{d x}{1+x^4}$. \\
 \textit{Solution:}\\
-\textbf{TODO:}
-\\
+
+\noindent
+The partial fractions are going to be tricky...\\
+Let's first factor the denominator
+\begin{align*}
+z^4 + 1 &= z^4 + 2z^2 + 1 - 2z^2 \\
+	&= (z^2 + 1)^2 - 2z^2 \\
+	&= (z^2 + 1 - \sqrt{2}z)(z^2 + 1 + \sqrt{2}z)
+\end{align*}
+Use the quadratic formula for each of these quadratics we get
+\begin{align*}
+(z^2 + 1 - \sqrt{2}z)
+\implies
+z &= \frac {\sqrt{2} \pm \sqrt{2 - 4}}{2} \\
+	&= \frac {\sqrt{2}}{2} \pm i\frac{\sqrt{2}}{2}
+\end{align*}
+and
+\begin{align*}
+(z^2 + 1 + \sqrt{2}z)
+\implies
+z &= \frac {-\sqrt{2} \pm \sqrt{2 - 4}}{2} \\
+	&= -\frac {\sqrt{2}}{2} \pm i\frac{\sqrt{2}}{2}
+\end{align*}
+Therefore we can factor
+\begin{align*}
+z^4 + 1 & = \\
+	& \left(z - \left(\frac {\sqrt{2}}{2} + i\frac{\sqrt{2}}{2}\right)\right)
+	\left( z - \left(\frac {\sqrt{2}}{2} - i\frac{\sqrt{2}}{2}\right)\right)
+	\left( z - \left(-\frac {\sqrt{2}}{2} + i\frac{\sqrt{2}}{2}\right)\right)
+	\left( z - \left(-\frac {\sqrt{2}}{2} - i\frac{\sqrt{2}}{2}\right)\right)
+\end{align*}
+Okay I am losing my mind right now...
+basically use the formula for partial fractions from problem 7,
+$
+\frac{1}{z^2 + 1} = -\frac{1}{2i}\left(\frac{1}{z + i} - \frac{1}{z - i}\right).
+$
+Therefore
+$$
+\frac{1}{z^4 + 1} = -\frac{1}{2i}\left(\frac{1}{z^2 + i} - \frac{1}{z^2 - i}\right).
+$$
+Now we have
+$$
+\frac{1}{z^2 + i} = -\frac{1}{2\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right).
+$$
+and
+\begin{align*}
+\frac{1}{z^2 - i} &= -\frac{1}{2\sqrt{-i}}\left( \frac{1}{z + \sqrt{-i}} - \frac{1}{z - \sqrt{-i}} \right) \\
+	&= -\frac{1}{2i\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right).
+\end{align*}
+Thus
+\begin{align*}
+f(z) = \frac{1}{z^4 + 1} &= -\frac{1}{2i}
+	\left[
+		\left( -\frac{1}{2\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right) \right)
+		- \left( -\frac{1}{2i\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right) \right)
+	\right] \\ \\
+	&= -\frac{1}{2i}
+	\left[
+		-\frac{1}{2\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right)
+		+\frac{1}{2i\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right)
+	\right] \\ \\
+	&=
+	\left[
+		\frac{1}{4i\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right)
+		- \frac{1}{4i^2\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right)
+	\right] \\ \\
+	&=
+	\left[
+		\frac{1}{4i\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right)
+		+ \frac{1}{4\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right)
+	\right] \\ \\
+	&= \frac{1}{4i\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} \right)
+		- \frac{1}{4i\sqrt{i}}\left(\frac{1}{z - \sqrt{i}} \right)
+		+ \frac{1}{4\sqrt{i}}\left(\frac{1}{z + i\sqrt{i}} \right)
+		- \frac{1}{4\sqrt{i}}\left(\frac{1}{z - i\sqrt{i}} \right) \\
+\end{align*}
+Let's add a bit of notation here for convenience. Let $f(z)$ be
+$$
+f(z) = f_{(-\sqrt{i})}(z) + f_{(\sqrt{i})}(z) + f_{(-i\sqrt{i})}(z) + f_{(i\sqrt{i})}(z)
+$$
+Where each $f_{(z_i)}(z)$ is the fraction with a pole at $z_i$. Specifically, they are given by
+\begin{align*}
+f_{(-\sqrt{i})}(z) &= \frac{1}{4i\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} \right) \\
+f_{(\sqrt{i})}(z) &= - \frac{1}{4i\sqrt{i}}\left(\frac{1}{z - \sqrt{i}} \right) \\
+f_{(-i\sqrt{i})}(z) &=\frac{1}{4\sqrt{i}}\left(\frac{1}{z + i\sqrt{i}} \right) \\
+f_{(i\sqrt{i})}(z) &= -\frac{1}{4\sqrt{i}}\left(\frac{1}{z - i\sqrt{i}} \right) \\
+\end{align*}
+Now we want to compute the integrals around the two singularities in the upper half plane (which is similar to problem 7 (\textbf{TODO:} link the logic together more with words)).
+\begin{align*}
+\oint_{C_{(\sqrt{i})}} f(z) \D z &= \oint_{C_{(\sqrt{i})}} f_{(-\sqrt{i})}(z) + f_{(\sqrt{i})}(z) + f_{(-i\sqrt{i})}(z) + f_{(i\sqrt{i})}(z) \D z \\
+	&= \cancel{\oint_{C_{(\sqrt{i})}} f_{(-\sqrt{i})}(z) \D z}
+	+ \oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z
+	+ \cancel{\oint_{C_{(\sqrt{i})}} f_{(-i\sqrt{i})}(z) \D z}
+	+ \cancel{\oint_{C_{(\sqrt{i})}} f_{(i\sqrt{i})}(z) \D z} \\
+	&= \oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z
+\end{align*}
+We don't have to worry about computing the contour integral of the $f_{(z_i)}(z)$ where $z_i$ is not on the interior of the contour because of Cauchy's theorem they are all $0$ when the contour does not have any singularities inside.
+Similarly we can say 
+\begin{align*}
+\oint_{C_{(i\sqrt{i})}} f(z) \D z &= \oint_{C_{(i\sqrt{i})}} f_{(i\sqrt{i})}(z) \D z.
+\end{align*}
+Hence we can compute the whole thing as
+$$
+\oint_{C_{(R)}} f(z) \D z = \oint_{C_{(i\sqrt{i})}} f_{(i\sqrt{i})}(z) \D z + \oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z.
+$$
+Let's calculate them one at a time so we can get the right substitutions going.
+First we will follow the contour of a circle with radius $r$ centered at $z = \sqrt{i}$, therefore $z = r\E^{i\theta} - \sqrt{i})$, here we go
+\begin{align*}
+\oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z &= \oint_{C_{(\sqrt{i})}} - \frac{1}{4i\sqrt{i}}\left(\frac{1}{z - \sqrt{i}} \right) \D z \\
+	&= \int_0^{2\pi} - \frac{1}{4\cancel{i}\sqrt{i}}\left(\frac{\cancel{i}\cancel{r\E^{i\theta}}}{\cancel{r\E^{i\theta}}} \right) \D \theta \\
+	&= - \frac{1}{4\sqrt{i}} \int_0^{2\pi} \D \theta \\
+	&= - \frac{2 \pi}{4\sqrt{i}} \\
+	&= - \frac{\pi}{2\sqrt{i}} \\
+\end{align*}
+\textbf{This term is supposed to be positive!!!!!!}
+Next we will follow the contour of a circle with radius $r$ centered at $z = i\sqrt{i}$, therefore $z = r\E^{i\theta} + i\sqrt{i}$, here we go
+\begin{align*}
+\oint_{C_{(i\sqrt{i})}} f_{(i\sqrt{i})}(z) \D z &= \oint_{C_{(i\sqrt{i})}} -\frac{1}{4\sqrt{i}}\left(\frac{1}{z - i\sqrt{i}} \right) \D z \\
+	&= \int_0^{2\pi} - \frac{1}{4\sqrt{i}}\left(\frac{i\cancel{r\E^{i\theta}}}{\cancel{r\E^{i\theta}}} \right) \D \theta \\
+	&= - \frac{i}{4\sqrt{i}} \int_0^{2\pi}  \D \theta \\
+	&= - \frac{2\pi i}{4\sqrt{i}} \\
+	&= - \frac{\pi \sqrt{i}}{2} \\
+\end{align*}
+
+\textbf{The second term is supposed to be positive!!!!!!} Suppose it is then,
+\begin{align*}
+\oint_{C_{(R)}} f(z) \D z
+	&= \oint_{C_{(i\sqrt{i})}} f_{(i\sqrt{i})}(z) \D z + \oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z \\
+	&= - \frac{\pi \sqrt{i}}{2} - \frac{\pi}{2\sqrt{i}} \\
+	&= \frac{\pi}{2}\left(- \sqrt{i} - \frac{1}{\sqrt{i}}\right) \\
+	&= \frac{\pi}{2}\left(- \E^{i\frac{\pi}{4}} - \E^{-i\frac{\pi}{4}}\right) \\
+	&= \frac{\pi}{2}\left(-\left(\frac 1 {\sqrt{2}} + i\frac 1 {\sqrt{2}}\right) - \left( \frac 1 {\sqrt{2}} - i\frac 1 {\sqrt{2}}\right)\right) \\
+	&= \frac{\pi}{2}\left(-\frac 1 {\sqrt{2}} - i\frac 1 {\sqrt{2}} - \frac 1 {\sqrt{2}} + i\frac 1 {\sqrt{2}}\right) \\
+	&= \frac{\pi}{2}\left(-\frac 2 {\sqrt{2}}\right) \\
+	&= -\frac{\pi}{\sqrt{2}}
+\end{align*}
+\textbf{TODO: Eff me} \\
 
 \item From A\&F: 2.6.1 a, e.\\
 Evaluate the integrals $\oint_C f(z) \D z$, where $C$ is the unit circle centered at the origin and $f(z)$ is given by the following (use Eq. (1.2.19) as necessary): \\
@@ -559,8 +906,8 @@ $$
 $$
 \\
 \textit{Solution:}\\
-\textbf{TODO:} You may need to say something more about why we can use this theorem here...this $f$ is analytic in the right places because of x, y, z...
-We use the general form of the Cauchy Integral Formula which is
+Notice $\sin(z)$ is analytic everywhere, then it satisfies our criteria to be analytic inside our contour $C$ (which is the unit circle centered at the origin).
+Therefore, we use the Cauchy Integral Formula which is
 $$
 f^{(k)}(z) = \frac{k!}{2\pi i} \oint_C \frac{f(\xi)}{\left(\xi - z\right)^{k + 1}} \D \xi.
 $$
@@ -589,8 +936,8 @@ $$
 $$
 \\
 \textit{Solution:}\\
-\textbf{TODO:} You may need to say something more about why we can use this theorem here...this $f$ is analytic in the right places because of x, y, z...
-Nevertheless, we use the Cauchy Integral formula again, for each half of this function.
+Notice $\E^{z^2}$ is analytic everywhere, then it satisfies our criteria to be analytic inside our contour $C$ (which is the unit circle centered at the origin).
+Therefore, we use the Cauchy Integral formula again, for each half of this function.
 We write
 $$
 \oint_C \E^{z^2}\left(\frac{1}{z^2} - \frac{1}{z^3}\right) \D z
