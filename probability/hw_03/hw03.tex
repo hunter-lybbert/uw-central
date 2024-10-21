@@ -1,6 +1,7 @@
 \documentclass[10pt]{amsart}
 \include{amsmath}
 \usepackage{dsfont}													% gives you \mathds{} font
+\usepackage{amssymb}
 
 \newcommand{\D}{\mathrm{d}}
 
@@ -16,16 +17,111 @@
 
 \noindent {\bf 1.} Give an example of a probability space $(\Omega, \mathcal{F},P)$, a random variable $X$ and a function $f$ such that $\sigma(f(X))$ is strictly smaller than $\sigma(X)$ but $\sigma(f(X)) \neq \{\emptyset,\Omega\}$. Give a function $g$ such that $\sigma(g(X))=\{\emptyset,\Omega\}$. Hint: Look at finite sample spaces with a small number of elements. \\
 \textit{Solution:} \\
+Let our probability space be two independent coin tosses, such that $\Omega = \big\{HH, TT, HT, TH\big\}$.
+Define a random variable $X$ such that $X(\omega)$ be the number of heads in the outcome $\omega$ with $\omega \in \Omega$.
+Therefore
+\begin{align*}
+X(HH) &= 2, \\
+X(TT) &= 0, \\
+X(HT) &= 1, \:\: \text{and}\\
+X(TH) &= 1.
+\end{align*}
+Now $\sigma(X)$ can be written as
+$$
+\sigma(X) = \bigg\{ \{HH\}, \{TH, HT\}, \{TT\}, \{TT, HH\}, \{HH, HT, TH\}, \{TT, HT, TH\}, \Omega, \emptyset \bigg\}
+$$
+\\
 \textbf{Part one} \\
-Random variable $X$ and $f$ such that $\left|\sigma(f(X)) \right| < \left| \sigma(X) \right|$ and $\sigma(X)$ is not the trivial $\sigma$-algebra. \\
+Random variable $X$ and $f$ such that $\sigma(f(X)) \subsetneq \sigma(X)$ and $\sigma(f(X))$ is not the trivial $\sigma$-algebra. \\
+
+\noindent
+Define $f(x)$ as follows
+$$
+f(x)= \begin{cases}
+ 	0, & x \leq 0 \\
+	1, & x > 0.
+\end{cases}
+$$
+Let's look at the possible pre-images of $f(X)$ with respect to a few cases of Borel sets.
+For convenience, I will define $\hat X = f(X)$.
+Now let's look at some cases for the pre-image\\
+\textit{Case 1:} $0 \in B$ but $1 \not\in B$
+\begin{align*}
+\hat X^{-1} (B) = \left\{ \omega : \hat X(\omega) \in B \right\} = \left\{ \omega : X(\omega) \in (-\infty, 0] \ \right\} = \{ TT \}
+\end{align*}
+\textit{Case 2:} $0 \not \in B$ but $1 \in B$
+\begin{align*}
+\hat X^{-1} (B) = \left\{ \omega : \hat X(\omega) \in B \right\} = \left\{ \omega : X(\omega) \in (0, \infty) \ \right\} = \{ TH, HT, HH \}
+\end{align*}
+\textit{Case 3:} $0 \in B$ and $1 \in B$
+\begin{align*}
+\hat X^{-1} (B) = \left\{ \omega : \hat X(\omega) \in B \right\} = \left\{ \omega : X(\omega) \in (-\infty, \infty) \ \right\} = \Omega
+\end{align*}
+\textit{Case 4:} $0 \not\in B$ and $1 \not\in B$
+\begin{align*}
+\hat X^{-1} (B) = \left\{ \omega : \hat X(\omega) \in B \right\} = \emptyset.
+\end{align*}
+Therefore,
+\begin{align*}
+\sigma(f(X)) = \bigg\{
+	\{ TT \},
+	\{ TH, HT, HH \},
+	\Omega,
+	\emptyset
+\bigg\} \neq \left\{\emptyset, \Omega \right\}
+\end{align*}
+And thus we have $\sigma(f(X)) \subsetneq \sigma(X)$. \\
 \textbf{Part two}
 Now also give a function $g$ such that $\sigma(g(X))$ is the trivial $\sigma$-algebra, $\left\{ \emptyset, \Omega\right\}$.
+
+\noindent
+Define $g(x)$ to be a constant $c \in \mathbb R$ such that $g(x) = c$ for all $x \in \mathbb R$.
+Once again, for convenience we define $\tilde X = g(X)$.
+Let's go through a few cases of what the pre-image may be for any Borel set\\
+\textit{Case 1:} $c \in B$
+\begin{align*}
+\tilde X^{-1} (B) = \left\{ \omega : \tilde X(\omega) \in B \right\} = \left\{ \omega : X(\omega) \in (-\infty, \infty) \ \right\} = \Omega
+\end{align*}
+\textit{Case 2:} $c \not \in B$
+\begin{align*}
+\tilde X^{-1} (B) = \left\{ \omega : \tilde X(\omega) \in B \right\} = \emptyset.
+\end{align*}
+Therefore,
+\begin{align*}
+\sigma(g(X)) = \left\{ \Omega, \emptyset \right\}.
+\end{align*}
+\qed
 \\
 
 \noindent {\bf 2.} Give an example of events $A$, $B$, and $C$, each of probability strictly between 0 and 1, such that
 $P(A\cap B)=P(A)P(B), P(A\cap C)=P(A)P(C)$, and $P(A\cap B\cap C)=P(A)P(B)P(C)$ but $P(B\cap C)\neq P(B)P(C)$. Are $A$, $B$ and $C$ independent? Hint: You can let $\Omega$ be a set of eight equally likely points. \\
 \textit{Solution:} \\
-Think of this as an eight sided die...
+Let $\Omega = \{1, 2, 3, 4, 5, 6, 7, 8\}$.
+Define events $A$, $B$, and $C$ as follows
+\begin{align*}
+A = \{1, 2, 3, 4\} \\
+B = \{1, 2, 5, 7\} \\
+C = \{1, 3, 6, 8\}.
+\end{align*}
+Then we have 
+$$P(A \cap B) = P(\{ 1, 2 \}) = \frac 1 4$$
+and
+$$P(A)P(B) = P(\{1, 2, 3, 4\})P(\{1, 2, 5, 7\}) =  \frac 1 2 \cdot \frac 1 2 = \frac 1 4.$$
+Additionally, we have 
+$$P(A \cap C) = P(\{ 1, 3 \}) = \frac 1 4$$
+and
+$$P(A)P(C) = P(\{1, 2, 3, 4\})P(\{1, 3, 6, 8\}) =  \frac 1 2 \cdot \frac 1 2 = \frac 1 4.$$
+Finally, we have 
+$$P(A \cap B \cap C) = P(\{ 1\}) = \frac 1 8$$
+and
+$$P(A)P(B)P(C) = P(\{1, 2, 3, 4\})P(\{1, 2, 5, 7\})P(\{1, 3, 6, 8\}) =  \frac 1 2 \cdot \frac 1 2 \cdot \frac 1 2 = \frac 1 8.$$
+Notice we also get
+$$P(B \cap C) = P(\{ 1 \}) = \frac 1 8$$
+which is not equal to
+$$P(B)P(C) = P(\{1, 2, 5, 7\})P(\{1, 3, 6, 8\}) =  \frac 1 2 \cdot \frac 1 2 = \frac 1 4.$$
+In class we said two events $E$ and $E^\prime$ are independent if $P(E\cap E^\prime) = P(E)P(E^\prime)$.
+Therefore we have shown that $A$ and $B$ are independent, $A$ and $C$ are independent but $B$ and $C$ are not independent.
+\qed
 \\
 
 \noindent {\bf 3.} Let $(\Omega, \mathcal{F},P)$ be a probability space such that $\Omega$ is countably infinite, and $\mathcal{F}=2^{\Omega}$. Show that it is impossible for there to exist a countable collection of events $A_1, A_2,... \in \mathcal{F}$ which are independent, such that $P(A_i)=1/2$ for each $i$. Hint: First show that for each $\omega \in \Omega$ and each $n\in \mathds{N}$, we have $P({\omega})\leq 1/2^n$. Then derive a contradiction. \\
