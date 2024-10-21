@@ -44,7 +44,7 @@
 
 \maketitle
 \noindent
-Collaborators*: Nate Ward, Erin, Hailey, Laura..., Cooper, Jenny \\
+Collaborators*: Nate Ward, Erin Szalda-Petree, Hailey Sparks, Laura Thomas, Cooper Simpson, Jenny Jin \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -152,8 +152,12 @@ Plugging this in we have
 	&= - i\pi - \left(2\right) \\
 	&= - i\pi - 2. \\
 \end{align*}
+Ambiguities could arise when integrating along a contour that crosses a branch cut.
+Since the parameterization I chose followed the circle of radius 1 in the lower half plane from $-\pi$ to $0$.
+If one were to choose to integrate along a contour on the other side of the branch cut they would also arrive at an answer off by a sign from my solution.
 \qed
 \\
+
 b) $$\int_{-1}^{1}z^{\frac{1}{2}} \D z$$
 \textit{Solution:} \\
 We want to parameterize this once again using $z = r\E^{i\theta}$ where $\theta \in [-\pi,\pi)$. Now our integral is
@@ -174,8 +178,12 @@ Hence,
 	&= \frac 2 3 \left( 1 - \E^{\frac{i\pi}{2}} \right) \\
 	&= \frac 2 3 \left( 1 - i \right).
 \end{align*}
+Ambiguities could arise when integrating along a contour that crosses a branch cut.
+Since the parameterization I chose followed the circle of radius 1 in the lower half plane from $-\pi$ to $0$.
+If one were to choose to integrate along a contour on the other side of the branch cut they would also arrive at an answer off by a sign from my solution.
 \qed
 \\
+
 \item From A\&F: 2.4.7 \\
 Let $C$ be an open (upper) semicircle of radius $R$ with its center at the origin, and consider $\int_C f(z) \D z$.
  Let $f(z) = \frac{1}{z^2 + a^2}$ for a real $a > 0$.
@@ -578,24 +586,62 @@ Next, the contour $C_2$ denotes the section of the $C_{(R)}$ contour which trave
 Finally, let the contour $C_3$ denote the section of $C_{(R)}$ which traverses along the real axis from the origin to the point $z=R$. \\
 
 \noindent
-\textbf{TODO:} \\
-Actually do this bounding section \\
 I am now going to show that $$\lim_{R \rightarrow \infty} \oint_{C_{1}} f(w) \D w = 0.$$
 I will do so by following a similar routine as done in problem 4.
 First we calculate an upper bound $M$ on $\left| f(w) \right| \leq M$.
-Then we will calculate $L$ the arc length of contour $C_1$.
-By theorem 2.4.2, this will give us
+Let's first rewrite $f(w)$ a bit
 $$
-\left| \oint_{C_1} f(w) \D w\right| \leq ML.
+f(w) = \E^{iw^3} = \E^{i\left(R\E^{i\theta} \right)^3} = \E^{iR^3\E^{i3\theta}} = \E^{iR^3\left( \cos3\theta +  i\sin3\theta \right)} = \E^{iR^3\cos3\theta}\E^{ -R^3\sin3\theta} = \frac{\E^{iR^3\cos3\theta}}{\E^{R^3\sin3\theta}}.
 $$
-Finally take the limit of both sides therefore
+Then we have
+\begin{align*}
+\left|f(w)\right|
+	&= \left| \frac{\E^{iR^3\cos3\theta}}{\E^{ R^3\sin3\theta}} \right| \\
+	&= \frac{\left| \E^{iR^3\cos3\theta}\right| }{\left| \E^{ R^3\sin3\theta}\right| } \\
+	&= \frac{\left| \cos\left(R^3\cos3\theta\right) + i\sin\left(R^3\cos3\theta\right)\right| }{\left| \E^{ R^3\sin3\theta}\right| } \\
+	&= \frac{\sqrt{\cos^2\left(R^3\cos3\theta\right) + \sin^2\left(R^3\cos3\theta\right)} }{\left| \E^{ R^3\sin3\theta}\right| } \\
+	&= \frac{\sqrt{1} }{\left| \E^{ R^3\sin3\theta}\right| } \\
+	&= \frac{1}{\left| \E^{ R^3\sin3\theta}\right| }.
+\end{align*}
+Notice, the expression remaining in the modulus, $\E^{ R^3\sin3\theta}$, is a real number  since it no longer has an imaginary parts. Therefore the modulus is a like the absolute value.
+Furthermore, this expression $\E$ raised to the power of some number, is a nonnegative function so we really have
 $$
-\lim_{R \rightarrow \infty}\left| \oint_{C_1} f(w) \D w\right| \leq 0
+\left|f(w)\right| = \frac{1}{\E^{ R^3\sin3\theta}}.
 $$
+We are still after the upper bound for this, so let's see if we can calculate a lower bound for the denominator which will give us an upper bound for the whole expression.
+Once again, observe the fact that
+$\sin 3\theta \geq \frac 3 \pi \theta$ when $\theta \in [0, \frac \pi 6]$.
+Then we see
+\begin{align*}
+\sin 3\theta &\geq \frac 3 \pi \theta \\
+R^3\sin 3\theta &\geq R^3\frac 3 \pi \theta \\
+\E^{R^3\sin 3\theta} &\geq \E^{R^3\frac 3 \pi \theta} \\
+\end{align*}
+and thus
+$$
+\frac 1 {\E^{R^3\sin 3\theta}} \leq \frac 1 {\E^{R^3\frac 3 \pi \theta}}.
+$$
+To be very explicit with how this upper bound only depends on $R$ as we will take the limit while $R\rightarrow \infty$ later, see
+$$
+\frac 1 {\E^{R^3\frac 3 \pi \theta}} = \frac 1 {\E^{R^3}\E^{\frac 3 \pi \theta}} \leq \frac 1 {\E^{R^3}\E^{0}} = \frac 1 {\E^{R^3}}.
+$$
+Therefore, the upper bound on $\left|f(w)\right|$ is $M = \frac 1 {\E^{R^3}}$.
+Since we have
+$$\left| f(w) \right| \leq \frac 1 {\E^{R^3}}$$
+and the arc length $L$ of our contour $C_1$ is $\frac \pi 6 R$ (calculated as $\frac 1 {12} 2\pi R$), then by theorem 2.4.2, this will give us
+$$
+\left| \oint_{C_1} f(w) \D w\right| \leq \frac 1 {\E^{R^3}} \frac \pi 6 R = \frac {\pi R} {6\E^{R^3}} .
+$$
+Finally, take the limit of both sides 
+\begin{align*}
+\lim_{R \rightarrow \infty}\left| \oint_{C_1} f(w) \D w\right| &\leq \lim_{R \rightarrow \infty} \frac {\pi R} {6\E^{R^3}} \\
+\lim_{R \rightarrow \infty}\left| \oint_{C_1} f(w) \D w\right| &\leq \lim_{R \rightarrow \infty} \frac {\pi} {18R^2\E^{R^3}} \quad \text{applying L'Hôpital's rule} \\
+\lim_{R \rightarrow \infty}\left| \oint_{C_1} f(w) \D w\right| &\leq 0
+\end{align*}
 which should be an equality since the modulus is a nonnegative function.
 Following this same logic from problem 4, the squeeze theorem gives us that
 $$
-\lim_{R \rightarrow \infty} \oint_{C_1} f(w) \D w = 0
+\lim_{R \rightarrow \infty} \oint_{C_1} f(w) \D w = 0.
 $$
 Since we have
 \begin{align*}
@@ -762,37 +808,13 @@ And thus we see, in this case it was equivalent to think about this real valued 
 \textit{Solution:}\\
 
 \noindent
-The partial fractions are going to be tricky...\\
-Let's first factor the denominator
-\begin{align*}
-z^4 + 1 &= z^4 + 2z^2 + 1 - 2z^2 \\
-	&= (z^2 + 1)^2 - 2z^2 \\
-	&= (z^2 + 1 - \sqrt{2}z)(z^2 + 1 + \sqrt{2}z)
-\end{align*}
-Use the quadratic formula for each of these quadratics we get
-\begin{align*}
-(z^2 + 1 - \sqrt{2}z)
-\implies
-z &= \frac {\sqrt{2} \pm \sqrt{2 - 4}}{2} \\
-	&= \frac {\sqrt{2}}{2} \pm i\frac{\sqrt{2}}{2}
-\end{align*}
-and
-\begin{align*}
-(z^2 + 1 + \sqrt{2}z)
-\implies
-z &= \frac {-\sqrt{2} \pm \sqrt{2 - 4}}{2} \\
-	&= -\frac {\sqrt{2}}{2} \pm i\frac{\sqrt{2}}{2}
-\end{align*}
-Therefore we can factor
-\begin{align*}
-z^4 + 1 & = \\
-	& \left(z - \left(\frac {\sqrt{2}}{2} + i\frac{\sqrt{2}}{2}\right)\right)
-	\left( z - \left(\frac {\sqrt{2}}{2} - i\frac{\sqrt{2}}{2}\right)\right)
-	\left( z - \left(-\frac {\sqrt{2}}{2} + i\frac{\sqrt{2}}{2}\right)\right)
-	\left( z - \left(-\frac {\sqrt{2}}{2} - i\frac{\sqrt{2}}{2}\right)\right)
-\end{align*}
-Okay I am losing my mind right now...
-basically use the formula for partial fractions from problem 7,
+Let's consider the complex valued contour integral 
+$$
+\oint_{C_{(R)}} \frac{1}{z^4 + 1} \D z.
+$$
+Let $C_{(R)}$ be the contour which is the closed semicircle in the upper half plane made up of two contours $C_1$ and $C_2$.
+Define $C_1$ to be a straight line along the real axis from $-R$ to $R$ and $C_2$ being the path along the semicircle with radius $R$ moving along values of theta from $0$ to $\pi$.
+To begin, I will use the formula for partial fractions from the problem 7 hint,
 $
 \frac{1}{z^2 + 1} = -\frac{1}{2i}\left(\frac{1}{z + i} - \frac{1}{z - i}\right).
 $
@@ -801,102 +823,134 @@ $$
 \frac{1}{z^4 + 1} = -\frac{1}{2i}\left(\frac{1}{z^2 + i} - \frac{1}{z^2 - i}\right).
 $$
 Now we have
-$$
-\frac{1}{z^2 + i} = -\frac{1}{2\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right).
-$$
-and
 \begin{align*}
-\frac{1}{z^2 - i} &= -\frac{1}{2\sqrt{-i}}\left( \frac{1}{z + \sqrt{-i}} - \frac{1}{z - \sqrt{-i}} \right) \\
+ \frac{1}{z^2 + i} &= -\frac{1}{2\sqrt{-i}}\left( \frac{1}{z + \sqrt{-i}} - \frac{1}{z - \sqrt{-i}} \right) \\
 	&= -\frac{1}{2i\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right).
 \end{align*}
-Thus
+and
+$$
+\frac{1}{z^2 - i} = -\frac{1}{2\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right).
+$$
+Thus we can break the function $f(z)$ down as follows
 \begin{align*}
 f(z) = \frac{1}{z^4 + 1} &= -\frac{1}{2i}
 	\left[
-		\left( -\frac{1}{2\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right) \right)
-		- \left( -\frac{1}{2i\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right) \right)
+		\left( -\frac{1}{2i\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right) \right)
+		- \left( -\frac{1}{2\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right) \right)
 	\right] \\ \\
 	&= -\frac{1}{2i}
 	\left[
-		-\frac{1}{2\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right)
-		+\frac{1}{2i\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right)
+		-\frac{1}{2i\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right)
+		+ \frac{1}{2\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right)
 	\right] \\ \\
-	&=
-	\left[
-		\frac{1}{4i\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right)
-		- \frac{1}{4i^2\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right)
+	&= \left[
+		\frac{1}{4i^2\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right)
+		- \frac{1}{4i\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right)
 	\right] \\ \\
-	&=
-	\left[
-		\frac{1}{4i\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right)
-		+ \frac{1}{4\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right)
+	&= \left[
+		- \frac{1}{4\sqrt{i}}\left( \frac{1}{z + i\sqrt{i}} - \frac{1}{z - i\sqrt{i}} \right)
+		- \frac{1}{4i\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} - \frac{1}{z - \sqrt{i}} \right)
 	\right] \\ \\
-	&= \frac{1}{4i\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} \right)
-		- \frac{1}{4i\sqrt{i}}\left(\frac{1}{z - \sqrt{i}} \right)
-		+ \frac{1}{4\sqrt{i}}\left(\frac{1}{z + i\sqrt{i}} \right)
-		- \frac{1}{4\sqrt{i}}\left(\frac{1}{z - i\sqrt{i}} \right) \\
+	&= - \frac{1}{4\sqrt{i}} \left( \frac{1}{z + i\sqrt{i}}\right)
+		+ \frac{1}{4\sqrt{i}} \left(\frac{1}{z - i\sqrt{i}} \right)
+		- \frac{1}{4i\sqrt{i}} \left( \frac{1}{z + \sqrt{i}} \right)
+		+ \frac{1}{4i\sqrt{i}} \left( \frac{1}{z - \sqrt{i}} \right). \\ \\
 \end{align*}
 Let's add a bit of notation here for convenience. Let $f(z)$ be
 $$
-f(z) = f_{(-\sqrt{i})}(z) + f_{(\sqrt{i})}(z) + f_{(-i\sqrt{i})}(z) + f_{(i\sqrt{i})}(z)
+f(z) = f_{(-i\sqrt{i})}(z) + f_{(i\sqrt{i})}(z) + f_{(-\sqrt{i})}(z) + f_{(\sqrt{i})}(z)
 $$
-Where each $f_{(z_i)}(z)$ is the fraction with a pole at $z_i$. Specifically, they are given by
+where each $f_{(z_j)}(z)$ is the fraction with a pole at $z_j$. Specifically, they are given by
 \begin{align*}
-f_{(-\sqrt{i})}(z) &= \frac{1}{4i\sqrt{i}}\left( \frac{1}{z + \sqrt{i}} \right) \\
-f_{(\sqrt{i})}(z) &= - \frac{1}{4i\sqrt{i}}\left(\frac{1}{z - \sqrt{i}} \right) \\
-f_{(-i\sqrt{i})}(z) &=\frac{1}{4\sqrt{i}}\left(\frac{1}{z + i\sqrt{i}} \right) \\
-f_{(i\sqrt{i})}(z) &= -\frac{1}{4\sqrt{i}}\left(\frac{1}{z - i\sqrt{i}} \right) \\
+f_{(-i\sqrt{i})}(z) &= - \frac{1}{4\sqrt{i}} \left( \frac{1}{z + i\sqrt{i}}\right) \\
+f_{(i\sqrt{i})}(z) &= \frac{1}{4\sqrt{i}} \left(\frac{1}{z - i\sqrt{i}} \right) \\
+f_{(-\sqrt{i})}(z) &= - \frac{1}{4i\sqrt{i}} \left( \frac{1}{z + \sqrt{i}} \right) \\
+f_{(\sqrt{i})}(z) &= \frac{1}{4i\sqrt{i}} \left( \frac{1}{z - \sqrt{i}} \right). \\ \\
 \end{align*}
-Now we want to compute the integrals around the two singularities in the upper half plane (which is similar to problem 7 (\textbf{TODO:} link the logic together more with words)).
+Now that we have broken down our function $f(z)$ in a helpful manner, let's analyze how we are going to evaluate the integral $\oint_{C_{(R)}} f(z) \D z$.
+Following a similar procedure to problem 7, we deform this contour $C_{(R)}$ to cut out the branch points or singularities and combine this with Cauchy's theorem we have
 \begin{align*}
-\oint_{C_{(\sqrt{i})}} f(z) \D z &= \oint_{C_{(\sqrt{i})}} f_{(-\sqrt{i})}(z) + f_{(\sqrt{i})}(z) + f_{(-i\sqrt{i})}(z) + f_{(i\sqrt{i})}(z) \D z \\
+\oint_{C_{(R)}} f(z) \D z + \oint_{-C_{(\sqrt{i})}} f(z) \D z + \oint_{-C_{(i\sqrt{i})}} f(z) \D z &= 0 \\
+\oint_{C_{(R)}} f(z) \D z &= \oint_{C_{(\sqrt{i})}} f(z) \D z + \oint_{C_{(i\sqrt{i})}} f(z) \D z.
+\end{align*}
+\\
+Where the contours $C_{(\sqrt{i})}$ and $C_{(i\sqrt{i})}$ represent counterclockwise circles of radius $r$ sufficiently small centered at each of the two singularities of $f(z)$ found on the interior of our contour $C$.
+Drawing on the results which we have shown several of times on several problems at this point, we can conclude that as $R\rightarrow \infty$ the contour integral across the semicircle contour $C_2$ is going to go to 0.
+We write this as
+\begin{align*}
+\oint_{C_{(R)}} f(z) \D z &= \oint_{C_{(\sqrt{i})}} f(z) \D z + \oint_{C_{(i\sqrt{i})}} f(z) \D z \\
+\oint_{C_1} f(z) \D z + \oint_{C_2} f(z) \D z &= \oint_{C_{(\sqrt{i})}} f(z) \D z + \oint_{C_{(i\sqrt{i})}} f(z) \D z \\
+\lim_{R\rightarrow\infty} \left( \oint_{C_1} f(z) \D z + \cancelto{0}{\oint_{C_2} f(z) \D z} \right)
+	&= \lim_{R\rightarrow\infty} \left( \oint_{C_{(\sqrt{i})}} f(z) \D z + \oint_{C_{(i\sqrt{i})}} f(z) \D z \right) \\
+\int_{-\infty}^{\infty} f(z) \D z
+	&= \oint_{C_{(\sqrt{i})}} f(z) \D z + \oint_{C_{(i\sqrt{i})}} f(z) \D z. \\
+\end{align*}
+This final line also uses the fact that the integrals on the right hand side do not depend on $R$.
+Notice the integral on the left is now just the real valued integral we started with that we want to evaluate.
+Let's compute the two remaining contour integrals on the right.
+We make use of the fact that our partial fraction decomposition allows us to break each of these contour integrals into several pieces. Additionally, notice that if our contour is around $z=i\sqrt{i}$ but the integrand is one of the parts of $f(z)$ which has no singularity inside that contour then by Cauchy's Theorem that particular integral is 0.
+\begin{align*}
+\oint_{C_{(\sqrt{i})}} f(z) \D z &= \oint_{C_{(\sqrt{i})}} \left(
+	f_{(-\sqrt{i})}(z) + f_{(\sqrt{i})}(z) + f_{(-i\sqrt{i})}(z) + f_{(i\sqrt{i})}(z)
+	\right) \D z \\
 	&= \cancel{\oint_{C_{(\sqrt{i})}} f_{(-\sqrt{i})}(z) \D z}
 	+ \oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z
 	+ \cancel{\oint_{C_{(\sqrt{i})}} f_{(-i\sqrt{i})}(z) \D z}
 	+ \cancel{\oint_{C_{(\sqrt{i})}} f_{(i\sqrt{i})}(z) \D z} \\
-	&= \oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z
+	&= \oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z.
 \end{align*}
-We don't have to worry about computing the contour integral of the $f_{(z_i)}(z)$ where $z_i$ is not on the interior of the contour because of Cauchy's theorem they are all $0$ when the contour does not have any singularities inside.
+If $z_k$ is a singularity of $f(z)$ and $z_j$ is a different singularity of $f(z)$, we don't have to worry about computing the contour integral of the $f_{(z_k)}(z)$ if the contour is centered at $z_j$ since $z_k$ is not a singularity of the function $f_{(z_k)}(z)$.
+Therefore $f_{(z_k)}(z)$ is analytic in the region enclosed by the circle contour centered at $z_j$ and therefore the contour is 0 by Cauchy's theorem.
 Similarly we can say 
 \begin{align*}
 \oint_{C_{(i\sqrt{i})}} f(z) \D z &= \oint_{C_{(i\sqrt{i})}} f_{(i\sqrt{i})}(z) \D z.
 \end{align*}
 Hence we can compute the whole thing as
 $$
-\oint_{C_{(R)}} f(z) \D z = \oint_{C_{(i\sqrt{i})}} f_{(i\sqrt{i})}(z) \D z + \oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z.
+\int_{-\infty}^{\infty} f(z) \D z = \oint_{C_{(i\sqrt{i})}} f_{(i\sqrt{i})}(z) \D z + \oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z.
 $$
 Let's calculate them one at a time so we can get the right substitutions going.
 First we will follow the contour of a circle with radius $r$ centered at $z = \sqrt{i}$, therefore $z = r\E^{i\theta} - \sqrt{i})$, here we go
 \begin{align*}
-\oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z &= \oint_{C_{(\sqrt{i})}} - \frac{1}{4i\sqrt{i}}\left(\frac{1}{z - \sqrt{i}} \right) \D z \\
-	&= \int_0^{2\pi} - \frac{1}{4\cancel{i}\sqrt{i}}\left(\frac{\cancel{i}\cancel{r\E^{i\theta}}}{\cancel{r\E^{i\theta}}} \right) \D \theta \\
-	&= - \frac{1}{4\sqrt{i}} \int_0^{2\pi} \D \theta \\
-	&= - \frac{2 \pi}{4\sqrt{i}} \\
-	&= - \frac{\pi}{2\sqrt{i}} \\
+\oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z
+	&= \oint_{C_{(\sqrt{i})}} \frac{1}{4i\sqrt{i}} \left( \frac{1}{z - \sqrt{i}} \right) \D z \\
+	&= \int_0^{2\pi} \frac{1}{4\cancel{i}\sqrt{i}}\left(\frac{\cancel{i}\cancel{r\E^{i\theta}}}{\cancel{r\E^{i\theta}}} \right) \D \theta \\
+	&= \frac{1}{4\sqrt{i}} \int_0^{2\pi} \D \theta \\
+	&= \frac{2 \pi}{4\sqrt{i}} \\
+	&= \frac{\pi}{2\sqrt{i}}. \\
 \end{align*}
-\textbf{This term is supposed to be positive!!!!!!}
 Next we will follow the contour of a circle with radius $r$ centered at $z = i\sqrt{i}$, therefore $z = r\E^{i\theta} + i\sqrt{i}$, here we go
 \begin{align*}
-\oint_{C_{(i\sqrt{i})}} f_{(i\sqrt{i})}(z) \D z &= \oint_{C_{(i\sqrt{i})}} -\frac{1}{4\sqrt{i}}\left(\frac{1}{z - i\sqrt{i}} \right) \D z \\
-	&= \int_0^{2\pi} - \frac{1}{4\sqrt{i}}\left(\frac{i\cancel{r\E^{i\theta}}}{\cancel{r\E^{i\theta}}} \right) \D \theta \\
-	&= - \frac{i}{4\sqrt{i}} \int_0^{2\pi}  \D \theta \\
-	&= - \frac{2\pi i}{4\sqrt{i}} \\
-	&= - \frac{\pi \sqrt{i}}{2} \\
+\oint_{C_{(i\sqrt{i})}} f_{(i\sqrt{i})}(z) \D z &= \oint_{C_{(i\sqrt{i})}} \frac{1}{4\sqrt{i}} \left(\frac{1}{z - i\sqrt{i}} \right) \D z \\
+	&= \int_0^{2\pi} \frac{1}{4\sqrt{i}}\left(\frac{i\cancel{r\E^{i\theta}}}{\cancel{r\E^{i\theta}}} \right) \D \theta \\
+	&= \frac{i}{4\sqrt{i}} \int_0^{2\pi}  \D \theta \\
+	&= \frac{2\pi i}{4\sqrt{i}} \\
+	&= \frac{\pi i}{2\sqrt{i}} \frac {\sqrt{i}} {\sqrt{i}} \\
+	&= \frac{\pi \sqrt{i}}{2}. \\
 \end{align*}
 
-\textbf{The second term is supposed to be positive!!!!!!} Suppose it is then,
+Then we have,
 \begin{align*}
-\oint_{C_{(R)}} f(z) \D z
+\int_{-\infty}^{\infty} f(z) \D z
 	&= \oint_{C_{(i\sqrt{i})}} f_{(i\sqrt{i})}(z) \D z + \oint_{C_{(\sqrt{i})}} f_{(\sqrt{i})}(z) \D z \\
-	&= - \frac{\pi \sqrt{i}}{2} - \frac{\pi}{2\sqrt{i}} \\
-	&= \frac{\pi}{2}\left(- \sqrt{i} - \frac{1}{\sqrt{i}}\right) \\
-	&= \frac{\pi}{2}\left(- \E^{i\frac{\pi}{4}} - \E^{-i\frac{\pi}{4}}\right) \\
-	&= \frac{\pi}{2}\left(-\left(\frac 1 {\sqrt{2}} + i\frac 1 {\sqrt{2}}\right) - \left( \frac 1 {\sqrt{2}} - i\frac 1 {\sqrt{2}}\right)\right) \\
-	&= \frac{\pi}{2}\left(-\frac 1 {\sqrt{2}} - i\frac 1 {\sqrt{2}} - \frac 1 {\sqrt{2}} + i\frac 1 {\sqrt{2}}\right) \\
-	&= \frac{\pi}{2}\left(-\frac 2 {\sqrt{2}}\right) \\
-	&= -\frac{\pi}{\sqrt{2}}
+	&= \frac{\pi \sqrt{i}}{2} + \frac{\pi}{2\sqrt{i}} \\
+	&= \frac{\pi}{2}\left(\sqrt{i} + \frac{1}{\sqrt{i}}\right) \\
+	&= \frac{\pi}{2}\left(\E^{i\frac{\pi}{4}} + \frac{1}{\sqrt{i}} \left(\frac{i\sqrt{i}}{i\sqrt{i}}\right)\right) \\
+	&= \frac{\pi}{2}\left(\E^{i\frac{\pi}{4}} + (-1) i\sqrt{i}\right) \\
+	&= \frac{\pi}{2}\left(\E^{i\frac{\pi}{4}} + \E^{-i\pi} \E^{i \frac \pi 2} \E^{i \frac \pi 4}\right) \\
+	&= \frac{\pi}{2}\left(\E^{i\frac{\pi}{4}} + \E^{i\left(-\pi + \frac \pi 2 + \frac \pi 4\right)}\right) \\
+	&= \frac{\pi}{2}\left(\E^{i\frac{\pi}{4}} + \E^{-i \frac \pi 4}\right) \\
+	&= \frac{\pi}{2}\left(\frac 1 {\sqrt{2}} + \cancel{ i\frac 1 {\sqrt{2}}} +  \frac 1 {\sqrt{2}} - \cancel{ i\frac 1 {\sqrt{2}}}\right) \\
+	&= \frac{\pi}{2}\left(\frac 2 {\sqrt{2}}\right) \\
+	&= \frac{\pi}{\sqrt{2}}
 \end{align*}
-\textbf{TODO: Eff me} \\
+And thus
+$$
+\int_{-\infty}^{\infty} f(z) \D z = \int_{-\infty}^{\infty} \frac 1 {z^4 + 1} \D z = \frac{\pi}{\sqrt{2}}
+$$
+which matches our expected results from real valued integration of $\int_{-\infty}^{\infty} \frac 1 {x^4 + 1} \D x$.
+\qed
+\\
 
 \item From A\&F: 2.6.1 a, e.\\
 Evaluate the integrals $\oint_C f(z) \D z$, where $C$ is the unit circle centered at the origin and $f(z)$ is given by the following (use Eq. (1.2.19) as necessary): \\
