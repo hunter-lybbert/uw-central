@@ -230,7 +230,24 @@ Now the imaginary part of this is
 \begin{align*}
 \Im (f(z)) &= \frac 1 {2\pi} \int_0^{2\pi} v(\theta) \D \theta - \frac 1 {2\pi} \int_0^{2\pi} u(\theta)\frac{2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \D \theta \\
 	&= C - \frac 1 {\pi} \int_0^{2\pi} u(\theta) \frac{r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \D \theta \\
+	&= C - \frac 1 {\pi} \int_0^{2\pi} u(\theta) \frac{r\sin\big(-(-\theta + \phi)\big)}{1 - 2r \cos \big(-(-\theta + \phi)\big) + r^2} \D \theta \\
+	&= C - \frac 1 {\pi} \int_0^{2\pi} u(\theta) \frac{- r\sin(\phi -\theta)}{1 - 2r \cos (\phi-\theta) + r^2} \D \theta \\
+	&= C + \frac 1 {\pi} \int_0^{2\pi} u(\theta) \frac{r\sin(\phi -\theta)}{1 - 2r \cos (\phi-\theta) + r^2} \D \theta \\
 \end{align*}
+where $C = \frac 1 {2 \pi} \int_0^{2 \pi} v(1, \theta) \D \theta = v(r = 0)$.
+This last relationship follows from the Cauchy Integral formula at z = 0 -- see the first equation in this exercise).
+Hence,
+$$
+v(r, \phi) = C + \frac 1 {\pi} \int_0^{2\pi} u(\theta) \frac{r\sin(\phi -\theta))}{1 - 2r \cos (\phi-\theta) + r^2} \D \theta \\
+$$
+\qed \\
+
+\noindent
+(c) We wish to show
+$$
+\frac{r\sin(\phi -\theta)}{1 - 2r \cos (\phi-\theta) + r^2} = \Im \bigg(\frac {\xi + z}{\xi - z}\bigg)
+$$
+\\
 This is a beast of a problem there are \textbf{approximately 9} things to show... \\
 $$\mathbb R \setminus \{0\} $$
 \item Suppose $\Omega$ is an open simply connected region and $z_0 \in
