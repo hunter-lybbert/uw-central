@@ -1,0 +1,172 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+\graphicspath{ {./images/} }
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=5pt]{lemma}{Lemma}
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{10-28-24} \\
+\text{AMATH 567} \\
+
+\title{\bf { Homework 5} }
+
+
+\maketitle
+\noindent
+Collaborators*: \\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
+\normalsize
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item  From A\&F: 2.6.5\\
+Consider two entire functions with no zeroes and having a ratio equal to unity at infinity.
+Use Liouville's Theorem to show that they are in fact the same function. \\
+\textit{Solution:} \\
+(\textbf{1 part}, except maybe if there are multiple things to prove here)
+
+\item From A\&F: 2.6.10\\
+... deduce
+$$
+f(z) = \frac 1 {2\pi} \int_0^{2\pi} \frac{f(\xi)\xi}{\xi - z} \D \theta
+$$
+... explain why we have
+$$
+0 = \frac 1 {2\pi} \int_0^{2\pi} \frac{f(\xi)\xi}{\xi - 1/\bar z} \D \theta
+$$
+... use something to show
+$$
+f(z) = \frac 1 {2\pi} \int_0^{2\pi} f(\xi) \left( \frac{\xi}{\xi - z} \pm \frac{\bar z}{\xi - \bar z} \right) \D \theta
+$$
+then ... \\
+\textit{Solution:} \\
+This is a beast of a problem there are \textbf{approximately 9} things to show... \\
+
+\item Suppose $\Omega$ is an open simply connected region and $z_0 \in
+  \Omega$.  Assume that $f(z)$ is analytic in $\Omega\setminus
+  \{z_0\}$ and satisfies
+  \begin{align*}
+    |f(z)| \leq M |z - z_0|^{-\gamma}, \quad \gamma < 1.
+  \end{align*}
+  Show that if the a specific choice for $f(z_0)$ is made then $f$
+  extends to an analytic function on $\Omega$. \\
+(\textbf{1 part}, except maybe if there are multiple things to prove here) \\
+\textit{Solution:} \\
+
+\newpage
+\item Establish the following lemma:\\
+    \begin{lemma}
+      Suppose $\Omega$ is an open region and $f(z)$ is continuous on
+      $\overline \Omega$.  Let $\Gamma$ be a contour in $\overline
+      \Omega$.  Suppose a sequence of contours $\Gamma_n \subset
+      \overline \Omega$ converge to
+      $\Gamma$ in the sense that there exists parameterizations $z(t)$
+      of $\Gamma$ and $z_n(t)$ of $\Gamma_n$ defined on $[a,b]$
+      satisfying
+      \begin{align*}
+        z_n(t) \overset{n \to \infty}{\longrightarrow} z(t),  \quad \text{
+        uniformly on } [a,b],\\
+        z_n'(t) \overset{n \to \infty}{\longrightarrow} z'(t), \quad \text{
+        uniformly on } [a,b].
+      \end{align*}
+      Then
+      \begin{align*}
+        \int_{\Gamma_n} f(z) \D z \overset{n \to
+        \infty}{\longrightarrow}   \int_{\Gamma} f(z) \D z.
+      \end{align*}
+    \end{lemma}
+    Hint: Use that $f$ is uniformly continuous on $\overline \Omega$.\\
+(\textbf{1 part}, except maybe if there are multiple things to prove here) \\
+\textit{Solution:} \\
+
+\item for any $r, R > 0$, let $C = \partial \Sigma$, $\Sigma = \{z \in \mathbb C ~:~
+      |\real z | \leq r \text{ and } 0 \leq -\imag z \leq R, ~ R >
+    0\}$.   In this problem $\sqrt{z}$ denotes the principal branch
+    with $\arg z  \in [-\pi, \pi)$.
+    \begin{itemize}
+    \item Show that if $f(z)$ is analytic in a region that contains $\Sigma$,
+      \begin{align*}
+        \oint_C f(z) \sqrt{z-1} \sqrt{z+1} \D z = 0.
+      \end{align*}
+(\textbf{1 part}) \\
+\textit{Solution:} \\
+\\
+  \item Show that if $f(z)$ is analytic in a region that contains $\Sigma$
+    \begin{align*}
+        \oint_C \frac{f(z) \D z}{\sqrt{z-1} \sqrt{z+1}}= 0.
+      \end{align*}
+(\textbf{1 part}) \\
+\textit{Solution:} \\
+\\
+    \end{itemize}
+\item From A\&F: 3.1.1 b,d \\
+In the following we are given sequences.
+Discuss their limits and whether the convergence is uniform, in the region $\alpha \leq |z| \leq \beta$, for finite $\alpha, \beta > 0$. \\
+b) $$ \bigg\{ \frac 1 {z^n} \bigg\}_{n=1}^{\infty} $$
+(\textbf{2 parts}) \\
+\textit{Solution:}\\
+
+\noindent
+d) $$ \bigg\{ \frac 1 {1 + (nz)^2} \bigg\}_{n=1}^{\infty} $$
+(\textbf{2 parts}) \\
+\textit{Solution:}\\
+
+\item From A\&F: 3.1.2 b,d \\
+For each sequence in problem 1, what can be said if \\
+(a) $\alpha = 0$ \\
+(b) $\alpha > 0, \quad \beta = \infty$ \\
+(\textbf{4 parts} 2x2)
+\textit{Solution:}
+\item From A\&F: 3.1.3
+Compute the integrals
+$$
+\lim_{n \rightarrow \infty} \int_0^1 nz^{n -1}\D z \quad \text{and} \quad \int_0^1 \lim_{n \rightarrow \infty} \left(nz^{n -1} \right) \D z
+$$
+and show that they are not equal.
+Explain why this is not a counter example to Theorem 3.1.1. (A \&F pg. 111) \\
+(\textbf{3 parts})
+\textit{Solution:} \\
+    
+    
+\textbf{There are approximately 25 things to do}
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
