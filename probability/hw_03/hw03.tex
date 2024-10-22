@@ -12,7 +12,7 @@
 \noindent
 \text{Hunter Lybbert} \\
 \text{Student ID: 2426454} \\
-\text{10-07-24} \\
+\text{10-23-24} \\
 \text{AMATH 561}
 \title{Problem Set 3}
 \maketitle
@@ -73,6 +73,7 @@ Therefore,
 \bigg\} \neq \left\{\emptyset, \Omega \right\}
 \end{align*}
 And thus we have $\sigma(f(X)) \subsetneq \sigma(X)$. \\
+\qed \\
 \textbf{Part two}
 Now also give a function $g$ such that $\sigma(g(X))$ is the trivial $\sigma$-algebra, $\left\{ \emptyset, \Omega\right\}$.
 
@@ -189,33 +190,36 @@ P\left( XY \leq z \right)
 	&= \int_{\mathbb R} F\left(\frac z y \right) \D G(y)
 \end{align*}
 \textbf{TODO:} Account for when y is 0 somehow...
+End up with $P(Y = 0)$ which is $G(0)$
 \begin{align*}
 \int_{\mathbb R} F\left(\frac z y \right) \D G(y)
 	&= \int_{-\infty}^0 F\left(\frac z y \right) \D G(y) + \int_{0}^{\infty} F\left(\frac z y \right) \D G(y).
 \end{align*}
-\textbf{TODO:} Consider doing this again from the beginning but in terms of x and when y is 0.
 \\
 
 (b) If $X \geq 0$ and $Y \geq 0$ are independent continuous random variables with density functions $f$ and $g$, find the density function of $XY$. \\
 \textit{Solution:} \\
-\textbf{TODO:} Redo this once you know you're starting with the right distribution function
-We will follow a similar process as from the class lectures
 \begin{align*}
-\int_{\mathbb R} F\left(\frac z y \right) \D G(y) = \int_{\mathbb R} \int_{-\infty}^{\frac z y} F\left(u \right) \D u \D G(y).
+\int_{\mathbb R} F\left(\frac z y \right) \D G(y) = \int_{\mathbb R} \int_{-\infty}^{\frac z y} f\left(u \right) \D u \D G(y).
 \end{align*}
 Now we need to do something with a change of variables along the lines of $u = \frac x y$ then $\D u = \frac{\D x}{y}$. We have
 \begin{align*}
 \int_{\mathbb R} F\left(\frac z y \right) \D G(y)
-	&= \int_{\mathbb R} \int_{-\infty}^{\frac z y} F\left(u \right) \D u \D G(y) \\
-	&= \int_{\mathbb R} \int_{-\infty}^z \frac {1}{y}F\left(\frac x y \right) \D x \D G(y) \\
-	&= \int_{-\infty}^z \int_{\mathbb R} \frac {1}{y}F\left(\frac x y \right) \D G(y)\D x \\
+	&= \int_{\mathbb R} \int_{-\infty}^{\frac z y} f\left(u \right) \D u \D G(y) \\
+	&= \int_{\mathbb R} \int_{-\infty}^z \frac {1}{y}f\left(\frac x y \right) \D x \D G(y) \\
+	&= \int_{-\infty}^z \int_{\mathbb R} \frac {1}{y}f\left(\frac x y \right) \D G(y)\D x \\
 	&= P\left( XY \leq z \right).
 \end{align*}
 Therefore the density is
 $$
-f(x) = \int_{\mathbb R} \frac {1}{y}F\left(\frac x y \right) \D G(y).
+f(x) = \int_{\mathbb R} \frac {1}{y}f\left(\frac x y \right) \D G(y).
 $$
-\\
+Since $Y$ has a density $g$, we can write the above as
+$$
+f(x) = \int_{\mathbb R} \frac {1}{y}f\left(\frac x y \right)g(y)\D y
+$$
+using Theorem 3 from Lecture 9 slides.
+\qed \\
 
 (c) If $X$ and $Y$ are independent exponentially distributed random variables with parameter $\lambda$, find the density function of $XY$.\\
 \textit{Solution:} \\
@@ -224,6 +228,12 @@ Therefore the density function for one of our random variables is
 $$
 f(x) = \frac {\lambda^1} {\Gamma(1)} x^{1 - 1} \E^{-\lambda x} = \lambda \E^{-\lambda x}.
 $$
-\textbf{TODO:} determine if you are going to use the formula from the previous problem or if there is an easier way to think about this...
+Now using the formula we have for the density of the product of two independent random variables we have
+\begin{align*}
+f(x) &= \int_{\mathbb R} \frac {1}{y}f\left(\frac x y \right)g(y)\D y \\
+	&= \int_{\mathbb R} \frac {1}{y} \lambda \E^{-\lambda \frac x y} \lambda \E^{-\lambda y} \D y \\
+	&= \int_{\mathbb R} \frac {1}{y} \lambda^2 \E^{-\lambda \left( \frac x y + y \right)} \D y.
+\end{align*}
+\textbf{TODO:} Consider clarifying the bounds of all of your integration (so it matches the support of $X$, $Y$)!
 \\
 \end{document}  
