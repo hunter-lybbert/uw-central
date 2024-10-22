@@ -130,13 +130,33 @@ But $B$ and $C$ are not independent, therefore we don't have pairwise independen
 
 \noindent {\bf 3.} Let $(\Omega, \mathcal{F},P)$ be a probability space such that $\Omega$ is countably infinite, and $\mathcal{F}=2^{\Omega}$. Show that it is impossible for there to exist a countable collection of events $A_1, A_2,... \in \mathcal{F}$ which are independent, such that $P(A_i)=1/2$ for each $i$. Hint: First show that for each $\omega \in \Omega$ and each $n\in \mathds{N}$, we have $P({\omega})\leq 1/2^n$. Then derive a contradiction. \\
 \textit{Solution:} \\
-Assume by way of contradiction, there exists a collection of independent events $A_1, A_2, A_3, ..., A_n \in \mathcal F$ such that $P(A_i) = \frac 1 2$.
+Assume by way of contradiction, there exists a countably infinite collection of independent events $A_1, A_2, A_3, ... \in \mathcal F$ such that $P(A_i) = \frac 1 2$.
 Independence of these events implies that
 $$
 P\left( \bigcap_i^n A_i\right) = \prod_i^n P(A_i) = \prod_i^n \frac 1 2 = \left(\frac 1 2\right)^n.
 $$
-\textbf{TODO:} We want to find a contradiction along the way somewhere...
-\\
+I note that our collection of events is countably infinite so we can take the limit of the previous expression as $n\rightarrow\infty$.
+Their independence also implies the independence of the events $A_i^c$, as discussed in class.
+Next I want to construct a collection of new sets call them $B_{i,j}$ where $\omega_j \in B_{i,j}$ (note we can index the $\omega$'s since $\Omega$ is countably infinite).
+Let $B_{i,j}$ be
+$$
+B_{i,j} = \begin{cases}
+ 	A_i, & \omega_j \in A_i \\
+	A_i^c, & \omega_j \not \in A_i.
+\end{cases}
+$$
+Therefore we can now write each $\omega_j$ as 
+$$\bigcap_i^n B_{i,j} = \{\omega_j\}.$$
+Then we have
+$$ P(\{\omega_j\}) =  P\left( \bigcap_i^n B_{i,j} \right) = \prod_i^n P(B_{i,j}) = \prod_i^n \frac 1 2 = \left(\frac 1 2\right)^n = 0.$$
+Where $P(\{ \omega_j \}) = 0$ since $n\rightarrow \infty$ because our collection of independent events is countably infinite.
+Notice, since $\Omega = \cup_{j = 1}^{\infty} \{w_j\}$, then
+$$
+P(\Omega) = P(\cup_{j = 1}^{\infty} \{w_j\}) = \sum_{j = 1}^{\infty} P(\{ \omega_j\}) = \sum_{j = 1}^{\infty} 0 = 0.
+$$
+Which contradicts the fact that if $(\Omega, \mathcal{F},P)$ is a probability space then $P(\Omega) = 1$.
+Therefore, it is impossible for there to exist a countable collection of events $A_1, A_2,... \in \mathcal{F}$ which are independent, such that $P(A_i)=1/2$ for each $i$.
+\qed \\
 
 \noindent {\bf 4.}  (a) Let $X \geq 0$ and $Y \geq 0$  be independent random variables with distribution functions $F$ and $G$. Find the distribution function of $XY$. \\
 \textit{Solution:} \\
