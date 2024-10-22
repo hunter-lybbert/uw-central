@@ -2,8 +2,10 @@
 \include{amsmath}
 \usepackage{dsfont}													% gives you \mathds{} font
 \usepackage{amssymb}
+\usepackage{bbm}
 
 \newcommand{\D}{\mathrm{d}}
+\DeclareMathOperator{\E}{e}
 
 \begin{document}
 
@@ -120,29 +122,88 @@ $$P(B \cap C) = P(\{ 1 \}) = \frac 1 8$$
 which is not equal to
 $$P(B)P(C) = P(\{1, 2, 5, 7\})P(\{1, 3, 6, 8\}) =  \frac 1 2 \cdot \frac 1 2 = \frac 1 4.$$
 In class we said two events $E$ and $E^\prime$ are independent if $P(E\cap E^\prime) = P(E)P(E^\prime)$.
-Therefore we have shown that $A$ and $B$ are independent, $A$ and $C$ are independent but $B$ and $C$ are not independent.
+However, since independence of a collection of events $E_i$ for $i \in \{1, 2, 3, ..., n\}$ implies pairwise independence, $P(E_i\cap E_j) = P(E_i)P(E_j)$ for all $j \neq i$, if the collection $E_i$ fails to be pairwise independent then the collection must not be independent either.
+We have shown that $A$ and $B$ are independent and $A$ and $C$ are independent.
+But $B$ and $C$ are not independent, therefore we don't have pairwise independence between each pair of the three events hence $A$, $B$, and $C$ are not independent.
 \qed
 \\
 
 \noindent {\bf 3.} Let $(\Omega, \mathcal{F},P)$ be a probability space such that $\Omega$ is countably infinite, and $\mathcal{F}=2^{\Omega}$. Show that it is impossible for there to exist a countable collection of events $A_1, A_2,... \in \mathcal{F}$ which are independent, such that $P(A_i)=1/2$ for each $i$. Hint: First show that for each $\omega \in \Omega$ and each $n\in \mathds{N}$, we have $P({\omega})\leq 1/2^n$. Then derive a contradiction. \\
 \textit{Solution:} \\
-Literally just use the hint...
+Assume by way of contradiction, there exists a collection of independent events $A_1, A_2, A_3, ..., A_n \in \mathcal F$ such that $P(A_i) = \frac 1 2$.
+Independence of these events implies that
+$$
+P\left( \bigcap_i^n A_i\right) = \prod_i^n P(A_i) = \prod_i^n \frac 1 2 = \left(\frac 1 2\right)^n.
+$$
+\textbf{TODO:} We want to find a contradiction along the way somewhere...
 \\
 
 \noindent {\bf 4.}  (a) Let $X \geq 0$ and $Y \geq 0$  be independent random variables with distribution functions $F$ and $G$. Find the distribution function of $XY$. \\
 \textit{Solution:} \\
-These are not explicitly dealing with discrete or continuous.
-Definitely review lecture notes.
-Since these are independent try using the formulae from the lecture on 10-16-24.
+Let $h(x, y) = \mathbbm{1}_{\{xy \leq z\}}$ and $\mathbb E \left[ h(x,y) \right]$ be
+$$
+\mathbb E \left[ h(x,y) \right] = \int_{\mathbb R} \int_{\mathbb R} h(x, y) \mu(\D x) \nu(\D y)
+$$
+where $\mu$ and $\nu$ are probability measures with distribution functions $F$ and $G$ respectively.
+We also have 
+\begin{align*}
+\mathbb E \left[ h(x,y) \right]
+	&= \mathbb E \left[ \mathbbm{1}_{\{xy \leq z\}} \right] \\
+	&= 1 \cdot P(XY \leq z) + 0 \cdot P(XY > 0) \\
+	&= P(XY \leq z).
+\end{align*}
+Additionally,
+\begin{align*}
+\int_{\mathbb R} h(x, y) \mu(\D x) 
+	&= \int_{\mathbb R} \mathbbm{1}_{\{xy \leq z\}} \mu(\D x) \\
+	&= \int_{\mathbb R} \mathbbm{1}_{\{x \leq \frac z y\}} \mu(\D x) \\
+	&= P\left( X \leq \frac z y \right) \\
+	&= F\left(\frac z y \right).
+\end{align*}
+Combining these we have
+\begin{align*}
+P\left( XY \leq z \right)
+	&= \mathbb E \left[ h(x,y) \right] \\
+	&= \int_{\mathbb R} \int_{\mathbb R} h(x, y) \mu(\D x) \nu(\D y) \\
+	&= \int_{\mathbb R} F\left(\frac z y \right) \nu(\D y) \\
+	&= \int_{\mathbb R} F\left(\frac z y \right) \D G(y)
+\end{align*}
+\textbf{TODO:} Account for when y is 0 somehow...
+\begin{align*}
+\int_{\mathbb R} F\left(\frac z y \right) \D G(y)
+	&= \int_{-\infty}^0 F\left(\frac z y \right) \D G(y) + \int_{0}^{\infty} F\left(\frac z y \right) \D G(y).
+\end{align*}
+\textbf{TODO:} Consider doing this again from the beginning but in terms of x and when y is 0.
 \\
 
 (b) If $X \geq 0$ and $Y \geq 0$ are independent continuous random variables with density functions $f$ and $g$, find the density function of $XY$. \\
 \textit{Solution:} \\
-Notice these are continuous and you're dealing with densities.
+\textbf{TODO:} Redo this once you know you're starting with the right distribution function
+We will follow a similar process as from the class lectures
+\begin{align*}
+\int_{\mathbb R} F\left(\frac z y \right) \D G(y) = \int_{\mathbb R} \int_{-\infty}^{\frac z y} F\left(u \right) \D u \D G(y).
+\end{align*}
+Now we need to do something with a change of variables along the lines of $u = \frac x y$ then $\D u = \frac{\D x}{y}$. We have
+\begin{align*}
+\int_{\mathbb R} F\left(\frac z y \right) \D G(y)
+	&= \int_{\mathbb R} \int_{-\infty}^{\frac z y} F\left(u \right) \D u \D G(y) \\
+	&= \int_{\mathbb R} \int_{-\infty}^z \frac {1}{y}F\left(\frac x y \right) \D x \D G(y) \\
+	&= \int_{-\infty}^z \int_{\mathbb R} \frac {1}{y}F\left(\frac x y \right) \D G(y)\D x \\
+	&= P\left( XY \leq z \right).
+\end{align*}
+Therefore the density is
+$$
+f(x) = \int_{\mathbb R} \frac {1}{y}F\left(\frac x y \right) \D G(y).
+$$
 \\
 
 (c) If $X$ and $Y$ are independent exponentially distributed random variables with parameter $\lambda$, find the density function of $XY$.\\
 \textit{Solution:} \\
-TBD
+Recall the density function of an exponentially distributed random variable with parameter $\lambda$ is the same as a gamma distributed random variable with parameters $(1, \lambda)$.
+Therefore the density function for one of our random variables is
+$$
+f(x) = \frac {\lambda^1} {\Gamma(1)} x^{1 - 1} \E^{-\lambda x} = \lambda \E^{-\lambda x}.
+$$
+\textbf{TODO:} determine if you are going to use the formula from the previous problem or if there is an easier way to think about this...
 \\
 \end{document}  
