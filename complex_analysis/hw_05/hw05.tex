@@ -56,7 +56,47 @@ Collaborators*: \\
 Consider two entire functions with no zeroes and having a ratio equal to unity at infinity.
 Use Liouville's Theorem to show that they are in fact the same function. \\
 \textit{Solution:} \\
-(\textbf{1 part}, except maybe if there are multiple things to prove here)
+Let's define our two entire functions to be $f(z)$ and $g(z)$.
+Recall that an entire function is analytic in all of the complex plane.
+We can focus on the ratio between these two functions $\frac {f(z)}{g(z)}$ since we are also given that $f(z)$ and $g(z)$ have no zeros.
+Let $h(z)$ be the ratio between $f$ and $g$
+$$ h(z) = \frac {f(z)}{g(z)}. $$
+If we can use Liouville's theorem to show that $h(z)$ is constant, then $f(z)$ and $g(z)$ are equal everywhere and are thus the same function. \\
+
+\noindent
+For reference, Liouville's Theorem states that if $f(z)$ is entire and bounded in the $z$ plane (including infinity), then $f(z)$ is a constant.
+Hence we need to show that $h(z)$ is entire and bounded in the $z$ plane, then $h(z)$ is constant and we will have what we want.
+We know that the functions $f(z)$ and $g(z)$ are entire. We also know that the function $\frac 1 {z}$ is analytic except when $z = 0$.
+Since neither $f$ nor $g$ have zeros, then the potential of having $0$ in the denominator of $h(z)$ is no longer an issue.
+Therefore $\frac 1 z,\:\: z\neq 0$ is entire.
+Therefore $h(z)$ is entire since it is the composition of entire functions. \\
+
+\noindent
+Now we need to show that $h(z)$ is bounded in the $z$ plane.
+Since $h(z)$ is entire, then it is analytic interior to and on a simple closed contour $C$ (which we will choose later), then by Theorem 2.6.2, we have
+$$
+h^{(n)}(z) = \frac {n!}{2 \pi \I} \oint_C \frac {f(\xi)}{(\xi - z)^{n + 1}} \D \xi.
+$$
+Now we can use the established inequality (2.6.13 in A \& F)
+$$
+\left| h^{(n)}(z) \right| \leq \frac {n!M}{R^n}.
+$$
+When $n = 1$ we have
+$$
+\left| h^\prime(z) \right| \leq \frac {M}{R}.
+$$
+We can take $R$ to be arbitrarily large to get $\left| h^\prime(z) \right| \leq 0$ implying $h^\prime(z) = 0$.
+Using the fundamental theorem of calculus we can write
+$$
+h(\infty) - h(z) = \int_z^{\infty} h^\prime(z) \D z = \left. C \right|_z^{\infty} = C - C = 0.
+$$
+This gives $h(\infty) = h(z)$, therefore, by Liouville's Theorem $h(z)$ is constant.
+From the problem's setup we know $h(\infty) = \frac {f(\infty)}{g(\infty)} = 1$.
+Hence,
+$$h(\infty) = h(z) = 1.$$
+Therefore, $f(z)$ and $g(z)$ must be the same function, since their ratio is 1 for all $z$.\\
+\qed
+\\
 
 \item From A\&F: 2.6.10\\
 ... deduce
