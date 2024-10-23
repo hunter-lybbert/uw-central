@@ -203,32 +203,44 @@ f(z) &= \frac 1 {2\pi} \int_0^{2\pi} f(\xi) \left( \frac{\xi}{\xi - z} - \frac{\
 	&= \frac 1 {2\pi} \int_0^{2\pi} f(\xi) \frac{1 - 2r \E^{\I (\theta - \phi)} + r^2}{1 - 2r \cos (\theta - \phi) + r^2} \D \theta \\
 \end{align*}
 \qed \\
-\newpage
+% \newpage
 
 \noindent
-Additionally, if we take the imaginary part of 
+Additionally, if we take the imaginary part this time, we can see
 \begin{align*}
-f(z) &= \frac 1 {2\pi} \int_0^{2\pi} f(\xi) \frac{1 - 2r \E^{\I (\theta - \phi)} + r^2}{1 - 2r \cos (\theta - \phi) + r^2} \D \theta \\
-	&= \frac 1 {2\pi} \int_0^{2\pi} (u(\theta) + \I v(\theta))\left(\frac{1 - 2r \cos(\theta - \phi) -2r\I \sin(\theta - \phi) + r^2}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \\
-	&= \frac 1 {2\pi} \int_0^{2\pi} (u(\theta) + \I v(\theta))\left(\frac{1 - 2r \cos(\theta - \phi)  + r^2 -2r\I \sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \\
-	&= \frac 1 {2\pi} \int_0^{2\pi} (u(\theta) + \I v(\theta))\left(1 + \frac{-2r\I \sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \\
-	&= \frac 1 {2\pi} \int_0^{2\pi} (u(\theta) + \I v(\theta))\left(1 - \frac{\I 2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \\
-	&= \frac 1 {2\pi} \int_0^{2\pi} u(\theta) \D \theta \\
-	& \quad\quad - \frac 1 {2\pi} \int_0^{2\pi} u(\theta)\left(\frac{\I 2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \\
-	& \quad\quad + \frac 1 {2\pi} \int_0^{2\pi} \I v(\theta) \D \theta \\
-	& \quad\quad - \frac 1 {2\pi} \int_0^{2\pi} \I v(\theta)\left(\frac{\I 2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \\
-	&= \frac 1 {2\pi} \int_0^{2\pi} u(\theta) \D \theta \\
-	& \quad\quad - \I \frac 1 {2\pi} \int_0^{2\pi} u(\theta)\left(\frac{2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \\
-	& \quad\quad + \I \frac 1 {2\pi} \int_0^{2\pi} v(\theta) \D \theta \\
-	& \quad\quad - \I^2 \frac 1 {2\pi} \int_0^{2\pi} v(\theta)\left(\frac{2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \\
-	&= \frac 1 {2\pi} \int_0^{2\pi} u(\theta) \D \theta \\
-	& \quad\quad - \I \frac 1 {2\pi} \int_0^{2\pi} u(\theta)\left(\frac{2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \\
-	& \quad\quad + \I \frac 1 {2\pi} \int_0^{2\pi} v(\theta) \D \theta \\
-	& \quad\quad + \frac 1 {2\pi} \int_0^{2\pi} v(\theta)\left(\frac{2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \\
+f(z) &= \frac 1 {2\pi} \int_0^{2\pi} f(\xi) \frac{1 - 2r \E^{\I (\theta - \phi)} + r^2}{1 - 2r \cos (\theta - \phi) + r^2} \D \theta \nonumber \\ \\
+	&= \frac 1 {2\pi} \int_0^{2\pi} (u(\theta) + \I v(\theta))\left(\frac{1 - 2r \cos(\theta - \phi) -2r\I \sin(\theta - \phi) + r^2}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \nonumber \\ \\
+	&= \frac 1 {2\pi} \int_0^{2\pi} (u(\theta) + \I v(\theta))\left(\frac{1 - 2r \cos(\theta - \phi)  + r^2 -2r\I \sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \nonumber \\ \\
+	&= \frac 1 {2\pi} \int_0^{2\pi} (u(\theta) + \I v(\theta))\left(1 + \frac{-2r\I \sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta \nonumber \\ \\
+	&= \frac 1 {2\pi} \int_0^{2\pi} (u(\theta) + \I v(\theta))\left(1 - \frac{\I 2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right) \D \theta
+\end{align*}
+Let's expand out the terms in the integrand
+\begin{align*}
+	&= \frac 1 {2\pi} \int_0^{2\pi} \left[
+		u(\theta)
+		- u(\theta)\left(\frac{\I 2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right)
+		+ \I v(\theta)
+		- \I v(\theta)\left(\frac{\I 2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right)
+	\right] \D \theta \\ \\
+	&= \frac 1 {2\pi} \int_0^{2\pi} \left[
+		u(\theta)
+		- \I u(\theta)\left(\frac{2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right)
+		+ \I v(\theta)
+		- \I^2 v(\theta)\left(\frac{2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right)
+	\right] \D \theta \\ \\
+	&= \frac 1 {2\pi} \int_0^{2\pi} \left[
+		u(\theta)
+		- \I u(\theta)\left(\frac{2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right)
+		+ \I v(\theta)
+		+ v(\theta)\left(\frac{2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \right)
+	\right] \D \theta. \\
 \end{align*}
 Now the imaginary part of this is
 \begin{align*}
-\Im (f(z)) &= \frac 1 {2\pi} \int_0^{2\pi} v(\theta) \D \theta - \frac 1 {2\pi} \int_0^{2\pi} u(\theta)\frac{2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \D \theta \\
+\Im (f(z)) &= \frac 1 {2\pi} \int_0^{2\pi} \left(
+	v(\theta) - u(\theta)\frac{2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2}
+\right) \D \theta \\
+	&= \frac 1 {2\pi} \int_0^{2\pi} v(\theta) \D \theta - \frac 1 {2\pi} \int_0^{2\pi} u(\theta)\frac{2r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \D \theta \\
 	&= C - \frac 1 {\pi} \int_0^{2\pi} u(\theta) \frac{r\sin(\theta - \phi)}{1 - 2r \cos (\theta - \phi) + r^2} \D \theta \\
 	&= C - \frac 1 {\pi} \int_0^{2\pi} u(\theta) \frac{r\sin\big(-(-\theta + \phi)\big)}{1 - 2r \cos \big(-(-\theta + \phi)\big) + r^2} \D \theta \\
 	&= C - \frac 1 {\pi} \int_0^{2\pi} u(\theta) \frac{- r\sin(\phi -\theta)}{1 - 2r \cos (\phi-\theta) + r^2} \D \theta \\
@@ -247,9 +259,44 @@ $$
 $$
 \frac{r\sin(\phi -\theta)}{1 - 2r \cos (\phi-\theta) + r^2} = \Im \bigg(\frac {\xi + z}{\xi - z}\bigg)
 $$
-\\
-This is a beast of a problem there are \textbf{approximately 9} things to show... \\
-$$\mathbb R \setminus \{0\} $$
+Let's try a bit
+\begin{align*}
+\frac {\xi + z}{\xi - z} &= \frac {\overline{(\xi - z)}(\xi + z)}{\overline{(\xi - z)}(\xi - z)} \\
+	&= \frac {\overline{(\xi - z)}(\xi + z)}{|\xi - z|^2}. \\
+\end{align*}
+We have already computed this denominator once.
+Using our previous result we continue
+\begin{align*}
+\frac {\overline{(\xi - z)}(\xi + z)}{|\xi - z|^2}
+	&= \frac {(\bar \xi - \bar z)(\xi + z)}{1 - 2r \cos (\phi - \theta) + r^2} \\
+	&= \frac {\bar \xi \xi + \bar \xi z - \bar z \xi - \bar z z}{1 - 2r \cos (\phi - \theta) + r^2} \\
+	&= \frac {|\xi|^2 + \bar \xi z - \bar z \xi - |z|^2}{1 - 2r \cos (\phi - \theta) + r^2} \\
+	&= \frac {1 + \bar \xi z - \bar z \xi - r^2}{1 - 2r \cos (\phi - \theta) + r^2}.
+\end{align*}
+Now, lets plugin our parameterizations of $\xi$ and $z$
+\begin{align*}
+	&= \frac {1 - r^2 + \E^{-\I \theta} r\E^{\I \phi} - r\E^{-\I \phi} \E^{\I \theta}}{1 - 2r \cos (\phi - \theta) + r^2} \\
+	&= \frac {1 - r^2 + r\E^{\I (\phi - \theta)} - r\E^{\I(\theta - \phi)}}{1 - 2r \cos (\phi - \theta) + r^2} \\
+	&= \frac {1 - r^2 + r(\cos(\phi - \theta) + \I \sin(\phi - \theta)) - r(\cos(\theta - \phi) + \I \sin(\theta - \phi))}{1 - 2r \cos (\phi - \theta) + r^2} \\
+	&= \frac {1 - r^2 + r\cos(\phi - \theta) - r\cos(\theta - \phi) + \I r\sin(\phi - \theta) - \I r\sin(\theta - \phi)}{1 - 2r \cos (\phi - \theta) + r^2} \\
+	&= \frac {1 - r^2 + \cancel{r\cos(\phi - \theta)} - \cancel{r\cos(\phi - \theta)} + \I r\sin(\phi - \theta) + \I r\sin(\phi - \theta)}{1 - 2r \cos (\phi - \theta) + r^2} \\
+	&= \frac {1 - r^2 + \I 2 r\sin(\phi - \theta)}{1 - 2r \cos (\phi - \theta) + r^2}.
+\end{align*}
+We have arrived to 
+\begin{align*}
+\frac {\xi + z}{\xi - z} &= \frac {1 - r^2 + \I 2 r\sin(\phi - \theta)}{1 - 2r \cos (\phi - \theta) + r^2} \\
+\Im \bigg[\frac {\xi + z}{\xi - z} \bigg] &= \Im \bigg[\frac {1 - r^2 + \I 2 r\sin(\phi - \theta)}{1 - 2r \cos (\phi - \theta) + r^2} \bigg] \\
+	&= \frac {2 r\sin(\phi - \theta)}{1 - 2r \cos (\phi - \theta) + r^2}.
+\end{align*}
+Therefore, 
+\begin{align*}
+v(r, \phi) &= C + \frac 1 {\pi} \int_0^{2\pi} u(\theta) \frac{r\sin(\phi -\theta))}{1 - 2r \cos (\phi-\theta) + r^2} \D \theta \\
+	&= C + \frac \Im {2\pi} \int_0^{2\pi} u(\theta) \frac {\xi + z}{\xi - z} \D \theta
+\end{align*}
+\qed \\
+This example illustrates that prescribing the real part of $f(z)$ on $|z| = 1$ determines (a) the real part of $f(z)$ everywhere inside the circle and (b) the imaginary part of $f(z)$ inside the circle to within a constant.
+We \textit{cannot} arbitrarily specify both the real and imaginary parts of an analytic function on $|z| = 1$.
+
 \item Suppose $\Omega$ is an open simply connected region and $z_0 \in
   \Omega$.  Assume that $f(z)$ is analytic in $\Omega\setminus
   \{z_0\}$ and satisfies
@@ -260,6 +307,19 @@ $$\mathbb R \setminus \{0\} $$
   extends to an analytic function on $\Omega$. \\
 (\textbf{1 part}, except maybe if there are multiple things to prove here) \\
 \textit{Solution:} \\
+Since 
+$$|f(z)| \leq M |z - z_0|^{-\gamma}, \quad \gamma < 1$$
+...\\
+Since $f(z)$ is analytic we know
+\begin{enumerate}
+\item $f(z)$ satisfies the Cauchy Riemann (C-R) equations.
+\item then on a contour $C \subset \Omega$ f(z) satisfies
+$$
+f^{(k)}(z) = \frac {k!}{2 \pi i} \oint_C \frac {f(\xi)}{(\xi - z)^{k + 1}}\D \xi
+$$
+\end{enumerate}
+Do I need to use the Maximum Principles?? \\
+Should I make a choice of $f(z_0)$ and prove that $f$ with that condition is analytic or should I just prove that one exists?
 
 \newpage
 \item Establish the following lemma:\\
@@ -339,7 +399,7 @@ Explain why this is not a counter example to Theorem 3.1.1. (A \&F pg. 111) \\
 For the integral on the right consider adding a limit outside the integral so the bound doesn't have any issues.
     
     
-\textbf{There are approximately 25 things to do}
+\textbf{There are approximately 25 things to do, 10 down!}
 \end{enumerate}
 
 \end{document}
