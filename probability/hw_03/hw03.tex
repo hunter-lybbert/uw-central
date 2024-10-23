@@ -169,71 +169,71 @@ where $\mu$ and $\nu$ are probability measures with distribution functions $F$ a
 We also have 
 \begin{align*}
 \mathbb E \left[ h(x,y) \right]
-	&= \mathbb E \left[ \mathbbm{1}_{\{xy \leq z\}} \right] \\
+	&= \mathbb E \left[ \mathbbm{1}_{\{xy \leq z\}}(x, y) \right] \\
 	&= 1 \cdot P(XY \leq z) + 0 \cdot P(XY > 0) \\
 	&= P(XY \leq z).
 \end{align*}
 Additionally,
 \begin{align*}
-\int_{\mathbb R} h(x, y) \mu(\D x) 
-	&= \int_{\mathbb R} \mathbbm{1}_{\{xy \leq z\}} \mu(\D x) \\
-	&= \int_{\mathbb R} \mathbbm{1}_{\{x \leq \frac z y\}} \mu(\D x) \\
-	&= P\left( X \leq \frac z y \right) \\
-	&= F\left(\frac z y \right).
+\int_{[0,\infty)} h(x, y) \mu(\D x) 
+	&= \int_{[0,\infty)} \mathbbm{1}_{\{xy \leq z\}}(x, y) \mu(\D x) \\
+	&= \int_{[0]} \mathbbm{1}_{\{xy \leq z; y=0\}}(x, y) \mu(\D x) + \int_{(0, \infty)} \mathbbm{1}_{\{x \leq \frac z y\}}(x, y) \mu(\D x) \\
+	&= \int_{[0]} G(0) \mu(\D x) + \int_{(0, \infty)} \mathbbm{1}_{\{x \leq \frac z y\}}(x, y) \mu(\D x) \\
+	&= G(0) + P\left( X \leq \frac z y \right) \\
+	&= G(0) + F\left(\frac z y \right).
 \end{align*}
 Combining these we have
 \begin{align*}
 P\left( XY \leq z \right)
 	&= \mathbb E \left[ h(x,y) \right] \\
-	&= \int_{\mathbb R} \int_{\mathbb R} h(x, y) \mu(\D x) \nu(\D y) \\
-	&= \int_{\mathbb R} F\left(\frac z y \right) \nu(\D y) \\
-	&= \int_{\mathbb R} F\left(\frac z y \right) \D G(y)
+	&= \int_{(0, \infty)} \int_{[0, \infty)} h(x, y) \mu(\D x) \nu(\D y) \\
+	&= \int_{(0, \infty)} \left[G(0) + F\left(\frac z y \right) \right]\nu(\D y) \\
+	&= \int_{(0, \infty)} G(0) \nu(\D y) + \int_{[0, \infty)}F\left(\frac z y \right) \nu(\D y) \\
+	&= G(0) + \int_{(0, \infty)}F\left(\frac z y \right) \nu(\D y) \\
+	&= G(0) + \int_{(0, \infty)} F\left(\frac z y \right) \D G(y)
 \end{align*}
-\textbf{TODO:} Account for when y is 0 somehow...
-End up with $P(Y = 0)$ which is $G(0)$
-\begin{align*}
-\int_{\mathbb R} F\left(\frac z y \right) \D G(y)
-	&= \int_{-\infty}^0 F\left(\frac z y \right) \D G(y) + \int_{0}^{\infty} F\left(\frac z y \right) \D G(y).
-\end{align*}
-\\
+\qed \\
 
 (b) If $X \geq 0$ and $Y \geq 0$ are independent continuous random variables with density functions $f$ and $g$, find the density function of $XY$. \\
 \textit{Solution:} \\
+We don't need to bring the $G(0)$ term into computing the density since, with continuous random variables, $G(0) = P(Y = 0) = 0$, since $\{0\}$ is a set of measure $0$.
+Therefore it has no density and does not need to be accounted for in this portion of the problem.
 \begin{align*}
-\int_{\mathbb R} F\left(\frac z y \right) \D G(y) = \int_{\mathbb R} \int_{-\infty}^{\frac z y} f\left(u \right) \D u \D G(y).
+\int_{(0, \infty)} F\left(\frac z y \right) \D G(y) = \int_{(0, \infty)} \int_{-\infty}^{\frac z y} f\left(u \right) \D u\: \D G(y).
 \end{align*}
-Now we need to do something with a change of variables along the lines of $u = \frac x y$ then $\D u = \frac{\D x}{y}$. We have
+Now we need to do a change of variables of $u = \frac x y$ then $\D u = \frac{\D x}{y}$. We have
 \begin{align*}
-\int_{\mathbb R} F\left(\frac z y \right) \D G(y)
-	&= \int_{\mathbb R} \int_{-\infty}^{\frac z y} f\left(u \right) \D u \D G(y) \\
-	&= \int_{\mathbb R} \int_{-\infty}^z \frac {1}{y}f\left(\frac x y \right) \D x \D G(y) \\
-	&= \int_{-\infty}^z \int_{\mathbb R} \frac {1}{y}f\left(\frac x y \right) \D G(y)\D x \\
+\int_{(0, \infty)} F\left(\frac z y \right) \D G(y)
+	&= \int_{(0, \infty)} \int_{0}^{\frac z y} f\left(u \right) \D u\:  \D G(y) \\
+	&= \int_{(0, \infty)} \int_{0}^z \frac {1}{y}f\left(\frac x y \right) \D x\:  \D G(y) \\
+	&= \int_{0}^z \int_{(0, \infty)} \frac {1}{y}f\left(\frac x y \right) \D G(y)\: \D x \\
 	&= P\left( XY \leq z \right).
 \end{align*}
+I site Fubini's theorem to justify reordering integration in the second to the third line.
 Therefore the density is
 $$
-f(x) = \int_{\mathbb R} \frac {1}{y}f\left(\frac x y \right) \D G(y).
+f(x) = \int_{(0, \infty)} \frac {1}{y}f\left(\frac x y \right) \D G(y).
 $$
 Since $Y$ has a density $g$, we can write the above as
 $$
-f(x) = \int_{\mathbb R} \frac {1}{y}f\left(\frac x y \right)g(y)\D y
+f(x) = \int_{(0, \infty)} \frac {1}{y}f\left(\frac x y \right)g(y)\D y
 $$
 using Theorem 3 from Lecture 9 slides.
 \qed \\
+\newpage
 
 (c) If $X$ and $Y$ are independent exponentially distributed random variables with parameter $\lambda$, find the density function of $XY$.\\
 \textit{Solution:} \\
-Recall the density function of an exponentially distributed random variable with parameter $\lambda$ is the same as a gamma distributed random variable with parameters $(1, \lambda)$.
-Therefore the density function for one of our random variables is
+Recall the density of an exponentially distributed r.v. with parameter $\lambda$ is the same as a gamma distributed r.v. with parameters $(1, \lambda)$.
+Therefore the density of $X$ would be
 $$
 f(x) = \frac {\lambda^1} {\Gamma(1)} x^{1 - 1} \E^{-\lambda x} = \lambda \E^{-\lambda x}.
 $$
-Now using the formula we have for the density of the product of two independent random variables we have
+Now using the formula we derived in part (b) we have
 \begin{align*}
-f(x) &= \int_{\mathbb R} \frac {1}{y}f\left(\frac x y \right)g(y)\D y \\
-	&= \int_{\mathbb R} \frac {1}{y} \lambda \E^{-\lambda \frac x y} \lambda \E^{-\lambda y} \D y \\
-	&= \int_{\mathbb R} \frac {1}{y} \lambda^2 \E^{-\lambda \left( \frac x y + y \right)} \D y.
+f(x) &= \int_{(0, \infty)} \frac {1}{y}f\left(\frac x y \right)g(y)\D y \\
+	&= \int_{(0, \infty)} \frac {1}{y} \lambda \E^{-\lambda \frac x y} \lambda \E^{-\lambda y} \D y \\
+	&= \int_{(0, \infty)} \frac {\lambda^2}{y} \E^{-\lambda \left( \frac x y + y \right)} \D y.
 \end{align*}
-\textbf{TODO:} Consider clarifying the bounds of all of your integration (so it matches the support of $X$, $Y$)!
-\\
+\qed \\
 \end{document}  
