@@ -203,7 +203,6 @@ f(z) &= \frac 1 {2\pi} \int_0^{2\pi} f(\xi) \left( \frac{\xi}{\xi - z} - \frac{\
 	&= \frac 1 {2\pi} \int_0^{2\pi} f(\xi) \frac{1 - 2r \E^{\I (\theta - \phi)} + r^2}{1 - 2r \cos (\theta - \phi) + r^2} \D \theta \\
 \end{align*}
 \qed \\
-% \newpage
 
 \noindent
 Additionally, if we take the imaginary part this time, we can see
@@ -307,7 +306,11 @@ We \textit{cannot} arbitrarily specify both the real and imaginary parts of an a
   extends to an analytic function on $\Omega$. \\
 (\textbf{1 part}, except maybe if there are multiple things to prove here) \\
 \textit{Solution:} \\
-Since 
+Let's choose the value for $f(z_0)$ to be
+$$f(z_0) = \frac 1 {2 \pi \I}\oint_C \frac {f(\xi)} {\xi - z_0} \D \xi.$$
+Now we wish to show that $f(z)$ is analytic on $\Omega$ after making this choice.
+Since $f(z)$ is already analytic away from $z_0$, it suffices to just verify that it is now analytic in a neighborhood around $z_0$.
+I will demonstrate this by showing $f(z)$ satisfies the Cauchy Integral Formula.
 $$|f(z)| \leq M |z - z_0|^{-\gamma}, \quad \gamma < 1$$
 ...\\
 Since $f(z)$ is analytic we know
@@ -407,6 +410,7 @@ b) $$ \bigg\{ \frac 1 {z^n} \bigg\}_{n=1}^{\infty} $$
 (\textbf{2 parts}) \\
 \textit{Solution:}\\
 This one is weird, seems like it's divergent since the limit is $\infty$ when $ |z| < 1$ but if $|z| > 1$ the limit is $0$, it's also $1$ if $|z| = 1$.
+Consider following the outline for example 3.1.6 on page 110 in A \& F
 \\
 
 \noindent
