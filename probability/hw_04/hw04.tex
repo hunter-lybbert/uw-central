@@ -1,0 +1,41 @@
+\documentclass[10pt]{amsart}
+\include{amsmath}
+\usepackage{dsfont}													% gives you \mathds{} font
+\usepackage{amssymb}
+\usepackage{bbm}
+
+\newcommand{\D}{\mathrm{d}}
+\DeclareMathOperator{\E}{e}
+
+\begin{document}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{10-30-24} \\
+\text{AMATH 561}
+\title{Problem Set 4}
+\maketitle
+
+\noindent {\bf 1.} Let $\Omega=\{a,b,c,d\}$ and let $\mathcal{F}=2^{\Omega}$. We define a probability measure $P$ as follows:
+
+$$P({a})=1/6, \,\,\,, P({b})=1/3, \,\,\, P({c})=1/4, \,\,\, P({d})=1/4.$$
+Next, define three random variables:
+
+$$X(a)=1, \,\,\, X(b)=1, \,\,\, X(c)=-1, \,\,\,  X(d)=-1,$$
+$$Y(a)=1, \,\,\, Y(b)=-1, \,\,\, Y(c)=1, \,\,\,  X(d)=-1,$$
+and $Z=X+Y$.
+(a) List the sets in $\sigma(X)$. (b) Calculate $E(Y|X)$. (c) Calculate $E(Z|X)$.
+\\
+
+\noindent {\bf 2.} (a) Prove that $E(E(X|\mathcal{F}))=EX$. 
+
+(b) Show that if $\mathcal{G}\subset \mathcal{F}$ and $EX^2<\infty$ then
+$$E(\{X-E(X|\mathcal{F})\}^2)+ E(\{E(X|\mathcal{F})-E(X|\mathcal{G})\}^2)=E(\{X-E(X|\mathcal{G})\}^2)$$ 
+
+\noindent {\bf 3.} An important special case of the previous result (2b) occurs when $\mathcal{G} = \{\emptyset, \Omega \}$.  Let ${\rm var}(X|\mathcal{F})=E(X^2|\mathcal{F})-E(X|\mathcal{F})^2$. Show that 
+$${\rm var}(X)=E({\rm var}(X|\mathcal{F}))+{\rm var}(E(X|\mathcal{F})).$$
+
+
+\noindent {\bf 4.}  Let $Y_1, Y_2, . . .$ be i.i.d. (independent and identically distributed) random variables with mean $\mu$ and variance $\sigma^2$, $N$ an independent positive integer valued random variable with $EN^2 < \infty$ and $X = Y_1 +...+Y_N$. Show that ${\rm var}(X) = \sigma^2 EN + \mu^2 {\rm var}(N)$. (To understand and help remember the formula, think about the two special cases in which $N$ or $Y$ is constant.)
+\end{document}  
