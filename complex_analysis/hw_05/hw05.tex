@@ -45,7 +45,7 @@
 
 \maketitle
 \noindent
-Collaborators*: \\
+Collaborators*: Nate Ward\\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -346,6 +346,30 @@ Should I make a choice of $f(z_0)$ and prove that $f$ with that condition is ana
     Hint: Use that $f$ is uniformly continuous on $\overline \Omega$.\\
 (\textbf{1 part}, except maybe if there are multiple things to prove here) \\
 \textit{Solution:} \\
+We want to show that
+$$
+\lim_{n\rightarrow\infty} \int_{\Gamma^n} f(z) \D z = \int_{\Gamma} f(z) \D z.
+$$
+In order to demonstrate this, we need to find that there exists an $N$ for every $\epsilon > 0$ such that when $n > N$ we have
+$$
+\left| \int_{\Gamma^n} f(z) \D z - \int_{\Gamma} f(z) \D z \right| < \epsilon.
+$$
+Notice we can write each of these integrals using the appropriate parameterization
+\begin{align*}
+\int_{\Gamma^n} f(z) \D z &= \int_{a}^{b} f(z_n(t))z_n^\prime(t) \D t \\
+\int_{\Gamma} f(z) \D z &= \int_{a}^{b} f(z(t))z^\prime(t) \D t.
+\end{align*}
+Since $f$ is uniformly continuous on $\overline \Omega$, then $f(z_n(t)) \overset{n \to \infty}{\longrightarrow} f(z(t))$.
+Since, we have the parameterizations $z(t)$ of $\Gamma$ and $z_n(t)$ of $\Gamma_n$ such that
+$$
+\lim_{n\rightarrow\infty} z_n(t) = z(t)
+$$
+$$
+\lim_{n\rightarrow\infty} z_n^{\prime}(t) = z^\prime(t)
+$$
+Does the convergence of these sequences of functions imply the convergence of their integrals of [a, b]?
+Is there an established real analysis theorem I am missing?
+\\
 
 \item for any $r, R > 0$, let $C = \partial \Sigma$, $\Sigma = \{z \in \mathbb C ~:~
       |\real z | \leq r \text{ and } 0 \leq -\imag z \leq R, ~ R >
@@ -358,15 +382,22 @@ Should I make a choice of $f(z_0)$ and prove that $f$ with that condition is ana
       \end{align*}
 (\textbf{1 part}) \\
 \textit{Solution:} \\
-Consider just siting Cauchy's Theorem...
-\\
+Assume $f(z)$ is an analytic function in a region that contains $\Sigma$.
+Furthermore, let $g(z) = \sqrt{z-1} \sqrt{z+1}$.
+Using the principal branch for $g(z)$, we also have that $g(z)$ is analytic as well away from it's branch cut.
+Then we are looking at a contour integral of an analytic function (in our region) and therefore
+$$\oint_C f(z) \sqrt{z-1} \sqrt{z+1} \D z = 0$$
+by Cauchy's theorem.
+\qed \\
+
   \item Show that if $f(z)$ is analytic in a region that contains $\Sigma$
     \begin{align*}
         \oint_C \frac{f(z) \D z}{\sqrt{z-1} \sqrt{z+1}}= 0.
       \end{align*}
 (\textbf{1 part}) \\
 \textit{Solution:} \\
-Deal with the singularities on the boundary.
+Deal with the singularities on the boundary in some clever way... \\
+perhaps by having a section of the contour be taken to be the limit of a sequence of contours approaching the real axis.
 \\
     \end{itemize}
 \item From A\&F: 3.1.1 b,d \\
@@ -375,18 +406,27 @@ Discuss their limits and whether the convergence is uniform, in the region $\alp
 b) $$ \bigg\{ \frac 1 {z^n} \bigg\}_{n=1}^{\infty} $$
 (\textbf{2 parts}) \\
 \textit{Solution:}\\
+This one is weird, seems like it's divergent since the limit is $\infty$ when $ |z| < 1$ but if $|z| > 1$ the limit is $0$, it's also $1$ if $|z| = 1$.
+\\
 
 \noindent
 d) $$ \bigg\{ \frac 1 {1 + (nz)^2} \bigg\}_{n=1}^{\infty} $$
 (\textbf{2 parts}) \\
 \textit{Solution:}\\
+The limit of this function is 0. The sequence converges uniformly (maybe need to show this).
+$$
+\lim_{n\rightarrow\infty} \frac 1 {1 + (nz)^2} = \lim_{n\rightarrow\infty} \frac 1 {1 + n^2z^2} = 0
+$$
+I'm not sure that there is anything to think about with the limits $\alpha$ and $\beta$.
+\\
 
 \item From A\&F: 3.1.2 b,d \\
 For each sequence in problem 1, what can be said if \\
 (a) $\alpha = 0$ \\
 (b) $\alpha > 0, \quad \beta = \infty$ \\
 (\textbf{4 parts} 2x2)
-\textit{Solution:}
+\textit{Solution:} \\
+
 \item From A\&F: 3.1.3
 Compute the integrals
 $$
@@ -397,7 +437,14 @@ Explain why this is not a counter example to Theorem 3.1.1. (A \&F pg. 111) \\
 (\textbf{3 parts})
 \textit{Solution:} \\
 For the integral on the right consider adding a limit outside the integral so the bound doesn't have any issues.
-    
+We can easily evaluate the left limit to be
+$$
+\lim_{n \rightarrow \infty} \int_0^1 nz^{n -1}\D z = \lim_{n \rightarrow \infty} \left. z^n \right|_0^1 = \lim_{n \rightarrow \infty} 1^n - 0^n = \lim_{n \rightarrow \infty} 1 = 1.
+$$
+However, on the right we have (using a limit as we approach the upper bound $1$)
+$$
+\lim_{\epsilon \rightarrow 0}\int_0^{1-\epsilon} \lim_{n \rightarrow \infty} \left(nz^{n -1} \right) \D z.
+$$
     
 \textbf{There are approximately 25 things to do, 10 down!}
 \end{enumerate}
