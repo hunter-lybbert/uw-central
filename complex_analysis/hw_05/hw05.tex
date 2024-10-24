@@ -45,7 +45,7 @@
 
 \maketitle
 \noindent
-Collaborators*: Nate Ward\\
+Collaborators*: Nate Ward, Cooper Simpson, Laura Thomas\\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -97,6 +97,7 @@ $$h(\infty) = h(z) = 1.$$
 Therefore, $f(z)$ and $g(z)$ must be the same function, since their ratio is 1 for all $z$.\\
 \qed
 \\
+\newpage
 
 \item From A\&F: 2.6.10
 (The \textit{solution} is peppered throught, since there are many things to show and information given between many steps.)\\
@@ -295,6 +296,7 @@ v(r, \phi) &= C + \frac 1 {\pi} \int_0^{2\pi} u(\theta) \frac{r\sin(\phi -\theta
 \qed \\
 This example illustrates that prescribing the real part of $f(z)$ on $|z| = 1$ determines (a) the real part of $f(z)$ everywhere inside the circle and (b) the imaginary part of $f(z)$ inside the circle to within a constant.
 We \textit{cannot} arbitrarily specify both the real and imaginary parts of an analytic function on $|z| = 1$.
+\newpage
 
 \item Suppose $\Omega$ is an open simply connected region and $z_0 \in
   \Omega$.  Assume that $f(z)$ is analytic in $\Omega\setminus
@@ -304,25 +306,56 @@ We \textit{cannot} arbitrarily specify both the real and imaginary parts of an a
   \end{align*}
   Show that if the a specific choice for $f(z_0)$ is made then $f$
   extends to an analytic function on $\Omega$. \\
-(\textbf{1 part}, except maybe if there are multiple things to prove here) \\
 \textit{Solution:} \\
 Let's choose the value for $f(z_0)$ to be
 $$f(z_0) = \frac 1 {2 \pi \I}\oint_C \frac {f(\xi)} {\xi - z_0} \D \xi.$$
 Now we wish to show that $f(z)$ is analytic on $\Omega$ after making this choice.
-Since $f(z)$ is already analytic away from $z_0$, it suffices to just verify that it is now analytic in a neighborhood around $z_0$.
-I will demonstrate this by showing $f(z)$ satisfies the Cauchy Integral Formula.
-$$|f(z)| \leq M |z - z_0|^{-\gamma}, \quad \gamma < 1$$
-...\\
-Since $f(z)$ is analytic we know
-\begin{enumerate}
-\item $f(z)$ satisfies the Cauchy Riemann (C-R) equations.
-\item then on a contour $C \subset \Omega$ f(z) satisfies
+The method by which I am going to demonstrate this is by showing that for any contour $C \subset \Omega$ we have
 $$
-f^{(k)}(z) = \frac {k!}{2 \pi i} \oint_C \frac {f(\xi)}{(\xi - z)^{k + 1}}\D \xi
+\oint_C f(z)\D z = 0.
 $$
-\end{enumerate}
-Do I need to use the Maximum Principles?? \\
-Should I make a choice of $f(z_0)$ and prove that $f$ with that condition is analytic or should I just prove that one exists?
+Since $f(z)$ is already analytic away from $z_0$, this criteria holds for any contour $C$ that $z_0$ is not contained in the region enclosed by the $C$.
+Thus, it suffices to just verify that our criteria still holds in a neighborhood around $z_0$.
+Now suppose some contour $\widehat C$ encompasses encloses $z_0$.
+Using the method of creating channels from our original contour $\widehat C$ to cut out $z_0$ with a new contour $C_\epsilon$, which is a circle of radius $\epsilon = |z - z_0|$ centered at $z_0$, we can say
+$$
+\oint_{\widehat C} f(z)\D z = \oint_{C_\epsilon} f(z)\D z.
+$$
+I will now describe how we know the integral on the right goes to $0$ as $\epsilon$ goes to 0.
+Let's begin by looking at the modulus of our integral on the right
+\begin{align}
+\left|\oint_{C_\epsilon} f(z)\D z \right| &\leq \oint_{C_\epsilon} \left|f(z)\right| \left|\D z \right| \nonumber \\
+	&\leq \oint_{C_\epsilon} M |z - z_0|^{-\gamma} \left|\D z \right|.
+\label{eq:step1}
+\end{align}
+Now making use of the substitution $z = |z - z_0| \E^{\I \theta}$ (and $\D z| = |z - z_0| \I \E^{\I \theta} \D \theta$) and the fact that
+\begin{align*}
+|\D z| &= \bigg||z - z_0| \I \E^{\I \theta} \D \theta\bigg| \\
+	&= \bigg||z - z_0| \E^{\I \frac \pi 2} \E^{\I \theta} \D \theta\bigg| \\
+	&= \bigg||z - z_0| \E^{\I \left(\frac \pi 2 + \theta\right)} \D \theta\bigg| \\
+	&= |z - z_0|\cdot|\D \theta|
+\end{align*}
+Then we continue from inequality \eqref{eq:step1} we have
+\begin{align*}
+\oint_{C_\epsilon} M |z - z_0|^{-\gamma} \left|\D z \right| &= \int_0^{2 \pi} M |z - z_0|^{-\gamma} |z - z_0||\D \theta| \\
+	&= \int_0^{2 \pi} M |z - z_0|^{1-\gamma} |\D \theta| \\
+	&= M |z - z_0|^{1-\gamma} \int_0^{2 \pi} |\D \theta| \\
+	&= M |z - z_0|^{1-\gamma} 2 \pi.
+\end{align*}
+Critically, notice since $\gamma < 1$ we have $1 - \gamma > 0$.
+Under this condition as $\epsilon \rightarrow 0$, meaning $z\rightarrow z_0$ we have that
+$$M |z - z_0|^{1-\gamma} 2 \pi \rightarrow 0.$$
+Therefore 
+$$\left|\oint_{C_\epsilon} f(z)\D z \right| \leq 0 \quad \text{as $z\rightarrow z_0$}.$$
+\\
+Thus the integral over the contour $C_\epsilon$ contributes nothing to our original integral over the contour $\widehat C$.
+Hence,
+$$\oint_{\widehat C} f(z)\D z = 0.$$
+Finally, since our original $f(z)$ is analytic everywhere in $\Omega \setminus \{z_0\}$ it satisfies Cauchy's Integral Formula at every $z \neq z_0$ and since our choice of $f(z_0)$ was such that Cauchy's integral formula holds at $z_0$ we have that $f(z)$ is continuous in all of $\Omega$. \\
+
+\noindent
+Since, an integral over an arbitrary contour $\widehat C$, which encloses $z_0$ is equal to zero and as established earlier by analyticity of $f(z)$ this is true as well for any contour $C$ which does not enclose $z_0$, by Morera's Theorem (2.6.5), we have that $f(z)$ is analytic in all of $\Omega$.
+\qed \\
 
 \newpage
 \item Establish the following lemma:\\
@@ -347,32 +380,120 @@ Should I make a choice of $f(z_0)$ and prove that $f$ with that condition is ana
       \end{align*}
     \end{lemma}
     Hint: Use that $f$ is uniformly continuous on $\overline \Omega$.\\
-(\textbf{1 part}, except maybe if there are multiple things to prove here) \\
 \textit{Solution:} \\
-We want to show that
-$$
-\lim_{n\rightarrow\infty} \int_{\Gamma^n} f(z) \D z = \int_{\Gamma} f(z) \D z.
-$$
-In order to demonstrate this, we need to find that there exists an $N$ for every $\epsilon > 0$ such that when $n > N$ we have
-$$
-\left| \int_{\Gamma^n} f(z) \D z - \int_{\Gamma} f(z) \D z \right| < \epsilon.
-$$
-Notice we can write each of these integrals using the appropriate parameterization
+We know the following from the assumptions of this lemma.
+\begin{itemize}
+\item $f(z)$ being continuous on $\overline \Omega$ tells us
+\begin{itemize}
+\item For all $\epsilon > 0$ and for all $z_0 \in \overline \Omega$, there exists a $\delta > 0$ such that if $|z - z_0| < \delta$ then $|f(z) - f(z_0)| < \epsilon$.
+\end{itemize}
+\item $\Gamma_n \subset \overline \Omega$ converges to $\Gamma$ in the sense that there exists parameterizations $z(t)$
+      of $\Gamma$ and $z_n(t)$ of $\Gamma_n$ defined on $[a,b]$
+      satisfying
+      \begin{align*}
+        z_n(t) \overset{n \to \infty}{\longrightarrow} z(t),  \quad \text{
+        uniformly on } [a,b],\\
+        z_n'(t) \overset{n \to \infty}{\longrightarrow} z'(t), \quad \text{
+        uniformly on } [a,b],
+      \end{align*}
+tells us
+\begin{itemize}
+\item For all $\epsilon > 0$ there exists $N(\epsilon)$ such that whenever $n > N$ we have $$|z_n(t) - z(t)| < \epsilon.$$
+\item For all $\epsilon > 0$ there exists $N(\epsilon)$ such that whenever $n > N$ we have $$|z_n^\prime(t) - z^\prime(t)| < \epsilon.$$
+These big $N$'s are not necessarily the same.
+\end{itemize}
+\end{itemize}
+Now, in order to establish the lemma, we are going to make use of Theorem 3.1.1 from A \& F.
+In our circumstances, we need to first parameterize the two integrals of interest so we get
 \begin{align*}
-\int_{\Gamma^n} f(z) \D z &= \int_{a}^{b} f(z_n(t))z_n^\prime(t) \D t \\
-\int_{\Gamma} f(z) \D z &= \int_{a}^{b} f(z(t))z^\prime(t) \D t.
+\int_{\Gamma_n}  f(z) \D z &= \int_a^b  f(z_n(t))z_n^\prime(t) \D t \\
+\int_{\Gamma}  f(z) \D z &= \int_a^b  f(z(t))z^\prime(t) \D t.
 \end{align*}
-Since $f$ is uniformly continuous on $\overline \Omega$, then $f(z_n(t)) \overset{n \to \infty}{\longrightarrow} f(z(t))$.
-Since, we have the parameterizations $z(t)$ of $\Gamma$ and $z_n(t)$ of $\Gamma_n$ such that
+Now if we can show that $f(z_n(t))z_n^\prime(t)$ is a continuous function for all $n$ and $f(z_n(t))z_n^\prime(t)$ converges uniformly to $f(z)$ in $\overline \Omega$, then we will be allowed to conclude that
 $$
-\lim_{n\rightarrow\infty} z_n(t) = z(t)
+\lim_{n\rightarrow\infty} \int_a^b  f(z_n(t))z_n^\prime(t) \D t = \int_a^b  f(z(t))z^\prime(t) \D t.
 $$
+
+\noindent
+Now we need to show that $f(z_n(t))z_n^\prime(t)$ is continuous.
+Consider the contour's we are interested in, $\Gamma_n$ and $\Gamma$.
+From page 72 of A \& F, we have that the parameterization of each of these contours will be continuous and their respective derivatives will be at least piecewise continuous.
+Since the composition of continuous functions is continuous, we know $f(z_n(t))$ is continuous.
+Additionally the product of continuous functions is continuous.
+Therefore, $f(z_n(t))z_n^\prime(t)$ is at least piecewise continuous as well.
+For notational clarity, lets define these $\ell$ piecewise subintervals $I_k = [a_k, b_k]$ of $[a,b]$, where $f(z_n(t))z_n^\prime(t)$ is explicitly continuous, to be
 $$
-\lim_{n\rightarrow\infty} z_n^{\prime}(t) = z^\prime(t)
+I_k = \begin{cases}
+[a_0, b_0), \quad \:\:\: \text{if } k = 0 \\
+[b_{k - 1}, b_k), \:\:\: \text{if } 0 < k < \ell \\
+[b_{\ell - 1}, b_\ell], \quad \text{if } k = \ell
+\end{cases}
 $$
-Does the convergence of these sequences of functions imply the convergence of their integrals of [a, b]?
-Is there an established real analysis theorem I am missing?
+Such that $\cup_{k=1}^\ell I_k = [a, b]$ and $\cap_{k=1}^\ell I_k = \emptyset$ .
 \\
+
+\noindent
+Recall the image of a continuous function on a compact set is also compact.
+Since $t \in [a, b]$ is a compact set, the continuity of $z_n(t)$ preserves compactness and thus the image of $z_n(t)$, $t \in [a, b]$ is also compact.
+Additionally, since the image of $z_n(t)$ is compact and $f(z)$ is continuous, $f(z)$ on our contour (and it's parameterization) is uniformly continuous. \\
+
+\noindent
+Now, since $f$ is uniformly continuous on our contours, we have that for all $\epsilon > 0$ there exists a $\delta > 0$ such that
+$$
+\left| z_1 - z_2 \right| < \delta \implies \left| f(z_1) - f(z_2) \right| < \epsilon
+$$
+for $z_1, z_2$ on the contour (in the image of $z(t)), t \in [a, b]$.
+Now let's consider $z_n(t)$ and $z(t)$.
+From the problem statement we know that $| z_n(t) - z(t) | < \epsilon_1$. Let's choose our $\delta$ in the uniform continuity of $f(z)$ to be $\delta = \epsilon_1$. Then we have
+$$| z_n(t) - z(t) | < \epsilon_1 \implies | f(z_n(t)) - f(z(t)) | < \epsilon_2$$
+and thus $$f(z_n(t)) \overset{n \to \infty}{\longrightarrow} f(z(t)) \quad \text{uniformly}.$$
+
+\noindent
+Furthermore, since the image of $z_n(t)$ is compact and $f(z)$ is continuous, the image of $f(z_n(t))$ is also compact.
+Therefore, there exists some upper bound $M$ such that
+$$|f(z_n(t))| \leq M$$
+when $t \in [a, b]$. 
+Finally, since $z^\prime(t)$ is piecewise continuous on the compact set $t \in [a, b]$ we can say there also exists some upper bound call it $L$ such that 
+$$|z^\prime(t)| \leq L.$$
+
+\noindent
+In summary, we have shown that $f(z_n(t))$ converges uniformly to $f(z(t))$.
+We have also demonstrated that there exist upper bounds $M$ and $L$ on the functions $|f(z_n(t))|$ and $|z^\prime(t)|$ respectively. \\
+
+\noindent
+Now we want to show that $f(z_n(t))z_n^\prime(t)$ converges uniformly to $f(z(t))z^\prime(t)$.
+We begin with what we want on the left and adding zero in a clever way on the right
+\begin{align*}
+f(z_n(t))z_n^\prime(t) - f(z(t))z^\prime(t) &= f(z_n(t))z_n^\prime(t) - f(z(t))z^\prime(t) + f(z_n(t))z^\prime(t) - f(z_n(t))z^\prime(t) \\
+\bigg| f(z_n(t))z_n^\prime(t) - f(z(t))z^\prime(t) \bigg| &= \bigg| f(z_n(t))z_n^\prime(t) - f(z(t))z^\prime(t) + f(z_n(t))z^\prime(t) - f(z_n(t))z^\prime(t) \bigg| \\
+	&\leq \bigg| f(z_n(t))z_n^\prime(t) - f(z_n(t))z^\prime(t)\bigg| + \bigg|f(z_n(t))z^\prime(t) - f(z(t))z^\prime(t) \bigg| \\
+	&\leq \bigg| f(z_n(t)) \bigg(z_n^\prime(t) - z^\prime(t)\bigg)\bigg| + \bigg| z^\prime(t) \bigg(f(z_n(t)) - f(z(t)) \bigg) \bigg| \\
+	&= \bigg| f(z_n(t))\bigg| \bigg|z_n^\prime(t) - z^\prime(t)\bigg| + \bigg|z^\prime(t)\bigg| \bigg|f(z_n(t)) - f(z(t)) \bigg| \\
+	&< \left| f(z_n(t))\right| \frac {\epsilon}{M2} + \left|z^\prime(t)\right| \frac {\epsilon}{L2} \\
+	&< M \frac {\epsilon}{M2} + L \frac {\epsilon}{L2} \\
+	&< \epsilon.
+\end{align*}
+Therefore, $f(z_n(t))z_n^\prime(t)$ converges uniformly to $f(z(t))z^\prime(t)$.
+Furthermore, since have have this and $f(z_n(t))$ is continuous on a each interval $I_k$, by Theorem 3.1.1 from A \& F we can conclude
+$$\lim_{n\rightarrow\infty} \int_{a_k}^{b_k}  f(z_n(t))z_n^\prime(t) \D t = \int_{a_k}^{b_k}  f(z(t))z^\prime(t) \D t$$
+for all $k \in \{1, 2, 3, ..., \ell\}$. Just a reminder, $\ell$ represents the number of finite sub intervals we can break [a,b] up into and where $a_k$ and $b_k$ represent the endpoints of the interval $I_k$.
+Hence,
+\begin{align*}
+\sum_{k=1}^\ell \lim_{n\rightarrow\infty} \int_{a_k}^{b_k}  f(z_n(t))z_n^\prime(t) \D t &= \sum_{k=1}^\ell \int_{a_k}^{b_k}  f(z(t))z^\prime(t) \D t \\
+\sum_{k=1}^\ell \lim_{n\rightarrow\infty} \int_{a_k}^{b_k}  f(z_n(t))z_n^\prime(t) \D t &= \int_{a}^{b}  f(z(t))z^\prime(t) \D t \\
+\lim_{n\rightarrow\infty} \sum_{k=1}^\ell  \int_{a_k}^{b_k}  f(z_n(t))z_n^\prime(t) \D t &= \int_{a}^{b}  f(z(t))z^\prime(t) \D t \\
+\lim_{n\rightarrow\infty} \int_{a}^{b}  f(z_n(t))z_n^\prime(t) \D t &= \int_{a}^{b}  f(z(t))z^\prime(t) \D t
+\end{align*}
+where we can move the sum on the left inside the limit on line 3 since the sequence converges uniformly.
+Additionally, undoing our parameterization we have,
+$$\lim_{n\rightarrow\infty} \int_{\Gamma_n}  f(z) \D z = \int_\Gamma  f(z) \D z$$
+which written another way is
+\begin{align*}
+	\int_{\Gamma_n} f(z) \D z \overset{n \to \infty}{\longrightarrow}   \int_{\Gamma} f(z) \D z
+\end{align*}
+as desired. \\
+\qed \\
+\newpage
 
 \item for any $r, R > 0$, let $C = \partial \Sigma$, $\Sigma = \{z \in \mathbb C ~:~
       |\real z | \leq r \text{ and } 0 \leq -\imag z \leq R, ~ R >
@@ -402,35 +523,111 @@ by Cauchy's theorem.
 Deal with the singularities on the boundary in some clever way... \\
 perhaps by having a section of the contour be taken to be the limit of a sequence of contours approaching the real axis.
 \\
-    \end{itemize}
+\end{itemize}
+\newpage
+
 \item From A\&F: 3.1.1 b,d \\
 In the following we are given sequences.
 Discuss their limits and whether the convergence is uniform, in the region $\alpha \leq |z| \leq \beta$, for finite $\alpha, \beta > 0$. \\
 b) $$ \bigg\{ \frac 1 {z^n} \bigg\}_{n=1}^{\infty} $$
-(\textbf{2 parts}) \\
 \textit{Solution:}\\
-This one is weird, seems like it's divergent since the limit is $\infty$ when $ |z| < 1$ but if $|z| > 1$ the limit is $0$, it's also $1$ if $|z| = 1$.
-Consider following the outline for example 3.1.6 on page 110 in A \& F
-\\
+Let $f_n(z) = \frac 1 {z^n}$, for $n \in \mathbb N$. Then we notice
+$$
+f_n(z) \overset{n \to \infty}{\longrightarrow} \begin{cases}
+0, \: \: \text{if}\: |z| > 1 \\
+1, \: \: \text{if}\: |z| = 1 \\
+\infty, \text{if}\: |z| < 1.
+\end{cases}
+$$
+Generally, the convergence of this sequence $f_n(z)$ cannot be uniform, since the limit is not continuous.
+However, this sequence could converge uniformly for specific choices of $\alpha$ and $\beta$.
+For example, if $\alpha >1$ and $\beta > \alpha$ then for all admissible $z$ we have $f_n(z) \overset{n \to \infty}{\longrightarrow} 0$ and thus the convergence would be uniform.
+Additionally, if $\beta < 1$ and $\alpha < \beta$ then for all admissible $z$ we have $f_n(z) \overset{n \to \infty}{\longrightarrow} \infty$ and thus the convergence would be uniform.
+Finally, the only other scenario where $f_n(z)$ converges uniformly is if $\alpha = \beta = 1$.
+In which case for all admissible $z$, really just the set $\{1\}$, we have $f_n(z) \overset{n \to \infty}{\longrightarrow} 1$. \\
+\textbf{TODO:}
+\begin{itemize}
+\item Do I need to prove it is uniformly convergent in the cases where that applies?
+\item Do I need to acknowledge the case where $z=0$ even though we know the modulus of $z$ is required to be strictly greater than $0$ since we have $|z| \geq \alpha > 0$?
+Do we say that $f_n(z)$ is undefined at $|z| = 0$?
+\end{itemize}
+\qed \\
 
 \noindent
 d) $$ \bigg\{ \frac 1 {1 + (nz)^2} \bigg\}_{n=1}^{\infty} $$
-(\textbf{2 parts}) \\
 \textit{Solution:}\\
-The limit of this function is 0. The sequence converges uniformly (maybe need to show this).
+Let $f_n(z) = \frac 1 {1 + (nz)^2}$, for $n \in \mathbb N$. Then we notice
 $$
-\lim_{n\rightarrow\infty} \frac 1 {1 + (nz)^2} = \lim_{n\rightarrow\infty} \frac 1 {1 + n^2z^2} = 0
+f_n(z) \overset{n \to \infty}{\longrightarrow} \begin{cases}
+1, \: \: \text{if}\: |z| = 0 \\
+0, \: \: \text{if}\: |z| > 0.
+\end{cases}
 $$
-I'm not sure that there is anything to think about with the limits $\alpha$ and $\beta$.
-\\
+However, since we have $|z| \geq \alpha > 0$ we know $|z| \neq 0$ and thus
+$$
+f_n(z) \overset{n \to \infty}{\longrightarrow} 0 \quad \text{uniformly}.
+$$
+This result is independent of the choice of upper bound $\beta$. \\
+\qed
+\newpage
 
 \item From A\&F: 3.1.2 b,d \\
-For each sequence in problem 1, what can be said if \\
-(a) $\alpha = 0$ \\
-(b) $\alpha > 0, \quad \beta = \infty$ \\
-(\textbf{4 parts} 2x2)
+For each sequence in problem 6 (book problem 1), what can be said if \\
 \textit{Solution:} \\
+(b) Now let's begin by reconsidering the sequence from the previous problem, part (b).
+Let $f_n(z) = \frac 1 {z^n}$, for $n \in \mathbb N$. Then we notice
+$$
+f_n(z) \overset{n \to \infty}{\longrightarrow} \begin{cases}
+0, \: \: \text{if}\: |z| > 1 \\
+1, \: \: \text{if}\: |z| = 1 \\
+\infty, \text{if}\: |z| < 1.
+\end{cases}
+$$
+Let's now consider the two cases presented herein. \\
 
+\underline{(a) $\alpha = 0$:} \\
+This gives us the following bounds $0 \leq |z| \leq \beta$.
+First of all, this now includes the point $z = 0$ for which $f_n(z)$ is not defined.
+Second of all, these bounds include all 3 cases for the limit of $f_n(z)$ and is therefore discontinuous.
+Hence, our sequence is not uniformly convergent in this case. \\
+
+\underline{(b) $\alpha > 0$ and $\beta = \infty$:} \\
+This gives us the following bounds $0 < |z| \leq \infty$.
+We are still left with a discontinuous limit of $f_n(z)$ meaning the sequence does not converge uniformly. \\
+\qed \\
+
+\noindent
+(d) Let $f_n(z) = \frac 1 {1 + (nz)^2}$, for $n \in \mathbb N$. Then we notice
+$$
+f_n(z) \overset{n \to \infty}{\longrightarrow} \begin{cases}
+1, \: \: \text{if}\: |z| = 0 \\
+0, \: \: \text{if}\: |z| > 0.
+\end{cases}
+$$
+However, since we have $|z| \geq \alpha > 0$ we know $|z| \neq 0$ and thus
+$$
+f_n(z) \overset{n \to \infty}{\longrightarrow} 0 \quad \text{uniformly}.
+$$
+This result is independent of the choice of upper bound $\beta$. \\
+
+\underline{(a) $\alpha = 0$:} \\
+This gives us the following bounds $0 \leq |z| \leq \beta$.
+Since $|z|$ can be equal to $0$, the limit of $f_n(z)$ includes both cases provided before and is therefore discontinuous.
+Therefore, the sequence $f_n(z)$ cannot be uniformly convergent, given these bounds from $\alpha$ and $\beta$. \\
+
+\underline{(b) $\alpha > 0$ and $\beta = \infty$:} \\
+This gives us the following bounds $0 < |z| \leq \infty$.
+Thus
+$$
+f_n(z) \overset{n \to \infty}{\longrightarrow} 0 \quad \text{uniformly}.
+$$
+\textbf{TODO:} Again, do I need to prove uniform convergence with a $N-\epsilon$ proof?
+It seems sufficient in the negative cases to just demonstrate that the limit is not continuous so it can't be uniformly convergent.
+The only cases where I claimed (d) was uniformly convergent were when 0 is excluded here in problem 7 and in problem 6.
+Additionally, I claimed (b) was uniformly convergent in some cases in problem 6.s
+\qed \\
+
+\newpage
 \item From A\&F: 3.1.3
 Compute the integrals
 $$
@@ -450,7 +647,7 @@ $$
 \lim_{\epsilon \rightarrow 0}\int_0^{1-\epsilon} \lim_{n \rightarrow \infty} \left(nz^{n -1} \right) \D z.
 $$
     
-\textbf{There are approximately 25 things to do, 10 down!}
+\textbf{There are approximately 34 things to do, 27 down!}
 \end{enumerate}
 
 \end{document}
