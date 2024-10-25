@@ -509,7 +509,17 @@ as desired. \\
 Assume $f(z)$ is an analytic function in a region that contains $\Sigma$.
 Furthermore, let $g(z) = \sqrt{z-1} \sqrt{z+1}$.
 Using the principal branch for $g(z)$, we also have that $g(z)$ is analytic as well away from it's branch cut.
-Then we are looking at a contour integral of an analytic function (in our region) and therefore
+Notice a section of our contour traverses along the branch cut from $[-1, 1]$ on the real axis.
+We need to account for this by creating a sequence of contours $C_n$ which converge to $C$ in the sense that we can parameterize $C$ with $z(t)$ and $C_n$ with $z_n(t)$ on $[a,b]$ such that \textbf{TODO:} actually determine what the contour needs to be. How do we handle the fact that the end points are shifting?
+\begin{align*}
+	z_n(t) \overset{n \to \infty}{\longrightarrow} z(t),  \quad \text{uniformly on } [a,b],\\
+        z_n'(t) \overset{n \to \infty}{\longrightarrow} z'(t), \quad \text{uniformly on } [a,b].
+\end{align*}
+Therefore by Lemma 1 established in problem 4, we can say
+\begin{align*}
+\oint_{C_n}f(z)\D z \overset{n \to \infty}{\longrightarrow} \oint_{C}f(z)\D z
+\end{align*}
+Now that we have justified the portion of contour along the branch cut, we can say have a contour integral of an analytic function (in our region) and therefore
 $$\oint_C f(z) \sqrt{z-1} \sqrt{z+1} \D z = 0$$
 by Cauchy's theorem.
 \qed \\
