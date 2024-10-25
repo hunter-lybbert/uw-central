@@ -509,19 +509,73 @@ as desired. \\
 Assume $f(z)$ is an analytic function in a region that contains $\Sigma$.
 Furthermore, let $g(z) = \sqrt{z-1} \sqrt{z+1}$.
 Using the principal branch for $g(z)$, we also have that $g(z)$ is analytic as well away from it's branch cut.
-Notice a section of our contour traverses along the branch cut from $[-1, 1]$ on the real axis.
-We need to account for this by creating a sequence of contours $C_n$ which converge to $C$ in the sense that we can parameterize $C$ with $z(t)$ and $C_n$ with $z_n(t)$ on $[a,b]$ such that \textbf{TODO:} actually determine what the contour needs to be. How do we handle the fact that the end points are shifting?
+Let $h(z) = f(z)g(z)$ for notational convenience.\\
+
+\noindent
+I will setup some notation for each component of our contour $C$.
+Firstly, let the orientation of our contour $C$ be clockwise. \textbf{TODO: consider reversing the orientation to match what needs to be done in part 2.}
+Additionally, let us define four sub contours $C_1$, $C_2$, $C_3$ and $C_4$.
+We use subscript despite knowing we will need to subscript with $n$ later.
+At that time we will sub-subscript, for example $C_{1_n}$ to denote a sequence of contours which converges to $C_1$.
+Let the following hold
+$$\oint_C h(z) \D z = \sum_{j = 1}^{4} \oint_{C_j}h(z) \D z.$$
+Specifically we describe each of the $C_j$ contours as follows (let $z_0$ be the initial point on a contour and let $z_{\star}$ be the terminating point on a contour)
 \begin{align*}
-	z_n(t) \overset{n \to \infty}{\longrightarrow} z(t),  \quad \text{uniformly on } [a,b],\\
-        z_n'(t) \overset{n \to \infty}{\longrightarrow} z'(t), \quad \text{uniformly on } [a,b].
+&C_1: \: \text{a vertical line in the complex plane from } z_0=-r \: \text{ to }  z_{\star}=-r-\I R \\
+&C_2: \: \text{a horizontal line in the complex plane from } z_0=-r-\I R \: \text{ to }  z_{\star}=r-\I R \\
+&C_3: \: \text{a vertical line in the complex plane from } z_0=r-\I R \: \text{ to }  z_{\star}=r \\
+&C_4: \: \text{a horizontal line in the complex plane from } z_0=r \: \text{ to }  z_{\star}=-r
+\end{align*}
+See Figure 1 for more details \textbf{TODO: add a photo matching the description}
+\\
+
+Notice the contour $C_4$ traverses along the branch cut from $[-1, 1]$ on the real axis.
+We need to account for this by creating a sequence of contours which converge to the actual contours we want to evaluate the integral over.
+As seen in Figure 2, (\textbf{TODO: Add photo of the contours moving up towards the real axis}) we will be shifting our whole region $\Sigma$ (and thus our contour $C = \partial \Sigma$) down away from the real axis and the branch cut.
+We will then construct a sequence of contours which converge to the contour we want.
+This can be done by constructing parameterizations of our contours $C_j$ such that 
+\begin{align*}
+	z_{j_n}(t) \overset{n \to \infty}{\longrightarrow} z_j(t),  \quad \text{uniformly on } [a,b],\\
+        z_{j_n}'(t) \overset{n \to \infty}{\longrightarrow} z'_j(t), \quad \text{uniformly on } [a,b].
+\end{align*}
+Where $z_j(t)$ is a parameterization of $C_j$, $z_{j_n}(t)$ is a sequence of functions which converge uniformly to $z_j(t)$, similarly for the derivative of this parameterization, and $a$ and $b$ are the points such that $z_j(a) = z_0$ and $z_j(b) = z_{\star}$ the initial and terminating points on the contour $C_j$. \\
+
+\noindent
+Now let's discuss the specific parameterizations of these contours and their uniformly convergent sequences of functions.
+\begin{align*}
+&z_{1_n}(t) = -r - \I/n -\I R t \quad t \in [0, 1]& &z_1(t) = -r -\I R t \quad t \in [0, 1]& \\
+&z_{2_n}(t) = -r - \I R - \I/n + 2rt \quad t \in [0, 1]& &z_2(t) = -r - \I R + 2rt \quad t \in [0, 1]& \\
+&z_{3_n}(t) = r - \I/n -\I R + \I R t \quad t \in [0, 1]& &z_3(t) = r -\I R + \I R t \quad t \in [0, 1]& \\
+&z_{4_n}(t) = r - \I/n - 2rt \quad t \in [0, 1]& &z_4(t) = r - 2rt \quad t \in [0, 1].&
+\end{align*}
+And their derivatives give us,
+\begin{align*}
+&z_{1_n}^\prime(t) = -\I R \quad t \in [0, 1]& &z_1^\prime(t) = -\I R \quad t \in [0, 1]& \\
+&z_{2_n}^\prime(t) = 2r \quad t \in [0, 1]& &z_2^\prime(t) = 2r \quad t \in [0, 1]& \\
+&z_{3_n}^\prime(t) = \I R \quad t \in [0, 1]& &z_3^\prime(t) = \I R \quad t \in [0, 1]& \\
+&z_{4_n}^\prime(t) = - 2r \quad t \in [0, 1]& &z_4^\prime(t) = - 2r \quad t \in [0, 1].&
+\end{align*}
+Notice, for each $z_{j_n}(t)$ and $z_j(t)$ we have that
+\begin{align*}
+	&z_{j_n}(t) \overset{n \to \infty}{\longrightarrow} z_j(t),  \quad \text{uniformly on } [0,1] \text{ and }\\
+        &z_{j_n}'(t) \overset{n \to \infty}{\longrightarrow} z'_j(t), \quad \text{uniformly on } [0,1].
 \end{align*}
 Therefore by Lemma 1 established in problem 4, we can say
 \begin{align*}
-\oint_{C_n}f(z)\D z \overset{n \to \infty}{\longrightarrow} \oint_{C}f(z)\D z
+\oint_{C_{j_n}}h(z)\D z \overset{n \to \infty}{\longrightarrow} \oint_{C_j}h(z)\D z
 \end{align*}
-Now that we have justified the portion of contour along the branch cut, we can say have a contour integral of an analytic function (in our region) and therefore
-$$\oint_C f(z) \sqrt{z-1} \sqrt{z+1} \D z = 0$$
-by Cauchy's theorem.
+for each $C_j$.
+By our carful decomposition of the original contour $C$ and the parameterizations of each component of $C$, we can say 
+$$\oint_{C_n} h(z) \D z = \sum_{j = 1}^{4} \oint_{C_{n_j}}h(z) \D z.$$
+Hence,
+$$\oint_{C_n}h(z)\D z \overset{n \to \infty}{\longrightarrow} \oint_{C}h(z)\D z.$$
+Since $h(z)$ is analytic in the region containing our sequence of simple closed contours $C_n$ then by Cauchy's Theorem
+$$
+\oint_{C_n}h(z)\D z = 0.
+$$
+Therefore, we must also have
+$$\oint_{C}h(z)\D z = 0$$
+since the sequence $$\oint_{C_n}h(z)\D z$$ (which turns out is a sequence of zeros), converges to $\oint_{C}h(z)\D z$. \\
 \qed \\
 
   \item Show that if $f(z)$ is analytic in a region that contains $\Sigma$
@@ -530,9 +584,34 @@ by Cauchy's theorem.
       \end{align*}
 (\textbf{1 part}) \\
 \textit{Solution:} \\
-Deal with the singularities on the boundary in some clever way... \\
-perhaps by having a section of the contour be taken to be the limit of a sequence of contours approaching the real axis.
-\\
+Use the same setup as in part 1 except we need to add the following step.
+After we have approached the contour $C$ that we want from the bottom, we then need to deform around the two singularities which fall on our contour $C$ directly at $z = -1$ and $z = 1$.
+I will now describe how we have to transform the upper contour formerly referred to by $C_4$ in part one of this problem. \\
+
+\noindent
+\textbf{TODO: Add photo of the new set of contours which break down contour $C_4$ (the contour along the real axis.)}
+We construct the parameterizations of these new contours as follows
+\begin{align*}
+&z_{2_n}(t) = (1/n) \E^{\I \theta} - 1 \quad \theta \in [-\pi, 0]& &z_2(t) = -1 \quad \theta \in [-\pi, 0]& \\
+&z_{4_n}(t) = (1/n) \E^{\I \theta} + 1 \quad \theta \in [-\pi, 0]& &z_4(t) = 1 \quad \theta \in [-\pi, 0]& \\
+&z_{1_n}(t) = - r + (r - 1 - (1/n)) t \quad t \in [0, 1]& &z_1(t) = - r + (r - 1) t \quad t \in [0, 1]& \\
+&z_{3_n}(t) = (- 1 + (1/n)) + 2(1 - (1/n))t \quad t \in [0, 1]& &z_3(t) = -1 + 2t \in [0, 1]& \\
+&z_{5_n}(t) = (1 + (1/n)) + (r - 1 - (1/n))t \quad t \in [0, 1]& &z_5(t) = 1 + (r - 1)t \quad t \in [0, 1].&
+\end{align*}
+And their derivatives give us,
+\begin{align*}
+&z_{2_n}^\prime(t) = (1/n) \I \E^{\I \theta} \quad \theta \in [-\pi, 0]& &z_2^\prime(t) = 0 \quad t \in [0, 1]& \\
+&z_{4_n}^\prime(t) = (1/n) \I \E^{\I \theta} \quad \theta \in [-\pi, 0]& &z_4^\prime(t) = 0 \quad t \in [0, 1]& \\
+&z_{1_n}^\prime(t) = (r - 1 - (1/n)) \quad t \in [0, 1]& &z_1^\prime(t) = r - 1 \quad t \in [0, 1]& \\
+&z_{3_n}^\prime(t) = 2(1 - (1/n)) \quad t \in [0, 1]& &z_3^\prime(t) = 2 \quad t \in [0, 1]& \\
+&z_{5_n}^\prime(t) = (r - 1 - (1/n)) \quad t \in [0, 1]& &z_5^\prime(t) = r - 1 \quad t \in [0, 1].&
+\end{align*}
+Let contour $C_4 = \widehat C$ can be written as
+$$
+\oint_{\widehat C} h(z) \D z = \sum_{k = 1}^5 \oint_{\widehat C_k} h(z) \D z
+$$
+Where the parameterization of the parts becomes a sum where each $\widehat C_k$ can be parameterized and is thus a convergent sequences of things.
+\textbf{TODO: Add the right logic for how to squeeze out the contributions of the two semi circles.}
 \end{itemize}
 \newpage
 
