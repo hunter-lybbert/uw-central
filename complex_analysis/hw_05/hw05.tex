@@ -351,10 +351,23 @@ $$\left|\oint_{C_\epsilon} f(z)\D z \right| \leq 0 \quad \text{as $z\rightarrow 
 Thus the integral over the contour $C_\epsilon$ contributes nothing to our original integral over the contour $\widehat C$.
 Hence,
 $$\oint_{\widehat C} f(z)\D z = 0.$$
-Finally, since our original $f(z)$ is analytic everywhere in $\Omega \setminus \{z_0\}$ it satisfies Cauchy's Integral Formula at every $z \neq z_0$ and since our choice of $f(z_0)$ was such that Cauchy's integral formula holds at $z_0$ we have that $f(z)$ is continuous in all of $\Omega$. \\
+Finally, since our original $f(z)$ is analytic everywhere in $\Omega \setminus \{z_0\}$ it satisfies Cauchy's Integral Formula at every $z \neq z_0$ and since our choice of $f(z_0)$ was such that Cauchy's integral formula holds at $z_0$ we have that $f(z)$ is continuous in all of $\Omega$.
+Let's formalize this continuity argument a little bit using Cauchy's Integral Formula,
+\begin{align*}
+\lim_{z \rightarrow z_0} \left| f(z_0) - f(z) \right|
+	&= \lim_{z \rightarrow z_0} \left| \frac 1 {2\pi \I} \oint_C \frac {f(\xi)}{\xi - z_0} \D \xi - \frac 1 {2\pi \I}\oint_C \frac {f(\xi)}{\xi - z} \D \xi \right| \\
+	&= \lim_{z \rightarrow z_0} \left| \frac 1 {2\pi \I} \oint_C \frac {f(\xi)}{\xi - z_0} -  \frac {f(\xi)}{\xi - z} \D \xi \right| \\
+	&= \lim_{z \rightarrow z_0} \left| \frac 1 {2\pi \I} \oint_C \frac {f(\xi)(\xi - z) - f(\xi)(\xi - z_0)}{(\xi - z)(\xi - 1)} \D \xi \right| \\
+	&= \lim_{z \rightarrow z_0} \left| \frac 1 {2\pi \I} \oint_C \frac {\cancel{f(\xi)\xi} - f(\xi)z - \cancel{f(\xi)\xi} + f(\xi)z_0}{(\xi - z)(\xi - z_0)} \D \xi \right| \\
+	&= \lim_{z \rightarrow z_0} \left| \frac 1 {2\pi \I} \oint_C \frac {f(\xi)(z_0 - z)}{(\xi - z)(\xi - z_0)} \D \xi \right| \\
+	&= \lim_{z \rightarrow z_0} \left| \frac {z_0 - z} {2\pi \I} \oint_C \frac {f(\xi)}{(\xi - z)(\xi - z_0)} \D \xi \right| \\
+	&= \lim_{z \rightarrow z_0} \left| \frac {z_0 - z} {2\pi \I} \right| \left|\oint_C \frac {f(\xi)}{(\xi - z)(\xi - z_0)} \D \xi \right| \\
+	&= 0.
+\end{align*}
+Therefore, $f(z)$ is continuous at $z_0$. \\
 
 \noindent
-Since, an integral over an arbitrary contour $\widehat C$, which encloses $z_0$ is equal to zero and as established earlier by analyticity of $f(z)$ this is true as well for any contour $C$ which does not enclose $z_0$, by Morera's Theorem (2.6.5), we have that $f(z)$ is analytic in all of $\Omega$.
+Since, an integral over an arbitrary contour $\widehat C$, which encloses $z_0$ is equal to zero and by analyticity of $f(z)$ this is true as well for any contour $C$ which does not enclose $z_0$, by Morera's Theorem (2.6.5), we have that $f(z)$ is analytic in all of $\Omega$.
 \qed \\
 
 \newpage
@@ -541,7 +554,7 @@ This can be done by constructing parameterizations of our contours $C_j$ such th
 Where $z_j(t)$ is a parameterization of $C_j$, $z_{j_n}(t)$ is a sequence of functions which converge uniformly to $z_j(t)$, similarly for the derivative of this parameterization, and $a$ and $b$ are the points such that $z_j(a) = z_0$ and $z_j(b) = z_{\star}$ the initial and terminating points on the contour $C_j$. \\
 
 \noindent
-Now let's discuss the specific parameterizations of these contours and their uniformly convergent sequences of functions.
+Now let's discuss the specific parameterizations of these contours and their uniformly convergent sequences of functions. \textbf{TODO: Show that a few of these explicitly are uniformly continuous}
 \begin{align*}
 &z_{1_n}(t) = -r - \I/n -\I R t \quad t \in [0, 1]& &z_1(t) = -r -\I R t \quad t \in [0, 1]& \\
 &z_{2_n}(t) = -r - \I R - \I/n + 2rt \quad t \in [0, 1]& &z_2(t) = -r - \I R + 2rt \quad t \in [0, 1]& \\
@@ -566,7 +579,7 @@ Therefore by Lemma 1 established in problem 4, we can say
 \end{align*}
 for each $C_j$.
 By our carful decomposition of the original contour $C$ and the parameterizations of each component of $C$, we can say 
-$$\oint_{C_n} h(z) \D z = \sum_{j = 1}^{4} \oint_{C_{n_j}}h(z) \D z.$$
+$$\oint_{C_n} h(z) \D z = \sum_{j = 1}^{4} \oint_{C_{j_n}}h(z) \D z \rightarrow \sum_{j = 1}^{4} \oint_{C_j}h(z) \D z = \oint_{C}h(z)\D z.$$
 Hence,
 $$\oint_{C_n}h(z)\D z \overset{n \to \infty}{\longrightarrow} \oint_{C}h(z)\D z.$$
 Since $h(z)$ is analytic in the region containing our sequence of simple closed contours $C_n$ then by Cauchy's Theorem
@@ -584,6 +597,7 @@ since the sequence $$\oint_{C_n}h(z)\D z$$ (which turns out is a sequence of zer
       \end{align*}
 (\textbf{1 part}) \\
 \textit{Solution:} \\
+\textbf{Address the cases of $r < 1, r=1, r>1$. Site problem 4 for the ticket stub contour to move up.}
 Use the same setup as in part 1 except we need to add the following step.
 After we have approached the contour $C$ that we want from the bottom, we then need to deform around the two singularities which fall on our contour $C$ directly at $z = -1$ and $z = 1$.
 I will now describe how we have to transform the upper contour formerly referred to by $C_4$ in part one of this problem. \\
@@ -611,7 +625,43 @@ $$
 \oint_{\widehat C} h(z) \D z = \sum_{k = 1}^5 \oint_{\widehat C_k} h(z) \D z
 $$
 Where the parameterization of the parts becomes a sum where each $\widehat C_k$ can be parameterized and is thus a convergent sequences of things.
-\textbf{TODO: Add the right logic for how to squeeze out the contributions of the two semi circles.}
+We want to use lemma 1 again but we don't have continuity of $h(z)$ on the closure of our open set (\textbf{TODO: describe this set}) which now includes $z=-1,1$ as we take the limit of our parameterizations as $n\rightarrow \infty$.
+To establish continuity at this point define an extension of h(z) such that
+\begin{align*}
+h(-1) &= \frac 1 {2\pi \I}\oint_C \frac {h(\xi)}{\xi + 1} \D \xi \\
+h(1) &= \frac 1 {2\pi \I}\oint_C \frac {h(\xi)}{\xi - 1} \D \xi.
+\end{align*}
+Using this let's establish continuity at these points of concern.
+Notice
+\begin{align*}
+\lim_{z \rightarrow -1} \left| h(-1) - h(z) \right|
+	&= \lim_{z \rightarrow -1} \left| \frac 1 {2\pi \I} \oint_C \frac {h(\xi)}{\xi + 1} \D \xi - \frac 1 {2\pi \I}\oint_C \frac {h(\xi)}{\xi - z} \D \xi \right| \\
+	&= \lim_{z \rightarrow -1} \left| \frac 1 {2\pi \I} \oint_C \frac {h(\xi)}{\xi + 1} -  \frac {h(\xi)}{\xi - z} \D \xi \right| \\
+	&= \lim_{z \rightarrow -1} \left| \frac 1 {2\pi \I} \oint_C \frac {h(\xi)(\xi - z) - h(\xi)(\xi + 1)}{(\xi - z)(\xi + 1)} \D \xi \right| \\
+	&= \lim_{z \rightarrow -1} \left| \frac 1 {2\pi \I} \oint_C \frac {\cancel{h(\xi)\xi} - h(\xi)z - \cancel{h(\xi)\xi} - h(\xi)}{(\xi - z)(\xi + 1)} \D \xi \right| \\
+	&= \lim_{z \rightarrow -1} \left| \frac 1 {2\pi \I} \oint_C \frac {h(\xi)(- 1 - z)}{(\xi - z)(\xi + 1)} \D \xi \right| \\
+	&= \lim_{z \rightarrow -1} \left| \frac {-1 - z} {2\pi \I} \oint_C \frac {h(\xi)}{(\xi - z)(\xi + 1)} \D \xi \right| \\
+	&= \lim_{z \rightarrow -1} \left| \frac {-1 - z} {2\pi \I} \right| \left|\oint_C \frac {h(\xi)}{(\xi - z)(\xi + 1)} \D \xi \right| \\
+	&= 0.
+\end{align*}
+Since $(-1-z)\overset{z \to -1}{\longrightarrow} 0$ and the value of the integral, namely it's denominator, will not go to 0.
+Therefore $h(z)$ is continuous at the point $z = -1$.
+Similarly,
+\begin{align*}
+\lim_{z \rightarrow 1} \left| h(1) - h(z) \right|
+	&= \lim_{z \rightarrow 1} \left| \frac 1 {2\pi \I} \oint_C \frac {h(\xi)}{\xi - 1} \D \xi - \frac 1 {2\pi \I}\oint_C \frac {h(\xi)}{\xi - z} \D \xi \right| \\
+	&= \lim_{z \rightarrow 1} \left| \frac 1 {2\pi \I} \oint_C \frac {h(\xi)}{\xi - 1} -  \frac {h(\xi)}{\xi - z} \D \xi \right| \\
+	&= \lim_{z \rightarrow 1} \left| \frac 1 {2\pi \I} \oint_C \frac {h(\xi)(\xi - z) - h(\xi)(\xi - 1)}{(\xi - z)(\xi - 1)} \D \xi \right| \\
+	&= \lim_{z \rightarrow 1} \left| \frac 1 {2\pi \I} \oint_C \frac {\cancel{h(\xi)\xi} - h(\xi)z - \cancel{h(\xi)\xi} + h(\xi)}{(\xi - z)(\xi - 1)} \D \xi \right| \\
+	&= \lim_{z \rightarrow 1} \left| \frac 1 {2\pi \I} \oint_C \frac {h(\xi)(1 - z)}{(\xi - z)(\xi - 1)} \D \xi \right| \\
+	&= \lim_{z \rightarrow 1} \left| \frac {1 - z} {2\pi \I} \oint_C \frac {h(\xi)}{(\xi - z)(\xi - 1)} \D \xi \right| \\
+	&= \lim_{z \rightarrow 1} \left| \frac {1 - z} {2\pi \I} \right| \left|\oint_C \frac {h(\xi)}{(\xi - z)(\xi - 1)} \D \xi \right| \\
+	&= 0.
+\end{align*}
+Since $(1-z)\overset{z \to 1}{\longrightarrow} 0$ and the value of the integral, namely it's denominator, will not go to 0.
+Therefore $h(z)$ is continuous at the point $z = 1$.
+Now that we have $h(z)$ is continuous on the closure of our open set \textbf{TODO: again specify this set}, we can use a sequence of contours to determine the value of the contour on the branch cut and branch points.
+
 \end{itemize}
 \newpage
 
@@ -628,6 +678,7 @@ f_n(z) \overset{n \to \infty}{\longrightarrow} \begin{cases}
 \infty, \text{if}\: |z| < 1.
 \end{cases}
 $$
+\textbf{TODO: Actually we don't have the convergence when $|z| = 1$ because $\frac 1 {\I^n}$ oscillates.}
 Generally, the convergence of this sequence $f_n(z)$ cannot be uniform, since the limit is not continuous.
 However, this sequence could converge uniformly for specific choices of $\alpha$ and $\beta$.
 For example, if $\alpha >1$ and $\beta > \alpha$ then for all admissible $z$ we have $f_n(z) \overset{n \to \infty}{\longrightarrow} 0$ and thus the convergence would be uniform.
@@ -724,19 +775,27 @@ $$
 $$
 and show that they are not equal.
 Explain why this is not a counter example to Theorem 3.1.1. (A \&F pg. 111) \\
-(\textbf{3 parts})
 \textit{Solution:} \\
-For the integral on the right consider adding a limit outside the integral so the bound doesn't have any issues.
 We can easily evaluate the left limit to be
 $$
 \lim_{n \rightarrow \infty} \int_0^1 nz^{n -1}\D z = \lim_{n \rightarrow \infty} \left. z^n \right|_0^1 = \lim_{n \rightarrow \infty} 1^n - 0^n = \lim_{n \rightarrow \infty} 1 = 1.
 $$
-However, on the right we have (using a limit as we approach the upper bound $1$)
+However, on the right we have the improper integral (using a limit as we approach the upper bound $1$)
 $$
 \lim_{\epsilon \rightarrow 0}\int_0^{1-\epsilon} \lim_{n \rightarrow \infty} \left(nz^{n -1} \right) \D z.
 $$
-    
-\textbf{There are approximately 34 things to do, 27 down!}
+These two functions do not converge to the same thing (proof not necessary since other problems are more hefty.)
+This is not a counter example of Theorem 3.1.1 since the sequence
+$$
+\lim_{n \rightarrow \infty} nz^{n - 1} =
+\begin{cases}
+0, \text{ if } |z| < 1 \\
+\infty \text{ if } |z| = 1
+\end{cases}
+$$
+does not converge uniformly.
+
+\textbf{There are approximately 34 things to do, 30 down!}
 \end{enumerate}
 
 \end{document}
