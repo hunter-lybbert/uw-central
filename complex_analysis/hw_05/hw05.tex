@@ -3,10 +3,14 @@
 \usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
 \usepackage{cancel}
 \usepackage{graphicx,subfig}
+\usepackage{mathtools}
+
 \graphicspath{ {./images/} }
 
 \usepackage{amssymb,amsmath,enumitem,url}
 
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 \newcommand{\D}{\mathrm{d}}
 \newcommand{\I}{\mathrm{i}}
 \DeclareMathOperator{\E}{e}
@@ -352,7 +356,7 @@ Thus the integral over the contour $C_\epsilon$ contributes nothing to our origi
 Hence,
 $$\oint_{\widehat C} f(z)\D z = 0.$$
 Finally, since our original $f(z)$ is analytic everywhere in $\Omega \setminus \{z_0\}$ it satisfies Cauchy's Integral Formula at every $z \neq z_0$ and since our choice of $f(z_0)$ was such that Cauchy's integral formula holds at $z_0$ we have that $f(z)$ is continuous in all of $\Omega$.
-Let's formalize this continuity argument a little bit using Cauchy's Integral Formula,
+Let's formalize this continuity argument a little by using Cauchy's Integral Formula,
 \begin{align*}
 \lim_{z \rightarrow z_0} \left| f(z_0) - f(z) \right|
 	&= \lim_{z \rightarrow z_0} \left| \frac 1 {2\pi \I} \oint_C \frac {f(\xi)}{\xi - z_0} \D \xi - \frac 1 {2\pi \I}\oint_C \frac {f(\xi)}{\xi - z} \D \xi \right| \\
@@ -554,13 +558,39 @@ This can be done by constructing parameterizations of our contours $C_j$ such th
 Where $z_j(t)$ is a parameterization of $C_j$, $z_{j_n}(t)$ is a sequence of functions which converge uniformly to $z_j(t)$, similarly for the derivative of this parameterization, and $a$ and $b$ are the points such that $z_j(a) = z_0$ and $z_j(b) = z_{\star}$ the initial and terminating points on the contour $C_j$. \\
 
 \noindent
-Now let's discuss the specific parameterizations of these contours and their uniformly convergent sequences of functions. \textbf{TODO: Show that a few of these explicitly are uniformly continuous}
+Now let's discuss the specific parameterizations of these contours and their uniformly convergent sequences of functions.
 \begin{align*}
 &z_{1_n}(t) = -r - \I/n -\I R t \quad t \in [0, 1]& &z_1(t) = -r -\I R t \quad t \in [0, 1]& \\
 &z_{2_n}(t) = -r - \I R - \I/n + 2rt \quad t \in [0, 1]& &z_2(t) = -r - \I R + 2rt \quad t \in [0, 1]& \\
 &z_{3_n}(t) = r - \I/n -\I R + \I R t \quad t \in [0, 1]& &z_3(t) = r -\I R + \I R t \quad t \in [0, 1]& \\
 &z_{4_n}(t) = r - \I/n - 2rt \quad t \in [0, 1]& &z_4(t) = r - 2rt \quad t \in [0, 1].&
 \end{align*}
+I will demonstrate how a few of these are indeed uniformly convergent. I argue that the other cases I will not discuss can be shown similarly.
+Let $\epsilon > 0$ and choose $N = \ceil{\frac 1 \epsilon}$ such that whenever $n > N$ we have the following
+\begin{align*}
+\left| z_{1_n}(t) - z_1(t) \right|
+	&= \left| -r - \I/n -\I R t - \left(-r -\I R t\right) \right| \\
+	&= \left| \cancel{-r} - \I/n - \cancel{\I R t} + \cancel{r} + \cancel{\I R t} \right| \\
+	&= \left| - \frac \I n \right| \\
+	&< \left| - \frac \I {\frac 1 \epsilon} \right| \\
+	&= \left| - \I \epsilon \right| \\
+	&= \epsilon.
+\end{align*}
+Therefore, $\left| z_{1_n}(t) - z_1(t) \right| < \epsilon$ and $z_{1_n}(t)$ converges uniformly to $z_1(t)$ since for all $n > N$ our criteria holds and the $N$ does not depend on the value of $t$.
+This is the parameterization of the left hand side of our rectangular contour.
+Let's now verify this for perhaps the more crucial of our parameterized sequences of contours which is the top of the rectangular contour, the one which we hope traverses along the branch cut in the limit.
+Let $\epsilon > 0$ and choose $N = \ceil{\frac 1 \epsilon}$ such that whenever $n > N$ then
+\begin{align*}
+\left| z_{4_n}(t) - z_4(t) \right|
+	&= \left| r - \I/n - 2rt - (r - 2rt) \right| \\
+	&= \left| \cancel{r} - \I/n - \cancel{2rt} - \cancel{r} + \cancel{2rt} \right| \\
+	&= \left| - \frac \I n \right| \\
+	&< \left| - \frac \I {\frac 1 \epsilon} \right| \\
+	&= \left| - \I \epsilon \right| \\
+	&= \epsilon.
+\end{align*}
+Therefore, $\left| z_{4_n}(t) - z_4(t) \right| < \epsilon$ and $z_{4_n}(t)$ converges uniformly to $z_4(t)$ since for all $n > N$ our criteria holds and the $N$ does not depend on the value of $t$.
+Similarly, $z_{3_n}(t)$ and $z_{4_n}(t)$ converge uniformly to $z_3(t)$ and $z_4(t)$, respectively.
 And their derivatives give us,
 \begin{align*}
 &z_{1_n}^\prime(t) = -\I R \quad t \in [0, 1]& &z_1^\prime(t) = -\I R \quad t \in [0, 1]& \\
@@ -568,7 +598,7 @@ And their derivatives give us,
 &z_{3_n}^\prime(t) = \I R \quad t \in [0, 1]& &z_3^\prime(t) = \I R \quad t \in [0, 1]& \\
 &z_{4_n}^\prime(t) = - 2r \quad t \in [0, 1]& &z_4^\prime(t) = - 2r \quad t \in [0, 1].&
 \end{align*}
-Notice, for each $z_{j_n}(t)$ and $z_j(t)$ we have that
+Since, for each $z_{j_n}(t)$ and $z_{j_n}^\prime(t)$ we have that
 \begin{align*}
 	&z_{j_n}(t) \overset{n \to \infty}{\longrightarrow} z_j(t),  \quad \text{uniformly on } [0,1] \text{ and }\\
         &z_{j_n}'(t) \overset{n \to \infty}{\longrightarrow} z'_j(t), \quad \text{uniformly on } [0,1].
@@ -612,6 +642,7 @@ We construct the parameterizations of these new contours as follows
 &z_{3_n}(t) = (- 1 + (1/n)) + 2(1 - (1/n))t \quad t \in [0, 1]& &z_3(t) = -1 + 2t \in [0, 1]& \\
 &z_{5_n}(t) = (1 + (1/n)) + (r - 1 - (1/n))t \quad t \in [0, 1]& &z_5(t) = 1 + (r - 1)t \quad t \in [0, 1].&
 \end{align*}
+\textbf{TODO: Show that a few of these explicitly are uniformly continuous, do this for the top contour.}
 And their derivatives give us,
 \begin{align*}
 &z_{2_n}^\prime(t) = (1/n) \I \E^{\I \theta} \quad \theta \in [-\pi, 0]& &z_2^\prime(t) = 0 \quad t \in [0, 1]& \\
@@ -673,25 +704,33 @@ b) $$ \bigg\{ \frac 1 {z^n} \bigg\}_{n=1}^{\infty} $$
 Let $f_n(z) = \frac 1 {z^n}$, for $n \in \mathbb N$. Then we notice
 $$
 f_n(z) \overset{n \to \infty}{\longrightarrow} \begin{cases}
-0, \: \: \text{if}\: |z| > 1 \\
-1, \: \: \text{if}\: |z| = 1 \\
-\infty, \text{if}\: |z| < 1.
+0, \quad \quad \quad \quad \quad \: \: \text{if}\: |z| > 1 \\
+1, \quad \quad \quad \quad \quad \: \: \text{if}\: z = 1 \\
+\text{diverges}, \quad \quad \: \: \text{if}\: |z| = 1, z \neq 1 \\
+\text{diverges to } \infty, \text{if}\: |z| < 1.
 \end{cases}
 $$
-\textbf{TODO: Actually we don't have the convergence when $|z| = 1$ because $\frac 1 {\I^n}$ oscillates.}
-Generally, the convergence of this sequence $f_n(z)$ cannot be uniform, since the limit is not continuous.
-However, this sequence could converge uniformly for specific choices of $\alpha$ and $\beta$.
-For example, if $\alpha >1$ and $\beta > \alpha$ then for all admissible $z$ we have $f_n(z) \overset{n \to \infty}{\longrightarrow} 0$ and thus the convergence would be uniform.
-Additionally, if $\beta < 1$ and $\alpha < \beta$ then for all admissible $z$ we have $f_n(z) \overset{n \to \infty}{\longrightarrow} \infty$ and thus the convergence would be uniform.
-Finally, the only other scenario where $f_n(z)$ converges uniformly is if $\alpha = \beta = 1$.
-In which case for all admissible $z$, really just the set $\{1\}$, we have $f_n(z) \overset{n \to \infty}{\longrightarrow} 1$. \\
-\textbf{TODO:}
-\begin{itemize}
-\item Do I need to prove it is uniformly convergent in the cases where that applies?
-\item Do I need to acknowledge the case where $z=0$ even though we know the modulus of $z$ is required to be strictly greater than $0$ since we have $|z| \geq \alpha > 0$?
-Do we say that $f_n(z)$ is undefined at $|z| = 0$?
-\end{itemize}
+I will now demonstrate that this sequence is uniformly convergent when $|z| < 1$, which in terms of $\alpha$ and $\beta$ is any of the cases where
+$$1 <\alpha \leq |z| \leq \beta < \infty.$$
+Taking the limit of this function directly, we see
+\begin{align*}
+\lim_{n\rightarrow \infty} \left| f_n(z) - 0 \right|
+	&= \lim_{n\rightarrow \infty} \left| f_n(z)\right| \\
+	&= \lim_{n\rightarrow \infty} \left| \frac 1 {z^n} \right| \\
+	&= \lim_{n\rightarrow \infty} \frac 1 {\left| {z^n} \right|} \\
+	&= 0.
+\end{align*}
+This is because $|z^n|$ is a number with modulus greater than 1 being raised to a positive power, so it blows up.
+As the denominator blows up the whole expression goes to 0.
+Therefore, $f_n(z)$ converges uniformly to $0$ when we have these constraints on $|z|$.
+Furthermore, the case where $z = 1$, $f_n(z)$ is vacuously uniformly convergent. It does not depend on the value of $z$ because in this scenario $z$ is constantly $1$ so we are asking ourselves what is the convergence of
+$$\frac 1 {1^n}.$$
+We know $1$ raised to any power is just $1$. So as $n \rightarrow \infty$, we just get
+$$ \frac 1 {1^n} \overset{n \to \infty}{\longrightarrow} 1.$$
+However, generally, the convergence of this sequence $f_n(z)$ cannot be uniform, since the limit is not continuous. \\
 \qed \\
+
+\newpage
 
 \noindent
 d) $$ \bigg\{ \frac 1 {1 + (nz)^2} \bigg\}_{n=1}^{\infty} $$
@@ -708,6 +747,7 @@ $$
 f_n(z) \overset{n \to \infty}{\longrightarrow} 0 \quad \text{uniformly}.
 $$
 This result is independent of the choice of upper bound $\beta$. \\
+\textbf{TODO: Actually prove uniform convergence here.}
 \qed
 \newpage
 
@@ -793,7 +833,8 @@ $$
 \infty \text{ if } |z| = 1
 \end{cases}
 $$
-does not converge uniformly.
+does not converge uniformly. \\
+\qed \\
 
 \textbf{There are approximately 34 things to do, 30 down!}
 \end{enumerate}
