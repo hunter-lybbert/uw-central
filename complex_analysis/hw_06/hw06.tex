@@ -1,0 +1,143 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+\usepackage{mathtools}
+
+\graphicspath{ {./images/} }
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=5pt]{lemma}{Lemma}
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{11-05-24} \\
+\text{AMATH 567} \\
+
+\title{\bf { Homework 6} }
+
+
+\maketitle
+\noindent
+Collaborators*: TBD\\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
+\normalsize
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item  From A\&F: 3.3.2\\
+\item From A\&F: 3.3.5\\
+\item Bernoulli numbers: Consider the function
+$$
+f(z)=\frac{z}{e^z-1} .
+$$
+\begin{enumerate}
+\item Show that $f(z)$ has a removable singularity at $z=0$. Assume from now on that the definition of $f(z)$ has been extended to remove the singularity.
+\item Suppose you were to find a Taylor series for $f(z)$, centered at $z=0$. What would be its radius of convergence?
+\item Find the Taylor series in the form
+$$
+f(z)=\sum_{n=0}^{\infty} \frac{B_n}{n!} z^n .
+$$
+The numbers $B_n$ are known as the Bernoulli numbers.
+\item Find a recursion formula for the Bernoulli numbers, and use it to find $B_0, \ldots, B_{12}$.
+\item Show that $B_{2 n+1}=0$ for $n \geq 1$.
+\item Use your result to find a Taylor series for $z \operatorname{coth} z$, in terms of the Bernoulli numbers. Where is this series valid? Using this result, find a Laurent series for $\cot z$. Where is this series valid?    \\
+\end{enumerate}
+
+\item Consider $g(z) = 1/f(z)$ where $f(z)$ is as in the previous
+  problem.
+  \begin{enumerate}
+  \item Using the formula for $g(z)$, use software that uses double
+    precision floating point arithmetic to compute the errors $e_n:=
+    |g(2^{-n}) - g(0)|$ for $n= 1,2,\ldots, 52$.  Produce a plot of
+    these errors.
+  \item Derive an approximation $G(z)$ to $g(z)$, near $z = 0$, that does not suffer
+    from the instability you notice.  Plot the new errors $E_n:=
+    |G(2^{-n}) - g(0)|$ for $n= 1,2,\ldots, 52$.  Ensure that these
+    errors are less than $10^{-10}$ for all $n$.\\
+\end{enumerate}
+
+\item Analytic continuation:
+(a) Consider
+$$
+F(z)=1+z+z^2+z^3+\ldots=\sum_{n=0}^{\infty} z^n .
+$$
+Where is this function analytic?
+(b) Use the above representation to induce a Taylor representation of $F(z)$ centered at $z=-1 / 2$. Call this representation $G(z)$. Your final result should be of the form
+$$
+G(z)=\sum_{m=0}^{\infty} c_m\left(z+\frac{1}{2}\right)^m
+$$
+Where is this series valid? If you can answer this question without
+using that both $F(z)$ and $G(z)$ are representations of $1 /(1-z)$,
+you will receive 2 bonus points.\\
+
+\item This problem is from Whittaker and Watson's "A course of modern
+  analysis": Shew\footnote{Aka ``Show''.} that
+
+$$
+\sum_{n=1}^{\infty} \frac{z^{n-1}}{\left(1-z^n\right)\left(1-z^{n+1}\right)}= \begin{cases}\frac{1}{(1-z)^2}, & |z|<1 \\ \frac{1}{z(1-z)^2}, & |z|>1 .\end{cases}
+$$
+This might appear to contradict the idea of analytic
+continuation. Please comment.\\
+
+\item Suppose that $f$ is a function satisfying
+  \begin{align*}
+    |f(x)| \leq M, \quad x \in \mathbb R.
+  \end{align*}
+  Show that
+  \begin{align*}
+    \hat f(z) := \int_0^\infty \E^{\I z x} f(x) \D x,
+  \end{align*}
+  is an analytic function of $z$ for $\imag z > 0$.  You may assume
+  that $f$ is continuous, but this is not a necessary assumption.\\
+
+\item Use analytic continuation to show that
+  \begin{align*}
+    \sqrt{z -1} \sqrt{z + 1} = (z -1) \sqrt{ \frac{ z +1}{z-1}},
+  \end{align*}
+  where $\sqrt{\cdot}$ denotes the principal branch with $\arg z \in
+  [-\pi, \pi)$.  Then show that
+  \begin{align*}
+    \sqrt{z -1} \sqrt{z + 1} = z + b_0 + b_1 z^{-1} + b_2  z^{-2} +
+    O(z^{-3}), \quad z \to \infty,
+  \end{align*}
+  and find $b_0,b_1,b_2$.
+  
+\end{enumerate}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
