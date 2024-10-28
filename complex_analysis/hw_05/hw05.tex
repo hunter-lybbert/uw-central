@@ -521,7 +521,6 @@ as desired. \\
       \begin{align*}
         \oint_C f(z) \sqrt{z-1} \sqrt{z+1} \D z = 0.
       \end{align*}
-(\textbf{1 part}) \\
 \textit{Solution:} \\
 Assume $f(z)$ is an analytic function in a region that contains $\Sigma$.
 Furthermore, let $g(z) = \sqrt{z-1} \sqrt{z+1}$.
@@ -530,7 +529,7 @@ Let $h(z) = f(z)g(z)$ for notational convenience.\\
 
 \noindent
 I will setup some notation for each component of our contour $C$.
-Firstly, let the orientation of our contour $C$ be clockwise. \textbf{TODO: consider reversing the orientation to match what needs to be done in part 2.}
+Firstly, let the orientation of our contour $C$ be counterclockwise.
 Additionally, let us define four sub contours $C_1$, $C_2$, $C_3$ and $C_4$.
 We use subscript despite knowing we will need to subscript with $n$ later.
 At that time we will sub-subscript, for example $C_{1_n}$ to denote a sequence of contours which converges to $C_1$.
@@ -543,17 +542,34 @@ Specifically we describe each of the $C_j$ contours as follows (let $z_0$ be the
 &C_3: \: \text{a vertical line in the complex plane from } z_0=r-\I R \: \text{ to }  z_{\star}=r \\
 &C_4: \: \text{a horizontal line in the complex plane from } z_0=r \: \text{ to }  z_{\star}=-r
 \end{align*}
-See Figure 1 for more details \textbf{TODO: add a photo matching the description}
+\begin{figure}[h]
+	\centering
+	\includegraphics{five-part-one-contour}
+	\caption{
+		As noted in the main discussion, the closed contour $C$ is broken down into the 4 sides of the rectangular are to be denoted $C_1$ through $C_4$.
+	}\label{fig:f1}
+\end{figure}
+See Figure \ref{fig:f1} for a cartoon of these contours.
 \\
 
 Notice the contour $C_4$ traverses along the branch cut from $[-1, 1]$ on the real axis.
-We need to account for this by creating a sequence of contours which converge to the actual contours we want to evaluate the integral over.
-As seen in Figure 2, (\textbf{TODO: Add photo of the contours moving up towards the real axis}) we will be shifting our whole region $\Sigma$ (and thus our contour $C = \partial \Sigma$) down away from the real axis and the branch cut.
+We need to account for this by creating a sequence of contours which converge to the actual contours we want to evaluate the integral over. \\
+\begin{figure}[h]
+	\centering
+	\includegraphics{five-part-one-sequence}
+	\caption{
+		This diagram represents the original closed contour $C$ being entirely shifted down by $\I / n$.
+		This helps us construct the sequence of contours which converge to the original contour we really want to evaluate.
+	}\label{fig:f2}
+\end{figure}
+
+\noindent
+As seen in Figure \ref{fig:f2}, we will be shifting our whole region $\Sigma$ (and thus our contour $C = \partial \Sigma$) down away from the real axis and the branch cut.
 We will then construct a sequence of contours which converge to the contour we want.
 This can be done by constructing parameterizations of our contours $C_j$ such that 
 \begin{align*}
-	z_{j_n}(t) \overset{n \to \infty}{\longrightarrow} z_j(t),  \quad \text{uniformly on } [a,b],\\
-        z_{j_n}'(t) \overset{n \to \infty}{\longrightarrow} z'_j(t), \quad \text{uniformly on } [a,b].
+	z_{j_n}(t) \overset{n \to \infty}{\longrightarrow} z_j(t)  \:\: \text{ and} \:\:
+	z_{j_n}'(t) \overset{n \to \infty}{\longrightarrow} z'_j(t), \:\: \text{both uniformly on } [a,b].
 \end{align*}
 Where $z_j(t)$ is a parameterization of $C_j$, $z_{j_n}(t)$ is a sequence of functions which converge uniformly to $z_j(t)$, similarly for the derivative of this parameterization, and $a$ and $b$ are the points such that $z_j(a) = z_0$ and $z_j(b) = z_{\star}$ the initial and terminating points on the contour $C_j$. \\
 
@@ -600,8 +616,8 @@ And their derivatives give us,
 \end{align*}
 Since, for each $z_{j_n}(t)$ and $z_{j_n}^\prime(t)$ we have that
 \begin{align*}
-	&z_{j_n}(t) \overset{n \to \infty}{\longrightarrow} z_j(t),  \quad \text{uniformly on } [0,1] \text{ and }\\
-        &z_{j_n}'(t) \overset{n \to \infty}{\longrightarrow} z'_j(t), \quad \text{uniformly on } [0,1].
+	z_{j_n}(t) \overset{n \to \infty}{\longrightarrow} z_j(t)  \:\: \text{ and} \:\:
+	z_{j_n}'(t) \overset{n \to \infty}{\longrightarrow} z'_j(t), \:\: \text{both uniformly on } [0,1].
 \end{align*}
 Therefore by Lemma 1 established in problem 4, we can say
 \begin{align*}
@@ -618,46 +634,157 @@ $$
 $$
 Therefore, we must also have
 $$\oint_{C}h(z)\D z = 0$$
-since the sequence $$\oint_{C_n}h(z)\D z$$ (which turns out is a sequence of zeros), converges to $\oint_{C}h(z)\D z$. \\
+since the sequence $\oint_{C_n}h(z)\D z$ (which turns out is a sequence of zeros), converges to $\oint_{C}h(z)\D z$. \\
 \qed \\
 
   \item Show that if $f(z)$ is analytic in a region that contains $\Sigma$
     \begin{align*}
         \oint_C \frac{f(z) \D z}{\sqrt{z-1} \sqrt{z+1}}= 0.
       \end{align*}
-(\textbf{1 part}) \\
 \textit{Solution:} \\
-\textbf{Address the cases of $r < 1, r=1, r>1$. Site problem 4 for the ticket stub contour to move up.}
-Use the same setup as in part 1 except we need to add the following step.
-After we have approached the contour $C$ that we want from the bottom, we then need to deform around the two singularities which fall on our contour $C$ directly at $z = -1$ and $z = 1$.
-I will now describe how we have to transform the upper contour formerly referred to by $C_4$ in part one of this problem. \\
+There are a few cases to address here.
+First, of all if $r < 1$ then our contour $C$ does not intersect any points where $h(z)$ (same notation as in part 1) is undefined or blows up.
+In this case evaluating this integral is the same as the part 1.
+I also claim that the case when $r=1$ is the same as part 1 as well.
+Since we are still not strictly integrating across either problematic point but they are instead at the bounds of integration for the contour integrals we have no issues and again can refer to part 1 in this case.
+The more interesting case is when $r > 1$.
+Let's address this case thoroughly and carefully. \\
 
 \noindent
-\textbf{TODO: Add photo of the new set of contours which break down contour $C_4$ (the contour along the real axis.)}
-We construct the parameterizations of these new contours as follows
+Let's use the same parameterizations of each side of the rectangular contour except for the $C_4$ section, we will define the contour $C_4$ in a new way.
+I am defining $\widehat C$ to be the top of the rectangle from part 1.
+This time we cut out two lower half plane semicircles from the contour $C_4$ to make $\widehat C$.
+Now let's break down $\widehat C$ into 5 separate contours $\widehat C_k$ where $k \in \{1, 2, ..., 5\}$.
+We define these contours as follows
 \begin{align*}
-&z_{2_n}(t) = (1/n) \E^{\I \theta} - 1 \quad \theta \in [-\pi, 0]& &z_2(t) = -1 \quad \theta \in [-\pi, 0]& \\
-&z_{4_n}(t) = (1/n) \E^{\I \theta} + 1 \quad \theta \in [-\pi, 0]& &z_4(t) = 1 \quad \theta \in [-\pi, 0]& \\
-&z_{1_n}(t) = - r + (r - 1 - (1/n)) t \quad t \in [0, 1]& &z_1(t) = - r + (r - 1) t \quad t \in [0, 1]& \\
-&z_{3_n}(t) = (- 1 + (1/n)) + 2(1 - (1/n))t \quad t \in [0, 1]& &z_3(t) = -1 + 2t \in [0, 1]& \\
-&z_{5_n}(t) = (1 + (1/n)) + (r - 1 - (1/n))t \quad t \in [0, 1]& &z_5(t) = 1 + (r - 1)t \quad t \in [0, 1].&
+&\widehat C_1: \: \text{a horizontal line in the complex plane from } z_0=r \: \text{ to }  z_{\star}=1 + \epsilon \\
+&\widehat C_2: \: \text{semicircle in the lower half plane centered at $z=1$ with radius $\epsilon$}, z_0=1 + \epsilon \: \text{ to }  z_{\star}=1 - \epsilon \\
+&\widehat C_3: \: \text{a horizontal line in the complex plane from } z_0=1 - \epsilon \: \text{ to }  z_{\star}=-1 + \epsilon \\
+&\widehat C_4: \: \text{semicircle in the lower half plane centered at $z=-1$ with radius $\epsilon$},  z_0=-1 + \epsilon \: \text{ to }  z_{\star}=-1 - \epsilon \\
+&\widehat C_5: \: \text{a horizontal line in the complex plane from } z_0=-1 - \epsilon \: \text{ to }  z_{\star}=-r.
 \end{align*}
-\textbf{TODO: Show that a few of these explicitly are uniformly continuous, do this for the top contour.}
+We now parameterize things with a sequence of contours to help us apply results from lemma 1 (let's denote these with hats to mean $\hat z$ are values of $z$ along $\widehat C$)
+\begin{align*}
+&\hat z_{2_n}(t) = \epsilon \E^{\I \theta} + 1 - \frac \I n \quad \theta \in [0, -\pi]&
+	&\hat z_2(t) = \epsilon \E^{\I \theta} + 1 \quad \theta \in [0, -\pi]& \\
+&\hat z_{4_n}(t) = \epsilon \E^{\I \theta} - 1 - \frac \I n \quad \theta \in [0, -\pi]&
+	&\hat z_4(t) = \epsilon \E^{\I \theta} - 1 \quad \theta \in [0, -\pi]& \\
+&\hat z_{1_n}(t) = r + (1 + \epsilon - r)t - \frac \I n \quad t \in [0, 1]&
+	&\hat z_1(t) = r + (1 + \epsilon - r)t \quad t \in [0, 1]& \\
+&\hat z_{3_n}(t) = 1 - \epsilon - 2(1 - \epsilon)t - \frac \I n \quad t \in [0, 1]&
+	&\hat z_3(t) = 1 - \epsilon - 2(1 - \epsilon)t \quad t \in [0, 1]& \\
+&\hat z_{5_n}(t) = - 1 - \epsilon + (- r + 1 + \epsilon)t - \frac \I n\quad t \in [0, 1]&
+	&\hat z_5(t) = - 1 - \epsilon + (- r + 1 + \epsilon)t \quad t \in [0, 1].&
+\end{align*}
+See Figure \ref{fig:f3} for a helpful cartoon to visualize this new contour path.
+I will demonstrate how a few of these are indeed uniformly convergent.
+I argue that the other cases I will not discuss can be shown similarly.
+Let $\epsilon > 0$ and choose $N = \ceil{\frac 1 \epsilon}$ such that whenever $n > N$ we have the following
+\begin{align*}
+\left| \hat z_{1_n}(t) - \hat z_1(t) \right|
+	&= \left| r + (1 + \epsilon - r)t - \frac \I n - \left(r + (1 + \epsilon - r)t\right) \right| \\
+	&= \left| \cancel{r + (1 + \epsilon - r)t} - \frac \I n - \cancel {\left(r + (1 + \epsilon - r)t\right)} \right| \\
+	&= \left| - \frac \I n \right| \\
+	&< \left| - \frac \I {\frac 1 \epsilon} \right| \\
+	&= \left| - \I \epsilon \right| \\
+	&= \epsilon.
+\end{align*}
+Once again, let $\epsilon > 0$ and choose $N = \ceil{\frac 1 \epsilon}$ such that whenever $n > N$ we have the following
+\begin{align*}
+\left| \hat z_{2_n}(t) - \hat z_2(t) \right|
+	&= \left| \epsilon \E^{\I \theta} + 1 - \frac \I n - \left(\epsilon \E^{\I \theta} + 1\right) \right| \\
+	&= \left| \cancel{\epsilon \E^{\I \theta} + 1} - \frac \I n - \cancel{\left(\epsilon \E^{\I \theta} + 1\right)} \right| \\
+	&= \left| - \frac \I n \right| \\
+	&< \left| - \frac \I {\frac 1 \epsilon} \right| \\
+	&= \left| - \I \epsilon \right| \\
+	&= \epsilon.
+\end{align*}
+\begin{figure}[h]
+	\centering
+	\includegraphics{five-part-two-sequence}
+	\caption{
+		This cartoon represents the new ``ticket-stub" closed contour $C$ being entirely shifted down by $\I / n$.
+		The semicircles have a fixed radius $0< \epsilon < 1$.
+		See the careful parameterizations of the contours $\widehat C_1$ through $\widehat C_5$.
+	}\label{fig:f3}
+\end{figure}
 And their derivatives give us,
 \begin{align*}
-&z_{2_n}^\prime(t) = (1/n) \I \E^{\I \theta} \quad \theta \in [-\pi, 0]& &z_2^\prime(t) = 0 \quad t \in [0, 1]& \\
-&z_{4_n}^\prime(t) = (1/n) \I \E^{\I \theta} \quad \theta \in [-\pi, 0]& &z_4^\prime(t) = 0 \quad t \in [0, 1]& \\
-&z_{1_n}^\prime(t) = (r - 1 - (1/n)) \quad t \in [0, 1]& &z_1^\prime(t) = r - 1 \quad t \in [0, 1]& \\
-&z_{3_n}^\prime(t) = 2(1 - (1/n)) \quad t \in [0, 1]& &z_3^\prime(t) = 2 \quad t \in [0, 1]& \\
-&z_{5_n}^\prime(t) = (r - 1 - (1/n)) \quad t \in [0, 1]& &z_5^\prime(t) = r - 1 \quad t \in [0, 1].&
+&\hat z_{2_n}^\prime(t) = \epsilon \I \E^{\I \theta} \quad \theta \in [0, -\pi]&
+	&\hat z_2^\prime(t) = \epsilon \I \E^{\I \theta} \quad \theta \in [0, -\pi]& \\
+&\hat z_{4_n}^\prime(t) = \epsilon \I \E^{\I \theta} \quad \theta \in [0, -\pi]&
+	&\hat z_4^\prime(t) = \epsilon \I \E^{\I \theta} \quad \theta \in [0, -\pi]& \\
+&\hat z_{1_n}^\prime(t) = 1 + \epsilon - r \quad t \in [0, 1]&
+	&\hat z_1^\prime(t) = 1 + \epsilon - r \quad t \in [0, 1]& \\
+&\hat z_{3_n}^\prime(t) = - 2(1 - \epsilon) \quad t \in [0, 1]&
+	&\hat z_3^\prime(t) = - 2(1 - \epsilon) \quad t \in [0, 1]& \\
+&\hat z_{5_n}^\prime(t) = - r + 1 + \epsilon \quad t \in [0, 1]&
+	&\hat z_5^\prime(t) = - r + 1 + \epsilon \quad t \in [0, 1].&
 \end{align*}
-Let contour $C_4 = \widehat C$ can be written as
+Now that we have these continuous sequences which converge uniformly I site lemma 1 to conclude that we have
 $$
-\oint_{\widehat C} h(z) \D z = \sum_{k = 1}^5 \oint_{\widehat C_k} h(z) \D z
+\oint_{C_{j_n}}h(z)\D z \overset{n\rightarrow \infty}{\longrightarrow} \oint_{C_j} h(z)\D z \quad \text{for each} \: j \in \{1, 2, 3\}
 $$
-Where the parameterization of the parts becomes a sum where each $\widehat C_k$ can be parameterized and is thus a convergent sequences of things.
-We want to use lemma 1 again but we don't have continuity of $h(z)$ on the closure of our open set (\textbf{TODO: describe this set}) which now includes $z=-1,1$ as we take the limit of our parameterizations as $n\rightarrow \infty$.
-To establish continuity at this point define an extension of h(z) such that
+and
+$$
+\oint_{\widehat C_{j_n}}h(z)\D z \overset{n\rightarrow \infty}{\longrightarrow} \oint_{\widehat C_j} h(z)\D z \quad \text{for each} \: j \in \{1, 2, 3, 4, 5\}.
+$$
+We have shown how we can use lemma 1 to create a sequence of ``ticket-stub" shaped contours which converge to the ``ticket-stub" shaped contour which is on the real axis and partially traverses along the branch cut.
+Now we want to shrink these open semicircles in the lower half plane by letting the radius $\epsilon$ go to 0.
+See the cartoon depiction of this in Figure \ref{fig:f4} for more details.
+\begin{figure}[h]
+	\centering
+	\includegraphics{five-part-two-contour}
+	\caption{
+		This cartoon represents the new ``ticket-stub" closed contour $C$ now that it's on the real axis.
+		We are now shrinking the radii of the semicircles by setting $\epsilon = \frac 1 k$.
+		See the careful parameterizations of the contours $\widetilde C_1$ through $\widetilde C_5$ for how this shrinking works.
+	}\label{fig:f4}
+\end{figure}
+If we let $\epsilon = 1/k$ and let $k\rightarrow \infty$ then we will end up with the the original $C_4$.
+We denote this final collection of contours and parameterizations with the tilde symbol as follows $
+\widetilde C_j$ and $\tilde z_j(t)$.
+Then we have the following contours that makeup the contour $C_4$
+\begin{align*}
+&\widetilde C_1: \: \text{a horizontal line in the complex plane from } z_0=r \: \text{ to }  z_{\star}=1 \\
+&\widetilde C_2: \: \text{a single point}, z_0=z_\star=1 \\
+&\widetilde C_3: \: \text{a horizontal line in the complex plane from } z_0=1 \: \text{ to }  z_{\star}=-1 \\
+&\widetilde C_4: \: \text{a single point}, z_0=z_\star=-1 \\
+&\widetilde C_5: \: \text{a horizontal line in the complex plane from } z_0=-1 \: \text{ to }  z_{\star}=-r.
+\end{align*}
+Furthermore, we have the following sequences of parameterizations
+\begin{align*}
+&\hat z_{2_k}(t) = (1/k) \E^{\I \theta} + 1\quad \theta \in [0, -\pi]&
+	&\hat z_2(t) = 1 \quad \theta \in [0, -\pi]& \\
+&\hat z_{4_k}(t) = (1/k) \E^{\I \theta} - 1 \quad \theta \in [0, -\pi]&
+	&\hat z_4(t) = - 1 \quad \theta \in [0, -\pi]& \\
+&\hat z_{1_k}(t) = r + (1 + (1/k) - r)t  \quad t \in [0, 1]&
+	&\hat z_1(t) = r + (1 - r)t \quad t \in [0, 1]& \\
+&\hat z_{3_k}(t) = 1 - (1/k) - 2(1 - (1/k))t  \quad t \in [0, 1]&
+	&\hat z_3(t) = 1 - 2t \quad t \in [0, 1]& \\
+&\hat z_{5_k}(t) = - 1 - (1/k) + (- r + 1 + (1/k))t \quad t \in [0, 1]&
+	&\hat z_5(t) = - 1 + (- r + 1)t \quad t \in [0, 1].&
+\end{align*}
+And the derivatives
+\begin{align*}
+&\hat z_{2_k}(t) = (1/k)\I \E^{\I \theta} \quad \theta \in [0, -\pi]&
+	&\hat z_2(t) = 0 \quad \theta \in [0, -\pi]& \\
+&\hat z_{4_k}(t) = (1/k)\I \E^{\I \theta} \quad \theta \in [0, -\pi]&
+	&\hat z_4(t) = 0 \quad \theta \in [0, -\pi]& \\
+&\hat z_{1_k}(t) = 1 + (1/k) - r  \quad t \in [0, 1]&
+	&\hat z_1(t) = 1 - r \quad t \in [0, 1]& \\
+&\hat z_{3_k}(t) = - 2(1 - (1/k))  \quad t \in [0, 1]&
+	&\hat z_3(t) = - 2 \quad t \in [0, 1]& \\
+&\hat z_{5_k}(t) = - r + 1 + (1/k) \quad t \in [0, 1]&
+	&\hat z_5(t) = - r + 1 \quad t \in [0, 1].&
+\end{align*}
+\\
+
+\noindent
+Additionally in order to use lemma 1 again, we need to have continuity of $h(z)$ on the closure of our open set
+$$\Omega = \{z \: : \: -R < \Im(z) < 0 \} \cap \{z \: : \: -r < \Re(z) < r \}.$$
+Since $\overline \Omega$ includes $-1$ and $1$, the points that $h(z)$ blows up or is not defined, we need to do some more work before applying lemma 1
+We need to establish continuity at these points, let's define an extension of h(z) such that
 \begin{align*}
 h(-1) &= \frac 1 {2\pi \I}\oint_C \frac {h(\xi)}{\xi + 1} \D \xi \\
 h(1) &= \frac 1 {2\pi \I}\oint_C \frac {h(\xi)}{\xi - 1} \D \xi.
@@ -691,7 +818,22 @@ Similarly,
 \end{align*}
 Since $(1-z)\overset{z \to 1}{\longrightarrow} 0$ and the value of the integral, namely it's denominator, will not go to 0.
 Therefore $h(z)$ is continuous at the point $z = 1$.
-Now that we have $h(z)$ is continuous on the closure of our open set \textbf{TODO: again specify this set}, we can use a sequence of contours to determine the value of the contour on the branch cut and branch points.
+Now that we have $h(z)$ is continuous on the closure of our open set $\Omega$, we can site lemma 1 to conclude that 
+$$
+\oint_{\widetilde C_{j_k}} h(z) \D z \overset{n\rightarrow \infty}{\longrightarrow} \oint_{\widetilde C_j} h(z) \D z \quad \text{for each } j \in \{1, 2, ..., 5\}.
+$$
+Notice, the way we defined the $\widetilde C_j$'s we end up with 
+$$
+\sum_{j=1}^5 \oint_{\widetilde C_j} h(z) \D z = \oint_{C_4} h(z) \D z.
+$$
+Therefore, once again we have $h(z)$ is analytic in the region containing our sequence of simple closed contours $C_n$ then by Cauchy's Theorem
+$$
+\oint_{C_n}h(z)\D z = 0.
+$$
+Therefore, we must also have
+$$\oint_{C}h(z)\D z = 0$$
+since the sequence $\oint_{C_n}h(z)\D z$ (which turns out is a sequence of zeros), converges to $\oint_{C}h(z)\D z$.
+
 
 \end{itemize}
 \newpage
@@ -760,8 +902,7 @@ Notice,
 	&= \lim_{n \rightarrow \infty} \frac 1 {\sqrt{(1 + n^2(x - y)(x + y))^2 + n^4 4 x^2 y^2 }} \\
 	&= \lim_{n \rightarrow \infty} \frac 1 {\sqrt{(1 + 2n^2(x - y)(x + y) + n^4(x - y)^2(x + y)^2 + n^4 4 x^2 y^2 }}
 \end{align*}
-WE want to show that this limit is 0. this will help with the uniform convergence arguments to be made.
-\textbf{TODO: Actually prove uniform convergence here.}
+We want to show that this limit is 0. this will help with the uniform convergence arguments to be made.
 \qed
 \newpage
 
@@ -815,10 +956,6 @@ Thus
 $$
 f_n(z) \overset{n \to \infty}{\longrightarrow} 0 \quad \text{uniformly}.
 $$
-\textbf{TODO:} Again, do I need to prove uniform convergence with a $N-\epsilon$ proof?
-It seems sufficient in the negative cases to just demonstrate that the limit is not continuous so it can't be uniformly convergent.
-The only cases where I claimed (d) was uniformly convergent were when 0 is excluded here in problem 7 and in problem 6.
-Additionally, I claimed (b) was uniformly convergent in some cases in problem 6.
 \qed \\
 
 \newpage
@@ -849,8 +986,6 @@ $$
 $$
 does not converge uniformly. \\
 \qed \\
-
-\textbf{There are approximately 34 things to do, 30 down!}
 \end{enumerate}
 
 \end{document}
