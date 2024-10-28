@@ -746,7 +746,21 @@ However, since we have $|z| \geq \alpha > 0$ we know $|z| \neq 0$ and thus
 $$
 f_n(z) \overset{n \to \infty}{\longrightarrow} 0 \quad \text{uniformly}.
 $$
-This result is independent of the choice of upper bound $\beta$. \\
+This result is independent of the choice of upper bound $\beta$.
+More formally, I will show it using the limit.
+Notice,
+\begin{align*}
+\lim_{n \rightarrow \infty} \left| f_n(z) - f(z) \right|
+	&= \lim_{n \rightarrow \infty} \left| \frac 1 {1 + (nz)^2} - 0 \right| \\
+	&= \lim_{n \rightarrow \infty} \left| \frac 1 {1 + (nz)^2}\right| \\
+	&= \lim_{n \rightarrow \infty} \frac 1 {|1 + n^2z^2|} \\
+	&= \lim_{n \rightarrow \infty} \frac 1 {|1 + n^2(x + iy)^2|} \\
+	&= \lim_{n \rightarrow \infty} \frac 1 {|1 + n^2(x^2 + 2\I x y - y^2) |} \\
+	&= \lim_{n \rightarrow \infty} \frac 1 {\sqrt{(1 + n^2x^2 - n^2y^2)^2 + (n^22 x y)^2 }} \\
+	&= \lim_{n \rightarrow \infty} \frac 1 {\sqrt{(1 + n^2(x - y)(x + y))^2 + n^4 4 x^2 y^2 }} \\
+	&= \lim_{n \rightarrow \infty} \frac 1 {\sqrt{(1 + 2n^2(x - y)(x + y) + n^4(x - y)^2(x + y)^2 + n^4 4 x^2 y^2 }}
+\end{align*}
+WE want to show that this limit is 0. this will help with the uniform convergence arguments to be made.
 \textbf{TODO: Actually prove uniform convergence here.}
 \qed
 \newpage
@@ -804,7 +818,7 @@ $$
 \textbf{TODO:} Again, do I need to prove uniform convergence with a $N-\epsilon$ proof?
 It seems sufficient in the negative cases to just demonstrate that the limit is not continuous so it can't be uniformly convergent.
 The only cases where I claimed (d) was uniformly convergent were when 0 is excluded here in problem 7 and in problem 6.
-Additionally, I claimed (b) was uniformly convergent in some cases in problem 6.s
+Additionally, I claimed (b) was uniformly convergent in some cases in problem 6.
 \qed \\
 
 \newpage
