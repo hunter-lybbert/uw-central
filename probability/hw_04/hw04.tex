@@ -23,13 +23,81 @@ $$P({a})=1/6, \,\,\,, P({b})=1/3, \,\,\, P({c})=1/4, \,\,\, P({d})=1/4.$$
 Next, define three random variables:
 
 $$X(a)=1, \,\,\, X(b)=1, \,\,\, X(c)=-1, \,\,\,  X(d)=-1,$$
-$$Y(a)=1, \,\,\, Y(b)=-1, \,\,\, Y(c)=1, \,\,\,  X(d)=-1,$$
-and $Z=X+Y$.
-(a) List the sets in $\sigma(X)$. (b) Calculate $E(Y|X)$. (c) Calculate $E(Z|X)$.
+$$Y(a)=1, \,\,\, Y(b)=-1, \,\,\, Y(c)=1, \,\,\,  Y(d)=-1,$$
+and $Z=X+Y$. \\
+
+\noindent
+(a) List the sets in $\sigma(X)$. \\
+\textit{Solution:} \\
+The pre-image of X is
+$$
+X^{-1}(B) =
+\begin{cases}
+	\{c, d\}, \text{ if } -1 \in B, 1 \not\in B \\
+	\{a, b\}, \text{ if } 1 \in B, -1 \not\in B.
+\end{cases}
+$$
+Then we have
+$$\sigma(X) = \sigma(\big\{ \{a, b\}, \{c, d\} \big\}) = \bigg\{ \{a, b\}, \{c, d\}, \Omega, \emptyset \bigg\}$$
+\qed
 \\
 
-\noindent {\bf 2.} (a) Prove that $E(E(X|\mathcal{F}))=EX$. 
+\noindent
+(b) Calculate $E(Y|X)$. \\
+\textit{Solution:} \\
+We can calculate this as follows
+$$
+\mathbb E[Y | X] = \mathbb E [Y | \sigma(X)]
+$$
+then we have
+$$
+\mathbb E [Y | \sigma(X)] = \frac {\mathbb E[ Y; \{ a, b \}]}{P(\{ a, b\})} = \frac {1\cdot P(a)  -1\cdot P(b)}{\frac 1 6 + \frac 1 3} = \frac {1\cdot \frac 1 6 - 1\cdot \frac 1 3}{\frac 1 2} = - \frac 1 3
+$$
+and
+$$
+\mathbb E [Y | \sigma(X)] = \frac {\mathbb E[ Y; \{ c, d \}]}{P(\{ c, d\})} = \frac {1\cdot P(c) - 1\cdot P(d)}{\frac 1 2} = \frac { 1\cdot \frac 1 4 - 1\cdot \frac 1 4}{\frac 1 2}  = 0
+$$
+\qed \\
 
+\noindent
+(c) Calculate $E(Z|X)$. \\
+\textit{Solution:} \\
+Let's first look at the values that $Z(\omega)$ takes on for each $\omega \in \{a, b, c, d\}$.
+$$
+Z(a) = 2,\;Z(b) = 0,\;Z(c) = 0,\;Z(d) = -2
+$$
+Then we have
+$$
+\mathbb E[Z|X] = \mathbb E[Z | \sigma(X)]
+$$
+giving us
+$$
+\mathbb E [Z | \sigma(X)] = \frac {\mathbb E[ Z; \{ a, b \}]}{P(\{ a, b\})} = \frac {2\cdot P(a) + 0\cdot P(b)}{\frac 1 6 + \frac 1 3} = \frac {2\cdot \frac 1 6 + 0\cdot \frac 1 3}{\frac 1 2} = \frac 2 3
+$$
+and
+$$
+\mathbb E [Z | \sigma(X)] = \frac {\mathbb E[ Z; \{ c, d \}]}{P(\{ c, d\})} = \frac {2\cdot P(c) + 0\cdot P(d)}{\frac 1 2} = \frac {2\cdot \frac 1 4 + 0\cdot \frac 1 4}{\frac 1 2}  = \frac 1 2
+$$
+\qed \\
+\newpage
+
+\noindent {\bf 2.} (a) Prove that $E(E(X|\mathcal{F}))=EX$. \\
+\textit{Solution:} \\
+There is an underlying probability space $(\Omega, \mathcal F, P)$.
+Let $\mathcal F = \sigma(\{\Omega_1, \Omega_2, ...\})$, then
+$$
+\mathbb E[X |\mathcal F]
+	= \frac{\mathbb E [X; \Omega_i]}{P(\Omega_i)}
+	= \frac{\int_{\Omega_i}  X \D P}{P(\Omega_i)}
+$$
+\begin{align*}
+\mathbb E \big[ \mathbb E [X | \mathcal F]\big] = \int_\Omega \mathbb E [X | \mathcal F] \D P =
+\end{align*}
+\begin{align*}
+\mathbb E[X] = \int_\Omega X \D P = \int_{\mathbb R} x \mu(\D x)
+\end{align*}
+
+\noindent
 (b) Show that if $\mathcal{G}\subset \mathcal{F}$ and $EX^2<\infty$ then
 $$E(\{X-E(X|\mathcal{F})\}^2)+ E(\{E(X|\mathcal{F})-E(X|\mathcal{G})\}^2)=E(\{X-E(X|\mathcal{G})\}^2)$$ 
 
