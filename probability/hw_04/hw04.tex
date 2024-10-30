@@ -1,0 +1,250 @@
+\documentclass[10pt]{amsart}
+\include{amsmath}
+\usepackage{dsfont}													% gives you \mathds{} font
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{cancel}
+
+\newcommand{\D}{\mathrm{d}}
+\DeclareMathOperator{\E}{e}
+
+\begin{document}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{10-30-24} \\
+\text{AMATH 561}
+\title{Problem Set 4}
+\maketitle
+
+\noindent {\bf 1.} Let $\Omega=\{a,b,c,d\}$ and let $\mathcal{F}=2^{\Omega}$. We define a probability measure $P$ as follows:
+
+$$P({a})=1/6, \,\,\,, P({b})=1/3, \,\,\, P({c})=1/4, \,\,\, P({d})=1/4.$$
+Next, define three random variables:
+
+$$X(a)=1, \,\,\, X(b)=1, \,\,\, X(c)=-1, \,\,\,  X(d)=-1,$$
+$$Y(a)=1, \,\,\, Y(b)=-1, \,\,\, Y(c)=1, \,\,\,  Y(d)=-1,$$
+and $Z=X+Y$. \\
+
+\noindent
+(a) List the sets in $\sigma(X)$. \\
+\textit{Solution:} \\
+The pre-image of X is
+$$
+X^{-1}(B) =
+\begin{cases}
+	\{c, d\}, \text{ if } -1 \in B, 1 \not\in B \\
+	\{a, b\}, \text{ if } 1 \in B, -1 \not\in B.
+\end{cases}
+$$
+Then we have
+$$\sigma(X) = \sigma(\big\{ \{a, b\}, \{c, d\} \big\}) = \bigg\{ \{a, b\}, \{c, d\}, \Omega, \emptyset \bigg\}$$
+\qed
+\\
+
+\noindent
+(b) Calculate $E(Y|X)$. \\
+\textit{Solution:} \\
+We can calculate this as follows
+$$
+\mathbb E[Y | X] = \mathbb E [Y | \sigma(X)]
+$$
+then we have
+$$
+\mathbb E [Y | \sigma(X)] = \frac {\mathbb E[ Y; \{ a, b \}]}{P(\{ a, b\})} = \frac {1\cdot P(a)  -1\cdot P(b)}{\frac 1 6 + \frac 1 3} = \frac {1\cdot \frac 1 6 - 1\cdot \frac 1 3}{\frac 1 2} = - \frac 1 3
+$$
+and
+$$
+\mathbb E [Y | \sigma(X)] = \frac {\mathbb E[ Y; \{ c, d \}]}{P(\{ c, d\})} = \frac {1\cdot P(c) - 1\cdot P(d)}{\frac 1 2} = \frac { 1\cdot \frac 1 4 - 1\cdot \frac 1 4}{\frac 1 2}  = 0
+$$
+\qed \\
+
+\noindent
+(c) Calculate $E(Z|X)$. \\
+\textit{Solution:} \\
+Let's first look at the values that $Z(\omega)$ takes on for each $\omega \in \{a, b, c, d\}$.
+$$
+Z(a) = 2,\;Z(b) = 0,\;Z(c) = 0,\;Z(d) = -2
+$$
+Then we have
+$$
+\mathbb E[Z|X] = \mathbb E[Z | \sigma(X)]
+$$
+giving us
+$$
+\mathbb E [Z | \sigma(X)] = \frac {\mathbb E[ Z; \{ a, b \}]}{P(\{ a, b\})} = \frac {2\cdot P(a) + 0\cdot P(b)}{\frac 1 6 + \frac 1 3} = \frac {2\cdot \frac 1 6 + 0\cdot \frac 1 3}{\frac 1 2} = \frac 2 3
+$$
+and
+$$
+\mathbb E [Z | \sigma(X)] = \frac {\mathbb E[ Z; \{ c, d \}]}{P(\{ c, d\})} = \frac {0\cdot P(c) + -2\cdot P(d)}{\frac 1 2} = \frac {0\cdot \frac 1 4 -2\cdot \frac 1 4}{\frac 1 2}  = -1
+$$
+\qed \\
+\newpage
+
+\noindent {\bf 2.} (a) Prove that $E(E(X|\mathcal{F}))=EX$. \\
+\textit{Solution:} \\
+There is an underlying probability space $(\Omega, \mathcal F_0, P)$.
+And all we know about $\mathcal F$ is that it is a subset of the $\sigma$-algebra which $X$ is defined on, $\mathcal F \subset \mathcal F_0$.
+Let $Y = \mathbb E[ X | \mathcal F ]$ be a random variable, then by our definition in lecture slides 10 we have
+\begin{enumerate}
+\item $Y \in \mathcal F$ that is $Y$ is $\mathcal F$ measurable and
+\item For all $A \in \mathcal F$, we have
+$$\int_{A} Y \D P = \int_{A} X \D P.$$
+\end{enumerate}
+Since, $\mathcal F$ is a $\sigma$-algebra we can take $A = \Omega$ and then we have
+$$
+\mathbb E \big[ \mathbb E [X | \mathcal F]\big]
+	= \int_\Omega \mathbb E [X | \mathcal F] \D P
+	= \int_\Omega Y \D P
+	= \int_\Omega X \D P
+	= \mathbb E [X]
+$$
+\qed \\
+
+\noindent
+(b) Show that if $\mathcal{G}\subset \mathcal{F}$ and $EX^2<\infty$ then
+$$E(\{X-E(X|\mathcal{F})\}^2)+ E(\{E(X|\mathcal{F})-E(X|\mathcal{G})\}^2)=E(\{X-E(X|\mathcal{G})\}^2)$$
+\textit{Solution:} \\
+Assume $\mathcal G \subset \mathcal F$ and $\mathbb E [X^2] < \infty$.
+Let's begin by expanding the terms on the left
+\begin{align*}
+& \mathbb E\bigg[\big(X - \mathbb E[X|\mathcal{F}]\big)^2\bigg]
+	+ \mathbb E\bigg[\big(\mathbb E[X|\mathcal{F}] - \mathbb E[X|\mathcal{G}]\big)^2\bigg] \\
+	&= \mathbb E\bigg[X^2 - 2X\mathbb E[X|\mathcal{F}] + \mathbb E[X|\mathcal{F}]^2\bigg]
+	+ \mathbb E\bigg[\mathbb E[X|\mathcal{F}]^2 - 2\mathbb E[X|\mathcal{F}] \mathbb E[X|\mathcal{G}] + \mathbb E[X|\mathcal{G}]^2\bigg] \\
+	&= \mathbb E\bigg[X^2\bigg]
+		- 2\mathbb E\bigg[X\mathbb E[X|\mathcal{F}]\bigg]
+		+ \mathbb E\bigg[\mathbb E[X|\mathcal{F}]^2\bigg]
+		+ \mathbb E\bigg[\mathbb E[X|\mathcal{F}]^2\bigg]
+		- 2\mathbb E\bigg[\mathbb E[X|\mathcal{F}] \mathbb E[X|\mathcal{G}]\bigg]
+		+ \mathbb E\bigg[\mathbb E[X|\mathcal{G}]^2\bigg].
+\end{align*}
+Let's look specifically at this term $\mathbb E\big[\mathbb E[X|\mathcal{F}]^2\big]$ which shows up twice.
+We make use of the theorem from class which states if $X \in \mathcal F$ then
+$$\mathbb E [XY | \mathcal F] = X \mathbb E [Y | \mathcal F].$$
+And finish by applying part (a) as well. Thus
+\begin{align*}
+\mathbb E\bigg[\mathbb E[X|\mathcal{F}]^2\bigg]
+	&= \mathbb E\bigg[\mathbb E[X|\mathcal{F}] \mathbb E[X|\mathcal{F}] \bigg] \\
+	&= \mathbb E\bigg[\mathbb E\big[X \mathbb E[X|\mathcal{F}] \big|\mathcal{F}\big] \bigg] \\
+	&= \mathbb E\bigg[X \mathbb E[X|\mathcal{F}] \bigg].
+\end{align*}
+Picking up where we left off we have
+\begin{align*}
+	&= \mathbb E\bigg[X^2\bigg]
+		- 2\mathbb E\bigg[X\mathbb E[X|\mathcal{F}]\bigg]
+		+ \mathbb E\bigg[\mathbb E[X|\mathcal{F}]^2\bigg]
+		+ \mathbb E\bigg[\mathbb E[X|\mathcal{F}]^2\bigg]
+		- 2\mathbb E\bigg[\mathbb E[X|\mathcal{F}] \mathbb E[X|\mathcal{G}]\bigg]
+		+ \mathbb E\bigg[\mathbb E[X|\mathcal{G}]^2\bigg] \\
+	&= \mathbb E\bigg[X^2\bigg]
+		- 2\mathbb E\bigg[X\mathbb E[X|\mathcal{F}]\bigg]
+		+ \mathbb E\bigg[X \mathbb E[X|\mathcal{F}] \bigg]
+		+ \mathbb E\bigg[X \mathbb E[X|\mathcal{F}] \bigg]
+		- 2\mathbb E\bigg[\mathbb E[X|\mathcal{F}] \mathbb E[X|\mathcal{G}]\bigg]
+		+ \mathbb E\bigg[\mathbb E[X|\mathcal{G}]^2\bigg] \\
+	&= \mathbb E\bigg[X^2\bigg]
+		- \cancel{2\mathbb E\bigg[X\mathbb E[X|\mathcal{F}]\bigg]}
+		+ \cancel{2\mathbb E\bigg[X \mathbb E[X|\mathcal{F}] \bigg]}
+		- 2\mathbb E\bigg[\mathbb E[X|\mathcal{F}] \mathbb E[X|\mathcal{G}]\bigg]
+		+ \mathbb E\bigg[\mathbb E[X|\mathcal{G}]^2\bigg] \\
+	&= \mathbb E\bigg[X^2\bigg]
+		- 2\mathbb E\bigg[\mathbb E[X|\mathcal{F}] \mathbb E[X|\mathcal{G}]\bigg]
+		+ \mathbb E\bigg[\mathbb E[X|\mathcal{G}]^2\bigg].
+\end{align*}
+Pausing again, to look more closely at $\mathbb E\big[\mathbb E[X|\mathcal{F}] \mathbb E[X|\mathcal{G}]\big]$, we can apply the same theorem and part (a) to get
+$$
+\mathbb E\bigg[\mathbb E[X|\mathcal{F}] \mathbb E[X|\mathcal{G}]\bigg]
+	= \mathbb E\bigg[\mathbb E\big[X \mathbb E[X|\mathcal{G}] \big|\mathcal{F}\big] \bigg] \\
+	= \mathbb E\bigg[ X \mathbb E[X|\mathcal{G}] \bigg]
+$$
+Therefore we have
+\begin{align*}
+	&= \mathbb E\bigg[X^2\bigg]
+		- 2\mathbb E\bigg[\mathbb E[X|\mathcal{F}] \mathbb E[X|\mathcal{G}]\bigg]
+		+ \mathbb E\bigg[\mathbb E[X|\mathcal{G}]^2\bigg] \\
+	&= \mathbb E\bigg[X^2\bigg] - 2\mathbb E\bigg[X\mathbb E[X|\mathcal{G}]\bigg] + \mathbb E\bigg[\mathbb E[X|\mathcal{G}]^2\bigg] \\
+	&= \mathbb E\bigg[X^2 - 2X\mathbb E[X|\mathcal{G}] + \mathbb E[X|\mathcal{G}]^2\bigg] \\
+	&= \mathbb E\bigg[\big(X - \mathbb E[X|\mathcal{G}]\big)^2\bigg].
+\end{align*}
+Therefore, 
+$$
+\mathbb E\big[\big(X - \mathbb E[X|\mathcal{F}]\big)^2\big] + \mathbb E\big[\big(\mathbb E[X|\mathcal{F}] - \mathbb E[X|\mathcal{G}]\big)^2\big]
+	=  \mathbb E\big[\big(X - \mathbb E[X|\mathcal{G}]\big)^2\big]
+$$
+as desired.
+\qed
+\\
+\newpage
+
+\noindent {\bf 3.} An important special case of the previous result (2b) occurs when $\mathcal{G} = \{\emptyset, \Omega \}$.  Let ${\rm var}(X|\mathcal{F})=E(X^2|\mathcal{F})-E(X|\mathcal{F})^2$. Show that 
+$${\rm var}(X)=E({\rm var}(X|\mathcal{F}))+{\rm var}(E(X|\mathcal{F})).$$
+\textit{Solution} \\
+This can be shown directly by starting from the right and applying 2(a)
+\begin{align*}
+&\mathbb E\big[{\rm Var}(X|\mathcal{F})\big]+{\rm Var}\big(\mathbb E[X|\mathcal{F}]\big) \\
+	&= \mathbb E\bigg[ \mathbb E[X^2|\mathcal{F}] - \mathbb E[X|\mathcal{F}]^2 \bigg]
+		+ \mathbb E \bigg[\mathbb E[X|\mathcal{F}]^2\bigg]
+		- \mathbb E \bigg[\mathbb E[X|\mathcal{F}]\bigg]^2 \\
+	&= \mathbb E\bigg[ \mathbb E[X^2|\mathcal{F}]\bigg]
+		- \cancel{\mathbb E \bigg[\mathbb E[X|\mathcal{F}]^2 \bigg]}
+		+ \cancel{\mathbb E \bigg[\mathbb E[X|\mathcal{F}]^2\bigg]}
+		- \mathbb E \bigg[\mathbb E[X|\mathcal{F}]\bigg]^2 \\
+	&= \mathbb E\bigg[ \mathbb E[X^2|\mathcal{F}]\bigg] - \mathbb E \bigg[\mathbb E[X|\mathcal{F}]\bigg]^2 \\
+	&= \mathbb E\big[ X^2\big] - \mathbb E \big[X \big]^2 \\
+	&= {\rm Var}(X).
+\end{align*}
+Therefore, 
+$$
+{\rm Var}(X) = \mathbb E\big[{\rm Var}(X|\mathcal{F})\big]+{\rm Var}\big(\mathbb E[X|\mathcal{F}]\big)
+$$
+as desired.
+\qed \\
+\newpage
+
+\noindent {\bf 4.}  Let $Y_1, Y_2, . . .$ be i.i.d. (independent and identically distributed) random variables with mean $\mu$ and variance $\sigma^2$, $N$ an independent positive integer valued random variable with $EN^2 < \infty$ and $X = Y_1 +...+Y_N$.
+Show that
+$${\rm var}(X) = \sigma^2 EN + \mu^2 {\rm var}(N).$$
+(To understand and help remember the formula, think about the two special cases in which $N$ or $Y$ is constant.) \\
+\textit{Solution:} \\
+Let's begin by using the formula we proved in problem 3
+$
+{\rm Var}(X) = \mathbb E\big[{\rm Var}(X|\mathcal{F})\big] + {\rm Var}\big(\mathbb E[X|\mathcal{F}]\big).
+$
+Conditioning on the random variable $N$ we have
+$$
+{\rm Var}(X) = \mathbb E\big[{\rm Var}(X|N)\big] + {\rm Var}\big(\mathbb E[X | N]\big).
+$$
+Now we can look at this piece by piece beginning with ${\rm Var}(X | N)$
+$$
+{\rm Var}(X | N)
+	= {\rm Var}\bigg(\sum_i^NY_i\bigg) \\
+	= \sum_{i=1}^N\sum_{j = 1}^N {\rm Cov}(Y_i,Y_j) \\
+	= \sum_{i=1}^N {\rm Var}(Y_i) + \cancelto{0}{\sum_{j \neq i}^N {\rm Cov}(Y_i,Y_j)} \\
+	= \sigma^2N.
+$$
+Where the sum of the covariances is $0$, since the $Y_i$'s are independent.
+Now looking at $\mathbb E[X | N]$
+$$
+\mathbb E[X | N] = \mathbb E \bigg[ \sum_i^NY_i\bigg] \\
+	= \sum_i^N\mathbb E \big[ Y_i\big] \\
+	= \mu N.
+$$
+Furthermore, we have
+\begin{align*}
+{\rm Var}(X) &= \mathbb E\big[{\rm Var}(X|N)\big] + {\rm Var}\big(\mathbb E[X | N]\big) \\
+	&= \mathbb E\big[\sigma^2N\big] + {\rm Var}\big(\mu N\big) \\
+	&= \sigma^2\mathbb E\big[N\big] + {\rm Var}\big(\mu N\big) \\
+	&= \sigma^2\mathbb E\big[N\big] + \mathbb E \big[\mu N - \mathbb E [\mu N] \big]^2 \\
+	&= \sigma^2\mathbb E\big[N\big] + \mathbb E \big[\mu (N - \mathbb E [N]) \big]^2 \\
+	&= \sigma^2\mathbb E\big[N\big] + \mu^2 \mathbb E \big[ N - \mathbb E [N] \big]^2 \\
+	&= \sigma^2\mathbb E[N] + \mu^2 {\rm Var}(N)
+\end{align*}
+Hence,
+$${\rm Var}(X) = \sigma^2\mathbb E[N] + \mu^2 {\rm Var}(N)$$
+as desired.
+\qed \\
+
+
+\end{document}  
