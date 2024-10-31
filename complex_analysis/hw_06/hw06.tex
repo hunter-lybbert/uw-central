@@ -57,7 +57,30 @@ Collaborators*: TBD\\
 \mline
 \begin{enumerate}[label={\bf {\arabic*}:}]
 \item  From A\&F: 3.3.2\\
+Given the function $$f(z) = \frac z {a^2 - z^2}, \: \: a > 0,$$
+expand $f(z)$ in a Laurent series in powers of $z$ in the regions \\
+
+\noindent
+(a) $|z| < a$ \\
+\textit{Solution:} \\
+
+\noindent
+(b) $|z| > a$ \\
+\textit{Solution:} \\
+\newpage
+
 \item From A\&F: 3.3.5\\
+Let
+$$\exp\left(\frac t 2 \left(\frac {z - 1} {z}\right)\right) = \sum_{n = -\infty}^\infty J_n(t)z^n.$$
+Show from the definition of Laurent series and using properties of integration that
+\begin{align*}
+J_n(t) &= \frac 1 {2 \pi} \int_{-\pi}^\pi \E^{-\I(n \theta - t \sin \theta)}\D \theta \\
+	&= \frac 1 {\pi} \int_{0}^\pi \cos(n \theta - t \sin \theta)\D \theta.
+\end{align*}
+The functions $J_n(t)$ are called the Bessel function, which are well known special functions in mathematics and physics. \\
+\textit{Solution:} \\
+\newpage
+
 \item Bernoulli numbers: Consider the function
 $$
 f(z)=\frac{z}{e^z-1} .
@@ -74,6 +97,7 @@ The numbers $B_n$ are known as the Bernoulli numbers.
 \item Show that $B_{2 n+1}=0$ for $n \geq 1$.
 \item Use your result to find a Taylor series for $z \operatorname{coth} z$, in terms of the Bernoulli numbers. Where is this series valid? Using this result, find a Laurent series for $\cot z$. Where is this series valid?    \\
 \end{enumerate}
+\newpage
 
 \item Consider $g(z) = 1/f(z)$ where $f(z)$ is as in the previous
   problem.
@@ -87,6 +111,7 @@ The numbers $B_n$ are known as the Bernoulli numbers.
     |G(2^{-n}) - g(0)|$ for $n= 1,2,\ldots, 52$.  Ensure that these
     errors are less than $10^{-10}$ for all $n$.\\
 \end{enumerate}
+\newpage
 
 \item Analytic continuation:
 (a) Consider
@@ -101,6 +126,7 @@ $$
 Where is this series valid? If you can answer this question without
 using that both $F(z)$ and $G(z)$ are representations of $1 /(1-z)$,
 you will receive 2 bonus points.\\
+\newpage
 
 \item This problem is from Whittaker and Watson's "A course of modern
   analysis": Shew\footnote{Aka ``Show''.} that
@@ -110,6 +136,7 @@ $$
 $$
 This might appear to contradict the idea of analytic
 continuation. Please comment.\\
+\newpage
 
 \item Suppose that $f$ is a function satisfying
   \begin{align*}
@@ -121,6 +148,7 @@ continuation. Please comment.\\
   \end{align*}
   is an analytic function of $z$ for $\imag z > 0$.  You may assume
   that $f$ is continuous, but this is not a necessary assumption.\\
+\newpage
 
 \item Use analytic continuation to show that
   \begin{align*}
