@@ -39,7 +39,7 @@
 \noindent
 \text{Hunter Lybbert} \\
 \text{Student ID: 2426454} \\
-\text{11-05-24} \\
+\text{11-04-24} \\
 \text{AMATH 567} \\
 
 \title{\bf { Homework 6} }
@@ -47,7 +47,7 @@
 
 \maketitle
 \noindent
-Collaborators*: TBD\\
+Collaborators*: Nate Ward, Sophie, Peter\\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -63,22 +63,123 @@ expand $f(z)$ in a Laurent series in powers of $z$ in the regions \\
 \noindent
 (a) $|z| < a$ \\
 \textit{Solution:} \\
+We begin with a little algebra
+$$ f(z) = \frac z {a^2 - z^2} = \frac z {a^2} \frac 1 {1 - \frac{z^2}{a^2}}. $$
+In this case, since $|z| < a$, then $\frac {z^2}{a^2} < 1$.
+Therefore we can make use of the common geometric series
+$$
+f(z) = \frac z {a^2} \frac 1 {1 - \frac{z^2}{a^2}}
+	= \frac z {a^2} \sum_{n=0}^\infty \left(\frac{z^2}{a^2}\right)^n
+	= \frac z {a^2} \sum_{n=0}^\infty \frac{z^{2n}}{a^{2n}}
+	= \sum_{n=0}^\infty \frac{z^{2n + 1}}{a^{2n + 2}}
+	= \sum_{n=0}^\infty \frac{1}{a^{2n + 2}} z^{2n + 1}.
+$$
+\qed \\
 
 \noindent
 (b) $|z| > a$ \\
 \textit{Solution:} \\
+We begin with a little algebra
+$$ f(z) = \frac z {a^2 - z^2} = -\frac z {z^2 - a^2} = -\frac z {z^2} \frac 1 {1 - \frac{a^2}{z^2}}. $$
+In this case, since $|z| > a$, then $\frac {a^2}{z^2} < 1$.
+Therefore we can make use of the common geometric series
+\begin{align*}
+f(z) &= -\frac z {z^2} \frac 1 {1 - \frac{a^2}{z^2}} \\
+	&= -\frac 1 {z} \sum_{n=0}^\infty \left(\frac{a^2}{z^2}\right)^n \\
+	&= -\frac 1 {z} \sum_{n=0}^\infty \frac{a^{2n}}{z^{2n}} \\
+	&= - \sum_{n=0}^\infty \frac{a^{2n}}{z^{2n + 1}} \\
+	&= - \sum_{n=0}^\infty a^{2n}\frac{1}{z^{2n + 1}} \\
+	&= - \sum_{n=0}^\infty a^{2n}z^{-(2n + 1)} \\
+	&= - \sum_{n=0}^\infty a^{2n}z^{-2n -1} \\
+	&= - \sum_{n=-\infty}^0 a^{2n}z^{2n -1}.
+\end{align*}
+\qed \\
 \newpage
 
 \item From A\&F: 3.3.5\\
 Let
-$$\exp\left(\frac t 2 \left(\frac {z - 1} {z}\right)\right) = \sum_{n = -\infty}^\infty J_n(t)z^n.$$
+$$\exp\left(\frac t 2 \left( z - \frac1 z \right)\right) = \sum_{n = -\infty}^\infty J_n(t)z^n.$$
 Show from the definition of Laurent series and using properties of integration that
 \begin{align*}
 J_n(t) &= \frac 1 {2 \pi} \int_{-\pi}^\pi \E^{-\I(n \theta - t \sin \theta)}\D \theta \\
 	&= \frac 1 {\pi} \int_{0}^\pi \cos(n \theta - t \sin \theta)\D \theta.
 \end{align*}
 The functions $J_n(t)$ are called the Bessel function, which are well known special functions in mathematics and physics. \\
+
+\noindent
 \textit{Solution:} \\
+Let $f(z) = \exp\left(\frac t 2 \left(\frac {z - 1} {z}\right)\right)$.
+We begin by looking at the general Laurent series centered at $z=0$, since our function is undefined at this point it is the only singularity we are concerned with. Therefore we have
+$$f(z) = \sum_{n=-\infty}^{\infty} C_n (z - 0)^n = \sum_{n=-\infty}^{\infty} C_n z^n.$$
+Where the $C_n$ is given by
+$$
+C_n = \frac 1 {2 \pi \I}\oint_C \frac {f(\xi)}{\xi^{n + 1}}\D \xi
+	= \frac 1 {2 \pi \I}\oint_C \frac {\exp\left(\frac t 2 \left(\xi - \frac1 \xi\right)\right)}{\xi^{n + 1}}\D \xi.
+$$
+This is really incomplete notationally since our $C_n$'s depend on $t$ so reverting back to the provided notation we have
+$$
+J_n(t) = \frac 1 {2 \pi \I}\oint_C \frac {\exp\left(\frac t 2 \left(\xi - \frac 1 \xi \right)\right)}{\xi^{n + 1}}\D \xi.
+$$
+Additionally, I have yet to specify my contour $C$, but it needs to be within the annulus for which our Laurent series converges.
+Since, the original function $f(z)$ only has a singularity at $z=0$ the Laurent series really converges uniformly throughout the complex plane except at the origin.
+Therefore we make the convenient choice for our contour $C$ to be a counterclockwise traversal of the unit circle.
+Using the parameterization $\xi = \E^{\I \theta} \text{ with }\theta \in [-\pi, \pi)$, we have
+\begin{align*}
+J_n(t)
+&= \frac 1 {2 \pi \I}\int_{-\pi}^{\pi} \frac
+	{\exp\left(\frac t 2 \left(\E^{\I \theta} - \frac{1} {\E^{\I \theta}}\right)\right)}
+	{\big(\E^{\I \theta}\big)^{n + 1}}
+\I\E^{\I \theta} \D \theta \\
+&= \frac 1 {2 \pi }\int_{-\pi}^{\pi} \frac
+	{\exp\left(\frac t 2 \left(\E^{\I \theta} - \frac{1} {\E^{\I \theta}}\right)\right)}
+	{\E^{\I n\theta}}
+\D \theta \\
+&= \frac 1 {2 \pi }\int_{-\pi}^{\pi} \exp\left(\frac t 2 \left( \E^{\I \theta} - \E^{-\I \theta}\right) - \I n\theta\right) \D \theta \\
+&= \frac 1 {2 \pi }\int_{-\pi}^{\pi} \exp\left(
+	\frac t 2 \left( \cancel{\cos\theta} + \I \sin \theta - \cancel{\cos\theta} +\I \sin\theta\right) - \I n\theta
+\right) \D \theta \\
+&= \frac 1 {2 \pi }\int_{-\pi}^{\pi} \exp\left(
+	\frac t 2 \left( 2\I \sin \theta\right) - \I n\theta
+\right) \D \theta \\
+&= \frac 1 {2 \pi }\int_{-\pi}^{\pi} \exp\left( t \I \sin \theta - \I n\theta \right) \D \theta \\
+&= \frac 1 {2 \pi }\int_{-\pi}^{\pi} \E^{-\I(n\theta - t \sin \theta)} \D \theta.
+\end{align*}
+Therefore
+$$
+J_n(t) = \frac 1 {2 \pi }\int_{-\pi}^{\pi} \E^{-\I(n\theta - t \sin \theta)} \D \theta,
+$$
+as desired.
+Furthermore,
+\begin{align*}
+J_n(t) &= \frac 1 {2 \pi }\int_{-\pi}^{\pi} \E^{-\I(n\theta - t \sin \theta)} \D \theta \\
+	&= \frac 1 {2 \pi }\int_{-\pi}^{\pi} \cos \big(n\theta - t \sin \theta\big) - \I\sin\big( n\theta - t \sin \theta\big) \D \theta \\
+	&= \frac 1 {2 \pi }\int_{-\pi}^{0} \cos \big(n\theta - t \sin \theta\big) - \I\sin\big( n\theta - t \sin \theta\big) \D \theta \\
+	& \quad\quad + \frac 1 {2 \pi }\int_{0}^{\pi} \cos \big(n\theta - t \sin \theta\big) - \I\sin\big( n\theta - t \sin \theta\big) \D \theta \\
+	&= -\frac 1 {2 \pi }\int_{0}^{-\pi} \cos \big(n\theta - t \sin \theta\big) - \I\sin\big( n\theta - t \sin \theta\big) \D \theta \\
+	& \quad\quad + \frac 1 {2 \pi }\int_{0}^{\pi} \cos \big(n\theta - t \sin \theta\big) - \I\sin\big( n\theta - t \sin \theta\big) \D \theta.
+\end{align*}
+Now we need to do a substitution for $n\theta - t \sin \theta$ in each of these integrals.
+For the integral from $0$ to $-\pi$ let $\theta = -\theta^\prime$ and for the integral from $0$ to $\pi$ let $\theta = \theta^\prime$.
+Continuing where we left off we then have
+\begin{align*}
+	&= -\frac 1 {2 \pi }\int_{0}^{\pi} \cos \big(-n\theta^\prime - t \sin (-\theta^\prime)\big) - \I\sin\big(-n\theta^\prime - t \sin (-\theta^\prime)\big) (-\D \theta^\prime) \\
+	&\quad\quad+ \frac 1 {2 \pi }\int_{0}^{\pi} \cos \big(n\theta^\prime - t \sin \theta^\prime\big) - \I\sin\big( n\theta^\prime - t \sin \theta^\prime\big) \D \theta^\prime \\
+	&= \frac 1 {2 \pi }\int_{0}^{\pi} \cos \bigg(-\big(n\theta^\prime - t \sin (\theta^\prime)\big)\bigg) - \I\sin \bigg(-\big(n\theta^\prime - t \sin (\theta^\prime)\big)\bigg) \D \theta^\prime \\
+	&\quad\quad+ \frac 1 {2 \pi }\int_{0}^{\pi} \cos \big(n\theta^\prime - t \sin \theta^\prime\big) - \I\sin\big( n\theta^\prime - t \sin \theta^\prime\big) \D \theta^\prime \\
+	&= \frac 1 {2 \pi }\int_{0}^{\pi} \cos \big(n\theta^\prime - t \sin (\theta^\prime)\big) + \I\sin \big(n\theta^\prime - t \sin (\theta^\prime)\big) \D \theta^\prime 
+	+ \frac 1 {2 \pi }\int_{0}^{\pi} \cos \big(n\theta^\prime - t \sin \theta^\prime\big) - \I\sin\big( n\theta^\prime - t \sin \theta^\prime\big) \D \theta^\prime \\
+	&= \frac 1 {2 \pi } \int_{0}^{\pi} \cos \big(n\theta^\prime - t \sin (\theta^\prime)\big) + \cancel{\I\sin \big(n\theta^\prime - t \sin (\theta^\prime)\big)}
+	+ \cos \big(n\theta^\prime - t \sin \theta^\prime\big) - \cancel{\I\sin\big( n\theta^\prime - t \sin \theta^\prime\big)} \D \theta^\prime \\
+	&= \frac 1 {2 \pi } \int_{0}^{\pi} \cos \big(n\theta^\prime - t \sin (\theta^\prime)\big) + \cos \big(n\theta^\prime - t \sin \theta^\prime\big) \D \theta^\prime \\
+	&= \frac 2 {2 \pi } \int_{0}^{\pi} \cos \big(n\theta^\prime - t \sin (\theta^\prime)\big) \D \theta^\prime \\
+	&= \frac 1 \pi \int_{0}^{\pi} \cos \big(n\theta^\prime - t \sin (\theta^\prime)\big) \D \theta^\prime.
+\end{align*}
+Though we finished in terms of another variable $\theta^\prime$ this could easily be changed out with another substitution $\theta^\prime = \theta$.
+And thus we see
+$$
+J_n(t) = \frac 1 {2 \pi }\int_{-\pi}^{\pi} \E^{-\I(n\theta - t \sin \theta)} \D \theta = \frac 1 \pi \int_{0}^{\pi} \cos \big(n\theta - t \sin (\theta)\big) \D \theta.
+$$
+\qed \\
 \newpage
 
 \item Bernoulli numbers: Consider the function
@@ -86,7 +187,19 @@ $$
 f(z)=\frac{z}{e^z-1} .
 $$
 \begin{enumerate}
-\item Show that $f(z)$ has a removable singularity at $z=0$. Assume from now on that the definition of $f(z)$ has been extended to remove the singularity.
+\item Show that $f(z)$ has a removable singularity at $z=0$. Assume from now on that the definition of $f(z)$ has been extended to remove the singularity. \\
+
+ \noindent
+ \textit{Solution:} \\
+We are going to site a lot of the same logic as we are using from problem 3 last week where we were talking about a removable singularity.
+In this case, however, notice we can calculate explicitly the limit of $f(z)$ as $z\rightarrow 0$ as follows:
+\begin{align*}
+\lim_{z \rightarrow 0} f(z) &= \lim_{z \rightarrow 0} \frac z {\E^z - 1} = \frac 0 0 \quad \quad \text{applying L'Hôpitals rule} \\
+	&= \lim_{z \rightarrow 0} \frac z {\E^z - 1} = \lim_{z\rightarrow0} \frac 1 {\E^z} = \frac 1 1 = 1
+\end{align*}
+Therefore, we need to choose $f(0) = 1$ in order for $f(z)$ to be analytic in the region and therefore remove the singularity.
+\textbf{TODO: connect this with problem 3 from last weeks hw.}
+\qed \\
 \item Suppose you were to find a Taylor series for $f(z)$, centered at $z=0$. What would be its radius of convergence?
 \item Find the Taylor series in the form
 $$
@@ -94,6 +207,8 @@ f(z)=\sum_{n=0}^{\infty} \frac{B_n}{n!} z^n .
 $$
 The numbers $B_n$ are known as the Bernoulli numbers.
 \item Find a recursion formula for the Bernoulli numbers, and use it to find $B_0, \ldots, B_{12}$.
+\textit{Solution:}\\
+put things in terms of taylor series and move them over to the left side of the equation
 \item Show that $B_{2 n+1}=0$ for $n \geq 1$.
 \item Use your result to find a Taylor series for $z \operatorname{coth} z$, in terms of the Bernoulli numbers. Where is this series valid? Using this result, find a Laurent series for $\cot z$. Where is this series valid?    \\
 \end{enumerate}
@@ -113,19 +228,26 @@ The numbers $B_n$ are known as the Bernoulli numbers.
 \end{enumerate}
 \newpage
 
-\item Analytic continuation:
+\item Analytic continuation: \\
 (a) Consider
 $$
 F(z)=1+z+z^2+z^3+\ldots=\sum_{n=0}^{\infty} z^n .
 $$
-Where is this function analytic?
+Where is this function analytic? \\
 (b) Use the above representation to induce a Taylor representation of $F(z)$ centered at $z=-1 / 2$. Call this representation $G(z)$. Your final result should be of the form
 $$
 G(z)=\sum_{m=0}^{\infty} c_m\left(z+\frac{1}{2}\right)^m
 $$
-Where is this series valid? If you can answer this question without
+Where is this series valid? \\
+If you can answer this question without
 using that both $F(z)$ and $G(z)$ are representations of $1 /(1-z)$,
 you will receive 2 bonus points.\\
+\textit{Solution:}
+expansion of the same function allows you justify things and compute the radius of convergence a certain way. \\
+
+\noindent
+Use the ratio test for a tedious 2 bonus points.
+
 \newpage
 
 \item This problem is from Whittaker and Watson's "A course of modern
@@ -136,6 +258,8 @@ $$
 $$
 This might appear to contradict the idea of analytic
 continuation. Please comment.\\
+\textit{Solution:} \\
+Start from the right for the first case you can use the geometric series and multiply them with eachother.
 \newpage
 
 \item Suppose that $f$ is a function satisfying
@@ -155,7 +279,13 @@ continuation. Please comment.\\
     \sqrt{z -1} \sqrt{z + 1} = (z -1) \sqrt{ \frac{ z +1}{z-1}},
   \end{align*}
   where $\sqrt{\cdot}$ denotes the principal branch with $\arg z \in
-  [-\pi, \pi)$.  Then show that
+  [-\pi, \pi)$. \\
+  \textit{Solution:} \\
+  Consider that they are both analytic everywhere in the same domain (use the form of analytic continuation which depends on the accumulation point) \\
+  Choose a contour for which the functions. agree on (positive real axis is a good choice). \\
+  
+  \noindent
+  Then show that
   \begin{align*}
     \sqrt{z -1} \sqrt{z + 1} = z + b_0 + b_1 z^{-1} + b_2  z^{-2} +
     O(z^{-3}), \quad z \to \infty,
