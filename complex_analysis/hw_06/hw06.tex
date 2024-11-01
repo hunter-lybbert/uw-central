@@ -190,17 +190,36 @@ $$
 \item Show that $f(z)$ has a removable singularity at $z=0$. Assume from now on that the definition of $f(z)$ has been extended to remove the singularity. \\
 
  \noindent
- \textit{Solution:} \\
-We are going to site a lot of the same logic as we are using from problem 3 last week where we were talking about a removable singularity.
-In this case, however, notice we can calculate explicitly the limit of $f(z)$ as $z\rightarrow 0$ as follows:
+\textit{Solution:} \\
+If we can show the limit exists at the potential singularity then we can say it is removable.
+We can calculate the limit of $f(z)$ as $z\rightarrow 0$ explicitly:
 \begin{align*}
 \lim_{z \rightarrow 0} f(z) &= \lim_{z \rightarrow 0} \frac z {\E^z - 1} = \frac 0 0 \quad \quad \text{applying L'Hôpitals rule} \\
 	&= \lim_{z \rightarrow 0} \frac z {\E^z - 1} = \lim_{z\rightarrow0} \frac 1 {\E^z} = \frac 1 1 = 1
 \end{align*}
-Therefore, we need to choose $f(0) = 1$ in order for $f(z)$ to be analytic in the region and therefore remove the singularity.
-\textbf{TODO: connect this with problem 3 from last weeks hw.}
+Therefore, we could choose $f(0) = 1$ in order to extend $f(z)$ to be analytic in the region and therefore remove the singularity.
+Furthermore, we can also show this is a removable singularity by looking at the reciprocal of $f(z)$.
+If it does not have any zeros, then $f(z)$ will not have any actual singularities or it won't blow up anywhere.
+We use a Taylor series centered at $z = 0$ for $\E^z$ and see the following
+\begin{align*}
+\frac 1 {f(z)} = \frac {\E^z - 1}{z} = \frac 1 z (\E^z - 1) &= \frac 1 z \bigg( \sum_{j=0}^\infty \frac {z^j}{j!} - 1\bigg) \\
+	&= \frac 1 z \bigg( \sum_{j=1}^\infty \frac {z^j}{j!}\bigg) \\
+	&= \sum_{j=1}^\infty \frac {z^{j - 1}}{j!} \\
+	&= \sum_{j=0}^\infty \frac {z^{j}}{(j+1)!}
+\end{align*}
+which has no zeros.
+Therefore the original function $f(z)$ has nowhere that the denominator will blow up.
+Finally, we can conclude from these two pieces of evidence that this singularity is removable.
+We will assume from now on that $f(z)$ has been extended to remove this singularity.
 \qed \\
-\item Suppose you were to find a Taylor series for $f(z)$, centered at $z=0$. What would be its radius of convergence?
+
+\item Suppose you were to find a Taylor series for $f(z)$, centered at $z=0$. What would be its radius of convergence? \\
+
+\noindent
+\textit{Solution:} \\
+In the part (a) we determined there is no singularity for $f(z)$ therefore, the radius of convergence is infinite.
+\qed \\
+
 \item Find the Taylor series in the form
 $$
 f(z)=\sum_{n=0}^{\infty} \frac{B_n}{n!} z^n .
@@ -259,7 +278,8 @@ $$
 This might appear to contradict the idea of analytic
 continuation. Please comment.\\
 \textit{Solution:} \\
-Start from the right for the first case you can use the geometric series and multiply them with eachother.
+Do partial fractions on the left.
+Something telescopes.... something should be the negative of each other in order to telescope they will depend on z likely
 \newpage
 
 \item Suppose that $f$ is a function satisfying
@@ -272,6 +292,10 @@ Start from the right for the first case you can use the geometric series and mul
   \end{align*}
   is an analytic function of $z$ for $\imag z > 0$.  You may assume
   that $f$ is continuous, but this is not a necessary assumption.\\
+  
+\noindent
+\textit{Solution:} \\
+Use a theorem, something about this being able to hold if the integral is finite, then take the limit as it becomes infinit
 \newpage
 
 \item Use analytic continuation to show that
