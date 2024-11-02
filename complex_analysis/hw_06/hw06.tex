@@ -207,7 +207,7 @@ We use a Taylor series centered at $z = 0$ for $\E^z$ and see the following
 	&= \sum_{j=1}^\infty \frac {z^{j - 1}}{j!} \\
 	&= \sum_{j=0}^\infty \frac {z^{j}}{(j+1)!}
 \end{align*}
-which has no zeros.
+which has no zeros. \textbf{TODO: Site the fact that this is a Laurent series with all the negative indices coeffs set to 0, therefore it is removable.}
 Therefore the original function $f(z)$ has nowhere that the denominator will blow up.
 Finally, we can conclude from these two pieces of evidence that this singularity is removable.
 We will assume from now on that $f(z)$ has been extended to remove this singularity.
@@ -224,7 +224,48 @@ In the part (a) we determined there is no singularity for $f(z)$ therefore, the 
 $$
 f(z)=\sum_{n=0}^{\infty} \frac{B_n}{n!} z^n .
 $$
-The numbers $B_n$ are known as the Bernoulli numbers.
+The numbers $B_n$ are known as the Bernoulli numbers. \\
+
+\noindent
+\textit{Solution:} \\
+\begin{align*}
+f(z) = \frac {z}{\E^z - 1} &= \sum_{n=0}^{\infty} \frac{B_n}{n!} z^n \\
+	z &= (\E^z - 1)\sum_{n=0}^{\infty} \frac{B_n}{n!} z^n \\
+	z &= \bigg( \sum_{m=0}^\infty \frac {z^m}{m!} - 1\bigg) \bigg( \sum_{n=0}^{\infty} \frac{B_n}{n!} z^n \bigg) \\
+	z &= \bigg( \sum_{m=1}^\infty \frac {z^m}{m!}\bigg) \bigg(\sum_{n=0}^{\infty} \frac{B_n}{n!} z^n \bigg) \\
+	z &= \bigg( \sum_{m=0}^\infty \frac {z^{m+1}}{(m+1)!}\bigg) \bigg(\sum_{n=0}^{\infty} \frac{B_n}{n!} z^n. \bigg)
+\end{align*}
+Using the Cauchy Product formula
+$$
+\bigg( \sum_{i=0}^{\infty} a_i \bigg) \bigg(\sum_{j=0}^{\infty} b_j \bigg) = \sum_{k=0}^\infty \sum_{\ell=0}^k a_\ell b_{k - \ell}
+$$
+we can continue from where we left off and get
+\begin{align*}
+z &= \bigg( \sum_{m=0}^\infty \frac {z^{m+1}}{(m+1)!}\bigg) \bigg(\sum_{n=0}^{\infty} \frac{B_n}{n!} z^n\bigg) \\
+	&= \sum_{k=0}^\infty \sum_{\ell=0}^k \frac {z^{k - \ell+1}}{(k - \ell+1)!} \frac{B_{\ell} z^\ell}{\ell!} \\
+	&= \sum_{k=0}^\infty \sum_{\ell=0}^k \frac 1{(k - \ell+1)!} \frac{B_{\ell}}{\ell!} z^{k - \ell+1}z^\ell \\
+	&= \sum_{k=0}^\infty \sum_{\ell=0}^k \frac 1{(k - \ell+1)!} \frac{B_{\ell}}{\ell!} z^{k+1} \\
+	&= \sum_{k=0}^\infty \sum_{\ell=0}^k \frac {(k + 1)!}{(k - \ell+1)!} \frac{B_{\ell}}{\ell!} \frac{z^{k+1}}{(k + 1)!} \\
+	&= \sum_{k=0}^\infty \sum_{\ell=0}^k \frac {(k + 1)!}{(k + 1 - \ell)!\ell!} B_{\ell} \frac{z^{k+1}}{(k + 1)!} \\
+	&= \sum_{k=0}^\infty \sum_{\ell=0}^k {k + 1 \choose \ell} B_{\ell} \frac{z^{k+1}}{(k + 1)!} \\
+	&= \sum_{k=0}^\infty \frac{z^{k+1}}{(k + 1)!} \sum_{\ell=0}^k {k + 1 \choose \ell} B_{\ell}.
+\end{align*}
+Now that we have
+$$
+z = \sum_{k=0}^\infty \frac{z^{k+1}}{(k + 1)!} \sum_{\ell=0}^k {k + 1 \choose \ell} B_{\ell}
+$$
+we can see
+\begin{align*}
+z &= \frac z {1!} {1 \choose 0}B_0 + \sum_{k=1}^\infty \frac{z^{k+1}}{(k + 1)!} \sum_{\ell=0}^k {k + 1 \choose \ell} B_{\ell} \\
+z &= zB_0 + \sum_{k=1}^\infty \frac{z^{k+1}}{(k + 1)!} \sum_{\ell=0}^k {k + 1 \choose \ell} B_{\ell}.
+\end{align*}
+Therefore we need the following to hold
+\begin{align*}
+B_0 &= 1\\
+\sum_{k=1}^\infty \frac{z^{k+1}}{(k + 1)!} \sum_{\ell=0}^k {k + 1 \choose \ell} B_{\ell} &= 0.
+\end{align*}
+\textbf{TODO: Now how do I know I have arrived at a formula for the $B_n$...}
+
 \item Find a recursion formula for the Bernoulli numbers, and use it to find $B_0, \ldots, B_{12}$.
 \textit{Solution:}\\
 put things in terms of taylor series and move them over to the left side of the equation
