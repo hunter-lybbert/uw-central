@@ -47,7 +47,7 @@
 
 \maketitle
 \noindent
-Collaborators*: Nate Ward, Sophie, Peter\\
+Collaborators*: Nate Ward, Sophie, Peter, Matthew, Anja, Hailey, Laura\\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -207,17 +207,24 @@ We use a Taylor series centered at $z = 0$ for $\E^z$ and see the following
 	&= \sum_{j=1}^\infty \frac {z^{j - 1}}{j!} \\
 	&= \sum_{j=0}^\infty \frac {z^{j}}{(j+1)!}
 \end{align*}
-which has no zeros. \textbf{TODO: Site the fact that this is a Laurent series with all the negative indices coeffs set to 0, therefore it is removable.}
-Therefore the original function $f(z)$ has nowhere that the denominator will blow up.
-Finally, we can conclude from these two pieces of evidence that this singularity is removable.
-We will assume from now on that $f(z)$ has been extended to remove this singularity.
+which has no zeros.
+As an aside I want to highlight that our original function
+$$
+f(z) = \frac z {\E^z - 1}
+$$
+blows up at $2\pi \I k$ for $k \in \mathbb Z$.
+Since our Taylor series representation of $1/f(z)$ centered at $z = 0$ has no zeros, then we can say the singularity at $z=1$ is removable.
+Finally, we can conclude from these two pieces of evidence that this particular singularity is removable.
+We will assume from now on that $f(z)$ has been extended to remove the singularity at $z=0$.
 \qed \\
 
 \item Suppose you were to find a Taylor series for $f(z)$, centered at $z=0$. What would be its radius of convergence? \\
 
 \noindent
 \textit{Solution:} \\
-In the part (a) we determined there is no singularity for $f(z)$ therefore, the radius of convergence is infinite.
+We determined there is no singularity for $f(z)$ at $z=0$, so a Taylor series representation can be constructed centered at $z=0$.
+And the radius of convergence will be the distance from $z=0$ to its nearest singularity.
+This will be the singularities at $z = -2 \pi \I$ or $z = 2 \pi \I$, therefore the radius of convergence will be $2\pi$.
 \qed \\
 
 \item Find the Taylor series in the form
@@ -243,34 +250,174 @@ we can continue from where we left off and get
 \begin{align*}
 z &= \bigg( \sum_{m=0}^\infty \frac {z^{m+1}}{(m+1)!}\bigg) \bigg(\sum_{n=0}^{\infty} \frac{B_n}{n!} z^n\bigg) \\
 	&= \sum_{k=0}^\infty \sum_{\ell=0}^k \frac {z^{k - \ell+1}}{(k - \ell+1)!} \frac{B_{\ell} z^\ell}{\ell!} \\
-	&= \sum_{k=0}^\infty \sum_{\ell=0}^k \frac 1{(k - \ell+1)!} \frac{B_{\ell}}{\ell!} z^{k - \ell+1}z^\ell \\
 	&= \sum_{k=0}^\infty \sum_{\ell=0}^k \frac 1{(k - \ell+1)!} \frac{B_{\ell}}{\ell!} z^{k+1} \\
 	&= \sum_{k=0}^\infty \sum_{\ell=0}^k \frac {(k + 1)!}{(k - \ell+1)!} \frac{B_{\ell}}{\ell!} \frac{z^{k+1}}{(k + 1)!} \\
 	&= \sum_{k=0}^\infty \sum_{\ell=0}^k \frac {(k + 1)!}{(k + 1 - \ell)!\ell!} B_{\ell} \frac{z^{k+1}}{(k + 1)!} \\
 	&= \sum_{k=0}^\infty \sum_{\ell=0}^k {k + 1 \choose \ell} B_{\ell} \frac{z^{k+1}}{(k + 1)!} \\
-	&= \sum_{k=0}^\infty \frac{z^{k+1}}{(k + 1)!} \sum_{\ell=0}^k {k + 1 \choose \ell} B_{\ell}.
+	&= \sum_{k=1}^\infty \sum_{\ell=0}^{k-1} {k \choose \ell} B_{\ell} \frac{z^{k}}{k!}.
 \end{align*}
 Now that we have
-$$
-z = \sum_{k=0}^\infty \frac{z^{k+1}}{(k + 1)!} \sum_{\ell=0}^k {k + 1 \choose \ell} B_{\ell}
-$$
+\begin{align*}
+z &= \sum_{k=1}^\infty \sum_{\ell=0}^{k-1} {k \choose \ell} B_{\ell} \frac{z^{k}}{k!} \\
+	&= \sum_{k=1}^\infty \frac{z^{k}}{k!} \sum_{\ell=0}^{k-1} {k \choose \ell} B_{\ell}
+\end{align*}
 we can see
 \begin{align*}
-z &= \frac z {1!} {1 \choose 0}B_0 + \sum_{k=1}^\infty \frac{z^{k+1}}{(k + 1)!} \sum_{\ell=0}^k {k + 1 \choose \ell} B_{\ell} \\
-z &= zB_0 + \sum_{k=1}^\infty \frac{z^{k+1}}{(k + 1)!} \sum_{\ell=0}^k {k + 1 \choose \ell} B_{\ell}.
+z &= \frac z {1!} {1 \choose 0}B_0 + \sum_{k=2}^\infty \frac{z^{k}}{k!} \sum_{\ell=0}^{k - 1} {k \choose \ell} B_{\ell} \\
+z &= zB_0 + \sum_{k=2}^\infty \frac{z^{k}}{k!} \sum_{\ell=0}^{k - 1} {k \choose \ell} B_{\ell}.
 \end{align*}
 Therefore we need the following to hold
 \begin{align*}
 B_0 &= 1\\
-\sum_{k=1}^\infty \frac{z^{k+1}}{(k + 1)!} \sum_{\ell=0}^k {k + 1 \choose \ell} B_{\ell} &= 0.
+\sum_{\ell=0}^{k-1} {k \choose \ell} B_{\ell} &= 0, \text{ for $k > 1$}.
 \end{align*}
-\textbf{TODO: Now how do I know I have arrived at a formula for the $B_n$...}
-
+Notice,
+\begin{align*}
+\sum_{\ell=0}^{k-1} {k \choose \ell} B_{\ell} &= 0 \\
+{k \choose {k-1}}B_{k-1} + \sum_{\ell=0}^{k-2} {k \choose \ell} B_{\ell} &= 0 \\
+kB_{k-1} &= - \sum_{\ell=0}^{k-2} {k \choose \ell} B_{\ell} \\
+B_{k-1} &= - \frac 1 k \sum_{\ell=0}^{k-2} {k \choose \ell} B_{\ell}, \text{ for $k > 1$}.
+\end{align*}
+To clean this up let's reindex a little
+\begin{align*}
+B_{k} &= - \frac 1 {k+1} \sum_{\ell=0}^{k-1} {{k+1} \choose \ell} B_{\ell}, \text{ for $k > 0$}.
+\end{align*}
+Notice this is a recurrence relation for the Bernoulli numbers.
+We can combine this with the original series representation of $f(z)$ to get
+\begin{align*}
+f(z) = \frac {z}{\E^z - 1} &= \sum_{n=0}^{\infty} \frac{B_n}{n!} z^n \\
+	&= \sum_{n=0}^{\infty} \frac{z^n}{n!} B_n \\
+	&= - \sum_{n=0}^{\infty} \frac{z^n}{n!} \left(\frac 1 {n+1} \sum_{\ell=0}^{n-1} {{n+1} \choose \ell} B_{\ell} \right) \\
+	&= - \sum_{n=0}^{\infty} \frac{z^n}{n!}\frac 1 {n+1} \sum_{\ell=0}^{n-1} {{n+1} \choose \ell} B_{\ell}.
+\end{align*}
+\qed \\
 \item Find a recursion formula for the Bernoulli numbers, and use it to find $B_0, \ldots, B_{12}$.
 \textit{Solution:}\\
-put things in terms of taylor series and move them over to the left side of the equation
-\item Show that $B_{2 n+1}=0$ for $n \geq 1$.
+We will use the recurrence relation we found in part (c)
+$$
+B_{k} = - \frac 1 {k+1} \sum_{\ell=0}^{k-1} {{k+1} \choose \ell} B_{\ell}, \text{ for $k > 0$}
+$$
+to calculate the first 12 Bernoulli numbers.
+We already know that $B_0 = 1$.
+Then we have
+\begin{align*}
+B_1 &= - \frac 1 2 \left( {2 \choose 0}B_0 \right) = - \frac 1 2 \\
+B_2 &= - \frac 1 3 \left( {3 \choose 0}B_0 +  {3 \choose 1}B_1 \right)
+	= - \frac 1 3 \left( 1 - \frac 3 2 \right)
+	= \frac 1 6 \\
+B_3 &= - \frac 1 4 \left( {4 \choose 0}B_0 +  {4 \choose 1}B_1 + {4 \choose 2}B_2 \right)
+	= - \frac 1 4 \left( 1 - 2 + 1 \right)
+	= 0 \\
+B_4 &= - \frac 1 5 \left( {5 \choose 0}B_0 +  {5 \choose 1}B_1 + {5 \choose 2}B_2 + {5 \choose 3}B_3 \right) \\
+	&= - \frac 1 5 \left( 1 - \frac 5 2 + \frac 5 3 \right)
+	= - \frac 1 {30} \\
+B_5 &= - \frac 1 6 \left( {6 \choose 0}B_0 +  {6 \choose 1}B_1 + {6 \choose 2}B_2 + {6 \choose 3}B_3 + {6 \choose 4}B_4 \right) \\
+	&= - \frac 1 6 \left( 1 - \frac 6 2 + \frac {15} 6 + 0 - \frac {15}{30} \right)
+	= 0 \\
+B_6 &= - \frac 1 7 \left( {7 \choose 0}B_0 +  {7 \choose 1}B_1 + {7 \choose 2}B_2 + {7 \choose 3}B_3 + {7 \choose 4}B_4 + {7 \choose 5}B_5 \right) \\
+	&= - \frac 1 7 \left( 1 - \frac 7 2 + \frac {21} 6 + 0 - \frac {35}{30} + 0 \right)
+	= \frac 1 {42}.
+\end{align*}
+We're half way there!
+Continuing on, we have
+\begin{align*}
+B_7 &= - \frac 1 8 \left(
+		{8 \choose 0}B_0
+		+  {8 \choose 1}B_1
+		+ {8 \choose 2}B_2
+		+ {8 \choose 3}B_3
+		+ {8 \choose 4}B_4
+		+ {8 \choose 5}B_5
+		+ {8 \choose 6}B_6
+	\right) \\
+	&= - \frac 1 8 \left( 1 - \frac 8 2 + \frac {28} 6 + 0 - \frac {70}{30} + 0 + \frac {28} {42} \right)
+	= 0 \\
+B_8 &= - \frac 1 9 \left(
+		{9 \choose 0}B_0
+		+  {9 \choose 1}B_1
+		+ {9 \choose 2}B_2
+		+ {9 \choose 3}B_3
+		+ {9 \choose 4}B_4
+		+ {9 \choose 5}B_5
+		+ {9 \choose 6}B_6
+		+ {9 \choose 7}B_7
+	\right) \\
+	&= - \frac 1 9 \left( 1 - \frac 9 2 + \frac {36} 6 + 0 - \frac {126} {30} + 0 + \frac {84}{42} + 0\right)
+	= - \frac 1 {30} \\
+B_9 &= - \frac 1 {10} \left(
+		{10 \choose 0}B_0
+		+  {10 \choose 1}B_1
+		+ {10 \choose 2}B_2
+		+ {10 \choose 3}B_3
+		+ {10 \choose 4}B_4
+		+ {10 \choose 5}B_5
+		+ {10 \choose 6}B_6
+		+ {10 \choose 7}B_7
+		+ {10 \choose 8}B_8
+	\right) \\
+	&= - \frac 1 {10} \left( 1 - \frac {10} 2 + \frac {45} 6 + 0 - \frac {210} {30} + 0 + \frac {210}{42} + 0 - \frac {45}{30} \right)
+	= 0 \\
+B_{10} &= - \frac 1 {11} \left(
+		{11 \choose 0}B_0
+		+  {11 \choose 1}B_1
+		+ {11 \choose 2}B_2
+		+ {11 \choose 3}B_3
+		+ {11 \choose 4}B_4 \right. \\
+		& \quad\quad\quad\quad\left. + {11 \choose 5}B_5
+		+ {11 \choose 6}B_6
+		+ {11 \choose 7}B_7
+		+ {11 \choose 8}B_8
+		+ {11 \choose 9}B_9
+	\right) \\
+	&= - \frac 1 {11} \left( 1 - \frac {11} 2 + \frac {55} 6 + 0 - \frac {330} {30} + 0 + \frac {462}{42} + 0 - \frac {165}{30} + 0\right)
+	= \frac 5 {66} \\
+B_{11} &= - \frac 1 {12} \left(
+		{12 \choose 0}B_0
+		+  {12 \choose 1}B_1
+		+ {12 \choose 2}B_2
+		+ {12 \choose 3}B_3
+		+ {12 \choose 4}B_4 \right. \\
+		& \quad\quad\quad\quad\left. + {12 \choose 5}B_5
+		+ {12 \choose 6}B_6
+		+ {12 \choose 7}B_7
+		+ {12 \choose 8}B_8
+		+ {12 \choose 9}B_9
+		+ {12 \choose 10}B_{10}
+	\right) \\
+	&= - \frac 1 {12} \left( 1 - \frac {12} 2 + \frac {66} 6 + 0 - \frac {495} {30} + 0 + \frac {924}{42} + 0 - \frac {495}{30} + 0 + \frac {66\cdot5}{66} \right)
+	= 0 \\
+B_{12} &= - \frac 1 {13} \left(
+		{13 \choose 0}B_0
+		+  {13 \choose 1}B_1
+		+ {13 \choose 2}B_2
+		+ {13 \choose 3}B_3
+		+ {13 \choose 4}B_4 
+		+ {13 \choose 5}B_5\right. \\
+		& \quad\quad\quad\quad\left. 
+		+ {13 \choose 6}B_6
+		+ {13 \choose 7}B_7
+		+ {13 \choose 8}B_8
+		+ {13 \choose 9}B_9
+		+ {13 \choose 10}B_{10}
+		+ {13 \choose 11}B_{11}
+	\right) \\
+	&= - \frac 1 {13} \left( 1 - \frac {13} 2 + \frac {78} 6 + 0 - \frac {715} {30} + 0 + \frac {1716}{42} + 0 - \frac {1287}{30} + 0 + \frac {186\cdot5}{66} + 0\right)
+	= -\frac {691}{2730}
+\end{align*}
+\qed
+\\
+
+
+\item Show that $B_{2 n+1}=0$ for $n \geq 1$. \\
+\textit{Solution:} \\
+\textbf{TODO: Here is the idea...just do the thingy from the larson \href{https://www.whitman.edu/documents/Academics/Mathematics/2019/Larson-Balof.pdf}{pdf}.}
+\qed \\
+
+
+
 \item Use your result to find a Taylor series for $z \operatorname{coth} z$, in terms of the Bernoulli numbers. Where is this series valid? Using this result, find a Laurent series for $\cot z$. Where is this series valid?    \\
+\textit{Solution:} \\
+\textbf{TODO:} \\
 \end{enumerate}
 \newpage
 
@@ -281,10 +428,15 @@ put things in terms of taylor series and move them over to the left side of the 
     precision floating point arithmetic to compute the errors $e_n:=
     |g(2^{-n}) - g(0)|$ for $n= 1,2,\ldots, 52$.  Produce a plot of
     these errors.
+\textit{Solution:} \\
+\textbf{TODO:} \\
+
   \item Derive an approximation $G(z)$ to $g(z)$, near $z = 0$, that does not suffer
     from the instability you notice.  Plot the new errors $E_n:=
     |G(2^{-n}) - g(0)|$ for $n= 1,2,\ldots, 52$.  Ensure that these
     errors are less than $10^{-10}$ for all $n$.\\
+\textit{Solution:} \\
+\textbf{TODO:} \\
 \end{enumerate}
 \newpage
 
@@ -294,6 +446,16 @@ $$
 F(z)=1+z+z^2+z^3+\ldots=\sum_{n=0}^{\infty} z^n .
 $$
 Where is this function analytic? \\
+\textit{Solution:} \\
+Looking at this the ratio test we have
+$$
+\left| \frac {z^{n + 1}}{z^n} \right| = \left| z\right|.
+$$
+Which implies the Taylor series only converges inside the unit disc or when $|z| < 1$.
+Therefore, our series is analytic inside the unit disc.
+\qed \\
+
+\noindent
 (b) Use the above representation to induce a Taylor representation of $F(z)$ centered at $z=-1 / 2$. Call this representation $G(z)$. Your final result should be of the form
 $$
 G(z)=\sum_{m=0}^{\infty} c_m\left(z+\frac{1}{2}\right)^m
@@ -302,11 +464,27 @@ Where is this series valid? \\
 If you can answer this question without
 using that both $F(z)$ and $G(z)$ are representations of $1 /(1-z)$,
 you will receive 2 bonus points.\\
-\textit{Solution:}
-expansion of the same function allows you justify things and compute the radius of convergence a certain way. \\
-
-\noindent
-Use the ratio test for a tedious 2 bonus points.
+\textit{Solution:} \\
+\textbf{TODO:} \\
+Follow the path forged in class by doing the following
+\begin{align*}
+\sum_{n=0}^{\infty}z^n = \sum_{n=0}^{\infty}(z - 0)^n &= \sum_{n=0}^{\infty}\left(z + \frac 1 2 - \frac 1 2 - 0\right)^n \\
+	&= \sum_{n=0}^{\infty}\left(\big(z + \frac 1 2\big) + \big(-\frac 1 2\big)\right)^n \\
+	&= \sum_{n=0}^{\infty} \sum_{m=0}^n {n \choose m}\bigg(z + \frac 1 2\bigg)^m\bigg(-\frac 1 2\bigg)^{n - m} \\
+	&= \sum_{m=0}^{\infty} \sum_{n=m}^\infty {n \choose m}\bigg(z + \frac 1 2\bigg)^m\bigg(-\frac 1 2\bigg)^{n - m} \\
+	&= \sum_{m=0}^{\infty}\bigg(z + \frac 1 2\bigg)^m \sum_{n=m}^\infty {n \choose m} \bigg(-\frac 1 2\bigg)^{n - m} \\
+	&= \sum_{m=0}^{\infty}\bigg(z + \frac 1 2\bigg)^m c_m.
+\end{align*}
+Where our coeffecients $c_m$ are
+$$
+c_m = \sum_{n=m}^\infty {n \choose m} \left(-\frac 1 2\right)^{n - m}.
+$$
+Now do the ratio test to determine the radius of convergence
+\begin{align*}
+\lim_{m \rightarrow \infty} \left| \frac {\sum_{n=m+1}^\infty {n \choose m+1} \left(-\frac 1 2\right)^{n - (m + 1)}}{\sum_{n=m}^\infty {n \choose m} \left(-\frac 1 2\right)^{n - m}} \right| \\
+\lim_{m \rightarrow \infty} \lim_{M \rightarrow \infty} \left| \frac {\sum_{n=m+1}^{M + 1} {n \choose m+1} \left(-\frac 1 2\right)^{n - (m + 1)}}{\sum_{n=m}^{M + 1} {n \choose m} \left(-\frac 1 2\right)^{n - m}} \right|
+\end{align*}
+\textbf{we want the ratio test limit to come out to $\frac 2 3$ otherwise known as $1/r$ where $r = \frac 3 2$ the expected ratio of convergence}
 
 \newpage
 
@@ -319,8 +497,65 @@ $$
 This might appear to contradict the idea of analytic
 continuation. Please comment.\\
 \textit{Solution:} \\
-Do partial fractions on the left.
-Something telescopes.... something should be the negative of each other in order to telescope they will depend on z likely
+We will begin by using partial fractions on the summand term
+\begin{align*}
+\frac{z^{n-1}}{\left(1-z^n\right)\left(1-z^{n+1}\right)} &= \frac A {1 - z^n} + \frac B {1 - z^{n + 1}} \\
+z^{n-1} &= A(1 - z^{n + 1}) + B(1 - z^n) \\
+z^{n-1} &= A - Az^{n + 1} + B -B z^n
+\end{align*}
+Notice if we plug in $z = 0$ we get $0 = A + B$ implying $A = -B$.
+Using these facts we get
+\begin{align*}
+z^{n-1} &= A - Az^{n + 1} + B -B z^n \\
+z^{n-1} &= - Az^{n + 1} - B z^n \\
+z^{n-1} &= z^n(- Az - B) \\
+\frac 1 z &= - Az - B \\
+\frac 1 z &= - Az + A \\
+\frac 1 z &= A(1 - z) \\
+\frac 1 {z(1 - z)} &= A.
+\end{align*}
+Therefore, 
+$$
+A = \frac 1 {z(1 - z)} \quad \text{and} \quad B = -\frac 1 {z(1 - z)}.
+$$
+Thus we have
+\begin{align*}
+\sum_{n=1}^{\infty} \frac{z^{n-1}}{\left(1-z^n\right)\left(1-z^{n+1}\right)}
+	&= \sum_{n=1}^{\infty} \frac {\frac 1 {z (1 - z)}}{1 - z^n} + \frac{-\frac 1 {z (1 - z)}}{1 - z^{n + 1}} \\
+	&= \sum_{n=1}^{\infty} \frac {\frac 1 {z (1 - z)}}{1 - z^n} - \frac{\frac 1 {z (1 - z)}}{1 - z^{n + 1}}.
+\end{align*}
+Let's look at a finite sum of this form
+\begin{align*}
+& \sum_{n=1}^{N} \frac {\frac 1 {z (1 - z)}}{1 - z^n} - \frac{\frac 1 {z (1 - z)}}{1 - z^{n + 1}} \\
+	& \quad = \frac {\frac 1 {z (1 - z)}}{1 - z} - \cancel{\frac{\frac 1 {z (1 - z)}}{1 - z^2}}
+		+ \cancel{\frac {\frac 1 {z (1 - z)}}{1 - z^2}} - \cancel{\frac{\frac 1 {z (1 - z)}}{1 - z^3}}
+		+ \cancel{\frac {\frac 1 {z (1 - z)}}{1 - z^3}} - \cancel{\frac{\frac 1 {z (1 - z)}}{1 - z^4}} + ...
+		+ \cancel{\frac {\frac 1 {z (1 - z)}}{1 - z^N}} - \frac{\frac 1 {z (1 - z)}}{1 - z^{N + 1}} \\
+	& \quad = \frac {\frac 1 {z (1 - z)}}{1 - z} - \frac{\frac 1 {z (1 - z)}}{1 - z^{N + 1}} \\
+	& \quad = \frac {1}{z (1 - z)^2} - \frac1{z (1 - z)(1 - z^{N + 1})}
+\end{align*}
+Now we want to take the limit of this and see the results
+\begin{align*}
+\sum_{n=1}^{\infty} \frac{z^{n-1}}{\left(1-z^n\right)\left(1-z^{n+1}\right)}
+	&= \sum_{n=1}^{\infty} \frac {\frac 1 {z (1 - z)}}{1 - z^n} - \frac{\frac 1 {z (1 - z)}}{1 - z^{n + 1}} \\
+	&= \lim_{N\rightarrow \infty} \sum_{n=1}^{N} \frac {\frac 1 {z (1 - z)}}{1 - z^n} - \frac{\frac 1 {z (1 - z)}}{1 - z^{n + 1}} \\
+	&= \lim_{N\rightarrow \infty} \frac {1}{z (1 - z)^2} - \frac1{z (1 - z)(1 - z^{N + 1})}
+		= \begin{cases} \frac {1}{z (1 - z)^2} - \frac1{z (1 - z)}, & |z|<1 \\ \frac{1}{z(1-z)^2}, & |z|>1 .\end{cases}
+\end{align*}
+Looking more closely at the resulting expression in the case $|z| < 1$, we have
+\begin{align*}
+\frac {1}{z (1 - z)^2} - \frac1{z (1 - z)} &= \frac {1}{z (1 - z)^2} - \frac{1 - z}{z (1 - z)^2} \\
+	&= \frac {1 - 1 + z}{z (1 - z)^2} \\
+	&= \frac {z}{z (1 - z)^2} \\
+	&= \frac 1 {(1 - z)^2}.
+\end{align*}
+Therefore,
+$$
+\sum_{n=1}^{\infty} \frac{z^{n-1}}{\left(1-z^n\right)\left(1-z^{n+1}\right)}= \begin{cases}\frac{1}{(1-z)^2}, & |z|<1 \\ \frac{1}{z(1-z)^2}, & |z|>1 .\end{cases}
+$$
+Now this might appear to contradict the idea of analytic continuation, however, the dense collection of singularities on the unit circle does not allow for us to apply analytic continuation here.
+\textbf{TODO: How should I talk through this} It looks like it should have some section of the unit circle where they can use a common contour to agree, however, it cannot since there is no continuous contour not broken up by some of the singularities due to the roots of unity
+
 \newpage
 
 \item Suppose that $f$ is a function satisfying
