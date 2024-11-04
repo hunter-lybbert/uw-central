@@ -445,7 +445,31 @@ Hence, $B_{2 n+1}=0$ for $n \geq 1$.
 
 \item Use your result to find a Taylor series for $z \operatorname{coth} z$, in terms of the Bernoulli numbers. Where is this series valid? Using this result, find a Laurent series for $\cot z$. Where is this series valid?  \\
 \textit{Solution:} \\
-\textbf{TODO:} \\
+Notice that the hyperbolic sine and cosine functions are given by
+$$ 
+\sinh z = \frac{\E^z - \E^{-z}}{2} \quad\text{and}\quad \cosh z =  \frac{\E^z + \E^{-z}}{2}.
+$$
+Then we can also observe that from part (d) $g(z)$ is 
+$$
+g(z) = \frac {z(\E^{z/2} +\E^{-z/2})} {2(\E^{z/2} - \E^{-z/2})}
+	= \frac {z\frac{\E^{z/2} +\E^{-z/2}}{2}} {2\frac{\E^{z/2} - \E^{-z/2}}{2}}
+	= \frac {z}{2} \frac{\cosh \frac z 2} {\sinh \frac z 2}
+	= \frac {z}{2} \coth \frac z 2.
+$$
+Recall the Taylor series expansion of $g(z)$ has no odd powers of $z$ so we can now right it as
+$$
+\frac {z}{2} \coth \frac z 2 = g(z) = \sum_{n=0}^\infty \frac{B_{2n}}{(2n)!}z^{2n}.
+$$
+And thus
+$$
+z \coth z = 2\sum_{n=0}^\infty \frac{B_{2n}}{(2n)!}z^{2n},
+$$
+which is valid away from the origin.
+Dividing both sides by $z$ and substituting in $z\I$ for $z$, we get the expansion of $\cot z$
+$$
+\cot z = 2\sum_{n=0}^\infty (-1)^n \frac{B_{2n}}{(2n)!}z^{2n - 1}
+$$
+which is valid for $|z| \leq \pi$.
 \end{enumerate}
 \newpage
 
@@ -457,14 +481,14 @@ Hence, $B_{2 n+1}=0$ for $n \geq 1$.
     |g(2^{-n}) - g(0)|$ for $n= 1,2,\ldots, 52$.  Produce a plot of
     these errors.
 \textit{Solution:} \\
-\textbf{TODO:} \\
+\textbf{TODO: I don't have time} \\
 
   \item Derive an approximation $G(z)$ to $g(z)$, near $z = 0$, that does not suffer
     from the instability you notice.  Plot the new errors $E_n:=
     |G(2^{-n}) - g(0)|$ for $n= 1,2,\ldots, 52$.  Ensure that these
     errors are less than $10^{-10}$ for all $n$.\\
 \textit{Solution:} \\
-\textbf{TODO:} \\
+\textbf{TODO: I don't have time} \\
 \end{enumerate}
 \newpage
 
@@ -506,14 +530,26 @@ Where our coeffecients $c_m$ are
 $$
 c_m = \sum_{n=m}^\infty {n \choose m} \left(-\frac 1 2\right)^{n - m}.
 $$
-Now do the ratio test to determine the radius of convergence
+Now do the ratio test to determine the radius of convergence.
+After setting up the basic limit using the typical formula, we will need to immediately perform the following substitutions
+$k = n - m$ and $j = n - m - 1$. 
+Here we go
 \begin{align*}
-\lim_{m \rightarrow \infty} \left| \frac {\sum_{n=m+1}^\infty {n \choose m+1} \left(-\frac 1 2\right)^{n - (m + 1)}}{\sum_{n=m}^\infty {n \choose m} \left(-\frac 1 2\right)^{n - m}} \right| \\
-\lim_{m \rightarrow \infty} \lim_{M \rightarrow \infty} \left| \frac {\sum_{n=m+1}^{M + 1} {n \choose m+1} \left(-\frac 1 2\right)^{n - (m + 1)}}{\sum_{n=m}^{M + 1} {n \choose m} \left(-\frac 1 2\right)^{n - m}} \right|
+\lim_{m \rightarrow \infty} \left| \frac {\sum_{n=m+1}^\infty {n \choose m+1} \left(-\frac 1 2\right)^{n - (m + 1)}}{\sum_{n=m}^\infty {n \choose m} \left(-\frac 1 2\right)^{n - m}} \right|
+	&= \lim_{m \rightarrow \infty} \left| \frac {\sum_{j=0}^\infty {j + m + 1 \choose m+1} \left(-\frac 1 2\right)^j}{\sum_{k=0}^\infty {k + m \choose m} \left(-\frac 1 2\right)^k} \right| \\
+	&= \lim_{m \rightarrow \infty} \left| \frac {\frac 1 {(1 - (-1/2))^{m+2}}}{\frac 1 {(1 - (-1/2))^{m+1}}} \right| \\
+	&= \lim_{m \rightarrow \infty} \left| \frac {\frac 1 {(3/2)^{m+2}}}{\frac 1 {(3/2)^{m+1}}} \right| \\
+	&= \lim_{m \rightarrow \infty} \left|  \frac 1 {(3/2)^{m+2}} \frac {(3/2)^{m+1}} 1  \right| \\
+	&= \lim_{m \rightarrow \infty} \left|  \frac 1 {3/2}  \right| \\
+	&= \frac 2 3
 \end{align*}
-\textbf{TODO:} \\
-\textbf{we want the ratio test limit to come out to $\frac 2 3$ otherwise known as $1/r$ where $r = \frac 3 2$ the expected ratio of convergence}
-
+We also utilize the negative binomial series from the second equality to the third.
+Therefore our radius of convergence of our new series centered at $z = -\frac 1 2$ is $\frac 3 2$.
+Hence our new series is valid inside the disc centered at $z=-\frac 1 2$ with radius $\frac 3 2$.
+In other words, it is valid for all $z$ such that
+$$
+\left| z + \frac 1 2\right| < \frac 3 2.
+$$
 \newpage
 
 \item This problem is from Whittaker and Watson's "A course of modern
@@ -613,7 +649,7 @@ Therefore we cannot apply analytic continuation across the boundary between the 
 \noindent
 \textit{Solution:} \\
 Use a theorem, something about this being able to hold if the integral is finite, then take the limit as it becomes infinit \\
-\textbf{TODO: Maybe}
+\textbf{TODO: I don't have time to get to this.}
 \newpage
 
 \item Use analytic continuation to show that
@@ -623,9 +659,26 @@ Use a theorem, something about this being able to hold if the integral is finite
   where $\sqrt{\cdot}$ denotes the principal branch with $\arg z \in
   [-\pi, \pi)$. \\
   \textit{Solution:} \\
-  \textbf{TODO: Maybe} \\
-  Consider that they are both analytic everywhere in the same domain (use the form of analytic continuation which depends on the accumulation point) \\
-  Choose a contour for which the functions. agree on (positive real axis is a good choice). \\
+Consider the fact that both of these functions are analytic away from the branch cut along the real axis from $-1$ to $1$.
+If we can identify a set of points $z$ for which the left hand side and right hand side agree and this set has an accumulation point in the open set for which they are analytic, then the two functions agree on the whole domain.
+This is a form of analytic continuation which we covered in class.
+Let's consider the set of points in the sequence $S$
+$$
+\left(2 + \frac 1 n \right)_{n = 0}^ \infty.
+$$
+Notice this sequence approximates the accumulation point $2$.
+We now can see if the left hand side agrees with the right hand side on this sequence of points
+\begin{align*}
+\sqrt{z -1} \sqrt{z + 1} &= (z -1) \sqrt{ \frac{ z +1}{z-1}} \\
+\lim_{n\rightarrow\infty} \sqrt{2 + \frac 1 n -1} \sqrt{2 + \frac 1 n + 1}
+	&= \lim_{n\rightarrow\infty}\left(2 + \frac 1 n -1\right) \sqrt{ \frac{ 2 + \frac 1 n +1}{2 + \frac 1 n-1}} \\
+\lim_{n\rightarrow\infty} \sqrt{1} \sqrt{3}
+	&= \lim_{n\rightarrow\infty}(1)\sqrt{ \frac{ 3}{1}} \\
+\sqrt{3} &= \sqrt{3} \\
+\end{align*}
+Since they agree in the limit the left hand side and the right hand side agree on this whole set of points in the sequence $S$.
+Therefore, by the previously state theorem in class the functions agree in the whole domain for which they are analytic. \\
+\qed \\
   
   \noindent
   Then show that
@@ -634,7 +687,7 @@ Use a theorem, something about this being able to hold if the integral is finite
     O(z^{-3}), \quad z \to \infty,
   \end{align*}
   and find $b_0,b_1,b_2$. \\
-  \textbf{TODO: Maybe}
+  \textbf{TODO: I don't have time to get to this one.}
   
 \end{enumerate}
 \end{document}
