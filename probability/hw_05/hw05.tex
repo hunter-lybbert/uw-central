@@ -1,0 +1,47 @@
+\documentclass[10pt]{amsart}
+\include{amsmath}
+\usepackage{dsfont}													% gives you \mathds{} font
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{cancel}
+
+\newcommand{\D}{\mathrm{d}}
+\DeclareMathOperator{\E}{e}
+
+\begin{document}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{11-06-24} \\
+\text{AMATH 561}
+\title{Problem Set 5}
+\maketitle
+
+\noindent {\bf 1.} Let $X$ and $Y_0, Y_1, Y_2, . . .$ be random variables on a probability space $(\Omega, \mathcal{F},P)$ and suppose $E|X| < \infty$. Define $\mathcal{F}_n=\sigma(Y_0,Y_1,...,Y_n)$ and $X_n = E(X|\mathcal{F}_n)$. Show that the sequence $X_0, X_1, X_2,...$ is a martingale with respect to the filtration $(\mathcal{F}_n)_{n \geq 0}$. \\
+\textit{Solution:} \\
+Learn about the filtration... and how to show something satisfies the definition of a martingale.
+
+\newpage
+
+\noindent {\bf 2.} Let $X_0, X_1, . . .$  be i.i.d Bernoulli random variables with parameter $p$ (i.e., $P(X_i = 1) = p, P(X_i = 0) =1- p$). Define $S_n = \sum_{i=1}^n X_i$ where $S_0 = 0$. Define
+$$Z_n =\left(\frac{1-p}{p} \right)^{2S_n-n}, \,\,\,\, n = 0, 1, 2, . . . .$$
+Let $\mathcal{F}_n = \sigma(X_0, X_1, . . . , X_n )$. Show that $Z_n$ is a martingale with respect to this filtration. \\
+\textit{Solution:} \\
+Learn about the filtration... and how to show something satisfies the definition of a martingale.
+
+\newpage
+
+\noindent {\bf 3.} Let $\xi_i$ be a sequence of random variables such that the partial sums 
+$$X_n=\xi_0+\xi_1+...+\xi_n, \,\,\,\, n\geq 1,$$
+determine a martingale. Show that the summands are mutually uncorrelated, i.e. that $E(\xi_i\xi_j)=E(\xi_i)E(\xi_j)$ for $i\neq j$. \\
+\textit{Solution:} \\
+So we are given something that ``determines" a martingale and we need to show that something is uncorrelated does this mean they are independent?
+\newpage
+
+\noindent {\bf 4.} Galton and Watson who invented the process that bears their names were interested in the survival of family names. Suppose each family has exactly 3 children but coin flips determine their sex. In the 1800s, only male children kept the family name so following the male offspring leads to a branching process with $p_0 = 1/8, p_1 = 3/8, p_2 = 3/8, p_3 = 1/8$. Compute the probability $\rho$ that the family name will die out when $Z_0 = 1$. What is $\rho$ if we assume that each family has exactly 2 children? \\
+\textit{Solution:} \\
+Sompute the probability that they will die out... this seems related to using the generating function when $s = 0$ from the lecture on friday November $1^{\rm st}$.
+\newpage
+
+\end{document}  
