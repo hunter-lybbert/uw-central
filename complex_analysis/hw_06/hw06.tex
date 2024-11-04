@@ -47,7 +47,7 @@
 
 \maketitle
 \noindent
-Collaborators*: Nate Ward, Sophie, Peter, Matthew, Anja, Hailey, Laura\\
+Collaborators*: Nate Ward, Sophia Kamien, Peter Xu, Matthew Watkins, Anja Vogt, Hailey Sparks, Laura Thomas\\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -410,12 +410,40 @@ B_{12} &= - \frac 1 {13} \left(
 
 \item Show that $B_{2 n+1}=0$ for $n \geq 1$. \\
 \textit{Solution:} \\
-\textbf{TODO: Here is the idea...just do the thingy from the larson \href{https://www.whitman.edu/documents/Academics/Mathematics/2019/Larson-Balof.pdf}{pdf}.}
+Let's consider our function
+$$f(z) = \frac z {\E^z - 1} = \frac {B_0}{0!} + \frac {B_1}{1!}z + \frac {B_2}{2!}z^2 + \frac {B_3}{3!}z^3 + ...$$
+Now define
+\begin{align*}
+g(z) &= f(z) - B_1z \\
+	&= \frac z {\E^z - 1} - B_1z.
+\end{align*}
+If we can show that $g(z)$ is an even function then we know that all of the coefficients of the odd powers of $z$ in the power series expansion of $f(z)$ are 0, therefore implying $B_{2 n+1}=0$ for $n \geq 1$.
+Let's check if this criteria is met
+\begin{align*}
+g(-z) &= f(-z) - B_1(-z) \\
+	&= \frac {-z} {\E^{-z} - 1} + B_1z \\
+	&= \frac {-z} {\E^{-z} - 1} -\frac z 2 \\
+	&= \frac {-2z} {(\E^{-z} - 1)2} -\frac {z (\E^{-z} - 1)} {(\E^{-z} - 1)2} \\
+	&= \frac {-2z - z (\E^{-z} - 1)} {(\E^{-z} - 1)2} \\
+	&= \frac {-2z - z\E^{-z} + z} {(\E^{-z} - 1)2} \\
+	&= \frac {-z\E^{-z} -z} {2(\E^{-z} - 1)} \\
+	&= \frac {-z(\E^{-z} +1)} {2(\E^{-z} - 1)} \\
+	&= \frac {-z(\E^{-z} +1)} {2(\E^{-z} - 1)} \frac {\E^{z/2}}{\E^{z/2}} \\
+	&= \frac {-z(\E^{-z/2} +\E^{z/2})} {2(\E^{-z/2} - \E^{z/2})} \\
+	&= \frac {-z(\E^{z/2} +\E^{-z/2})} {-2(\E^{z/2} - \E^{-z/2})} \\
+	&= \frac {z(\E^{z} +1)} {2(\E^{z} - 1)} \frac {\E^{-z/2}}{\E^{-z/2}} \\
+	&= \frac {z\E^{z} + z} {2(\E^{z} - 1)} \\
+	&= \frac {z2 + z\E^{z} - z} {2(\E^{z} - 1)} \\
+	&= \frac {z2} {2(\E^{z} - 1)} + \frac {z(\E^{z} - 1)}{2(\E^{z} - 1)} \\
+	&= \frac {z} {\E^{z} - 1} - (-\frac 1 2) z \\
+	&= \frac {z} {\E^{z} - 1} - B_1 z \\
+	&= g(z).
+\end{align*}
+Therefore, since $g(-z) = g(z)$ then $g(z)$ is an even function and all of the coefficients of the odd power terms in the power series representation of $f(z) = \frac z {\E^z - 1}$ are 0.
+Hence, $B_{2 n+1}=0$ for $n \geq 1$.
 \qed \\
 
-
-
-\item Use your result to find a Taylor series for $z \operatorname{coth} z$, in terms of the Bernoulli numbers. Where is this series valid? Using this result, find a Laurent series for $\cot z$. Where is this series valid?    \\
+\item Use your result to find a Taylor series for $z \operatorname{coth} z$, in terms of the Bernoulli numbers. Where is this series valid? Using this result, find a Laurent series for $\cot z$. Where is this series valid?  \\
 \textit{Solution:} \\
 \textbf{TODO:} \\
 \end{enumerate}
@@ -449,7 +477,7 @@ Where is this function analytic? \\
 \textit{Solution:} \\
 Looking at this the ratio test we have
 $$
-\left| \frac {z^{n + 1}}{z^n} \right| = \left| z\right|.
+\lim_{n \rightarrow \infty} \left| \frac {z^{n + 1}}{z^n} \right| = \lim_{n \rightarrow \infty}\left| z\right|.
 $$
 Which implies the Taylor series only converges inside the unit disc or when $|z| < 1$.
 Therefore, our series is analytic inside the unit disc.
@@ -465,7 +493,6 @@ If you can answer this question without
 using that both $F(z)$ and $G(z)$ are representations of $1 /(1-z)$,
 you will receive 2 bonus points.\\
 \textit{Solution:} \\
-\textbf{TODO:} \\
 Follow the path forged in class by doing the following
 \begin{align*}
 \sum_{n=0}^{\infty}z^n = \sum_{n=0}^{\infty}(z - 0)^n &= \sum_{n=0}^{\infty}\left(z + \frac 1 2 - \frac 1 2 - 0\right)^n \\
@@ -484,6 +511,7 @@ Now do the ratio test to determine the radius of convergence
 \lim_{m \rightarrow \infty} \left| \frac {\sum_{n=m+1}^\infty {n \choose m+1} \left(-\frac 1 2\right)^{n - (m + 1)}}{\sum_{n=m}^\infty {n \choose m} \left(-\frac 1 2\right)^{n - m}} \right| \\
 \lim_{m \rightarrow \infty} \lim_{M \rightarrow \infty} \left| \frac {\sum_{n=m+1}^{M + 1} {n \choose m+1} \left(-\frac 1 2\right)^{n - (m + 1)}}{\sum_{n=m}^{M + 1} {n \choose m} \left(-\frac 1 2\right)^{n - m}} \right|
 \end{align*}
+\textbf{TODO:} \\
 \textbf{we want the ratio test limit to come out to $\frac 2 3$ otherwise known as $1/r$ where $r = \frac 3 2$ the expected ratio of convergence}
 
 \newpage
@@ -553,8 +581,21 @@ Therefore,
 $$
 \sum_{n=1}^{\infty} \frac{z^{n-1}}{\left(1-z^n\right)\left(1-z^{n+1}\right)}= \begin{cases}\frac{1}{(1-z)^2}, & |z|<1 \\ \frac{1}{z(1-z)^2}, & |z|>1 .\end{cases}
 $$
-Now this might appear to contradict the idea of analytic continuation, however, the dense collection of singularities on the unit circle does not allow for us to apply analytic continuation here.
-\textbf{TODO: How should I talk through this} It looks like it should have some section of the unit circle where they can use a common contour to agree, however, it cannot since there is no continuous contour not broken up by some of the singularities due to the roots of unity
+Now this might appear to contradict the idea of analytic continuation, however, the dense collection of singularities on the unit circle does not allow for us to apply analytic continuation here. \\
+
+\noindent
+The piecewise functions are analytic in their respective regions where they apply, so it appears like it should be a direct application of analytic continuation.
+You may expect there to be some section of the unit circle away from $z = 1$ where each function would agree on a short contour which was included in the closer of each of the functions domains of analyticity.
+However, it cannot since there is no continuous contour along the unit circle not broken up by at least one singularity.
+This is a result of the following.
+Notice, the $n{\rm th}$ term 
+$$
+\frac{z^{n-1}}{\left(1-z^n\right)\left(1-z^{n+1}\right)}
+$$
+blows up at the $n$ and $n + 1$ roots of $z$.
+Therefore as $n \rightarrow \infty$ the singularities of this nature become dense and eventually cover the entire unit circle in the limit.
+Therefore we cannot apply analytic continuation across the boundary between the two disjoint domains for which our two functions (each part of the piecewise function) are analytic. \\
+\qed
 
 \newpage
 
@@ -571,7 +612,8 @@ Now this might appear to contradict the idea of analytic continuation, however, 
   
 \noindent
 \textit{Solution:} \\
-Use a theorem, something about this being able to hold if the integral is finite, then take the limit as it becomes infinit
+Use a theorem, something about this being able to hold if the integral is finite, then take the limit as it becomes infinit \\
+\textbf{TODO: Maybe}
 \newpage
 
 \item Use analytic continuation to show that
@@ -581,6 +623,7 @@ Use a theorem, something about this being able to hold if the integral is finite
   where $\sqrt{\cdot}$ denotes the principal branch with $\arg z \in
   [-\pi, \pi)$. \\
   \textit{Solution:} \\
+  \textbf{TODO: Maybe} \\
   Consider that they are both analytic everywhere in the same domain (use the form of analytic continuation which depends on the accumulation point) \\
   Choose a contour for which the functions. agree on (positive real axis is a good choice). \\
   
@@ -590,7 +633,8 @@ Use a theorem, something about this being able to hold if the integral is finite
     \sqrt{z -1} \sqrt{z + 1} = z + b_0 + b_1 z^{-1} + b_2  z^{-2} +
     O(z^{-3}), \quad z \to \infty,
   \end{align*}
-  and find $b_0,b_1,b_2$.
+  and find $b_0,b_1,b_2$. \\
+  \textbf{TODO: Maybe}
   
 \end{enumerate}
 \end{document}
