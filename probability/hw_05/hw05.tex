@@ -136,7 +136,8 @@ E (Z_{n + 1} | \mathcal F_n) &= \left(\frac{1-p}{p} \right)^{- n - 1} \left(\fra
 	&= Z_n.
 \end{align*}
 Therefore, $E (Z_{n + 1} | \mathcal F_n)  = Z_n$ for all $n$.
-And hence, $Z_n$ is a martingale with respect to $\mathcal{F}_n = \sigma(X_0, X_1, . . . , X_n )$.
+And hence, $Z_n$ is a martingale with respect to $\mathcal{F}_n = \sigma(X_0, X_1, . . . , X_n )$. \\
+\qed \\
 
 
 \newpage
@@ -176,7 +177,7 @@ E(\xi_i\xi_{n + 1})
 	&= E(\xi_i)E(\xi_{n + 1}).
 \end{align*}
 Hence, $\xi_i$ and $\xi_j$ ($i\neq j$) are uncorrelated, since
-$$E(\xi_i\xi_j) = E(\xi_i)E(\xi_j) = 0$$.
+$$E(\xi_i\xi_j) = E(\xi_i)E(\xi_j) = 0.$$
 \qed \\
 
 \newpage
@@ -187,24 +188,26 @@ $$E(\xi_i\xi_j) = E(\xi_i)E(\xi_j) = 0$$.
 \textit{Solution:} \\
 Let $Z_0 = 1$.
 Furthermore, define $Z_{n+1} = \xi_0^{n + 1} + \xi_1^{n + 1} + \xi_2^{n + 1} + ... + \xi_{Z_n}^{n + 1}$ where this follows the same definition in class.
-$Z_{n+1}$ represents the number males in the $n+1$ generation which bear the last name.
-as $Z_n$ total males bearing the last name.
-
-Or, rather, should I be computing the distribution from the probability generating function? Like
-\begin{align*}
-\frac{G_Z(0)}{0!} &= p_0 = \frac 1 8\\
-\frac{G_Z^\prime(0)}{1!} &= p_1 = \frac 3 8 \\
-\frac{G_Z^{(2)}(0)}{2!} &= p_2 = \frac 3 8 \\
-\frac{G_Z^{(3)}(0)}{3!} &= p_3 = \frac 1 8
-\end{align*}
-This might possibly be a feasible path forward...not convinced. \\
+$Z_{n+1}$ represents the number males in the $n+1$ generation which bear the last name. \\
 
 \noindent
-We really want to compute
+We are going to go about this thinking about the branching process with respect to the birth death process.
+We are given that $Z_0 = 1$. 
+At the beginning there is a $\frac 1 8$ probability the name dies out right away, a $\frac 3 8$ probability 1 male child is born and can bear the name, a $\frac 3 8$ probability 2 male children are born and can bear the name and finally, a $\frac 1 8$ probability that 3 male children are born and can bear the name.
+This gives us
 $$
-P(Z_n = 0) = p_0 = G_{Z_n}(0)
+\rho = \frac 1 8 + \frac 3 8 \rho + \frac 3 8 \rho^2 + \frac 1 8 \rho^3.
 $$
-\textbf{TODO: If I have time I will come back to this problem}
+Solving this for $\rho$ gives us
+$$
+\rho = 1, \quad \rho = -2 + \sqrt{5}, \quad \rho = -2 - \sqrt{5}.
+$$
+Since, $$E(\xi_i) = 0 \frac 1 8 + 1 \frac 3 8 + 2 \frac 3 8 + 3 \frac 1 8 = \frac {12} 8 > 1$$
+we can say the process is superciritical.
+Therefore can determine that we need $0 < \rho < 1$ and thus we have 
+$$\rho = -2 + \sqrt{5}.$$
+\\
+\textbf{TODO: If I have time I will address the case if the family has exactly 2 children.}
 
 \newpage
 
