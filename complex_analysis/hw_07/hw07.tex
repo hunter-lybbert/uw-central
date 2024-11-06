@@ -1,0 +1,137 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+\usepackage{mathtools}
+
+\graphicspath{ {./images/} }
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=5pt]{lemma}{Lemma}
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{11-11-24} \\
+\text{AMATH 567} \\
+
+\title{\bf { Homework 7} }
+
+
+\maketitle
+\noindent
+Collaborators*: TBD\\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
+\normalsize
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item  From A\&F: 3.5.1 b, c, d (Only consider singularities in the finite
+  complex plane)\\
+\item From A\&F: 3.5.3 a, c, d\\
+\item Introducing the Gamma function: Do A\&F: 3.6.6. This is the same Gamma function you may have seen defined as
+$$
+\Gamma(z)=\int_0^{\infty} t^{z-1} e^{-t} d t
+$$
+This better known representation is only valid for
+$\operatorname{Re}(z)>0$. The representation given here is valid in
+all of $\mathbb{C}$. It takes a bit of work to show that our
+representation is an analytic continuation of the integral
+representation (this requires the Dominated Convergence Theorem), but
+it is quite doable. Not now though.\\
+\item Consider a sequence of numbers $(a_n)_{n \geq 0}$ such that
+  $|a_n| < 1$ and
+  \begin{align*}
+    \sum_{n = 0}^\infty (1 - |a_n|) < \infty.
+  \end{align*}
+  Define a Blaschke  factor
+  \begin{align*}
+    B(a,z) = \begin{cases} \frac{|a|}{a} \frac{ a - z}{ 1 - \bar a z}
+      & a \neq 0,\\
+      z & a  =0.\end{cases}
+  \end{align*}
+  \begin{itemize}
+  \item Show that
+  \begin{align*}
+    H(z) = \prod_{n=0}^\infty B(a_n,z),
+  \end{align*}
+  defines an analytic function in the open unit disk $|z| < 1$.
+  \item Show that $H(z)$ has zeros at $z = a_n$ for every $n$.  It
+    might seem that this construction of an analytic function with an
+    infinite number of zeros in a bounded region implies that $H(z) =
+    0$ for all $z$.  Why is this not the case?\\
+  \end{itemize}
+
+  \item We define the Weierstrass $\wp$-function as
+
+$$
+\wp(z)=\frac{1}{z^2}+\sum_{j, k=-\infty}^{\infty}\left(\frac{1}{\left(z-j \omega_1-k \omega_2\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2}\right),
+$$
+
+where $(j, k)=(0,0)$ is excluded from the double sum. Also, you may
+assume that $\omega_1$ is a positive real number, and that $\omega_2$
+is on the positive imaginary axis. All considerations below are meant
+for the entire complex plane, except the poles of $\wp(z)$.
+\begin{enumerate}
+\item Show that $\wp\left(z+M \omega_1+N \omega_2\right)=\wp(z)$, for any two integers $M, N$. In other words, $\wp(z)$ is a doubly-periodic function: it has two independent periods in the complex plane. Doubly periodic functions are called elliptic functions.
+\item Establish that $\wp(z)$ is an even function: $\wp(-z)=\wp(z)$.
+\item Find Laurent expansions for $\wp(z)$ and $\wp^{\prime}(z)$ in a neighborhood of the origin in the form
+
+$$
+\wp(z)=\frac{1}{z^2}+\alpha_0+\alpha_2 z^2+\alpha_4 z^4+\ldots
+$$
+
+and
+
+$$
+\wp^{\prime}(z)=-\frac{2}{z^3}+\beta_1 z+\beta_3 z^3+\ldots
+$$
+
+
+Give expressions for the coefficients introduced above.
+\item Show that $\varphi(z)$ satisfies the differential equation
+
+$$
+\left(\wp^{\prime}\right)^2=a \wp^3+b \wp^2+c \wp+d,
+$$
+
+for suitable choices of $a, b, c, d$. Find these constants. You may need to invoke Liouville's theorem to obtain this final result. It turns out that the function $\varphi(z)$ is determined by the coefficients $c$ and $d$, implying that it is possible to recover $\omega_1$ and $\omega_2$ from the knowledge of $c$ and $d$.
+\end{enumerate}
+\end{enumerate}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
