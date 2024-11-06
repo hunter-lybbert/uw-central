@@ -19,16 +19,125 @@
 \maketitle
 
 \noindent {\bf 1.} Let $X$ and $Y_0, Y_1, Y_2, . . .$ be random variables on a probability space $(\Omega, \mathcal{F},P)$ and suppose $E|X| < \infty$. Define $\mathcal{F}_n=\sigma(Y_0,Y_1,...,Y_n)$ and $X_n = E(X|\mathcal{F}_n)$. Show that the sequence $X_0, X_1, X_2,...$ is a martingale with respect to the filtration $(\mathcal{F}_n)_{n \geq 0}$. \\
-\textit{Solution:} \\
-Learn about the filtration... and how to show something satisfies the definition of a martingale.
 
+\noindent
+\textit{Solution:} \\
+For my sake, I will review the definition of a martingale then we will show that the sequence $X_0, X_1, X_2, ...$ satisfies all of the necessary conditions and is thus itself a martingale. \\
+
+\noindent
+Let $\mathcal F_n$ be a filtration, i.e. an increasing sequence of $\sigma$-algebras.
+A sequence of random variables $X_n$ is said to be adapted to $\mathcal F_n$ if $X_n \in \mathcal F_n$
+(that is $X_n$ is $\mathcal F_n$-measurable or for all Borel sets $B$ we have $X_n^{-1}(B) = \{\omega \:\: | \:\: X(\omega) \in B\} \in \mathcal F_n$)
+for all $n$.
+If $X_n$ is a sequence with:
+\begin{enumerate}
+\item  $E | X_n | < \infty$
+\item $X_n$ is adapted to $\mathcal F_n$
+\item $E ( X_{n + 1} | \mathcal F_n ) = X_n \text{ for all } n$,
+\end{enumerate}
+Then $X = (X_n)_{n \in \mathbb N}$ is said to be a martingale with respect to $\mathcal F_n$. \\
+
+\noindent
+Now I will begin my actual proof.
+Since $X$ and each $Y_n$ are random variables on the probability space $(\Omega, \mathcal F, P)$, then $X \in \mathcal F$ and $Y_n \in \mathcal F$ for each $n \in \mathbb N_0$.
+By definition of conditional expectation, we have that $X_n \in \mathcal F_n$ for all $n$ and thus $X_n$ is adapted to $\mathcal F_n$.
+Next, let's show $E (X_{n + 1} | \mathcal F_n) = X_n$ for all $n$.
+Recall that if $\mathcal F_0 \subset \mathcal F_1$, then
+$$
+E\big(E(X|\mathcal F_1) \big|\mathcal F_0\big) = E(X|\mathcal F_0).
+$$
+Therefore, we have,
+$$
+E (X_{n + 1}|\mathcal F_n) = E \big( E(X | \mathcal F_{n + 1} ) \big| \mathcal F_n\big) = E(X | \mathcal F_n ) = X_n
+$$
+since
+$$
+\mathcal F_n = \sigma(Y_0, Y_1, ..., Y_n) \subset \sigma(Y_0, Y_1, ..., Y_n, Y_{n + 1}) = \mathcal F_{n + 1}.
+$$
+Finally, we want to show that $E | X_n | < \infty$ for all $n$.
+Additionally, by our definition of conditional expectation in lecture slides 10 we have that for all $A \in \mathcal F_n$,
+$$\int_{A} Y \D P = \int_{A} X \D P.$$
+Since, $\mathcal F_n$ is a $\sigma$-algebra we can take $A = \Omega$ and then we have
+\begin{align*}
+E | X_n |  &= E \big| E (X | \mathcal F_n) \big| \\
+	&= \int_\Omega \big|E (X | \mathcal F_n ) \big|\D P \\
+	&= \int_\Omega |Y| \D P \\
+	&= \int_\Omega |X| \D P \\
+	&= E |X| < \infty
+\end{align*}
+Therefore, $E | X_n | < \infty$. Hence, the sequence of random variables $(X_n)_{n \in \mathbb N_0}$ is a martingale with respect to the filtration $(\mathcal{F}_n)_{n \geq 0}$.\\
+\qed \\
 \newpage
 
 \noindent {\bf 2.} Let $X_0, X_1, . . .$  be i.i.d Bernoulli random variables with parameter $p$ (i.e., $P(X_i = 1) = p, P(X_i = 0) =1- p$). Define $S_n = \sum_{i=1}^n X_i$ where $S_0 = 0$. Define
-$$Z_n =\left(\frac{1-p}{p} \right)^{2S_n-n}, \,\,\,\, n = 0, 1, 2, . . . .$$
+$$Z_n = \left(\frac{1-p}{p} \right)^{2S_n-n}, \,\,\,\, n = 0, 1, 2, . . . .$$
 Let $\mathcal{F}_n = \sigma(X_0, X_1, . . . , X_n )$. Show that $Z_n$ is a martingale with respect to this filtration. \\
 \textit{Solution:} \\
-Learn about the filtration... and how to show something satisfies the definition of a martingale.
+We need to verify that the sequence of random variables $(Z_n)_{n \in \mathbb N_0}$ satisfies the requisite criteria to be a martingale.
+Let's begin by showing that $E|Z_n| < \infty$.
+Let's look more closely at the expected value of the absolute value of $Z_n$.
+Since $p \in [0, 1]$, we know that each $Z_n$ is just a nonnegative number raised to some integer power so it is always positive.
+Therefore, in calculating the expected value we can drop the absolute value
+\begin{align*}
+E|Z_n| &= E\Bigg(\left(\frac{1-p}{p} \right)^{2S_n-n}\Bigg) \\
+	&= E\bigg(\left(\frac{1-p}{p} \right)^{2(\sum_{i=1}^n X_i)-n}\bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{-n} E\Bigg(\left(\frac{1-p}{p} \right)^{2\sum_{i=1}^n X_i}\Bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{-n} E\Bigg( \prod_{i = 1}^n \left(\frac{1-p}{p} \right)^{2 X_i}\Bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{-n}\prod_{i = 1}^n E\Bigg( \left(\frac{1-p}{p} \right)^{2 X_i}\Bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{-n} E\Bigg( \left(\frac{1-p}{p} \right)^{2 X}\Bigg)^n.
+\end{align*}
+where the final few lines hold due to the fact that the $X_i$ are i.i.d.
+It is important to note that we are taking the $n$th power of the expectation of our expression instead of the expectation of the expression  to the $n$th power. The difference is important.
+Using the definition of expectation and the fact that the $X$'s are Bernoulli distributed we have
+\begin{align*}
+E|Z_n| &= \left(\frac{1-p}{p} \right)^{-n} \Bigg(\int_\Omega \left(\frac{1-p}{p} \right)^{2 X} \D P \Bigg)^n \\
+	&= \left(\frac{1-p}{p} \right)^{-n} \Bigg(\sum_{x \in \{0, 1\}} \left(\frac{1-p}{p} \right)^{2 x} P(X = x) \Bigg)^n \\
+	&= \left(\frac{1-p}{p} \right)^{-n} \Bigg(P(X = 0) + \left(\frac{1-p}{p} \right)^2 P(X = 1)\Bigg)^n \\
+	&= \left(\frac{1-p}{p} \right)^{-n} \Bigg((1-p) + \left(\frac{1-p}{p} \right)^2 p\Bigg)^n.
+\end{align*}
+I suppose we may be able to say something about the finiteness of the expected value at this point but I will continue with the algebra until it is more obvious to me.
+Getting common denominators inside the parenthesis on the right, we have
+\begin{align*}
+E|Z_n| &= \left(\frac{1-p}{p} \right)^{-n} \Bigg(\frac{p(1-p)}{p} + \frac{(1-p)^2}{p}\Bigg)^n \\
+	&= \left(\frac{1-p}{p} \right)^{-n} \Bigg(\frac{p(1-p)+ (1-p)^2}{p}\Bigg)^n \\
+	&= \frac{(1-p)^{-n}}{p^{-n}} \frac{\bigg((1 - p)\big(p + (1-p)\big)\bigg)^n}{p^n} \\
+	&= (1-p)^{-n} \bigg( (1 - p) \big(p + 1 -p \big) \bigg)^n \\
+	&= (1-p)^{-n} (1 - p)^n \\
+	&= 1
+\end{align*}
+Thus, $E |Z_n| < \infty$.
+Now we need to show that $Z_n$ is adapted to $\mathcal F$ or that $Z_n \in \mathcal F_n$ for all $n$.
+The pre-image of $Z_n$ with respect to an arbitrary Borel Set is as follows
+\begin{align*}
+Z_n^{-1}(B) = \{\omega \:\: | \:\: Z_n(\omega) \in B\}.
+\end{align*}
+\textbf{TODO: Figure out how to show that $Z_n$ is $\mathcal F_n$ adapted.} \\
+Finally, we need to show, for all $n$, that
+$$ E (Z_{n + 1} | \mathcal F_n) = Z_n. $$
+Beginning on the right
+\begin{align*}
+E (Z_{n + 1} | \mathcal F_n) &= E \Bigg(\left(\frac{1-p}{p} \right)^{2S_{n + 1} - n - 1} \Bigg| \sigma(X_0, X_1, ...,  X_n)\Bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{- n - 1} E \Bigg(\left(\frac{1-p}{p} \right)^{2S_{n + 1}} \Bigg| \sigma(X_0, X_1, ...,  X_n)\Bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{- n - 1} E \Bigg(\left(\frac{1-p}{p} \right)^{2\big(\sum_{i=0}^{n} X_i\big) + 2X_{n + 1}} \Bigg| \sigma(X_0, X_1, ...,  X_n)\Bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{- n - 1} E \Bigg(\left(\frac{1-p}{p} \right)^{2\sum_{i=0}^{n} X_i} \left(\frac{1-p}{p} \right)^{2X_{n + 1}} \Bigg| \sigma(X_0, X_1, ...,  X_n)\Bigg).
+\end{align*}
+Since, we are conditioning on $\sigma(X_0, X_1, ...,  X_n)$ each $X_i$ up to $X_n$ is constant with respect to this given information.
+Therefore it can be treated like a constant and pulled out of the expected value because of the linearity of expected value.
+We now proceed with this step and can drop the conditioning since $X_{n + 1}$ is independent from the $\sigma$-algebra generated by the collection of $X_i$'s
+\begin{align*}
+E (Z_{n + 1} | \mathcal F_n) &= \left(\frac{1-p}{p} \right)^{- n - 1} \left(\frac{1-p}{p} \right)^{2\sum_{i=0}^{n} X_i} E \Bigg(\left(\frac{1-p}{p} \right)^{2X_{n + 1}} \Bigg| \sigma(X_0, X_1, ...,  X_n)\Bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{- n - 1} \left(\frac{1-p}{p} \right)^{2S_n} E \Bigg(\left(\frac{1-p}{p} \right)^{2X_{n + 1}}\Bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{- n - 1} \left(\frac{1-p}{p} \right)^{2S_n} \Bigg(P(X_{n + 1} = 0)  + \left(\frac{1-p}{p} \right)^2P(X_{n + 1} = 1)\Bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{- n - 1} \left(\frac{1-p}{p} \right)^{2S_n} \Bigg((1 - p)  + \frac{(1-p)^2}{p}\Bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{- n - 1} \left(\frac{1-p}{p} \right)^{2S_n} \Bigg(\frac{(1 - p)\big(p + 1 - p\big)}{p}\Bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{- n - 1} \left(\frac{1-p}{p} \right)^{2S_n} \Bigg(\frac{1 - p}{p} \Bigg) \\
+	&= \left(\frac{1-p}{p} \right)^{- n} \left(\frac{1-p}{p} \right)^{2S_n} \\
+	&=\left(\frac{1-p}{p} \right)^{2S_n - n} \\
+	&= Z_n.
+\end{align*}
+Therefore, $E (Z_{n + 1} | \mathcal F_n)  = Z_n$ for all $n$.
+And hence, $Z_n$ is a martingale with respect to $\mathcal{F}_n = \sigma(X_0, X_1, . . . , X_n )$.
+
 
 \newpage
 
@@ -36,12 +145,53 @@ Learn about the filtration... and how to show something satisfies the definition
 $$X_n=\xi_0+\xi_1+...+\xi_n, \,\,\,\, n\geq 1,$$
 determine a martingale. Show that the summands are mutually uncorrelated, i.e. that $E(\xi_i\xi_j)=E(\xi_i)E(\xi_j)$ for $i\neq j$. \\
 \textit{Solution:} \\
-So we are given something that ``determines" a martingale and we need to show that something is uncorrelated does this mean they are independent?
+This means there exists some filtration $\mathcal F_n$ such that $X_n$ is $\mathcal F_n$ adapted and both
+$$E (X_{n + 1} | \mathcal F_n) = X_n \text{ and }E |X_n| < \infty$$
+hold.
+Then we also have that
+\begin{align*}
+E (X_{n + 1} | \mathcal F_n) &= E\bigg( \sum_{i=0}^{n+1} \xi_i \bigg| \mathcal F_n \bigg) \\
+	&= E\bigg( \xi_{n + 1} + \sum_{i=0}^n \xi_i \bigg| \mathcal F_n \bigg) \\
+	&= E ( \xi_{n + 1} | \mathcal F_n ) + E\bigg( \sum_{i=0}^n \xi_i \bigg| \mathcal F_n \bigg) \\
+	&= E ( \xi_{n + 1} | \mathcal F_n ) + \sum_{i=0}^n E( \xi_i | \mathcal F_n).
+\end{align*}
+Recall, $E (X_{n + 1} | \mathcal F_n) = X_n$ thus
+\begin{align*}
+E (X_{n + 1} | \mathcal F_n) &= X_n \\
+E ( \xi_{n + 1} | \mathcal F_n ) + \sum_{i=0}^n E( \xi_i | \mathcal F_n) &= \sum_{i=0}^n \xi_i \\
+E ( \xi_{n + 1} | \mathcal F_n ) + \sum_{i=0}^n \xi_i &= \sum_{i=0}^n \xi_i \\
+E ( \xi_{n + 1} | \mathcal F_n ) &= 0.
+\end{align*}
+Does this get me any closer?
+\textbf{TODO: How does this help me prove that the summands are uncorrelated? From the fact that it's a martingale...}
+
 \newpage
 
 \noindent {\bf 4.} Galton and Watson who invented the process that bears their names were interested in the survival of family names. Suppose each family has exactly 3 children but coin flips determine their sex. In the 1800s, only male children kept the family name so following the male offspring leads to a branching process with $p_0 = 1/8, p_1 = 3/8, p_2 = 3/8, p_3 = 1/8$. Compute the probability $\rho$ that the family name will die out when $Z_0 = 1$. What is $\rho$ if we assume that each family has exactly 2 children? \\
+
+\noindent
 \textit{Solution:} \\
-Sompute the probability that they will die out... this seems related to using the generating function when $s = 0$ from the lecture on friday November $1^{\rm st}$.
+Let $Z_0 = 1$.
+Furthermore, define $Z_{n+1} = \xi_0^{n + 1} + \xi_1^{n + 1} + \xi_2^{n + 1} + ... + \xi_{Z_n}^{n + 1}$ where this follows the same definition in class.
+$Z_{n+1}$ represents the number males in the $n+1$ generation which bear the last name.
+as $Z_n$ total males bearing the last name.
+
+Or, rather, should I be computing the distribution from the probability generating function? Like
+\begin{align*}
+\frac{G_Z(0)}{0!} &= p_0 = \frac 1 8\\
+\frac{G_Z^\prime(0)}{1!} &= p_1 = \frac 3 8 \\
+\frac{G_Z^{(2)}(0)}{2!} &= p_2 = \frac 3 8 \\
+\frac{G_Z^{(3)}(0)}{3!} &= p_3 = \frac 1 8
+\end{align*}
+Possibly... \\
+
+\noindent
+We really want to compute
+$$
+P(Z_n = 0) = p_0 = G_{Z_n}(0)
+$$
+\textbf{TODO: Just figure out exactly what the right path forward is here}
+
 \newpage
 
 \end{document}  
