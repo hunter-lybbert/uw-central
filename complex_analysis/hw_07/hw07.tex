@@ -48,7 +48,7 @@
 
 \maketitle
 \noindent
-Collaborators*: TBD\\
+Collaborators*: Nate Ward, Sophia, Laura Thomas \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -84,6 +84,7 @@ $$
 f(z) = \frac {\E^{2z} - 1} {z^2}
 $$
 \textit{Solution:} \\
+\textbf{TODO} \\
 
 \noindent
 (c)
@@ -91,6 +92,37 @@ $$
 f(z) = \E^{\tan z}
 $$
 \textit{Solution:} \\
+Let's first look for where the denominator is undefined.
+Notice,
+\begin{align*}
+f(z) &= \E^{\tan z} \\
+	&= \sum_{n=0}^\infty \frac {\tan^n z} {n!} \\
+	&= \sum_{n=0}^\infty \frac 1 {n!} \frac {\sin^n z} {\cos^n z}.
+\end{align*}
+Therefore, $f(z)$ has singularities at $z = \pi/2 + \pi k$ for $k \in \mathbb Z$.
+These singularities are essential since the limit of $f(z)$ at teach of these points does not exist.
+Let $w$ be an arbitrary singularity of $f(z)$ of the form $w = \pi/2 + \pi k$
+\begin{align*}
+\lim_{z\rightarrow w} \E^{\tan z}
+	&= \lim_{z\rightarrow w} \sum_{n=0}^\infty \frac 1 {n!} \frac {\sin^n z} {\cos^n z} \\
+	&= \sum_{n=0}^\infty \lim_{z\rightarrow w} \frac 1 {n!} \frac {\sin^n z} {\cos^n z}
+\end{align*}
+Looking at just one term we have,
+\begin{align*}
+\lim_{z\rightarrow w} \frac 1 {n!} \frac {\sin^n z} {\cos^n z}
+	&= \frac 1 {n!} \frac {\sin^n (\pi/2 + \pi k)} {\cos^n (\pi/2 + \pi k)} \\
+	&= \frac 1 {n!} \frac {(-1)^{kn}} {0}.
+\end{align*}
+Using L'Hôpital's rule we have
+\begin{align*}
+\lim_{z\rightarrow w} \frac 1 {n!} \frac {\sin^n z} {\cos^n z}
+	&= \lim_{z\rightarrow w} \frac 1 {n!} \frac {n\cos^{n - 1} z} {-n\sin^{n - 1} z} \\
+	&= \lim_{z\rightarrow w} -\frac 1 {n!} \frac {\cos^{n - 1} z} {\sin^{n - 1} z} \\
+	&= -\frac 1 {n!} \frac {0} {(-1)^{k(n - 1)}} \\
+	&= 0
+\end{align*}
+Attempting to apply L'Hôpital's rule will not help us since $\sin$ and $\cos$ are infinitely differentiable and won't vanish at any point.
+\textbf{TODO} \\
 
 \noindent
 (d)
@@ -98,6 +130,7 @@ $$
 f(z) = \frac {z^3}{z^2 + z + 1}
 $$
 \textit{Solution:} \\
+\textbf{TODO} \\
 \newpage
 
 \item From A\&F: 3.5.3 a, c, d \\
@@ -110,6 +143,8 @@ $$
 f(z) = \frac z {z^4 + 2}
 $$
 \textit{Solution:} \\
+\textbf{TODO} \\
+Find the Laurent series in a clever way to find the strength (partial fractions).
 
 \noindent
 (c)
@@ -117,6 +152,7 @@ $$
 f(z) = \frac z {\sin^2 z}
 $$
 \textit{Solution:} \\
+\textbf{TODO} \\
 
 \noindent
 (d)
@@ -124,13 +160,107 @@ $$
 f(z) = \frac {\E^z - 1 - z}{z^4}
 $$
 \textit{Solution:} \\
+\textbf{TODO} \\
 \newpage
 
 \item Introducing the Gamma function: Do A\&F: 3.6.6. \\
 
 \noindent
+Let $\Gamma(z)$ be given by
+$$
+\frac 1 {\Gamma(z)} = z \E^{\gamma z} \prod_{n=1}^\infty \left( 1 + \frac z n \right) \E^{-z / n}
+$$
+for $z \neq 0, -1, -2, ...$ and $\gamma = $ constant (probably real). \\
+
+\noindent
+(a) Show that 
+$$
+\frac {\Gamma^\prime(z)}{\Gamma(z)} = - \frac 1 z - \gamma - \sum_{n = 1}^\infty \left( \frac 1 {z + n} - \frac 1 n\right).
+$$
 \textit{Solution:} \\
-This is tough... \\
+Let's begin by looking at the $\log$ of each side (let the right hand side be $g(z)$)
+\begin{align*}
+\log \left( \frac 1 {\Gamma(z)} \right) &= \log g(z) \\
+\log 1 - \log \Gamma(z)  &= \log g(z) \\
+\frac d {d z} - \log\Gamma(z) &= \frac d {dz} \log g(z) \\
+\frac d {d z} \log \Gamma(z) &=  - \frac d {dz} \log g(z) \\
+\frac {\Gamma^\prime(z)}{\Gamma(z)} &=  - \frac d {dz} \log g(z).
+\end{align*}
+Now, simplify $\log g(z)$, plugging back in the expression $g(z)$ represents
+\begin{align*}
+\log g(z) &= \log \left( z \E^{\gamma z} \prod_{n=1}^\infty \left( 1 + \frac z n \right) \E^{-z / n} \right) \\
+	&= \log z + \gamma z + \sum_{n=1}^\infty \left( \log \left(  \frac {n + z} n \right)  - \frac z  n \right) \\
+	&= \log z + \gamma z + \sum_{n=1}^\infty \bigg( \log (n + z) - \log n  - \frac z  n \bigg).
+\end{align*}
+Finally, take the derivative and negate the resulting expression
+\begin{align*}
+\frac {\Gamma^\prime(z)}{\Gamma(z)} &= - \frac d {dz} \log g(z) \\
+	&= - \frac d {dz}\left( \log z + \gamma z + \sum_{n=1}^\infty \bigg( \log (n + z) - \log n  - \frac z  n \bigg) \right) \\
+	&= - \frac 1 z - \gamma - \frac d {dz}\sum_{n=1}^\infty \bigg( \log (n + z) - \log n  - \frac z  n \bigg) \\
+	&= - \frac 1 z - \gamma - \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg).
+\end{align*}
+\qed \\
+
+\noindent
+(b) Show that
+$$
+\frac {\Gamma^\prime(z + 1)} {\Gamma(z + 1)} - \frac {\Gamma^\prime(z)} {\Gamma(z)} - \frac 1 z = 0.
+$$
+\textit{Solution:} \\
+We can plug in $z + 1$ to the formula we just computed and simplify
+\begin{align*}
+&\frac {\Gamma^\prime(z + 1)} {\Gamma(z + 1)} - \frac {\Gamma^\prime(z)} {\Gamma(z)} - \frac 1 z \\
+	& \quad = - \frac 1 {z + 1} - \gamma - \sum_{n=1}^\infty \bigg( \frac 1 {z + 1 + n} - \frac 1 n \bigg) - \left(- \frac 1 z - \gamma - \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg) \right) - \frac 1 z \\
+	& \quad = - \frac 1 {z + 1} - \cancel{\gamma} - \sum_{n=1}^\infty \bigg( \frac 1 {z + 1 + n} - \frac 1 n \bigg) + \cancel{\frac 1 z} + \cancel{\gamma} + \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg) - \cancel{\frac 1 z} \\
+	& \quad = - \frac 1 {z + 1} + \sum_{n=1}^\infty \bigg( - \frac 1 {z + 1 + n} + \frac 1 n \bigg) + \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg) \\
+	& \quad = - \frac 1 {z + 1} + \sum_{n=1}^\infty \bigg( - \frac 1 {z + 1 + n} + \cancel{\frac 1 n} + \frac 1 {z + n} - \cancel{\frac 1 n} \bigg) \\
+	& \quad = - \frac 1 {z + 1} + \sum_{n=1}^\infty \bigg(\frac 1 {z + n}  - \frac 1 {z + 1 + n} \bigg) \\
+	& \quad = - \frac 1 {z + 1} + \bigg(\frac 1 {z + 1}  - \cancel{\frac 1 {z + 2}} + \cancel{\frac 1 {z + 2}}  - \cancel{\frac 1 {z + 3}} + \cancel{\frac 1 {z + 3}}  - \frac 1 {z + 4} + ... \bigg) \\
+	& \quad = - \frac 1 {z + 1} + \frac 1 {z + 1} \\
+	& \quad = 0
+\end{align*}
+\qed \\
+Whereupon
+$$ \Gamma(z + 1) = Cz\Gamma(z), \quad \text{for a constant $C$}. $$
+\textit{Solution:} \\
+The above statement is true if and only if
+$$ \log \left( \frac 1 {\Gamma(z + 1)} \right) = \log \left ( \frac 1 {Cz\Gamma(z)} \right), \quad \text{for a constant $C$}. $$
+I will rather show this second one.
+\begin{align*}
+\log \left( \frac 1 {\Gamma(z + 1)} \right) &= \log \left ( \frac 1 {Cz\Gamma(z)} \right) \\
+\log 1 -  \log \Gamma(z + 1) &= \log 1 - \log (Cz\Gamma(z)) \\
+- \log \Gamma(z + 1) &= - \log C - \log z - \log \Gamma(z) \\
+\log \Gamma(z + 1) &= \log C + \log z + \log \Gamma(z)
+\end{align*}
+\textbf{TODO} \\
+
+\noindent
+(c) Show that $\lim_{z\rightarrow 0} z \Gamma(z) = 1$ to find that $C = \Gamma(1)$. \\
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\noindent
+(d) Determine the following representation of the constant $\gamma$ so that $\Gamma(1) = 1$
+$$
+\E^{-\gamma} = \prod_{n = 1}^\infty \left(1 + \frac 1 n\right)\E^{-1/n}
+$$
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\noindent
+(e) Show that
+$$
+\prod_{n=1}^\infty \left(1 + \frac 1 n \right)\E^{-1/n}
+	= \lim_{n\rightarrow\infty} \frac 2 1 \frac 3 2 \frac 4 3 ... \frac {n + 1} n \E^{-S(n)}
+	= \lim_{n\rightarrow\infty} (n + 1) \E^{-S(n)}
+$$
+where $S(n) = 1 + \frac 1 2 + \frac 1 3 + \frac 1 4 + ... + \frac 1 n = \sum_{\ell=1}^n \frac 1 \ell$.
+Consequently, obtain the limit
+$$
+\gamma = \lim_{n\rightarrow\infty} \Bigg(  \sum_{k=1}^n \frac 1 k - \log(n + 1)  \Bigg).
+$$
+\textit{Solution:} \\
+\textbf{TODO} \\
 
 \noindent
 This is the same Gamma function you may have seen defined as
@@ -145,29 +275,34 @@ representation (this requires the Dominated Convergence Theorem), but
 it is quite doable. Not now though. \\
 \newpage
 
-\item Consider a sequence of numbers $(a_n)_{n \geq 0}$ such that
-  $|a_n| < 1$ and
-  \begin{align*}
-    \sum_{n = 0}^\infty (1 - |a_n|) < \infty.
-  \end{align*}
-  Define a Blaschke  factor
-  \begin{align*}
-    B(a,z) = \begin{cases} \frac{|a|}{a} \frac{ a - z}{ 1 - \bar a z}
-      & a \neq 0,\\
-      z & a  =0.\end{cases}
-  \end{align*}
-  \begin{itemize}
-  \item Show that
-  \begin{align*}
-    H(z) = \prod_{n=0}^\infty B(a_n,z),
-  \end{align*}
-  defines an analytic function in the open unit disk $|z| < 1$.
-  \item Show that $H(z)$ has zeros at $z = a_n$ for every $n$.  It
-    might seem that this construction of an analytic function with an
-    infinite number of zeros in a bounded region implies that $H(z) =
-    0$ for all $z$.  Why is this not the case? \\
-  \end{itemize}
+\item Consider a sequence of numbers $(a_n)_{n \geq 0}$ such that $|a_n| < 1$ and
+$$ \sum_{n = 0}^\infty (1 - |a_n|) < \infty. $$
+Define a Blaschke factor
+\begin{align*}
+B(a,z) =
+	\begin{cases}
+		\frac{|a|}{a} \frac{ a - z}{ 1 - \bar a z} & a \neq 0,\\
+  		z & a  =0.
+  	\end{cases}
+\end{align*}
+\begin{itemize}
+\item Show that
+\begin{align*}
+H(z) = \prod_{n=0}^\infty B(a_n,z),
+\end{align*}
+defines an analytic function in the open unit disk $|z| < 1$. \\
 \textit{Solution:} \\
+\textbf{TODO} \\
+use the M test for infinite products, uniform convergence of analytic functions is analytic function \\
+  
+\item Show that $H(z)$ has zeros at $z = a_n$ for every $n$.  It
+  might seem that this construction of an analytic function with an
+  infinite number of zeros in a bounded region implies that $H(z) =
+  0$ for all $z$.  Why is this not the case? \\
+\textit{Solution:} \\
+\textbf{TODO} \\
+Something about the oddity of the zeros on the edge of the unit disc \\
+\end{itemize}
 \newpage
 
 \item We define the Weierstrass $\wp$-function as
@@ -179,26 +314,42 @@ assume that $\omega_1$ is a positive real number, and that $\omega_2$
 is on the positive imaginary axis. All considerations below are meant
 for the entire complex plane, except the poles of $\wp(z)$.
 \begin{enumerate}
-\item Show that $\wp\left(z+M \omega_1+N \omega_2\right)=\wp(z)$, for any two integers $M, N$. In other words, $\wp(z)$ is a doubly-periodic function: it has two independent periods in the complex plane. Doubly periodic functions are called elliptic functions.
-\item Establish that $\wp(z)$ is an even function: $\wp(-z)=\wp(z)$.
+\item Show that $\wp\left(z+M \omega_1+N \omega_2\right)=\wp(z)$, for any two integers $M, N$. In other words, $\wp(z)$ is a doubly-periodic function: it has two independent periods in the complex plane. Doubly periodic functions are called elliptic functions. \\
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Establish that $\wp(z)$ is an even function: $\wp(-z)=\wp(z)$. \\
+\textit{Solution:} \\
+\textbf{TODO} \\
+
 \item Find Laurent expansions for $\wp(z)$ and $\wp^{\prime}(z)$ in a neighborhood of the origin in the form
 $$ \wp(z)=\frac{1}{z^2}+\alpha_0+\alpha_2 z^2+\alpha_4 z^4+\ldots $$
 and
 $$ \wp^{\prime}(z)=-\frac{2}{z^3}+\beta_1 z+\beta_3 z^3+\ldots $$
-Give expressions for the coefficients introduced above.
+Give expressions for the coefficients introduced above. \\
+\textit{Solution:} \\
+\textbf{TODO} \\
+
 \item Show that $\wp(z)$ satisfies the differential equation
 $$ \left(\wp^{\prime}\right)^2=a \wp^3+b \wp^2+c \wp+d, $$
 
 for suitable choices of $a, b, c, d$. Find these constants. You may need to invoke Liouville's theorem to obtain this final result. It turns out that the function $\varphi(z)$ is determined by the coefficients $c$ and $d$, implying that it is possible to recover $\omega_1$ and $\omega_2$ from the knowledge of $c$ and $d$. \\
-
-\noindent
 \textit{Solution:} \\
+\textbf{TODO} \\
+
+
 {\bf OH Notes: }
-For c take the derivative of the terms in the original sum of the $\wp(z)$ function, apply Taylor's theorem to get something with a $\mathcal O(z^3)$.
+For (c) take the derivative of the terms in the original sum of the $\wp(z)$ function, apply Taylor's theorem to get something with a $\mathcal O(z^3)$.
 Do we need to show any uniform convergence in (c) to go from the representation of $\wp(z)$ to the representation of $\wp^\prime(z)$.
 First do everything assuming no issues with convergence or uniformity.
 Get what you are looking for, then go back and justify things after.
-Consider using Liouville theorem for part (d).
+Consider using Liouville theorem for part (d). \\
+
+\noindent
+doubly periodic and bounded is just constant \\
+
+\noindent
+Consider doing a Taylor expansion for the function in the summand and showing that the thing
 
 \end{enumerate}
 \end{enumerate}
