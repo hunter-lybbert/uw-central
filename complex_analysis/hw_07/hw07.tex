@@ -59,14 +59,81 @@ Collaborators*: TBD\\
 \begin{enumerate}[label={\bf {\arabic*}:}]
 \item  From A\&F: 3.5.1 b, c, d (Only consider singularities in the finite
   complex plane) \\
+Discuss the type of singularity (removable, pole and order, essential, branch cluster, natural barrier, etc.); if the type is a pole give the strength of the pole,  and give the nature (isolated or not) of all singular points associated with the following functions. \\
+
+\noindent
+For my reference, here are the definitions of types of singularities.
+A point $z=z_0$ is a {\bf singularity} of $f(z)$ if $f^\prime(z_0)$ does not exist.
+Suppose $f(z)$ is analytic in a region $0 < |z - z_0| < R$ (a neighborhood of $z = z_0$) but not at the point $z_0$, then $z_0$ is called an {\bf isolated singular point} of $f(z)$.
+An isolated singularity $z=z_0$ is {\bf removable}, if $f(z)$ is bounded in some neighborhood of $z=z_0$ s.t. $|f(z)| < M$.
+Additionally, an isolated singularity at $z = z_0$ of $f(z)$ is called a {\bf pole} if $f(z)$ has the following representation
+$$
+f(z) = \frac {\phi (z)}{(z - z_0)^N}
+$$
+where $N$ is a positive integer, $N \geq 1$, $\phi(z)$ is analytic in a neighborhood of $z_0$, and $\phi(z_0) \neq 0$.
+If $N \geq 2$ we say the pole is an {\bf ${\bf N}^{\rm th}$ order pole} and if $N = 1$ it is a {\bf simple pole}.
+Therefore, the Laurent expansion of $f(z)$ takes the form
+$$
+f(z) = \sum_{n=-N}^\infty C_n(z - z_0)^n.
+$$
+The first coefficient $C_{-N}$ is the {\bf strength of the pole}.
+
+\noindent
+(b)
+$$
+f(z) = \frac {\E^{2z} - 1} {z^2}
+$$
+\textit{Solution:} \\
+
+\noindent
+(c)
+$$
+f(z) = \E^{\tan z}
+$$
+\textit{Solution:} \\
+
+\noindent
+(d)
+$$
+f(z) = \frac {z^3}{z^2 + z + 1}
+$$
 \textit{Solution:} \\
 \newpage
 
 \item From A\&F: 3.5.3 a, c, d \\
+Show that the functions below are meromorphic; that is, the only singularities in the finite $z$ plane are poles.
+Determine the location, order and strength of the poles. 
+
+\noindent
+(a)
+$$
+f(z) = \frac z {z^4 + 2}
+$$
+\textit{Solution:} \\
+
+\noindent
+(c)
+$$
+f(z) = \frac z {\sin^2 z}
+$$
+\textit{Solution:} \\
+
+\noindent
+(d)
+$$
+f(z) = \frac {\E^z - 1 - z}{z^4}
+$$
 \textit{Solution:} \\
 \newpage
 
-\item Introducing the Gamma function: Do A\&F: 3.6.6. This is the same Gamma function you may have seen defined as
+\item Introducing the Gamma function: Do A\&F: 3.6.6. \\
+
+\noindent
+\textit{Solution:} \\
+This is tough... \\
+
+\noindent
+This is the same Gamma function you may have seen defined as
 $$
 \Gamma(z)=\int_0^{\infty} t^{z-1} e^{-t} d t
 $$
@@ -76,7 +143,6 @@ all of $\mathbb{C}$. It takes a bit of work to show that our
 representation is an analytic continuation of the integral
 representation (this requires the Dominated Convergence Theorem), but
 it is quite doable. Not now though. \\
-\textit{Solution:} \\
 \newpage
 
 \item Consider a sequence of numbers $(a_n)_{n \geq 0}$ such that
@@ -116,27 +182,23 @@ for the entire complex plane, except the poles of $\wp(z)$.
 \item Show that $\wp\left(z+M \omega_1+N \omega_2\right)=\wp(z)$, for any two integers $M, N$. In other words, $\wp(z)$ is a doubly-periodic function: it has two independent periods in the complex plane. Doubly periodic functions are called elliptic functions.
 \item Establish that $\wp(z)$ is an even function: $\wp(-z)=\wp(z)$.
 \item Find Laurent expansions for $\wp(z)$ and $\wp^{\prime}(z)$ in a neighborhood of the origin in the form
-
-$$
-\wp(z)=\frac{1}{z^2}+\alpha_0+\alpha_2 z^2+\alpha_4 z^4+\ldots
-$$
-
+$$ \wp(z)=\frac{1}{z^2}+\alpha_0+\alpha_2 z^2+\alpha_4 z^4+\ldots $$
 and
-
-$$
-\wp^{\prime}(z)=-\frac{2}{z^3}+\beta_1 z+\beta_3 z^3+\ldots
-$$
-
-
+$$ \wp^{\prime}(z)=-\frac{2}{z^3}+\beta_1 z+\beta_3 z^3+\ldots $$
 Give expressions for the coefficients introduced above.
-\item Show that $\varphi(z)$ satisfies the differential equation
-
-$$
-\left(\wp^{\prime}\right)^2=a \wp^3+b \wp^2+c \wp+d,
-$$
+\item Show that $\wp(z)$ satisfies the differential equation
+$$ \left(\wp^{\prime}\right)^2=a \wp^3+b \wp^2+c \wp+d, $$
 
 for suitable choices of $a, b, c, d$. Find these constants. You may need to invoke Liouville's theorem to obtain this final result. It turns out that the function $\varphi(z)$ is determined by the coefficients $c$ and $d$, implying that it is possible to recover $\omega_1$ and $\omega_2$ from the knowledge of $c$ and $d$. \\
+
+\noindent
 \textit{Solution:} \\
+{\bf OH Notes: }
+For c take the derivative of the terms in the original sum of the $\wp(z)$ function, apply Taylor's theorem to get something with a $\mathcal O(z^3)$.
+Do we need to show any uniform convergence in (c) to go from the representation of $\wp(z)$ to the representation of $\wp^\prime(z)$.
+First do everything assuming no issues with convergence or uniformity.
+Get what you are looking for, then go back and justify things after.
+Consider using Liouville theorem for part (d).
 
 \end{enumerate}
 \end{enumerate}
