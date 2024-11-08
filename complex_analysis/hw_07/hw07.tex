@@ -48,7 +48,7 @@
 
 \maketitle
 \noindent
-Collaborators*: Nate Ward, Sophia, Laura Thomas \\
+Collaborators*: Nate Ward, Sophia Kamien, Laura Thomas, Cooper Simpson,  \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -203,9 +203,10 @@ Finally, take the derivative and negate the resulting expression
 
 \noindent
 (b) Show that
-$$
+\begin{align}
 \frac {\Gamma^\prime(z + 1)} {\Gamma(z + 1)} - \frac {\Gamma^\prime(z)} {\Gamma(z)} - \frac 1 z = 0.
-$$
+\label{eq:gamma_thing}
+\end{align}
 \textit{Solution:} \\
 We can plug in $z + 1$ to the formula we just computed and simplify
 \begin{align*}
@@ -232,12 +233,35 @@ I will rather show this second one.
 - \log \Gamma(z + 1) &= - \log C - \log z - \log \Gamma(z) \\
 \log \Gamma(z + 1) &= \log C + \log z + \log \Gamma(z)
 \end{align*}
-\textbf{TODO} \\
+Alternatively, we can show this by integrating equation (\ref{eq:gamma_thing})
+\begin{align*}
+\int \frac {\Gamma^\prime(z + 1)} {\Gamma(z + 1)} - \frac {\Gamma^\prime(z)} {\Gamma(z)} - \frac 1 z &= \int 0 \\
+\log \Gamma(z + 1) - \log {\Gamma(z)} - \log z - C &= 0 \\
+\log \Gamma(z + 1) &= C + \log z + \log {\Gamma(z)} \\
+\log \Gamma(z + 1) &= C + \log (z{\Gamma(z)}) \\
+\E^{\log \Gamma(z + 1)} &= \E^{C + \log (z{\Gamma(z)})} \\
+\Gamma(z + 1) &= \E^C z\Gamma(z) \\
+\Gamma(z + 1) &= C^\prime z\Gamma(z)
+\end{align*}
+where $C^\prime = \E^C$ is a constant. \\
+\qed \\
 
 \noindent
 (c) Show that $\lim_{z\rightarrow 0} z \Gamma(z) = 1$ to find that $C = \Gamma(1)$. \\
+
+\noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+If I can show the limit of the reciprocal is one, then the limit of the original function will also be 1.
+Now actually taking the limit we have
+\begin{align*}
+\lim_{z\rightarrow 0} \frac 1 {z \Gamma(z)}
+	&= \lim_{z\rightarrow 0} \frac 1 z z \E^{\gamma z} \prod_{n=1}^\infty \left( 1 + \frac z n \right) \E^{-z / n} \\
+	&= \lim_{z\rightarrow 0} \E^{\gamma z} \prod_{n=1}^\infty \left( 1 + \frac z n \right) \E^{-z / n} \\
+	&= \E^{0} \prod_{n=1}^\infty \left( 1 + \frac 0 n \right) \E^{-0 / n} \\
+	&= \prod_{n=1}^\infty \left( 1\right) \\
+	&= 1
+\end{align*}
+\textbf{TODO: Why does this imply that the constant $C = \Gamma(1)$?} \\
 
 \noindent
 (d) Determine the following representation of the constant $\gamma$ so that $\Gamma(1) = 1$
@@ -245,7 +269,16 @@ $$
 \E^{-\gamma} = \prod_{n = 1}^\infty \left(1 + \frac 1 n\right)\E^{-1/n}
 $$
 \textit{Solution:} \\
-\textbf{TODO} \\
+We want to find $\E^{-\gamma}$ s.t. $\Gamma(1) = 1$.
+Therefore we need
+\begin{align*}
+\frac 1 {\Gamma(z)} &= z \E^{\gamma z} \prod_{n=1}^\infty \left( 1 + \frac z n \right) \E^{-z / n} \\
+\frac 1 {\Gamma(1)} &= \E^\gamma \prod_{n=1}^\infty \left( 1 + \frac 1 n \right) \E^{-1 / n} \\
+1 &= \E^\gamma \prod_{n=1}^\infty \left( 1 + \frac 1 n \right) \E^{-1 / n} \\
+\frac 1 {\E^\gamma} &= \prod_{n=1}^\infty \left( 1 + \frac 1 n \right) \E^{-1 / n} \\
+\E^{-\gamma} &= \prod_{n=1}^\infty \left( 1 + \frac 1 n \right) \E^{-1 / n}
+\end{align*}
+\qed \\
 
 \noindent
 (e) Show that
@@ -254,13 +287,56 @@ $$
 	= \lim_{n\rightarrow\infty} \frac 2 1 \frac 3 2 \frac 4 3 ... \frac {n + 1} n \E^{-S(n)}
 	= \lim_{n\rightarrow\infty} (n + 1) \E^{-S(n)}
 $$
-where $S(n) = 1 + \frac 1 2 + \frac 1 3 + \frac 1 4 + ... + \frac 1 n = \sum_{\ell=1}^n \frac 1 \ell$.
+where $S(n) = 1 + \frac 1 2 + \frac 1 3 + \frac 1 4 + ... + \frac 1 n = \sum_{\ell=1}^n \frac 1 \ell$. \\
+
+\noindent
+\textit{Solution:} \\
+We begin by truncating the infinite product to $n$ and take a limit as $n \rightarrow \infty$, 
+\begin{align*}
+\prod_{n=1}^\infty \left(1 + \frac 1 n \right)\E^{-1/n} 
+	&= \prod_{n=1}^\infty \left(\frac {n + 1} n \right)\E^{-1/n} \\
+	&= \lim_{n\rightarrow\infty}
+		\left(\frac {2} 1 \E^{-1} \right)
+		\left(\frac {3} 2 \E^{-1/2} \right)
+		\left(\frac {4} 3 \E^{-1/3} \right) ...
+		\left(\frac {n} {n - 1} \E^{-1/(n - 1)} \right)
+		\left(\frac {n + 1} n \E^{-1/n} \right) \\
+	&= \lim_{n\rightarrow\infty}
+		\left(\frac {2} 1 \frac {3} 2 \frac {4} 3 ... \frac {n} {n - 1}\frac {n + 1} n \right)
+		\left( \E^{-1} \E^{-1/2}\E^{-1/3} ... \E^{-1/n} \right) \\
+	&= \lim_{n\rightarrow\infty}
+		\left(\frac {2} 1 \frac {3} 2 \frac {4} 3 ... \frac {n} {n - 1}\frac {n + 1} n \right)
+		\E^{-1 -1/2 -1/3 ... -1/n} \\
+	&= \lim_{n\rightarrow\infty}
+		\left(\frac {2} 1 \frac {3} 2 \frac {4} 3 ... \frac {n} {n - 1}\frac {n + 1} n \right)
+		\E^{-\sum_{\ell=0}^n 1/\ell} \\
+	&= \lim_{n\rightarrow\infty}
+		\left(\frac {2} 1 \frac {3} 2 \frac {4} 3 ... \frac {n} {n - 1}\frac {n + 1} n \right) \E^{-S(n)}.
+\end{align*}
+Notice, we can pair up and cancel out each term in the product in the numerator and in the denominator except for a $1$ in the denominator and the $n + 1$ in the numerator
+\begin{align*}
+\lim_{n\rightarrow\infty}
+	\left(\frac {\cancel{2}} 1 \frac {\cancel{3}} {\cancel{2}} \frac {\cancel{4}} {\cancel{3}} ... \frac {\cancel n} {\cancel{n - 1}}
+	\frac {n + 1} {\cancel n} \right) \E^{-S(n)}
+&= \lim_{n\rightarrow\infty} (n + 1) \E^{-S(n)}.
+\end{align*} \qed \\
+
+\noindent
 Consequently, obtain the limit
 $$
 \gamma = \lim_{n\rightarrow\infty} \Bigg(  \sum_{k=1}^n \frac 1 k - \log(n + 1)  \Bigg).
 $$
 \textit{Solution:} \\
-\textbf{TODO} \\
+This comes from taking the log of both sides of the following:
+\begin{align*}
+\E^{-\gamma} &= \lim_{n\rightarrow\infty} (n + 1) \E^{-S(n)} \\
+\log \E^{-\gamma} &= \log\big( \lim_{n\rightarrow\infty} (n + 1) \E^{-S(n)} \big) \\
+-\gamma &= \lim_{n\rightarrow\infty} \log\big( (n + 1) \E^{-S(n)} \big) \\
+\gamma &= - \bigg(\lim_{n\rightarrow\infty} \log (n + 1) + \log \big(\E^{-S(n)}\big) \bigg) \\
+\gamma &= - \bigg(\lim_{n\rightarrow\infty} \log (n + 1) - S(n) \bigg) \\
+\gamma &= \lim_{n\rightarrow\infty} \Bigg (\sum_{\ell = 0}^n \frac 1 \ell - \log (n + 1) \Bigg ).
+\end{align*}
+\qed \\
 
 \noindent
 This is the same Gamma function you may have seen defined as
