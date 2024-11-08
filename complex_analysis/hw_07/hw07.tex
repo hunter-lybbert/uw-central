@@ -224,16 +224,7 @@ We can plug in $z + 1$ to the formula we just computed and simplify
 Whereupon
 $$ \Gamma(z + 1) = Cz\Gamma(z), \quad \text{for a constant $C$}. $$
 \textit{Solution:} \\
-The above statement is true if and only if
-$$ \log \left( \frac 1 {\Gamma(z + 1)} \right) = \log \left ( \frac 1 {Cz\Gamma(z)} \right), \quad \text{for a constant $C$}. $$
-I will rather show this second one.
-\begin{align*}
-\log \left( \frac 1 {\Gamma(z + 1)} \right) &= \log \left ( \frac 1 {Cz\Gamma(z)} \right) \\
-\log 1 -  \log \Gamma(z + 1) &= \log 1 - \log (Cz\Gamma(z)) \\
-- \log \Gamma(z + 1) &= - \log C - \log z - \log \Gamma(z) \\
-\log \Gamma(z + 1) &= \log C + \log z + \log \Gamma(z)
-\end{align*}
-Alternatively, we can show this by integrating equation (\ref{eq:gamma_thing})
+We can show this by integrating equation (\ref{eq:gamma_thing})
 \begin{align*}
 \int \frac {\Gamma^\prime(z + 1)} {\Gamma(z + 1)} - \frac {\Gamma^\prime(z)} {\Gamma(z)} - \frac 1 z &= \int 0 \\
 \log \Gamma(z + 1) - \log {\Gamma(z)} - \log z - C &= 0 \\
@@ -245,13 +236,14 @@ Alternatively, we can show this by integrating equation (\ref{eq:gamma_thing})
 \end{align*}
 where $C^\prime = \E^C$ is a constant. \\
 \qed \\
+\newpage
 
 \noindent
 (c) Show that $\lim_{z\rightarrow 0} z \Gamma(z) = 1$ to find that $C = \Gamma(1)$. \\
 
 \noindent
 \textit{Solution:} \\
-If I can show the limit of the reciprocal is one, then the limit of the original function will also be 1.
+If I can show the limit of the reciprocal is 1, then the limit of the original function will also be 1.
 Now actually taking the limit we have
 \begin{align*}
 \lim_{z\rightarrow 0} \frac 1 {z \Gamma(z)}
@@ -259,7 +251,7 @@ Now actually taking the limit we have
 	&= \lim_{z\rightarrow 0} \E^{\gamma z} \prod_{n=1}^\infty \left( 1 + \frac z n \right) \E^{-z / n} \\
 	&= \E^{0} \prod_{n=1}^\infty \left( 1 + \frac 0 n \right) \E^{-0 / n} \\
 	&= \prod_{n=1}^\infty \left( 1\right) \\
-	&= 1
+	&= 1.
 \end{align*}
 \textbf{TODO: Why does this imply that the constant $C = \Gamma(1)$?} \\
 
@@ -279,6 +271,7 @@ Therefore we need
 \E^{-\gamma} &= \prod_{n=1}^\infty \left( 1 + \frac 1 n \right) \E^{-1 / n}
 \end{align*}
 \qed \\
+\newpage
 
 \noindent
 (e) Show that
@@ -368,7 +361,59 @@ H(z) = \prod_{n=0}^\infty B(a_n,z),
 \end{align*}
 defines an analytic function in the open unit disk $|z| < 1$. \\
 \textit{Solution:} \\
-\textbf{TODO} \\
+Let's start with the case where $a \neq 0$, then
+\begin{align*}
+H(z) = \prod_{n=0}^\infty B(a_n,z)
+	&= \prod_{n=0}^\infty \frac{|a_n|}{a_n} \frac{ a_n - z}{ 1 - \overline a_n z} \\
+	&= \prod_{n=0}^\infty \left( 1 + \frac{|a_n| (a_n - z)}{a_n( 1 - \bar a_n z)} - 1 \right) \\
+	&= \prod_{n=0}^\infty \left( 1 + \frac{|a_n| (a_n - z) - a_n( 1 - \bar a_n z)}{a_n( 1 - \bar a_n z)} \right) \\
+	&= \prod_{n=0}^\infty \left( 1 + \frac{|a_n| a_n - |a_n|z - a_n  + a_n \bar a_n z}{a_n( 1 - \bar a_n z)} \right) \\
+	&= \prod_{n=0}^\infty \left( 1 + \frac{|a_n| a_n - |a_n|z - a_n + |a_n|^2 z}{a_n( 1 - \bar a_n z)} \right)
+\end{align*}
+Letting $b_n(z) = \frac{|a_n| a_n - |a_n|z - a_n + |a_n|^2 z}{a_n( 1 - \bar a_n z)}$ we have
+$$ H(z) = \prod_{n=0}^\infty \big( 1 + b_n(z) \big). $$
+Now that our infinite product is in this form, we can use the Weierstrass $M$ test for infinite products which states (restating for my comprehension and reference but slightly applied to our context) \\
+
+\noindent
+Let $b_n(z)$ be analytic in a domain $D$ for all $n$.
+Suppose for all $z \in D$ and $n \geq N$ either
+\begin{itemize}
+\item $|\log \big(1 + b_n(z)\big)| \leq M_n$, or
+\item $|b_n(z)| \leq M_n$
+\end{itemize}
+where $\sum_{n = 1}^\infty M_n < \infty$ and $M_n$ are constants.
+Then the product
+$$P (z) = \prod_{n=1}^\infty (1 + b_n(z))$$
+is uniformly convergent to an analytic function $P(z)$ in $D$.
+Furthermore $P(z)$ is zero only when a finite number of it's factors $1 + b_n(z)$ are zero in $D$. \\
+
+\noindent
+Let's begin by looking at the modulus of $\log$ of an arbitrary factor
+\begin{align*}
+& \Bigg|\log \bigg( 1 + \frac{|a_n| a_n - |a_n|z - a_n + |a_n|^2 z}{a_n( 1 - \bar a_n z)}\bigg) \Bigg| \\
+	&\quad = \Bigg|\log \bigg(\frac{a_n( 1 - \bar a_n z) + |a_n| a_n - |a_n|z - a_n + |a_n|^2 z}{a_n( 1 - \bar a_n z)}\bigg) \Bigg| \\
+	&\quad = \Bigg|\log \bigg( \frac{|a_n| (a_n - z)}{a_n( 1 - \bar a_n z)}\bigg) \Bigg| \\
+	&\quad = \big|\log ( |a_n| (a_n - z)) - \log(a_n( 1 - \bar a_n z)) \big| \\
+	&\quad= \big|\log |a_n| + \log (a_n - z) - \log a_n - \log( 1 - \bar a_n z) \big| \\
+	&\quad \leq \big|\log |a_n| - \log a_n \big| + \big| \log (a_n - z) - \log( 1 - \bar a_n z) \big| \\
+	&\quad \leq \big| - \log a_n \big| + \big| \log (a_n - z) - \log( 1 - \bar a_n z) \big|.
+\end{align*}
+Letting $a_n = r_n\E^{\I\theta_n}$ and $z = \rho \E^{\I\phi}$ we have
+\begin{align*}
+& \big| - \log a_n \big| + \big| \log (a_n - z) - \log( 1 - \bar a_n z) \big| \\
+	& \quad = \big| - \log \left(r_n\E^{\I\theta_n}\right) \big| + \big| \log (r_n\E^{\I\theta_n} - \rho \E^{\I\phi}) - \log( 1 - \frac 1 {r_n} \E^{-\I\theta_n} \rho \E^{\I\phi}) \big| \\
+	& \quad = \big| - \log r_n - \I\theta_n \big| + \big| \log (r_n\E^{\I\theta_n} - \rho \E^{\I\phi}) - \log( 1 - \frac 1 {r_n} \rho \E^{-\I\theta_n} \E^{\I\phi}) \big| \\
+	& \quad = \log r_n + \I\theta_n + \big| \log (r_n\E^{\I\theta_n} - \rho \E^{\I\phi}) - \log( 1 - \frac \rho {r_n} \E^{\I (\phi - \theta_n)}) \big| \\
+	& \quad \leq \log r_n + \I\theta_n.
+\end{align*}
+So we let $M_n = \log r_n + \I\theta_n$.
+Now we wish to show that the following sum is finite
+$$\sum_{n = 0}^\infty \log r_n + \I\theta_n.$$
+Let's look at the ratio test
+\begin{align*}
+\lim_{n\rightarrow\infty} \Bigg| \frac {\log r_{n + 1} + \I\theta_{n + 1}}{\log r_n + \I\theta_n} \Bigg|.
+\end{align*}
+\textbf{TODO: I have no idea where I need to go from here.} \\
 use the M test for infinite products, uniform convergence of analytic functions is analytic function \\
   
 \item Show that $H(z)$ has zeros at $z = a_n$ for every $n$.  It
