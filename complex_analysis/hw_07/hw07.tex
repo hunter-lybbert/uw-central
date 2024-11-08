@@ -402,11 +402,33 @@ Let's begin by using the second option, which is bounding the $|b_n(z)|$.
 	&= \left|\frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} - \frac{\E^{\I \theta_n} - (1 - r_n) z}{\E^{\I \theta_n} - (1 - r_n) z}\right| \\
 	&= \left|\frac{ (1 - r_n)\E^{\I \theta_n} - z - (\E^{\I \theta_n} - (1 - r_n) z)}{ \E^{\I \theta_n} - (1 - r_n) z} \right| \\
 	&= \left|\frac{ \cancel{\E^{\I \theta_n}} - r_n\E^{\I \theta_n} - \cancel{z} - \cancel{\E^{\I \theta_n}} + \cancel{z} + r_n z}{ \E^{\I \theta_n} - (1 - r_n) z} \right| \\
-	&= \left|\frac{ - r_n\E^{\I \theta_n} + r_n z}{ \E^{\I \theta_n} - (1 - r_n) z} \right| \\
-	&\leq \left|\frac{ - r_n\E^{\I \theta_n}}{ \E^{\I \theta_n} - (1 - r_n) z} \right| + \left| \frac{r_n z}{\E^{\I \theta_n} - (1 - r_n) z} \right| \\
-	&\leq \frac{ r_n}{ \left|\E^{\I \theta_n} - (1 - r_n) z \right|} + \frac{r_n |z|}{ \left|\E^{\I \theta_n} - (1 - r_n) z\right|} \\
+	&= \left|\frac{ - r_n\E^{\I \theta_n} + r_n z}{ \E^{\I \theta_n} - (1 - r_n) z} \right|.
 \end{align*}
-\textbf{TODO: This is where we need maybe use the reverse triangle inequality on the denominator.} \\
+Applying the triangle inequality in the numerator followed by the inverse triangle inequality in the denominator gives us,
+\begin{align*}
+\left|\frac{ - r_n\E^{\I \theta_n} + r_n z}{ \E^{\I \theta_n} - (1 - r_n) z} \right|
+	&\leq \frac{ |-r_n\E^{\I \theta_n}| + |r_n z|}{ \left|\E^{\I \theta_n} - (1 - r_n) z \right|} \\
+	&\leq \frac{ r_n + r_n |z|}{ \left|\E^{\I \theta_n} - (1 - r_n) z \right|} \\
+	&\leq \frac{ r_n + r_n |z|}{ \big| |\E^{\I \theta_n}| - |(1 - r_n) z| \big|} \\
+	&= \frac{ r_n + r_n |z|}{ \big| 1 - |1 - r_n| |z| \big|} \\
+	&\leq \frac{ r_n}{ \big| 1 - |1 - r_n|\big|}.
+\end{align*}
+In the final step,  we set $|z|$ to be it's upper bound 1 in the denominator and it's lower bound 0 in the numerator giving us another $\leq$ inequality.
+Now we have
+$$ M_n = \frac{ r_n}{ \big| 1 - |1 - r_n|\big|}. $$
+We want to use this to show the sum $ \sum_{n = 1}^\infty M_n $ is finite.
+Using the ratio test we have
+\begin{align*}
+\lim_{n\rightarrow\infty} \Bigg| \frac {M_{n + 1}}{M_n} \Bigg|
+	&= \left| \frac {\frac{ r_{n + 1}}{ \big| 1 - |1 - r_{n + 1}|\big|}}{\frac{ r_n}{ \big| 1 - |1 - r_n|\big|}} \right| \\
+	&= \left|  \frac{ r_{n + 1}}{ \big| 1 - |1 - r_{n + 1}|\big|} \frac{ \big| 1 - |1 - r_n|\big|} { r_n}\right| \\
+	&= \left|  \frac{ r_{n + 1}}{ r_n} \right| \frac{ \big| 1 - |1 - r_n|\big|}{ \big| 1 - |1 - r_{n + 1}|\big|} \\
+	&\leq \left|  \frac{ r_{n + 1}}{ r_n} \right| \frac{|1| + \big|- |1 - r_n|\big|}{ \big| 1 - |1 - r_{n + 1}|\big|} \\
+	&\leq \left|  \frac{ r_{n + 1}}{ r_n} \right| \frac{1 + |1 - r_n|}{ \big| 1 - |1 - r_{n + 1}|\big|} \\
+	&\leq \left|  \frac{ r_{n + 1}}{ r_n} \right| \frac{1 + |1 - r_n|}{1} \\
+	&\leq \left|  \frac{ r_{n + 1}}{ r_n} \right| \frac{1 + |1 - r_n|}{1} ....\text{ big issues }
+\end{align*}
+Since $|a_n| < 1$ and $a_n = (1 - r_n)\E^{\I \theta_n}$, implies $0 < r_n < 2$.
 
 \noindent
 Let's begin by looking at the modulus of $\log$ of an arbitrary factor
