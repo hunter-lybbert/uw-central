@@ -84,7 +84,15 @@ $$
 f(z) = \frac {\E^{2z} - 1} {z^2}
 $$
 \textit{Solution:} \\
-\textbf{TODO} \\
+Begin by writing the Taylor series expansion of the numerator, simplifying, and reindexing
+\begin{align*}
+f(z) = \frac {\E^{2z} - 1} {z^2} &= \frac 1 {z^2} \sum_{j=0}^\infty \frac{(2z)^j} {j!} - 1 \\
+	&= \frac 1 {z^2} \sum_{j=1}^\infty \frac{2^jz^j} {j!} \\
+	&= \frac 1 {z^2} \sum_{j=0}^\infty \frac{2^{j + 1}z^{j + 1}} {(j + 1)!} \\
+	&= \sum_{j=0}^\infty \frac{2^{j + 1}} {(j + 1)!} \frac {z^{j + 1}}{z^2} \\
+	&= \sum_{j=0}^\infty \frac{2^{j + 1}} {(j + 1)!} z^{j - 1} \\
+	&= \sum_{j=-1}^\infty \frac{2^{j + 2}z^j} {(j + 2)!}
+\end{align*}
 
 \noindent
 (c)
@@ -364,6 +372,8 @@ B(a,z) =
 H(z) = \prod_{n=0}^\infty B(a_n,z),
 \end{align*}
 defines an analytic function in the open unit disk $|z| < 1$. \\
+
+\noindent
 \textit{Solution:} \\
 As we are working through the problem let's add a little notation.
 Let $|z| \leq R < 1$ and $a_n = (1 - r_n)\E^{\I \theta_n}$.
@@ -372,26 +382,25 @@ Suppose, some of the terms in the sequence of $a_n$'s are 0 for which $B(0, z) =
 Since eventually the sequence converges to 1, then there must exist some $N$ such that when $n > N$ every $a_n$ is non zero.
 Thus we can look at
 $$
-H(z) = \prod_{n=0}^\infty B(a_n,z) = \prod_{n=0}^N B(a_n,z)\prod_{n = N + 1}^\infty B(a_n,z)
+H(z) = \prod_{n=0}^\infty B(a_n,z) = \Bigg(\prod_{n=0}^N B(a_n,z) \Bigg) \Bigg(\prod_{n = N + 1}^\infty B(a_n,z) \Bigg).
 $$
-\textbf{TODO: Setup the idea of a big $N$ so that you can analyze just the case where $a_n \neq 0$.}
-\textbf{Setup the $R$ notation for the max of the modulus of $|z|$.}
-Let's start with the case where $a_n \neq 0$ and use the substitution $a_n = (1 - r_n)\E^{\I \theta_n}$, then
+Let's rewrite the infinite product portion of the right hand side in a helpful way
 \begin{align*}
-H(z) = \prod_{n=0}^\infty B(a_n,z)
-	&= \prod_{n=0}^\infty \frac{|a_n|}{a_n} \frac{ a_n - z}{ 1 - \bar a_n z} \\
-	&= \prod_{n=0}^\infty \frac{|(1 - r_n)\E^{\I \theta_n}|}{(1 - r_n)\E^{\I \theta_n}} \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ 1 - (1 - r_n)\E^{-\I \theta_n} z} \\
-	&= \prod_{n=0}^\infty \frac{\cancel{(1 - r_n)}}{\cancel{(1 - r_n)}\E^{\I \theta_n}} \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ 1 -(1 - r_n)\E^{-\I \theta_n} z} \\
-	&= \prod_{n=0}^\infty \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n)\E^{\I \theta_n}\E^{-\I \theta_n} z} \\
-	&= \prod_{n=0}^\infty \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} \\
-	&= \prod_{n=0}^\infty 1 + \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} - 1.
+H(z) = \prod_{n=N + 1}^\infty B(a_n,z)
+	&= \prod_{n=N + 1}^\infty \frac{|a_n|}{a_n} \frac{ a_n - z}{ 1 - \bar a_n z} \\
+	&= \prod_{n=N + 1}^\infty \frac{|(1 - r_n)\E^{\I \theta_n}|}{(1 - r_n)\E^{\I \theta_n}} \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ 1 - (1 - r_n)\E^{-\I \theta_n} z} \\
+	&= \prod_{n=N + 1}^\infty \frac{\cancel{(1 - r_n)}}{\cancel{(1 - r_n)}\E^{\I \theta_n}} \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ 1 -(1 - r_n)\E^{-\I \theta_n} z} \\
+	&= \prod_{n=N + 1}^\infty \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n)\E^{\I \theta_n}\E^{-\I \theta_n} z} \\
+	&= \prod_{n=N + 1}^\infty \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} \\
+	&= \prod_{n=N + 1}^\infty \bigg(1 + \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} - 1\bigg).
 \end{align*}
 Let $b_n(z) = \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} - 1$.
 Then we have 
 $$
 H(z) = \prod_{n=0}^\infty \big(1 + b_n(z)\big).
 $$
-Now that our infinite product is in this form, we can use the Weierstrass $M$ test for infinite products which states (restating for my comprehension and reference but slightly applied to our context). \\
+Now that our infinite product is in this form, we can utilize Theorem 3.6.1 from A \& F in order to show $H(z)$ is an analytic function.
+This can sometimes be referred to as the Weierstrass $M$ test for infinite products (restating for my comprehension and reference but slightly applied to our context). \\
 
 \noindent
 Let $b_n(z)$ be analytic in a domain $D$ for all $n$.
@@ -406,8 +415,20 @@ $$P (z) = \prod_{n=1}^\infty \big(1 + b_n(z)\big)$$
 is uniformly convergent to an analytic function $P(z)$ in $D$.
 Furthermore $P(z)$ is zero only when a finite number of it's factors $1 + b_n(z)$ are zero in $D$. \\
 
+\indent
+First we need to determine each $b_n(z)$ in the sequence is analytic.
+Consider that 
+$$
+b_n(z)
+	= \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} - 1
+	= \frac 1 {\E^{\I \theta_n}} \frac{ (1 - r_n) \E^{\I \theta_n} - z} {1 - (1 - r_n)\E^{-\I \theta_n} z} - 1.
+$$
+Since the numerator and denominator of the rational portion of this expression are analytic, it is up to whether or not the denominator will ever be 0.
+This would only occur if $(1 - r_n)\E^{-\I \theta_n} z = 1$, however, since $|(1 - r_n)\E^{-\I \theta_n}| < 1$ and $|z| < 1$ this will never occur.
+Hence, $b_n(z)$ is analytic. \\
+
 \noindent
-Let's begin by using the second option, which is bounding the $|b_n(z)|$.
+Next, we will use the second option of the necessary assumption in Theorem 3.6.1, which is bounding the $|b_n(z)|$.
 \begin{align*}
 \left|\frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} - 1 \right| 
 	&= \left|\frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} - \frac{\E^{\I \theta_n} - (1 - r_n) z}{\E^{\I \theta_n} - (1 - r_n) z}\right| \\
@@ -420,71 +441,63 @@ Applying the triangle inequality in the numerator followed by the inverse triang
 \left|\frac{ - r_n\E^{\I \theta_n} + r_n z}{ \E^{\I \theta_n} - (1 - r_n) z} \right|
 	&\leq \frac{ |-r_n\E^{\I \theta_n}| + |r_n z|}{ \left|\E^{\I \theta_n} - (1 - r_n) z \right|} \\
 	&\leq \frac{ r_n + r_n |z|}{ \left|\E^{\I \theta_n} - (1 - r_n) z \right|} \\
-	&\leq \frac{ r_n + r_n |z|}{ \big| |\E^{\I \theta_n}| - |(1 - r_n) z| \big|} \\
-	&= \frac{ r_n + r_n |z|}{ \big| 1 - |1 - r_n| |z| \big|} \\
-	&\leq \frac{ r_n + r_n}{| 1 |} \\
-	&\leq 2r_n.
+	&\leq \frac{ r_n + r_n |z|}{ \big| |\E^{\I \theta_n}| - |(1 - r_n) z| \big|}.
 \end{align*}
-\textbf{TODO: use the inequality from below $$ 1 - |1 -  r_n| |z| = 1 - (1 - r_n) |z| = 1 - |z| + r_n|z| \geq 1 - |z|.$$}
-To get
-$$
-\frac{ r_n + r_n |z|}{ \big| 1 - |1 - r_n| |z| \big|}
-	= r_n\frac{ 1 + |z|}{ \big| 1 - |1 - r_n| |z| \big|} 
-	\leq r_n\frac{ 1 + |z|}{ 1 - |z|}.
-$$
-In the second to last step,  we set $|z|$ to be it's lower bound 0 in the denominator and it's upper bound 1 in the numerator giving us another $\leq$ inequality.
-Now we have
-$$ M_n = \frac{ r_n}{ \big| 1 - |1 - r_n|\big|}. $$
-We want to use this to show the sum $ \sum_{n = 1}^\infty M_n $ is finite.
-Using the ratio test we have
+Next we can utilize that fact that
+$$1 - |1 -  r_n| |z| = 1 - (1 - r_n) |z| = 1 - |z| + r_n|z| \geq 1 - |z|$$
+to deduce
 \begin{align*}
-\lim_{n\rightarrow\infty} \Bigg| \frac {M_{n + 1}}{M_n} \Bigg|
-	&= \left| \frac {\frac{ r_{n + 1}}{ \big| 1 - |1 - r_{n + 1}|\big|}}{\frac{ r_n}{ \big| 1 - |1 - r_n|\big|}} \right| \\
-	&= \left|  \frac{ r_{n + 1}}{ \big| 1 - |1 - r_{n + 1}|\big|} \frac{ \big| 1 - |1 - r_n|\big|} { r_n}\right| \\
-	&= \left|  \frac{ r_{n + 1}}{ r_n} \right| \frac{ \big| 1 - |1 - r_n|\big|}{ \big| 1 - |1 - r_{n + 1}|\big|} \\
-	&\leq \left|  \frac{ r_{n + 1}}{ r_n} \right| \frac{|1| + \big|- |1 - r_n|\big|}{ \big| 1 - |1 - r_{n + 1}|\big|} \\
-	&\leq \left|  \frac{ r_{n + 1}}{ r_n} \right| \frac{1 + |1 - r_n|}{ \big| 1 - |1 - r_{n + 1}|\big|} \\
-	&\leq \left|  \frac{ r_{n + 1}}{ r_n} \right| \frac{1 + |1 - r_n|}{1} \\
-	&\leq \left|  \frac{ r_{n + 1}}{ r_n} \right| \frac{1 + |1 - r_n|}{1} ....\text{ big issues }
+r_n \frac{1 + |z|}{ \big| 1 - |1 - r_n| |z| \big|}
+	\leq r_n \frac{1 + |z|}{ \big| 1 - |z| \big|} 
+	\leq r_n \frac{1 + |z|}{1 - |z|} 
+	\leq r_n \frac{1 + R}{1 - R}.
 \end{align*}
-Since $|a_n| < 1$ and $a_n = (1 - r_n)\E^{\I \theta_n}$, implies $0 < r_n < 2$.
+Therefore, $M_n = r_n \frac{1 + R}{1 - R}$ and
+$$
+\sum_{n = N + 1}^ \infty r_n \frac{1 + R}{1 - R} = \frac{1 + R}{1 - R} \sum_{n = N + 1}^ \infty r_n < \infty,
+$$
+since $r_n \rightarrow 0$ as $n\rightarrow\infty$.
+Thus, by Theorem 3.6.1 from A \& F, we can conclude that the product
+$$ \prod_{n=N + 1}^\infty \big(1 + b_n(z)\big)$$
+is uniformly convergent to an analytic function on the interior of the unit disc.
+Thus the whole product 
+$$H(z) = \Bigg(\prod_{n=0}^N B(a_n,z) \Bigg) \Bigg(\prod_{n = N + 1}^\infty B(a_n,z) \Bigg) = \prod_{n=0}^\infty B(a_n,z)$$
+uniformly converges to an analytic function in the same domain. \\
+\qed \\
 
-\noindent
-Let's begin by looking at the modulus of $\log$ of an arbitrary factor
+Consider a sequence of numbers $(a_n)_{n \geq 0}$ such that $|a_n| < 1$ and
+$$ \sum_{n = 0}^\infty (1 - |a_n|) < \infty. $$
+Define a Blaschke factor
 \begin{align*}
-& \Bigg|\log \bigg( 1 + \frac{|a_n| a_n - |a_n|z - a_n + |a_n|^2 z}{a_n( 1 - \bar a_n z)}\bigg) \Bigg| \\
-	&\quad = \Bigg|\log \bigg(\frac{a_n( 1 - \bar a_n z) + |a_n| a_n - |a_n|z - a_n + |a_n|^2 z}{a_n( 1 - \bar a_n z)}\bigg) \Bigg| \\
-	&\quad = \Bigg|\log \bigg( \frac{|a_n| (a_n - z)}{a_n( 1 - \bar a_n z)}\bigg) \Bigg| \\
-	&\quad = \big|\log ( |a_n| (a_n - z)) - \log(a_n( 1 - \bar a_n z)) \big| \\
-	&\quad= \big|\log |a_n| + \log (a_n - z) - \log a_n - \log( 1 - \bar a_n z) \big| \\
-	&\quad \leq \big|\log |a_n| - \log a_n \big| + \big| \log (a_n - z) - \log( 1 - \bar a_n z) \big| \\
-	&\quad \leq \big| - \log a_n \big| + \big| \log (a_n - z) - \log( 1 - \bar a_n z) \big|.
+B(a,z) =
+	\begin{cases}
+		\frac{|a|}{a} \frac{ a - z}{ 1 - \bar a z} & a \neq 0,\\
+  		z & a  = 0.
+  	\end{cases}
 \end{align*}
-Letting $a_n = r_n\E^{\I\theta_n}$ and $z = \rho \E^{\I\phi}$ we have
-\begin{align*}
-& \big| - \log a_n \big| + \big| \log (a_n - z) - \log( 1 - \bar a_n z) \big| \\
-	& \quad = \big| - \log \left(r_n\E^{\I\theta_n}\right) \big| + \big| \log (r_n\E^{\I\theta_n} - \rho \E^{\I\phi}) - \log( 1 - \frac 1 {r_n} \E^{-\I\theta_n} \rho \E^{\I\phi}) \big| \\
-	& \quad = \big| - \log r_n - \I\theta_n \big| + \big| \log (r_n\E^{\I\theta_n} - \rho \E^{\I\phi}) - \log( 1 - \frac 1 {r_n} \rho \E^{-\I\theta_n} \E^{\I\phi}) \big| \\
-	& \quad = \log r_n + \I\theta_n + \big| \log (r_n\E^{\I\theta_n} - \rho \E^{\I\phi}) - \log( 1 - \frac \rho {r_n} \E^{\I (\phi - \theta_n)}) \big| \\
-	& \quad \leq \log r_n + \I\theta_n.
-\end{align*}
-So we let $M_n = \log r_n + \I\theta_n$.
-Now we wish to show that the following sum is finite
-$$\sum_{n = 0}^\infty \log r_n + \I\theta_n.$$
-Let's look at the ratio test
-\begin{align*}
-\lim_{n\rightarrow\infty} \Bigg| \frac {\log r_{n + 1} + \I\theta_{n + 1}}{\log r_n + \I\theta_n} \Bigg|.
-\end{align*}
-\textbf{TODO: I have no idea where I need to go from here.} \\
-use the M test for infinite products, uniform convergence of analytic functions is analytic function \\
   
 \item Show that $H(z)$ has zeros at $z = a_n$ for every $n$.  It
   might seem that this construction of an analytic function with an
   infinite number of zeros in a bounded region implies that $H(z) =
   0$ for all $z$.  Why is this not the case? \\
+
+\noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
-Something about the oddity of the zeros on the edge of the unit disc \\
+By definition of the Blaschke factor each term is zero if $z = a_n$.
+Notice,
+$$
+B(a_n, a_n)
+	= \frac{|a_n|}{a_n} \frac{ a_n - a_n}{ 1 - \bar a_n z}
+	= \frac{|a_n|}{a_n} \frac{ 0}{ 1 - \bar a_n z} = 0.
+$$
+Though this implies the function $H(z)$ has an infinite number of zeros in a bounded region, it does not however,  mean $H(z) = 0$ for all $z$.
+This can be concluded from the following.
+The sequence of $|a_n| \rightarrow 1$ as $n \rightarrow \infty$ implies that for every $\epsilon > 0$ there exists some $N$ such that when $n > N$ we have $\big| |a_n| - 1\big| < \epsilon$.
+Therefore, only a finite number of $a_n$'s (zeros of our function $H(z)$) are within the circle centered at 0 of radius $1 - \epsilon$.
+For any $\epsilon^\prime < \epsilon$ you choose, we can choose another $N^\prime$ such that the statement from convergence of a sequence holds once again.
+And there would only be a finite number of $a_n$'s within the circle with a new radius of $1-\epsilon^\prime$.
+This means there is really only a finite number of zeros and thus $H(z)$ is not 0 everywhere on the interior of the unit disc. \\
+\qed
 \end{itemize}
 \newpage
 
