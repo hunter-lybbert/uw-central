@@ -365,6 +365,15 @@ H(z) = \prod_{n=0}^\infty B(a_n,z),
 \end{align*}
 defines an analytic function in the open unit disk $|z| < 1$. \\
 \textit{Solution:} \\
+As we are working through the problem let's add a little notation.
+Let $|z| \leq R < 1$ and $a_n = (1 - r_n)\E^{\I \theta_n}$.
+Additionally, from our setup we can deduce that $a_n \rightarrow 1$ and $r_n \rightarrow 0$ as $n$ goes to $\infty$.
+Suppose, some of the terms in the sequence of $a_n$'s are 0 for which $B(0, z) = z$.
+Since eventually the sequence converges to 1, then there must exist some $N$ such that when $n > N$ every $a_n$ is non zero.
+Thus we can look at
+$$
+H(z) = \prod_{n=0}^\infty B(a_n,z) = \prod_{n=0}^N B(a_n,z)\prod_{n = N + 1}^\infty B(a_n,z)
+$$
 \textbf{TODO: Setup the idea of a big $N$ so that you can analyze just the case where $a_n \neq 0$.}
 \textbf{Setup the $R$ notation for the max of the modulus of $|z|$.}
 Let's start with the case where $a_n \neq 0$ and use the substitution $a_n = (1 - r_n)\E^{\I \theta_n}$, then
