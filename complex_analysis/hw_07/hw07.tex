@@ -365,6 +365,8 @@ H(z) = \prod_{n=0}^\infty B(a_n,z),
 \end{align*}
 defines an analytic function in the open unit disk $|z| < 1$. \\
 \textit{Solution:} \\
+\textbf{TODO: Setup the idea of a big $N$ so that you can analyze just the case where $a_n \neq 0$.}
+\textbf{Setup the $R$ notation for the max of the modulus of $|z|$.}
 Let's start with the case where $a_n \neq 0$ and use the substitution $a_n = (1 - r_n)\E^{\I \theta_n}$, then
 \begin{align*}
 H(z) = \prod_{n=0}^\infty B(a_n,z)
@@ -411,9 +413,17 @@ Applying the triangle inequality in the numerator followed by the inverse triang
 	&\leq \frac{ r_n + r_n |z|}{ \left|\E^{\I \theta_n} - (1 - r_n) z \right|} \\
 	&\leq \frac{ r_n + r_n |z|}{ \big| |\E^{\I \theta_n}| - |(1 - r_n) z| \big|} \\
 	&= \frac{ r_n + r_n |z|}{ \big| 1 - |1 - r_n| |z| \big|} \\
-	&\leq \frac{ r_n}{ \big| 1 - |1 - r_n|\big|}.
+	&\leq \frac{ r_n + r_n}{| 1 |} \\
+	&\leq 2r_n.
 \end{align*}
-In the final step,  we set $|z|$ to be it's upper bound 1 in the denominator and it's lower bound 0 in the numerator giving us another $\leq$ inequality.
+\textbf{TODO: use the inequality from below $$ 1 - |1 -  r_n| |z| = 1 - (1 - r_n) |z| = 1 - |z| + r_n|z| \geq 1 - |z|.$$}
+To get
+$$
+\frac{ r_n + r_n |z|}{ \big| 1 - |1 - r_n| |z| \big|}
+	= r_n\frac{ 1 + |z|}{ \big| 1 - |1 - r_n| |z| \big|} 
+	\leq r_n\frac{ 1 + |z|}{ 1 - |z|}.
+$$
+In the second to last step,  we set $|z|$ to be it's lower bound 0 in the denominator and it's upper bound 1 in the numerator giving us another $\leq$ inequality.
 Now we have
 $$ M_n = \frac{ r_n}{ \big| 1 - |1 - r_n|\big|}. $$
 We want to use this to show the sum $ \sum_{n = 1}^\infty M_n $ is finite.
