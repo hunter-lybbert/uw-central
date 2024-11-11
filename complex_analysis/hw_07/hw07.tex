@@ -62,23 +62,6 @@ Collaborators*: Nate Ward, Sophia Kamien, Laura Thomas, Cooper Simpson,  \\
 Discuss the type of singularity (removable, pole and order, essential, branch cluster, natural barrier, etc.); if the type is a pole give the strength of the pole,  and give the nature (isolated or not) of all singular points associated with the following functions. \\
 
 \noindent
-For my reference, here are the definitions of types of singularities.
-A point $z=z_0$ is a {\bf singularity} of $f(z)$ if $f^\prime(z_0)$ does not exist.
-Suppose $f(z)$ is analytic in a region $0 < |z - z_0| < R$ (a neighborhood of $z = z_0$) but not at the point $z_0$, then $z_0$ is called an {\bf isolated singular point} of $f(z)$.
-An isolated singularity $z=z_0$ is {\bf removable}, if $f(z)$ is bounded in some neighborhood of $z=z_0$ s.t. $|f(z)| < M$.
-Additionally, an isolated singularity at $z = z_0$ of $f(z)$ is called a {\bf pole} if $f(z)$ has the following representation
-$$
-f(z) = \frac {\phi (z)}{(z - z_0)^N}
-$$
-where $N$ is a positive integer, $N \geq 1$, $\phi(z)$ is analytic in a neighborhood of $z_0$, and $\phi(z_0) \neq 0$.
-If $N \geq 2$ we say the pole is an {\bf ${\bf N}^{\rm th}$ order pole} and if $N = 1$ it is a {\bf simple pole}.
-Therefore, the Laurent expansion of $f(z)$ takes the form
-$$
-f(z) = \sum_{n=-N}^\infty C_n(z - z_0)^n.
-$$
-The first coefficient $C_{-N}$ is the {\bf strength of the pole}.
-
-\noindent
 (b)
 $$
 f(z) = \frac {\E^{2z} - 1} {z^2}
@@ -91,8 +74,13 @@ f(z) = \frac {\E^{2z} - 1} {z^2} &= \frac 1 {z^2} \sum_{j=0}^\infty \frac{(2z)^j
 	&= \frac 1 {z^2} \sum_{j=0}^\infty \frac{2^{j + 1}z^{j + 1}} {(j + 1)!} \\
 	&= \sum_{j=0}^\infty \frac{2^{j + 1}} {(j + 1)!} \frac {z^{j + 1}}{z^2} \\
 	&= \sum_{j=0}^\infty \frac{2^{j + 1}} {(j + 1)!} z^{j - 1} \\
-	&= \sum_{j=-1}^\infty \frac{2^{j + 2}z^j} {(j + 2)!}
+	&= \sum_{j=-1}^\infty \frac{2^{j + 2}z^j} {(j + 2)!}.
 \end{align*}
+Therefore, $f(z)$ has an isolated simple pole at z = 0.
+Calculating the strength of the pole we get
+$$C_{-1} = \frac{2^{-1 + 2}} {(-1 + 2)!} = 2$$
+The strength of the pole is 2.
+\qed \\
 
 \noindent
 (c)
@@ -138,7 +126,56 @@ $$
 f(z) = \frac {z^3}{z^2 + z + 1}
 $$
 \textit{Solution:} \\
-\textbf{TODO} \\
+We can write $f(z)$ in the form
+\begin{align*}
+f(z) = \frac {z^3}{z^2 + z + 1} = \frac {z^3}{\left( z - \left(-1/2 + \I\frac{\sqrt{3}}{2} \right) \right)\left( z - \left(-1/2 - \I\frac{\sqrt{3}}{2} \right)\right)}
+\end{align*}
+This reveals the two poles at $z=z_1,z_2$ where $z_1= -1/2 + \I\frac{\sqrt{3}}{2}$ and $z_2= -1/2 - \I\frac{\sqrt{3}}{2}$.
+Now let's compute the strength of each of these poles in turn.
+We begin by expanding $f(z)$ around $z=z_1$
+\begin{align*}
+f(z) &= \frac {1}{ z - z_1}z^3( z - z_2)^{-1} \\
+	&= \frac {1}{ z - z_1}
+		\left(\frac{z_1^3}{0!} + \frac{3z_1^2}{1!} z + \frac{6z_1}{2!}z^2 + \frac 6 {3!} z^3 + ... \right)
+		\left((z_1 - z_2)^{-1} - \frac {( z_1 - z_2)^{-2}}{1!}z + \frac {2 ( z_1 - z_2)^{-3}}{2!}z^2  + ...\right) \\
+	&= \frac {1}{ z - z_1}
+		\left( z_1^3 \left((z_1 - z_2)^{-1} - ( z_1 - z_2)^{-2}z + ( z_1 - z_2)^{-3}z^2  + ...\right) + ... \right) \\
+	&= \frac {1}{ z - z_1}
+		\left( z_1^3(z_1 - z_2)^{-1} - z_1^3( z_1 - z_2)^{-2}z + z_1^3( z_1 - z_2)^{-3}z^2  + ... \right) \\
+	&= \frac {1}{ z - z_1} z_1^3(z_1 - z_2)^{-1} - \frac {1}{ z - z_1} z_1^3( z_1 - z_2)^{-2}z + \frac {1}{ z - z_1} z_1^3( z_1 - z_2)^{-3}z^2  + ...
+\end{align*}
+Then we can calculate the strength of the pole at $z_1$ as
+\begin{align*}
+z_1^3(z_1 - z_2)^{-1}
+	&= \left(-1/2 + \I\frac{\sqrt{3}}{2}\right)^3 \left(-1/2 + \I\frac{\sqrt{3}}{2} - \bigg(-1/2 - \I\frac{\sqrt{3}}{2}\bigg) \right)^{-1} \\
+	&= \left(-1/2 + \I\frac{\sqrt{3}}{2}\right)^3 \left(\cancel{-1/2} + \I\frac{\sqrt{3}}{2} + \cancel{1/2} + \I\frac{\sqrt{3}}{2}\right)^{-1} \\
+	&= \left(-1/2 + \I\frac{\sqrt{3}}{2}\right)^3 \left(\I\sqrt{3}\right)^{-1} \\
+	&= \left( (-1/2)^3 + 3(-1/2)^2\I\frac{\sqrt{3}}{2} + 3(-1/2)\bigg(\I\frac{\sqrt{3}}{2}\bigg)^2 + \bigg(\I\frac{\sqrt{3}}{2}\bigg)^3 \right) \left(\I\sqrt{3}\right)^{-1} \\
+	&=\left(  -\frac 1 8 + \cancel{\I\frac{3\sqrt{3}}{8}} + \frac{9}{8} - \cancel{ \I \frac{3\sqrt{3}}{8}} \right) \left(\I\sqrt{3}\right)^{-1} \\
+	&= \frac 1 {\I \sqrt{3}}.
+\end{align*}
+
+Furthermore, the strength of the pole at $z_2$ is
+\begin{align*}
+z_2^3(z_2 - z_1)^{-1}
+	&= \left(-1/2 - \I\frac{\sqrt{3}}{2}\right)^3 \left(-1/2 - \I\frac{\sqrt{3}}{2} - \bigg(-1/2 + \I\frac{\sqrt{3}}{2}\bigg) \right)^{-1} \\
+	&= \left(-1/2 - \I\frac{\sqrt{3}}{2}\right)^3 \left(\cancel{-1/2} - \I\frac{\sqrt{3}}{2} + \cancel{1/2} - \I\frac{\sqrt{3}}{2}\right)^{-1} \\
+	&= \left(-1/2 - \I\frac{\sqrt{3}}{2}\right)^3 \left(- \I\sqrt{3}\right)^{-1} \\
+	&= \left( (-1/2)^3 - 3(-1/2)^2\I\frac{\sqrt{3}}{2} + 3(-1/2)\bigg(- \I\frac{\sqrt{3}}{2}\bigg)^2 + \bigg( -\I\frac{\sqrt{3}}{2}\bigg)^3 \right) \left(- \I\sqrt{3}\right)^{-1} \\
+	&=\left(  -\frac 1 8 - \cancel{\I\frac{3\sqrt{3}}{8}} + \frac{9}{8} + \cancel{ \I \frac{3\sqrt{3}}{8}} \right) \left(-\I\sqrt{3}\right)^{-1} \\
+	&= -\frac 1 {\I \sqrt{3}}.
+\end{align*}
+Therefore the function $f(z) = \frac {z^3}{z^2 + z + 1}$
+has two simple poles at
+\begin{align*}
+z_1 &= -1/2 + \I\frac{\sqrt{3}}{2} \text{ and } \\
+z_2 &= -1/2 - \I\frac{\sqrt{3}}{2}.
+\end{align*}
+With strengths of 
+$$\frac 1 {\I \sqrt{3}} \text{ and } -\frac 1 {\I \sqrt{3}},$$
+respectively. \\
+\qed \\
+
 \newpage
 
 \item From A\&F: 3.5.3 a, c, d \\
@@ -151,8 +188,43 @@ $$
 f(z) = \frac z {z^4 + 2}
 $$
 \textit{Solution:} \\
-\textbf{TODO} \\
-Find the Laurent series in a clever way to find the strength (partial fractions).
+In order to compute the partial fractions, I make use of the partial fractions calculated in homework set 4 problem 8 with some slight modifications due to the 2 that is present and the z in the numerator.
+Let's begin
+\begin{align*}
+f(z) &= \frac z {z^4 + 2} \\
+	&= \frac z {(z^2 - \I\sqrt{2})(z^2 + \I\sqrt{2})} \\
+	&= \frac z {
+		(z - \sqrt{\I}\sqrt[4]{2})
+		(z + \sqrt{\I}\sqrt[4]{2})
+		(z - \I\sqrt{\I}\sqrt[4]{2})
+		(z + \I\sqrt{\I}\sqrt[4]{2})
+	} \\
+	&= - \frac {z \sqrt[4]2} {8\sqrt{\I}} \left( \frac{1}{z + \I\sqrt{\I} \sqrt[4]{2}} \right)
+		+ \frac {z \sqrt[4]2} {8\sqrt{\I}} \left(\frac{1}{z - \I\sqrt{\I} \sqrt[4]{2}} \right) \\
+		& \quad \quad - \frac {z \sqrt[4]2} {8\I\sqrt{\I}} \left( \frac{1}{z + \sqrt{\I} \sqrt[4]{2}} \right)
+		+ \frac {z \sqrt[4]2} {8\I\sqrt{\I}} \left( \frac{1}{z - \sqrt{\I} \sqrt[4]{2}} \right).
+\end{align*}
+Therefore, $f(z)$ has { \bf four}  { \bf simple } (order 1) poles at the following locations with given { \bf strengths }
+\begin{align*}
+z_1 &= - \I\sqrt{\I} \sqrt[4]{2}
+	& \text{ with strength }
+	& - \frac {\left( - \I\sqrt{\I} \sqrt[4]{2} \right) \sqrt[4]2} {8\sqrt{\I}}
+		= \frac {\I \sqrt{2} } {8} \\
+z_2 &= \I\sqrt{\I} \sqrt[4]{2}
+	& \text{ with strength }
+	& \frac {\left( i\sqrt{i} \sqrt[4]{2} \right) \sqrt[4]2} {8\sqrt{i}}
+		= \frac {i \sqrt{2} } {8} \\
+z_3 &= - \sqrt{\I} \sqrt[4]{2}
+	& \text{ with strength }
+	& - \frac {\left(- \sqrt{\I} \sqrt[4]{2} \right) \sqrt[4]2} {8 \I\sqrt{\I}}
+		= \frac {\sqrt{2} } {8 \I} 
+		= - \frac { \I \sqrt{2} } {8} \\
+z_4 &= \sqrt{\I} \sqrt[4]{2}
+	& \text{ with strength }
+	& \frac {\left(\sqrt{\I} \sqrt[4]{2} \right) \sqrt[4]2} {8 \I \sqrt{\I}}
+		= \frac {\sqrt{2} } {8 \I} 
+		= - \frac { \I \sqrt{2} } {8} \\
+\end{align*} \qed \\
 
 \noindent
 (c)
@@ -168,7 +240,19 @@ $$
 f(z) = \frac {\E^z - 1 - z}{z^4}
 $$
 \textit{Solution:} \\
-\textbf{TODO} \\
+Taylor expand the numerator, simplify, and reindex
+\begin{align*}
+f(z) = \frac {\E^z - 1 - z}{z^4} &= \frac {\sum_{j=0}^\infty \frac {z^j} {j!} - 1 - z}{z^4} \\
+	&= \frac 1 {z^4} \sum_{j=2}^\infty \frac {z^j} {j!} \\
+	&= \frac 1 {z^4} \sum_{j=0}^\infty \frac {z^{j + 2}} {(j + 2)!} \\
+	&= \sum_{j=0}^\infty \frac {z^{j - 2}} {(j + 2)!} \\
+	&= \sum_{j=-2}^\infty \frac {z^{j}} {(j + 4)!}
+\end{align*}
+The pole at $z = 0$ is of order 2 and the strength is
+$$
+C_{-2} = \frac 1 {(-2 + 4)!} = \frac 1 2.
+$$
+\qed \\
 \newpage
 
 \item Introducing the Gamma function: Do A\&F: 3.6.6. \\
@@ -217,6 +301,7 @@ Finally, take the derivative and negate the resulting expression
 \end{align}
 \textit{Solution:} \\
 We can plug in $z + 1$ to the formula we just computed and simplify
+\textbf{TODO: Try a comparison test to justify combining the sums... construct a series that converges whose summand is larger than our summand in absolute value}
 \begin{align*}
 &\frac {\Gamma^\prime(z + 1)} {\Gamma(z + 1)} - \frac {\Gamma^\prime(z)} {\Gamma(z)} - \frac 1 z \\
 	& \quad = - \frac 1 {z + 1} - \gamma - \sum_{n=1}^\infty \bigg( \frac 1 {z + 1 + n} - \frac 1 n \bigg) - \left(- \frac 1 z - \gamma - \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg) \right) - \frac 1 z \\
@@ -547,6 +632,23 @@ doubly periodic and bounded is just constant \\
 \noindent
 Consider doing a Taylor expansion for the function in the summand and showing that the thing
 
+\newpage
+\noindent
+For my reference, here are the definitions of types of singularities.
+A point $z=z_0$ is a {\bf singularity} of $f(z)$ if $f^\prime(z_0)$ does not exist.
+Suppose $f(z)$ is analytic in a region $0 < |z - z_0| < R$ (a neighborhood of $z = z_0$) but not at the point $z_0$, then $z_0$ is called an {\bf isolated singular point} of $f(z)$.
+An isolated singularity $z=z_0$ is {\bf removable}, if $f(z)$ is bounded in some neighborhood of $z=z_0$ s.t. $|f(z)| < M$.
+Additionally, an isolated singularity at $z = z_0$ of $f(z)$ is called a {\bf pole} if $f(z)$ has the following representation
+$$
+f(z) = \frac {\phi (z)}{(z - z_0)^N}
+$$
+where $N$ is a positive integer, $N \geq 1$, $\phi(z)$ is analytic in a neighborhood of $z_0$, and $\phi(z_0) \neq 0$.
+If $N \geq 2$ we say the pole is an {\bf ${\bf N}^{\rm th}$ order pole} and if $N = 1$ it is a {\bf simple pole}.
+Therefore, the Laurent expansion of $f(z)$ takes the form
+$$
+f(z) = \sum_{n=-N}^\infty C_n(z - z_0)^n.
+$$
+The first coefficient $C_{-N}$ is the {\bf strength of the pole}. 
 \end{enumerate}
 \end{enumerate}
 \end{document}
