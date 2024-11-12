@@ -832,40 +832,28 @@ $$
 $$ \left(\wp^{\prime}\right)^2=a \wp^3+b \wp^2+c \wp+d, $$
 
 for suitable choices of $a, b, c, d$. Find these constants. You may need to invoke Liouville's theorem to obtain this final result. It turns out that the function $\wp(z)$ is determined by the coefficients $c$ and $d$, implying that it is possible to recover $\omega_1$ and $\omega_2$ from the knowledge of $c$ and $d$. \\
+
+\noindent
 \textit{Solution:} \\
-Do a tooooon of algebra
+$$ \alpha_\ell = \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1) \frac 1 {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}} $$
+\begin{align*}
+\wp(z) &= \frac{1}{z^2}
+	+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac 1 {\left( j \omega_1 + k \omega_2\right)^2}
+	+ \left( \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac 5 {\left( j \omega_1 + k \omega_2\right)^6} \right) z^2
+	+ \left( \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac 9 {\left( j \omega_1 + k \omega_2\right)^{10}} \right) z^4
+	+ \mathcal O (z^6) \\
+\end{align*}
+Then we have
+\begin{align*}
+\wp^\prime(z) &= -\frac{2}{z^3}
+	+ \left( \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac 6 {\left( j \omega_1 + k \omega_2\right)^4} \right) z
+	+ \left( \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac {42} {\left( j \omega_1 + k \omega_2\right)^8} \right) z^3
+	+ \left( \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac {110} {\left( j \omega_1 + k \omega_2\right)^{12}} \right) z^5 
+	+ \mathcal O (z^7) \\
+\end{align*}
+\textbf{TODO: Only come back to this tedious algebra if you have time.}
+\\
 
-
-{\bf OH Notes: }
-For (c) take the derivative of the terms in the original sum of the $\wp(z)$ function, apply Taylor's theorem to get something with a $\mathcal O(z^3)$.
-Do we need to show any uniform convergence in (c) to go from the representation of $\wp(z)$ to the representation of $\wp^\prime(z)$.
-First do everything assuming no issues with convergence or uniformity.
-Get what you are looking for, then go back and justify things after.
-Consider using Liouville theorem for part (d). \\
-
-\noindent
-doubly periodic and bounded is just constant \\
-
-\noindent
-Consider doing a Taylor expansion for the function in the summand and showing that the thing
-
-\newpage
-\noindent
-For my reference, here are the definitions of types of singularities.
-A point $z=z_0$ is a {\bf singularity} of $f(z)$ if $f^\prime(z_0)$ does not exist.
-Suppose $f(z)$ is analytic in a region $0 < |z - z_0| < R$ (a neighborhood of $z = z_0$) but not at the point $z_0$, then $z_0$ is called an {\bf isolated singular point} of $f(z)$.
-An isolated singularity $z=z_0$ is {\bf removable}, if $f(z)$ is bounded in some neighborhood of $z=z_0$ s.t. $|f(z)| < M$.
-Additionally, an isolated singularity at $z = z_0$ of $f(z)$ is called a {\bf pole} if $f(z)$ has the following representation
-$$
-f(z) = \frac {\phi (z)}{(z - z_0)^N}
-$$
-where $N$ is a positive integer, $N \geq 1$, $\phi(z)$ is analytic in a neighborhood of $z_0$, and $\phi(z_0) \neq 0$.
-If $N \geq 2$ we say the pole is an {\bf ${\bf N}^{\rm th}$ order pole} and if $N = 1$ it is a {\bf simple pole}.
-Therefore, the Laurent expansion of $f(z)$ takes the form
-$$
-f(z) = \sum_{n=-N}^\infty C_n(z - z_0)^n.
-$$
-The first coefficient $C_{-N}$ is the {\bf strength of the pole}. 
 \end{enumerate}
 \end{enumerate}
 \end{document}
