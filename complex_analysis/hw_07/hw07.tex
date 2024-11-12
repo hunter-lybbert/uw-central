@@ -835,7 +835,8 @@ for suitable choices of $a, b, c, d$. Find these constants. You may need to invo
 
 \noindent
 \textit{Solution:} \\
-$$ \alpha_\ell = \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1) \frac 1 {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}} $$
+Begin by explicitly writing out the first few terms of the Laurent expansions for both $\wp(z)$ and $\wp^\prime(z)$.
+For $\wp(z)$ we have
 \begin{align*}
 \wp(z) &= \frac{1}{z^2}
 	+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac 1 {\left( j \omega_1 + k \omega_2\right)^2}
@@ -843,7 +844,7 @@ $$ \alpha_\ell = \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\el
 	+ \left( \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac 9 {\left( j \omega_1 + k \omega_2\right)^{10}} \right) z^4
 	+ \mathcal O (z^6) \\
 \end{align*}
-Then we have
+We also have
 \begin{align*}
 \wp^\prime(z) &= -\frac{2}{z^3}
 	+ \left( \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac 6 {\left( j \omega_1 + k \omega_2\right)^4} \right) z
