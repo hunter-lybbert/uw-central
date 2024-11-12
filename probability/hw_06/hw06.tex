@@ -1,0 +1,56 @@
+\documentclass[10pt]{amsart}
+\include{amsmath}
+\usepackage{dsfont}													% gives you \mathds{} font
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{cancel}
+
+\newcommand{\D}{\mathrm{d}}
+\DeclareMathOperator{\E}{e}
+
+\begin{document}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{11-13-24} \\
+\text{AMATH 561}
+\title{Problem Set 6}
+\maketitle
+
+\noindent {\bf 1.} Let $X\sim Binomial(n,U)$, where $U\sim Uniform((0,1))$. What is the probability generating function $G_X(s)$ of $X$? What is $P(X=k)$ for $k\in \{0,1,2,...,n\}$? \\
+
+\noindent
+\textit{Solution:}
+This is it
+
+\newpage
+
+\noindent {\bf 2.} Consider a branching process with immigration
+
+$$Z_0 = 1, \,\,\,\,Z_{n+1} = \sum_{i=1}^{Z_n}  \xi^{n+1}_i + Y_{n+1},$$
+where the $(\xi^{n+1}_i)$ are iid with common distribution $\xi$, the $(Y_n)$ are iid with common distribution $Y$ and
+the $(\xi^{n+1}_i)$ and $(Y_{n+1})$ are independent. What is $G_{Z_{n+1}}(s)$ in terms of $G_{Z_n}(s)$, $G_{\xi}(s)$ and $G_Y(s)$? Write $G_{Z_2}(s)$ explicitly in terms of $G_\xi(s)$ and $G_Y(s)$.
+\\
+
+\noindent
+\textit{Solution:}
+
+\newpage
+
+\noindent {\bf 3.} (a) Let $X$ be exponentially distributed with parameter $\lambda$. Show by elementary integration (not complex integration) that $E(e^{itX})=\lambda/(\lambda-i t)$.
+(b) Find the characteristic function of the density function $f(x)=\frac{1}{2}e^{-|x|}$ for $x\in \mathds{R}$.
+\\
+
+\noindent
+\textit{Solution:}
+
+\newpage
+
+\noindent {\bf 4.} A coin is tossed repeatedly, with heads turning up with probability $p$ on each toss. Let $N$ be the minimum number of tosses required to obtain $k$ heads. Show that, as $p \to 0$, the distribution function of $2Np$ converges to that of a gamma distribution. Note that, if $X \sim \Gamma(\lambda, r )$ then
+$$f_X(x) = \frac{1}{\Gamma(r)} \lambda^r x^{r-1} e^{-\lambda x} \, 1_{x \geq 0}.$$
+
+\noindent
+\textit{Solution:}
+
+\end{document}  
