@@ -1,0 +1,865 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+\usepackage{mathtools}
+
+\graphicspath{ {./images/} }
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=5pt]{lemma}{Lemma}
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{11-12-24} \\
+\text{AMATH 567} \\
+
+\title{\bf { Homework 7} }
+
+
+\maketitle
+\noindent
+Collaborators*: Nate Ward, Sophia Kamien, Laura Thomas, Cooper Simpson,  \\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
+\normalsize
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item  From A\&F: 3.5.1 b, c, d (Only consider singularities in the finite
+  complex plane) \\
+Discuss the type of singularity (removable, pole and order, essential, branch cluster, natural barrier, etc.); if the type is a pole give the strength of the pole,  and give the nature (isolated or not) of all singular points associated with the following functions. \\
+
+\noindent
+(b)
+$$
+f(z) = \frac {\E^{2z} - 1} {z^2}
+$$
+\textit{Solution:} \\
+Begin by writing the Taylor series expansion of the numerator, simplifying, and reindexing
+\begin{align*}
+f(z) = \frac {\E^{2z} - 1} {z^2} &= \frac 1 {z^2} \sum_{j=0}^\infty \frac{(2z)^j} {j!} - 1 \\
+	&= \frac 1 {z^2} \sum_{j=1}^\infty \frac{2^jz^j} {j!} \\
+	&= \frac 1 {z^2} \sum_{j=0}^\infty \frac{2^{j + 1}z^{j + 1}} {(j + 1)!} \\
+	&= \sum_{j=0}^\infty \frac{2^{j + 1}} {(j + 1)!} \frac {z^{j + 1}}{z^2} \\
+	&= \sum_{j=0}^\infty \frac{2^{j + 1}} {(j + 1)!} z^{j - 1} \\
+	&= \sum_{j=-1}^\infty \frac{2^{j + 2}z^j} {(j + 2)!}.
+\end{align*}
+Therefore, $f(z)$ has an isolated simple pole at z = 0.
+Calculating the strength of the pole we get
+$$C_{-1} = \frac{2^{-1 + 2}} {(-1 + 2)!} = 2$$
+The strength of the pole is 2.
+\qed \\
+\newpage
+
+\noindent
+(c)
+$$
+f(z) = \E^{\tan z}
+$$
+\textit{Solution:} \\
+Let's first look for where the denominator is undefined.
+Notice,
+\begin{align*}
+f(z) &= \E^{\tan z} \\
+	&= \sum_{n=0}^\infty \frac {\tan^n z} {n!} \\
+	&= \sum_{n=0}^\infty \frac 1 {n!} \frac {\sin^n z} {\cos^n z}.
+\end{align*}
+Therefore, $f(z)$ has singularities at $z = \pi/2 + \pi k$ for $k \in \mathbb Z$.
+Further expanding $\tan z$ is enlightening.
+We can do this quickly utilizing the expansion given in A \& F in example 3.5.3 this gives us
+\begin{align*}
+f(z) &= \E^{\tan z} \\
+	&= \sum_{n=0}^\infty \frac {\tan^n z} {n!} \\
+	&= \sum_{n=0}^\infty \frac 1 {n!} \left( \frac 1 {z - (\pi/2 + m\pi)} + \frac 1 3 (z - (\pi/2 + m \pi) + ...\right)^n.
+\end{align*}
+Foiling this out and since $n$ goes to $\infty$ there will be an infinite number of negative powers of $z$ so these singularities are all essential. \\
+\qed \\
+
+\noindent
+(d)
+$$
+f(z) = \frac {z^3}{z^2 + z + 1}
+$$
+\textit{Solution:} \\
+We can write $f(z)$ in the form
+\begin{align*}
+f(z) = \frac {z^3}{z^2 + z + 1} = \frac {z^3}{\left( z - \left(-1/2 + \I\frac{\sqrt{3}}{2} \right) \right)\left( z - \left(-1/2 - \I\frac{\sqrt{3}}{2} \right)\right)}
+\end{align*}
+This reveals the two poles at $z=z_1,z_2$ where $z_1= -1/2 + \I\frac{\sqrt{3}}{2}$ and $z_2= -1/2 - \I\frac{\sqrt{3}}{2}$.
+Now let's compute the strength of each of these poles in turn.
+We begin by expanding $f(z)$ around $z=z_1$
+\begin{align*}
+f(z) &= \frac {1}{ z - z_1}z^3( z - z_2)^{-1} \\
+	&= \frac {1}{ z - z_1}
+		\left(\frac{z_1^3}{0!} + \frac{3z_1^2}{1!} z + \frac{6z_1}{2!}z^2 + \frac 6 {3!} z^3 + ... \right)
+		\left((z_1 - z_2)^{-1} - \frac {( z_1 - z_2)^{-2}}{1!}z + \frac {2 ( z_1 - z_2)^{-3}}{2!}z^2  + ...\right) \\
+	&= \frac {1}{ z - z_1}
+		\left( z_1^3 \left((z_1 - z_2)^{-1} - ( z_1 - z_2)^{-2}z + ( z_1 - z_2)^{-3}z^2  + ...\right) + ... \right) \\
+	&= \frac {1}{ z - z_1}
+		\left( z_1^3(z_1 - z_2)^{-1} - z_1^3( z_1 - z_2)^{-2}z + z_1^3( z_1 - z_2)^{-3}z^2  + ... \right) \\
+	&= \frac {1}{ z - z_1} z_1^3(z_1 - z_2)^{-1} - \frac {1}{ z - z_1} z_1^3( z_1 - z_2)^{-2}z + \frac {1}{ z - z_1} z_1^3( z_1 - z_2)^{-3}z^2  + ...
+\end{align*}
+Then we can calculate the strength of the pole at $z_1$ as
+\begin{align*}
+z_1^3(z_1 - z_2)^{-1}
+	&= \left(-1/2 + \I\frac{\sqrt{3}}{2}\right)^3 \left(-1/2 + \I\frac{\sqrt{3}}{2} - \bigg(-1/2 - \I\frac{\sqrt{3}}{2}\bigg) \right)^{-1} \\
+	&= \left(-1/2 + \I\frac{\sqrt{3}}{2}\right)^3 \left(\cancel{-1/2} + \I\frac{\sqrt{3}}{2} + \cancel{1/2} + \I\frac{\sqrt{3}}{2}\right)^{-1} \\
+	&= \left(-1/2 + \I\frac{\sqrt{3}}{2}\right)^3 \left(\I\sqrt{3}\right)^{-1} \\
+	&= \left( (-1/2)^3 + 3(-1/2)^2\I\frac{\sqrt{3}}{2} + 3(-1/2)\bigg(\I\frac{\sqrt{3}}{2}\bigg)^2 + \bigg(\I\frac{\sqrt{3}}{2}\bigg)^3 \right) \left(\I\sqrt{3}\right)^{-1} \\
+	&=\left(  -\frac 1 8 + \cancel{\I\frac{3\sqrt{3}}{8}} + \frac{9}{8} - \cancel{ \I \frac{3\sqrt{3}}{8}} \right) \left(\I\sqrt{3}\right)^{-1} \\
+	&= \frac 1 {\I \sqrt{3}}.
+\end{align*}
+
+Furthermore, the strength of the pole at $z_2$ is
+\begin{align*}
+z_2^3(z_2 - z_1)^{-1}
+	&= \left(-1/2 - \I\frac{\sqrt{3}}{2}\right)^3 \left(-1/2 - \I\frac{\sqrt{3}}{2} - \bigg(-1/2 + \I\frac{\sqrt{3}}{2}\bigg) \right)^{-1} \\
+	&= \left(-1/2 - \I\frac{\sqrt{3}}{2}\right)^3 \left(\cancel{-1/2} - \I\frac{\sqrt{3}}{2} + \cancel{1/2} - \I\frac{\sqrt{3}}{2}\right)^{-1} \\
+	&= \left(-1/2 - \I\frac{\sqrt{3}}{2}\right)^3 \left(- \I\sqrt{3}\right)^{-1} \\
+	&= \left( (-1/2)^3 - 3(-1/2)^2\I\frac{\sqrt{3}}{2} + 3(-1/2)\bigg(- \I\frac{\sqrt{3}}{2}\bigg)^2 + \bigg( -\I\frac{\sqrt{3}}{2}\bigg)^3 \right) \left(- \I\sqrt{3}\right)^{-1} \\
+	&=\left(  -\frac 1 8 - \cancel{\I\frac{3\sqrt{3}}{8}} + \frac{9}{8} + \cancel{ \I \frac{3\sqrt{3}}{8}} \right) \left(-\I\sqrt{3}\right)^{-1} \\
+	&= -\frac 1 {\I \sqrt{3}}.
+\end{align*}
+Therefore the function $f(z) = \frac {z^3}{z^2 + z + 1}$
+has two simple poles at
+\begin{align*}
+z_1 &= -1/2 + \I\frac{\sqrt{3}}{2} \text{ and } \\
+z_2 &= -1/2 - \I\frac{\sqrt{3}}{2}.
+\end{align*}
+With strengths of 
+$$\frac 1 {\I \sqrt{3}} \text{ and } -\frac 1 {\I \sqrt{3}},$$
+respectively. \\
+\qed \\
+
+\newpage
+
+\item From A\&F: 3.5.3 a, c, d \\
+Show that the functions below are meromorphic; that is, the only singularities in the finite $z$ plane are poles.
+Determine the location, order and strength of the poles. 
+
+\noindent
+(a)
+$$
+f(z) = \frac z {z^4 + 2}
+$$
+\textit{Solution:} \\
+In order to compute the partial fractions, I make use of the partial fractions calculated in homework set 4 problem 8 with some slight modifications due to the 2 that is present and the z in the numerator.
+Let's begin
+\begin{align*}
+f(z) &= \frac z {z^4 + 2} \\
+	&= \frac z {(z^2 - \I\sqrt{2})(z^2 + \I\sqrt{2})} \\
+	&= \frac z {
+		(z - \sqrt{\I}\sqrt[4]{2})
+		(z + \sqrt{\I}\sqrt[4]{2})
+		(z - \I\sqrt{\I}\sqrt[4]{2})
+		(z + \I\sqrt{\I}\sqrt[4]{2})
+	} \\
+	&= - \frac {z \sqrt[4]2} {8\sqrt{\I}} \left( \frac{1}{z + \I\sqrt{\I} \sqrt[4]{2}} \right)
+		+ \frac {z \sqrt[4]2} {8\sqrt{\I}} \left(\frac{1}{z - \I\sqrt{\I} \sqrt[4]{2}} \right) \\
+		& \quad \quad - \frac {z \sqrt[4]2} {8\I\sqrt{\I}} \left( \frac{1}{z + \sqrt{\I} \sqrt[4]{2}} \right)
+		+ \frac {z \sqrt[4]2} {8\I\sqrt{\I}} \left( \frac{1}{z - \sqrt{\I} \sqrt[4]{2}} \right).
+\end{align*}
+Therefore, $f(z)$ has { \bf four}  { \bf simple } (order 1) poles at the following locations with given { \bf strengths }
+\begin{align*}
+z_1 &= - \I\sqrt{\I} \sqrt[4]{2}
+	& \text{ with strength }
+	& - \frac {\left( - \I\sqrt{\I} \sqrt[4]{2} \right) \sqrt[4]2} {8\sqrt{\I}}
+		= \frac {\I \sqrt{2} } {8} \\
+z_2 &= \I\sqrt{\I} \sqrt[4]{2}
+	& \text{ with strength }
+	& \frac {\left( i\sqrt{i} \sqrt[4]{2} \right) \sqrt[4]2} {8\sqrt{i}}
+		= \frac {i \sqrt{2} } {8} \\
+z_3 &= - \sqrt{\I} \sqrt[4]{2}
+	& \text{ with strength }
+	& - \frac {\left(- \sqrt{\I} \sqrt[4]{2} \right) \sqrt[4]2} {8 \I\sqrt{\I}}
+		= \frac {\sqrt{2} } {8 \I} 
+		= - \frac { \I \sqrt{2} } {8} \\
+z_4 &= \sqrt{\I} \sqrt[4]{2}
+	& \text{ with strength }
+	& \frac {\left(\sqrt{\I} \sqrt[4]{2} \right) \sqrt[4]2} {8 \I \sqrt{\I}}
+		= \frac {\sqrt{2} } {8 \I} 
+		= - \frac { \I \sqrt{2} } {8} \\
+\end{align*} \qed \\
+\newpage
+
+\noindent
+(c)
+$$
+f(z) = \frac z {\sin^2 z}
+$$
+\textit{Solution:} \\
+We first do a Taylor series expansion around $z= 0$
+\begin{align*}
+f(z) = \frac z {\sin^2 z}
+	&= \frac z {\left(\sum_{j=0}^{\infty} \frac {(-1)^j z^{2j + 1}}{(2j + 1)!} \right)^2} \\
+	&= \frac z {z^2 \left(\sum_{j=0}^{\infty} \frac {(-1)^j z^{2j}}{(2j + 1)!} \right)^2} \\
+	&= \frac 1 {z \left(\sum_{j=0}^{\infty} \frac {(-1)^j z^{2j}}{(2j + 1)!} \right)^2} \\
+	&= \frac {\frac{1}{\left(\sum_{j=0}^{\infty} \frac {(-1)^j z^{2j}}{(2j + 1)!} \right)^2}} {z }.
+\end{align*}
+The strength of this simple pole at $z = 0$
+$$
+\frac{1}{\left(\sum_{j=0}^{\infty} \frac {(-1)^j 0^{2j}}{(2j + 1)!} \right)^2}
+	= \frac{1}{\left( 1 + \cancel{\sum_{j=1}^{\infty} \frac {(-1)^j 0^{2j}}{(2j + 1)!}} \right)^2}
+	= 1.
+$$
+
+
+\noindent
+Next we do a Taylor series expansion around $z= n\pi$
+\begin{align*}
+f(z) = \frac z {\sin^2 z}
+	&= \frac z {\left(\sum_{j=0}^{\infty} \frac {(-1)^j (z - n\pi)^{2j + 1}}{(2j + 1)!} \right)^2} \\
+	&= \frac z {(z - n\pi)^2 \left(\sum_{j=0}^{\infty} \frac {(-1)^j (z - n\pi)^{2j}}{(2j + 1)!} \right)^2} \\
+	&= \frac {\frac z {\left(\sum_{j=0}^{\infty} \frac {(-1)^j (z - n\pi)^{2j}}{(2j + 1)!} \right)^2}} {(z - n\pi)^2}.
+\end{align*}
+The strength of the $2^{\rm nd}$ order pole at $z = n \pi$ for all $n \in \mathbb Z$ is
+$$
+\frac z {\left(\sum_{j=0}^{\infty} \frac {(-1)^j (z - n\pi)^{2j}}{(2j + 1)!} \right)^2}
+	= \frac {n \pi} {\left( 1 + \cancel{\sum_{j=1}^{\infty} \frac {(-1)^j (n \pi - n\pi)^{2j}}{(2j + 1)!}} \right)^2}
+	= n \pi.
+$$
+\qed \\
+\newpage
+
+\noindent
+(d)
+$$
+f(z) = \frac {\E^z - 1 - z}{z^4}
+$$
+\textit{Solution:} \\
+Taylor expand the numerator, simplify, and reindex
+\begin{align*}
+f(z) = \frac {\E^z - 1 - z}{z^4} &= \frac {\sum_{j=0}^\infty \frac {z^j} {j!} - 1 - z}{z^4} \\
+	&= \frac 1 {z^4} \sum_{j=2}^\infty \frac {z^j} {j!} \\
+	&= \frac 1 {z^4} \sum_{j=0}^\infty \frac {z^{j + 2}} {(j + 2)!} \\
+	&= \sum_{j=0}^\infty \frac {z^{j - 2}} {(j + 2)!} \\
+	&= \sum_{j=-2}^\infty \frac {z^{j}} {(j + 4)!}
+\end{align*}
+The pole at $z = 0$ is of order 2 and the strength is
+$$
+C_{-2} = \frac 1 {(-2 + 4)!} = \frac 1 2.
+$$
+\qed \\
+\newpage
+
+\item Introducing the Gamma function: Do A\&F: 3.6.6. \\
+
+\noindent
+Let $\Gamma(z)$ be given by
+$$
+\frac 1 {\Gamma(z)} = z \E^{\gamma z} \prod_{n=1}^\infty \left( 1 + \frac z n \right) \E^{-z / n}
+$$
+for $z \neq 0, -1, -2, ...$ and $\gamma = $ constant (probably real). \\
+
+\noindent
+(a) Show that 
+$$
+\frac {\Gamma^\prime(z)}{\Gamma(z)} = - \frac 1 z - \gamma - \sum_{n = 1}^\infty \left( \frac 1 {z + n} - \frac 1 n\right).
+$$
+\textit{Solution:} \\
+Let's begin by looking at the $\log$ of each side (let the right hand side be $g(z)$)
+\begin{align*}
+\log \left( \frac 1 {\Gamma(z)} \right) &= \log g(z) \\
+\log 1 - \log \Gamma(z)  &= \log g(z) \\
+\frac d {d z} - \log\Gamma(z) &= \frac d {dz} \log g(z) \\
+\frac d {d z} \log \Gamma(z) &=  - \frac d {dz} \log g(z) \\
+\frac {\Gamma^\prime(z)}{\Gamma(z)} &=  - \frac d {dz} \log g(z).
+\end{align*}
+Now, simplify $\log g(z)$, plugging back in the expression $g(z)$ represents
+\begin{align*}
+\log g(z) &= \log \left( z \E^{\gamma z} \prod_{n=1}^\infty \left( 1 + \frac z n \right) \E^{-z / n} \right) \\
+	&= \log z + \gamma z + \sum_{n=1}^\infty \left( \log \left(  \frac {n + z} n \right)  - \frac z  n \right) \\
+	&= \log z + \gamma z + \sum_{n=1}^\infty \bigg( \log (n + z) - \log n  - \frac z  n \bigg).
+\end{align*}
+Finally, take the derivative and negate the resulting expression
+\begin{align*}
+\frac {\Gamma^\prime(z)}{\Gamma(z)} &= - \frac d {dz} \log g(z) \\
+	&= - \frac d {dz}\left( \log z + \gamma z + \sum_{n=1}^\infty \bigg( \log (n + z) - \log n  - \frac z  n \bigg) \right) \\
+	&= - \frac 1 z - \gamma - \frac d {dz}\sum_{n=1}^\infty \bigg( \log (n + z) - \log n  - \frac z  n \bigg) \\
+	&= - \frac 1 z - \gamma - \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg).
+\end{align*}
+\qed \\
+
+\noindent
+(b) Show that
+\begin{align}
+\frac {\Gamma^\prime(z + 1)} {\Gamma(z + 1)} - \frac {\Gamma^\prime(z)} {\Gamma(z)} - \frac 1 z = 0.
+\label{eq:gamma_thing}
+\end{align}
+\textit{Solution:} \\
+We can plug in $z + 1$ to the formula we just computed and simplify
+\begin{align*}
+&\frac {\Gamma^\prime(z + 1)} {\Gamma(z + 1)} - \frac {\Gamma^\prime(z)} {\Gamma(z)} - \frac 1 z \\
+	& \quad = - \frac 1 {z + 1} - \gamma - \sum_{n=1}^\infty \bigg( \frac 1 {z + 1 + n} - \frac 1 n \bigg) - \left(- \frac 1 z - \gamma - \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg) \right) - \frac 1 z \\
+	& \quad = - \frac 1 {z + 1} - \cancel{\gamma} - \sum_{n=1}^\infty \bigg( \frac 1 {z + 1 + n} - \frac 1 n \bigg) + \cancel{\frac 1 z} + \cancel{\gamma} + \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg) - \cancel{\frac 1 z} \\
+	& \quad = - \frac 1 {z + 1} + \sum_{n=1}^\infty \bigg( - \frac 1 {z + 1 + n} + \frac 1 n \bigg) + \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg) \\
+\end{align*}
+Now, we want to combine these two sums but in order to do so we need to ensure that they are each convergent.
+We demonstrate this briefly using the comparison test.
+For the series on the left we have
+\begin{align*}
+& - \frac 1 {z + 1 + n} + \frac 1 n = \frac {z + 1} {nz + n + n^2} \\
+& \quad \implies \left| \frac {z + 1} {nz + n + n^2}\right| \leq \frac {|z| + 1} {n^2} \leq \frac 1 {n^2}
+\end{align*}
+which gives us the series $\sum_{n=0}^\infty \frac 1 {n^2} < \infty$.
+Therefore our series we are concerned with is convergent as well.
+Furthermore, the series on the right we have
+\begin{align*}
+& \frac 1 {z + n} - \frac 1 n = \frac {- z} {nz + n^2} \\
+& \quad \implies \left| \frac {-z} {nz + n^2}\right| \leq \frac {|z|} {n^2}
+\end{align*}
+which gives us the series $|z| \sum_{n=0}^\infty \frac 1 {n^2} < \infty$.
+Therefore our series we are concerned with is convergent as well.
+Finally, we are justified to combine these.
+Let's verify that their combination is also convergent
+\begin{align*}
+& - \frac 1 {z + 1 + n} + \frac 1 {z + n} = \frac {- z - n + z + 1 + n} {(z + 1 + n)(z + n)} = \frac {1} {(z + 1 + n)(z + n)} \\
+& \quad \implies \left| \frac {1} {(z + 1 + n)(z + n)} \right| = \left| \frac {1} {z^2 + z + 2nz + n + n^2} \right| \leq \frac 1 {n^2}
+\end{align*}
+which gives us the series $\sum_{n=0}^\infty \frac 1 {n^2} < \infty$.
+
+\noindent
+Picking up where we left off we have
+\begin{align*}
+&\frac {\Gamma^\prime(z + 1)} {\Gamma(z + 1)} - \frac {\Gamma^\prime(z)} {\Gamma(z)} - \frac 1 z \\
+	& \quad = - \frac 1 {z + 1} + \sum_{n=1}^\infty \bigg( - \frac 1 {z + 1 + n} + \frac 1 n \bigg) + \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg) \\
+	& \quad = - \frac 1 {z + 1} + \sum_{n=1}^\infty \bigg( - \frac 1 {z + 1 + n} + \cancel{\frac 1 n} + \frac 1 {z + n} - \cancel{\frac 1 n} \bigg) \\
+	& \quad = - \frac 1 {z + 1} + \sum_{n=1}^\infty \bigg(\frac 1 {z + n}  - \frac 1 {z + 1 + n} \bigg) \\
+	& \quad = - \frac 1 {z + 1} + \bigg(\frac 1 {z + 1}  - \cancel{\frac 1 {z + 2}} + \cancel{\frac 1 {z + 2}}  - \cancel{\frac 1 {z + 3}} + \cancel{\frac 1 {z + 3}}  - \frac 1 {z + 4} + ... \bigg) \\
+	& \quad = - \frac 1 {z + 1} + \frac 1 {z + 1} \\
+	& \quad = 0
+\end{align*}
+\qed \\
+Whereupon
+$$ \Gamma(z + 1) = Cz\Gamma(z), \quad \text{for a constant $C$}. $$
+\textit{Solution:} \\
+We can show this by integrating equation (\ref{eq:gamma_thing})
+\begin{align*}
+\int \frac {\Gamma^\prime(z + 1)} {\Gamma(z + 1)} - \frac {\Gamma^\prime(z)} {\Gamma(z)} - \frac 1 z &= \int 0 \\
+\log \Gamma(z + 1) - \log {\Gamma(z)} - \log z - C &= 0 \\
+\log \Gamma(z + 1) &= C + \log z + \log {\Gamma(z)} \\
+\log \Gamma(z + 1) &= C + \log (z{\Gamma(z)}) \\
+\E^{\log \Gamma(z + 1)} &= \E^{C + \log (z{\Gamma(z)})} \\
+\Gamma(z + 1) &= \E^C z\Gamma(z) \\
+\Gamma(z + 1) &= C^\prime z\Gamma(z)
+\end{align*}
+where $C^\prime = \E^C$ is a constant. \\
+\qed \\
+\newpage
+
+\noindent
+(c) Show that $\lim_{z\rightarrow 0} z \Gamma(z) = 1$ to find that $C = \Gamma(1)$. \\
+
+\noindent
+\textit{Solution:} \\
+If I can show the limit of the reciprocal is 1, then the limit of the original function will also be 1.
+Now actually taking the limit we have
+\begin{align*}
+\lim_{z\rightarrow 0} \frac 1 {z \Gamma(z)}
+	&= \lim_{z\rightarrow 0} \frac 1 z z \E^{\gamma z} \prod_{n=1}^\infty \left( 1 + \frac z n \right) \E^{-z / n} \\
+	&= \lim_{z\rightarrow 0} \E^{\gamma z} \prod_{n=1}^\infty \left( 1 + \frac z n \right) \E^{-z / n} \\
+	&= \E^{0} \prod_{n=1}^\infty \left( 1 + \frac 0 n \right) \E^{-0 / n} \\
+	&= \prod_{n=1}^\infty \left( 1\right) \\
+	&= 1.
+\end{align*}
+Now if we take the limit of our previous expression we have from part (c)
+\begin{align*}
+\lim_{z \rightarrow 0} \Gamma(z + 1) &= \lim_{z \rightarrow 0} Cz\Gamma(z) \\
+\Gamma(1) &= C
+\end{align*}
+\qed \\
+
+\noindent
+(d) Determine the following representation of the constant $\gamma$ so that $\Gamma(1) = 1$
+$$
+\E^{-\gamma} = \prod_{n = 1}^\infty \left(1 + \frac 1 n\right)\E^{-1/n}
+$$
+\textit{Solution:} \\
+We want to find $\E^{-\gamma}$ s.t. $\Gamma(1) = 1$.
+Therefore we need
+\begin{align*}
+\frac 1 {\Gamma(z)} &= z \E^{\gamma z} \prod_{n=1}^\infty \left( 1 + \frac z n \right) \E^{-z / n} \\
+\frac 1 {\Gamma(1)} &= \E^\gamma \prod_{n=1}^\infty \left( 1 + \frac 1 n \right) \E^{-1 / n} \\
+1 &= \E^\gamma \prod_{n=1}^\infty \left( 1 + \frac 1 n \right) \E^{-1 / n} \\
+\frac 1 {\E^\gamma} &= \prod_{n=1}^\infty \left( 1 + \frac 1 n \right) \E^{-1 / n} \\
+\E^{-\gamma} &= \prod_{n=1}^\infty \left( 1 + \frac 1 n \right) \E^{-1 / n}
+\end{align*}
+\qed \\
+\newpage
+
+\noindent
+(e) Show that
+\begin{align*}
+\prod_{n=1}^\infty \left(1 + \frac 1 n \right)\E^{-1/n}
+	&= \lim_{n\rightarrow\infty} \frac 2 1 \frac 3 2 \frac 4 3 ... \frac {n + 1} n \E^{-S(n)} \\
+	&= \lim_{n\rightarrow\infty} (n + 1) \E^{-S(n)}
+\end{align*}
+where $S(n) = 1 + \frac 1 2 + \frac 1 3 + \frac 1 4 + ... + \frac 1 n = \sum_{\ell=1}^n \frac 1 \ell$. \\
+
+\noindent
+\textit{Solution:} \\
+We begin by truncating the infinite product to $n$ and take a limit as $n \rightarrow \infty$, 
+\begin{align*}
+\prod_{n=1}^\infty \left(1 + \frac 1 n \right)\E^{-1/n} 
+	&= \prod_{n=1}^\infty \left(\frac {n + 1} n \right)\E^{-1/n} \\
+	&= \lim_{n\rightarrow\infty}
+		\left(\frac {2} 1 \E^{-1} \right)
+		\left(\frac {3} 2 \E^{-1/2} \right)
+		\left(\frac {4} 3 \E^{-1/3} \right) ...
+		\left(\frac {n} {n - 1} \E^{-1/(n - 1)} \right)
+		\left(\frac {n + 1} n \E^{-1/n} \right) \\
+	&= \lim_{n\rightarrow\infty}
+		\left(\frac {2} 1 \frac {3} 2 \frac {4} 3 ... \frac {n} {n - 1}\frac {n + 1} n \right)
+		\left( \E^{-1} \E^{-1/2}\E^{-1/3} ... \E^{-1/n} \right) \\
+	&= \lim_{n\rightarrow\infty}
+		\left(\frac {2} 1 \frac {3} 2 \frac {4} 3 ... \frac {n} {n - 1}\frac {n + 1} n \right)
+		\E^{-1 -1/2 -1/3 ... -1/n} \\
+	&= \lim_{n\rightarrow\infty}
+		\left(\frac {2} 1 \frac {3} 2 \frac {4} 3 ... \frac {n} {n - 1}\frac {n + 1} n \right)
+		\E^{-\sum_{\ell=0}^n 1/\ell} \\
+	&= \lim_{n\rightarrow\infty}
+		\left(\frac {2} 1 \frac {3} 2 \frac {4} 3 ... \frac {n} {n - 1}\frac {n + 1} n \right) \E^{-S(n)}.
+\end{align*}
+Notice, we can pair up and cancel out each term in the product in the numerator and in the denominator except for a $1$ in the denominator and the $n + 1$ in the numerator
+\begin{align*}
+\lim_{n\rightarrow\infty}
+	\left(\frac {\cancel{2}} 1 \frac {\cancel{3}} {\cancel{2}} \frac {\cancel{4}} {\cancel{3}} ... \frac {\cancel n} {\cancel{n - 1}}
+	\frac {n + 1} {\cancel n} \right) \E^{-S(n)}
+&= \lim_{n\rightarrow\infty} (n + 1) \E^{-S(n)}.
+\end{align*} \qed \\
+
+\noindent
+Consequently, obtain the limit
+$$
+\gamma = \lim_{n\rightarrow\infty} \Bigg(  \sum_{k=1}^n \frac 1 k - \log(n + 1)  \Bigg).
+$$
+\textit{Solution:} \\
+This comes from taking the log of both sides of the following:
+\begin{align*}
+\E^{-\gamma} &= \lim_{n\rightarrow\infty} (n + 1) \E^{-S(n)} \\
+\log \E^{-\gamma} &= \log\big( \lim_{n\rightarrow\infty} (n + 1) \E^{-S(n)} \big) \\
+-\gamma &= \lim_{n\rightarrow\infty} \log\big( (n + 1) \E^{-S(n)} \big) \\
+\gamma &= - \bigg(\lim_{n\rightarrow\infty} \log (n + 1) + \log \big(\E^{-S(n)}\big) \bigg) \\
+\gamma &= - \bigg(\lim_{n\rightarrow\infty} \log (n + 1) - S(n) \bigg) \\
+\gamma &= \lim_{n\rightarrow\infty} \Bigg (\sum_{\ell = 0}^n \frac 1 \ell - \log (n + 1) \Bigg ).
+\end{align*} \qed \\
+
+\noindent
+This is the same Gamma function you may have seen defined as
+$$
+\Gamma(z)=\int_0^{\infty} t^{z-1} e^{-t} d t
+$$
+This better known representation is only valid for
+$\operatorname{Re}(z)>0$. The representation given here is valid in
+all of $\mathbb{C}$. It takes a bit of work to show that our
+representation is an analytic continuation of the integral
+representation (this requires the Dominated Convergence Theorem), but
+it is quite doable. Not now though. \\
+\newpage
+
+\item Consider a sequence of numbers $(a_n)_{n \geq 0}$ such that $|a_n| < 1$ and
+$$ \sum_{n = 0}^\infty (1 - |a_n|) < \infty. $$
+Define a Blaschke factor
+\begin{align*}
+B(a,z) =
+	\begin{cases}
+		\frac{|a|}{a} \frac{ a - z}{ 1 - \bar a z} & a \neq 0,\\
+  		z & a  =0.
+  	\end{cases}
+\end{align*}
+\begin{itemize}
+\item Show that
+\begin{align*}
+H(z) = \prod_{n=0}^\infty B(a_n,z),
+\end{align*}
+defines an analytic function in the open unit disk $|z| < 1$. \\
+
+\noindent
+\textit{Solution:} \\
+As we are working through the problem let's add a little notation.
+Let $|z| \leq R < 1$ and $a_n = (1 - r_n)\E^{\I \theta_n}$.
+Additionally, from our setup we can deduce that $a_n \rightarrow 1$ and $r_n \rightarrow 0$ as $n$ goes to $\infty$.
+Suppose, some of the terms in the sequence of $a_n$'s are 0 for which $B(0, z) = z$.
+Since eventually the sequence converges to 1, then there must exist some $N$ such that when $n > N$ every $a_n$ is non zero.
+Thus we can look at
+$$
+H(z) = \prod_{n=0}^\infty B(a_n,z) = \Bigg(\prod_{n=0}^N B(a_n,z) \Bigg) \Bigg(\prod_{n = N + 1}^\infty B(a_n,z) \Bigg).
+$$
+Let's rewrite the infinite product portion of the right hand side in a helpful way
+\begin{align*}
+H(z) = \prod_{n=N + 1}^\infty B(a_n,z)
+	&= \prod_{n=N + 1}^\infty \frac{|a_n|}{a_n} \frac{ a_n - z}{ 1 - \bar a_n z} \\
+	&= \prod_{n=N + 1}^\infty \frac{|(1 - r_n)\E^{\I \theta_n}|}{(1 - r_n)\E^{\I \theta_n}} \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ 1 - (1 - r_n)\E^{-\I \theta_n} z} \\
+	&= \prod_{n=N + 1}^\infty \frac{\cancel{(1 - r_n)}}{\cancel{(1 - r_n)}\E^{\I \theta_n}} \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ 1 -(1 - r_n)\E^{-\I \theta_n} z} \\
+	&= \prod_{n=N + 1}^\infty \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n)\E^{\I \theta_n}\E^{-\I \theta_n} z} \\
+	&= \prod_{n=N + 1}^\infty \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} \\
+	&= \prod_{n=N + 1}^\infty \bigg(1 + \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} - 1\bigg).
+\end{align*}
+Let $b_n(z) = \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} - 1$.
+Then we have 
+$$
+H(z) = \prod_{n=0}^\infty \big(1 + b_n(z)\big).
+$$
+Now that our infinite product is in this form, we can utilize Theorem 3.6.1 from A \& F in order to show $H(z)$ is an analytic function.
+This can sometimes be referred to as the Weierstrass $M$ test for infinite products (restating for my comprehension and reference but slightly applied to our context). \\
+
+\noindent
+Let $b_n(z)$ be analytic in a domain $D$ for all $n$.
+Suppose for all $z \in D$ and $n \geq N$ either
+\begin{enumerate}
+\item $\big|\log \big(1 + b_n(z)\big)\big| \leq M_n$, or
+\item $\big|b_n(z)\big| \leq M_n$
+\end{enumerate}
+where $\sum_{n = 1}^\infty M_n < \infty$ and $M_n$ are constants.
+Then the product
+$$P (z) = \prod_{n=1}^\infty \big(1 + b_n(z)\big)$$
+is uniformly convergent to an analytic function $P(z)$ in $D$.
+Furthermore $P(z)$ is zero only when a finite number of it's factors $1 + b_n(z)$ are zero in $D$. \\
+
+\indent
+First we need to determine each $b_n(z)$ in the sequence is analytic.
+Consider that 
+$$
+b_n(z)
+	= \frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} - 1
+	= \frac 1 {\E^{\I \theta_n}} \frac{ (1 - r_n) \E^{\I \theta_n} - z} {1 - (1 - r_n)\E^{-\I \theta_n} z} - 1.
+$$
+Since the numerator and denominator of the rational portion of this expression are analytic, it is up to whether or not the denominator will ever be 0.
+This would only occur if $(1 - r_n)\E^{-\I \theta_n} z = 1$, however, since $|(1 - r_n)\E^{-\I \theta_n}| < 1$ and $|z| < 1$ this will never occur.
+Hence, $b_n(z)$ is analytic. \\
+
+\noindent
+Next, we will use the second option of the necessary assumption in Theorem 3.6.1, which is bounding the $|b_n(z)|$.
+\begin{align*}
+\left|\frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} - 1 \right| 
+	&= \left|\frac{ (1 - r_n)\E^{\I \theta_n} - z}{ \E^{\I \theta_n} - (1 - r_n) z} - \frac{\E^{\I \theta_n} - (1 - r_n) z}{\E^{\I \theta_n} - (1 - r_n) z}\right| \\
+	&= \left|\frac{ (1 - r_n)\E^{\I \theta_n} - z - (\E^{\I \theta_n} - (1 - r_n) z)}{ \E^{\I \theta_n} - (1 - r_n) z} \right| \\
+	&= \left|\frac{ \cancel{\E^{\I \theta_n}} - r_n\E^{\I \theta_n} - \cancel{z} - \cancel{\E^{\I \theta_n}} + \cancel{z} + r_n z}{ \E^{\I \theta_n} - (1 - r_n) z} \right| \\
+	&= \left|\frac{ - r_n\E^{\I \theta_n} + r_n z}{ \E^{\I \theta_n} - (1 - r_n) z} \right|.
+\end{align*}
+Applying the triangle inequality in the numerator followed by the inverse triangle inequality in the denominator gives us,
+\begin{align*}
+\left|\frac{ - r_n\E^{\I \theta_n} + r_n z}{ \E^{\I \theta_n} - (1 - r_n) z} \right|
+	&\leq \frac{ |-r_n\E^{\I \theta_n}| + |r_n z|}{ \left|\E^{\I \theta_n} - (1 - r_n) z \right|} \\
+	&\leq \frac{ r_n + r_n |z|}{ \left|\E^{\I \theta_n} - (1 - r_n) z \right|} \\
+	&\leq \frac{ r_n + r_n |z|}{ \big| |\E^{\I \theta_n}| - |(1 - r_n) z| \big|}.
+\end{align*}
+Next we can utilize that fact that
+$$1 - |1 -  r_n| |z| = 1 - (1 - r_n) |z| = 1 - |z| + r_n|z| \geq 1 - |z|$$
+to deduce
+\begin{align*}
+r_n \frac{1 + |z|}{ \big| 1 - |1 - r_n| |z| \big|}
+	\leq r_n \frac{1 + |z|}{ \big| 1 - |z| \big|} 
+	\leq r_n \frac{1 + |z|}{1 - |z|} 
+	\leq r_n \frac{1 + R}{1 - R}.
+\end{align*}
+Therefore, $M_n = r_n \frac{1 + R}{1 - R}$ and
+$$
+\sum_{n = N + 1}^ \infty r_n \frac{1 + R}{1 - R} = \frac{1 + R}{1 - R} \sum_{n = N + 1}^ \infty r_n < \infty,
+$$
+since $r_n \rightarrow 0$ as $n\rightarrow\infty$.
+Thus, by Theorem 3.6.1 from A \& F, we can conclude that the product
+$$ \prod_{n=N + 1}^\infty \big(1 + b_n(z)\big)$$
+is uniformly convergent to an analytic function on the interior of the unit disc.
+Thus the whole product 
+$$H(z) = \Bigg(\prod_{n=0}^N B(a_n,z) \Bigg) \Bigg(\prod_{n = N + 1}^\infty B(a_n,z) \Bigg) = \prod_{n=0}^\infty B(a_n,z)$$
+uniformly converges to an analytic function in the same domain. \\
+\qed \\
+
+Consider a sequence of numbers $(a_n)_{n \geq 0}$ such that $|a_n| < 1$ and
+$$ \sum_{n = 0}^\infty (1 - |a_n|) < \infty. $$
+Define a Blaschke factor
+\begin{align*}
+B(a,z) =
+	\begin{cases}
+		\frac{|a|}{a} \frac{ a - z}{ 1 - \bar a z} & a \neq 0,\\
+  		z & a  = 0.
+  	\end{cases}
+\end{align*}
+  
+\item Show that $H(z)$ has zeros at $z = a_n$ for every $n$.  It
+  might seem that this construction of an analytic function with an
+  infinite number of zeros in a bounded region implies that $H(z) =
+  0$ for all $z$.  Why is this not the case? \\
+
+\noindent
+\textit{Solution:} \\
+By definition of the Blaschke factor each term is zero if $z = a_n$.
+Notice,
+$$
+B(a_n, a_n)
+	= \frac{|a_n|}{a_n} \frac{ a_n - a_n}{ 1 - \bar a_n z}
+	= \frac{|a_n|}{a_n} \frac{ 0}{ 1 - \bar a_n z} = 0.
+$$
+Though this implies the function $H(z)$ has an infinite number of zeros in a bounded region, it does not however,  mean $H(z) = 0$ for all $z$.
+This can be concluded from the following.
+The sequence of $|a_n| \rightarrow 1$ as $n \rightarrow \infty$ implies that for every $\epsilon > 0$ there exists some $N$ such that when $n > N$ we have $\big| |a_n| - 1\big| < \epsilon$.
+Therefore, only a finite number of $a_n$'s (zeros of our function $H(z)$) are within the circle centered at 0 of radius $1 - \epsilon$.
+For any $\epsilon^\prime < \epsilon$ you choose, we can choose another $N^\prime$ such that the statement from convergence of a sequence holds once again.
+And there would only be a finite number of $a_n$'s within the circle with a new radius of $1-\epsilon^\prime$.
+This means there is really only a finite number of zeros and thus $H(z)$ is not 0 everywhere on the interior of the unit disc. \\
+\qed
+\end{itemize}
+\newpage
+
+\item We define the Weierstrass $\wp$-function as
+$$
+\wp(z)=\frac{1}{z^2}+\sum_{j, k=-\infty}^{\infty}\left(\frac{1}{\left(z-j \omega_1-k \omega_2\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2}\right),
+$$
+where $(j, k)=(0,0)$ is excluded from the double sum. Also, you may
+assume that $\omega_1$ is a positive real number, and that $\omega_2$
+is on the positive imaginary axis. All considerations below are meant
+for the entire complex plane, except the poles of $\wp(z)$.
+\begin{enumerate}
+\item Show that $\wp\left(z+M \omega_1+N \omega_2\right)=\wp(z)$, for any two integers $M, N$. In other words, $\wp(z)$ is a doubly-periodic function: it has two independent periods in the complex plane. Doubly periodic functions are called elliptic functions. \\
+
+\noindent
+\textit{Solution:} \\
+Let's begin with $\wp(z + N \omega_1)$, where $N \in \mathbb Z$
+\begin{align*}
+	&= \frac{1}{(z + N \omega_1)^2}
+		+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(
+			\frac{1}{\left(z + N \omega_1 - j \omega_1 - k \omega_2 \right)^2}
+			- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\right) \\
+	&= \frac{1}{(z + N\omega_1)^2}
+		+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(
+			\frac{1}{\left(z - (j - N) \omega_1 - k \omega_2 \right)^2}
+			- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\right) \\
+	&= \frac{1}{(z + N\omega_1)^2}
+		+ \frac{1}{\left(z - (N - N) \omega_1 - 0 \omega_2 \right)^2}
+			- \frac{1}{\left(N \omega_1+0 \omega_2\right)^2}
+		+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0) \\ j,k \neq (N,0)}}^{\infty} \left(
+			\frac{1}{\left(z - (j - N) \omega_1 - k \omega_2 \right)^2}
+			- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\right) \\
+	&= \frac{1}{(z + N\omega_1)^2}
+		+ \frac 1 {z^2}
+			- \frac 1 {N^2\omega_1^2}
+		+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0) \\ j,k \neq (N,0)}}^{\infty} \left(
+			\frac{1}{\left(z - (j - N) \omega_1 - k \omega_2 \right)^2}
+			- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\right) \\
+	&= \frac 1 {z^2} 
+		\underbrace{+ \frac{1}{(z + N\omega_1)^2} - \frac 1 {N^2\omega_1^2}}_\text{j,k = (N, 0)}
+		+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0) \\ j,k \neq (N,0)}}^{\infty} \left(
+			\frac{1}{\left(z - (j - N) \omega_1 - k \omega_2 \right)^2}
+			- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\right).
+\end{align*}
+Notice the term in front of the summation is actually the $j=N,k=0$ term in the sum.
+Moving it inside we get
+\begin{align*}
+&= \frac 1 {z^2} 
+	+ \frac{1}{(z + N\omega_1)^2} - \frac 1 {N^2\omega_1^2}
+	+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0) \\ j,k \neq (N,0)}}^{\infty} \left(
+		\frac{1}{\left(z - (j - N) \omega_1 - k \omega_2 \right)^2}
+		- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+	\right) \\
+&= \frac 1 {z^2} 
+	+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(
+		\frac{1}{\left(z - j\omega_1 - k\omega_2 \right)^2}
+		- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+	\right) \\
+&= \wp(z).
+\end{align*}
+Therefore, $\wp(z + N \omega_1) = \wp(z)$ for all $z \in \mathbb C$.
+Notice, at no point did my argument depend on $\omega_1$ being a positive real number.
+Hence, if we did the same algebra with $z + M \omega_2$ we would be able to shuffle things around using the $k$ index instead of the $j$ index to conclude $\wp(z + M \omega_2) = \wp(z)$ for all $z \in \mathbb C$.
+Let $z^\prime = z + N \omega_1$.
+Then we have $$\wp(z^\prime + M \omega_2) = \wp(z^\prime) = \wp(z + N\omega_1) = \wp(z).$$
+Thus
+$$\wp(z + N \omega_1 + M \omega_2) = \wp(z).$$
+\qed \\
+
+\item Establish that $\wp(z)$ is an even function: $\wp(-z)=\wp(z)$. \\
+
+\noindent
+\textit{Solution:} \\
+Before I plugin the $z = -z$ into the Weierstrass $\wp$-function, let's pay close attention to one detail.
+Notice that the $j,k$ indices index over all combinations integers except the term $j,k = (0,1)$.
+This means, as written, the first fraction in the summand the negative signs in front of $j$ and $k$ flip the sign of that particular integer that those indices are taking on for that term in the sum.
+$$ \frac{1}{\left(z-j \omega_1-k \omega_2\right)^2} $$
+That means if we changed the sign in front of the indices $j$, $k$ we would just be ``reordering" the sum but it will still sum over the same terms.
+Therefore, 
+\begin{align*}
+\wp(-z)
+	&= \frac{1}{(-z)^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(\frac{1}{\left(-z-j \omega_1-k \omega_2\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2}\right) \\
+	&= \frac{1}{z^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(\frac{1}{\left(-(z + j \omega_1 + k \omega_2)\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2}\right) \\
+	&= \frac{1}{z^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(\frac{1}{\left(z + j \omega_1 + k \omega_2\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2}\right).
+\end{align*}
+We can change the sign in front of the indices in the summand and reverse the order of summation to preserve both equality and the order of summation.
+However, since the order in which something is summed does not change it's value we can revert the summation order in our final step.
+\begin{align*}
+	&= \frac{1}{z^2} + \sum_{\substack{j, k=\infty \\ j,k \neq (0,0)}}^{-\infty} \left(\frac{1}{\left(z - j \omega_1 - k \omega_2\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2}\right) \\
+	&= \frac{1}{z^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(\frac{1}{\left(z - j \omega_1 - k \omega_2\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2}\right) \\
+	&= \wp(z)
+\end{align*}
+Hence, $\wp(-z) = \wp(z)$. \\
+\qed \\
+
+\item Find Laurent expansions for $\wp(z)$ and $\wp^{\prime}(z)$ in a neighborhood of the origin in the form
+$$ \wp(z)=\frac{1}{z^2}+\alpha_0+\alpha_2 z^2+\alpha_4 z^4+\ldots $$
+and
+$$ \wp^{\prime}(z)=-\frac{2}{z^3}+\beta_1 z+\beta_3 z^3+\ldots $$
+Give expressions for the coefficients introduced above. \\
+
+\noindent
+\textit{Solution:} \\
+Let's rewrite the terms inside the sum very carefully
+\begin{align*}
+& \frac 1 {\left(z-j \omega_1-k \omega_2\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2} \\
+	&\quad= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left(
+			\frac 1 { \frac{\left(z - (j \omega_1 + k \omega_2) \right)^2}{\left(j \omega_1+k \omega_2\right)^2}} - 1
+		\right) \\
+	&\quad= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left(
+			\frac 1 { \left(\frac z {j \omega_1 + k \omega_2} 
+			- \frac {j \omega_1 + k \omega_2}{j \omega_1 + k \omega_2} \right)^2} - 1
+		\right) \\
+	&\quad= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left( \frac 1 { \left(\frac z {j \omega_1 + k \omega_2} - 1 \right)^2} - 1\right) \\
+	&\quad= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left( \frac 1 { \left(1 -  \frac z {j \omega_1 + k \omega_2} \right)^2} - 1 \right) \\
+	&\quad= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left( \left(  \frac 1 { 1 -  \frac z {j \omega_1 + k \omega_2} }\right)^2 - 1 \right) .
+\end{align*}
+Now looking specifically at the expression being squared.
+Assuming
+$$|z| < |j \omega_1 + k \omega_2|$$ 
+which holds when $|z|$ is near the origin.
+Thus, we have a geometric series
+$$
+\frac 1 { 1 -  \frac z {j \omega_1 + k \omega_2} } = \sum_{m=0}^{\infty} \left( \frac z {j \omega_1 + k \omega_2} \right)^m.
+$$
+However, notice we can arrive at a clever representation of the squared term inside the first set of parentheses 
+\begin{align*}
+\frac d {dz} \left[ \frac 1 { 1 -  \frac z {j \omega_1 + k \omega_2} } \right]
+	&= \frac d {dz} \left[ \sum_{m=0}^{\infty} \left( \frac z {j \omega_1 + k \omega_2} \right)^m \right] \\
+- \frac 1 {(j \omega_1 + k \omega_2)} \frac {-1} {\left(1 -  \frac z {(j \omega_1 + k \omega_2)} \right)^2}
+	&= \sum_{m=0}^{\infty} \frac d {dz} \left[ \left( \frac z {j \omega_1 + k \omega_2} \right)^m \right] \\
+\frac 1 {(j \omega_1 + k \omega_2)} \frac {1} {\left(1 -  \frac z {(j \omega_1 + k \omega_2)} \right)^2}
+	&= \frac 1 {j \omega_1 + k \omega_2} \sum_{m=0}^{\infty} m \left( \frac z {j \omega_1 + k \omega_2} \right)^{m - 1} \\
+\frac {1} {\left(1 -  \frac z {(j \omega_1 + k \omega_2)} \right)^2}
+	&= \sum_{m=1}^{\infty} m \left( \frac z {j \omega_1 + k \omega_2} \right)^{m - 1} \\
+\left( \frac {1} {1 -  \frac z {(j \omega_1 + k \omega_2)} }\right)^2
+	&= \sum_{m=0}^{\infty} (m + 1) \left( \frac z {j \omega_1 + k \omega_2} \right)^{m}.
+\end{align*}
+Combining this with our representation of the summand we have
+\begin{align*}
+&\frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left( \left(  \frac 1 { 1 -  \frac z {j \omega_1 + k \omega_2} }\right)^2 - 1 \right) \\
+	&= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left( \sum_{m=0}^{\infty} (m + 1) \left( \frac z {j \omega_1 + k \omega_2} \right)^{m} - 1 \right) \\
+	&= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left( 1 + \sum_{m=1}^{\infty} (m + 1) \left( \frac z {j \omega_1 + k \omega_2} \right)^{m} - 1 \right) \\
+	&= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\sum_{m=0}^{\infty} (m + 2) \frac {z^{m + 1}} {\left( j \omega_1 + k \omega_2\right)^{m + 1}} \\
+	&= \sum_{m=0}^{\infty} (m + 2) \frac {z^{m + 1}} {\left( j \omega_1 + k \omega_2\right)^{m + 3}}
+\end{align*}
+Thus we have,
+$$\wp(z) = \frac 1 {z^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \sum_{m=0}^{\infty} (m + 2) \frac {z^{m + 1}} {\left( j \omega_1 + k \omega_2\right)^{m + 3}}.$$
+Since, $\wp$ is an even function we can let $m = 2\ell - 1$, then
+\begin{align*}
+\wp(z) &= \frac 1 {z^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \sum_{\ell=0}^{\infty} (2\ell - 1 + 2) \frac {z^{2\ell - 1 + 1}} {\left( j \omega_1 + k \omega_2\right)^{2\ell - 1 + 3}} \\
+	&= \frac 1 {z^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \sum_{\ell=0}^{\infty} (2\ell + 1) \frac {z^{2\ell}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}}
+\end{align*}
+We can reorder these sums since we have a form of our original geometric series and there are no issues with convergence at the moment
+\begin{align*}
+\wp(z) &= \frac 1 {z^2} + \sum_{\ell=0}^{\infty} \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1) \frac {z^{2\ell}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}} \\
+	&= \frac 1 {z^2} + \sum_{\ell=0}^{\infty} \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1) \frac {z^{2\ell}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}}.
+\end{align*}
+Thus our $\alpha_\ell$'s are given by
+$$
+\alpha_\ell = \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1) \frac 1 {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}} \quad \text{ for $\ell$ = 0, 1, 2, ...}.
+$$
+
+\noindent
+Furthermore, to calculate the beta's for $\wp^\prime(z)$ we have
+\begin{align*}
+\wp^\prime(z)
+	&= \frac d {dz} \left[ \frac 1 {z^2} + \sum_{\ell=0}^{\infty} \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1) \frac {z^{2\ell}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}} \right] \\
+	&= - \frac 2 {z^3} + \frac d {dz} \left[ \sum_{\ell=0}^{\infty} \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1) \frac {z^{2\ell}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}} \right].
+\end{align*}
+Because our series is convergent we can differentiate term by term to get
+\begin{align*}
+\wp^\prime(z)
+	&= - \frac 2 {z^3} + \sum_{\ell=0}^{\infty} \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac d {dz} \left[  (2\ell + 1) \frac {z^{2\ell}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}} \right] \\
+	&= - \frac 2 {z^3} + \sum_{\ell=0}^{\infty} \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1)(2\ell) \frac {z^{2\ell - 1}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}}
+\end{align*}
+which implies
+$$
+\beta_\ell = \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1)(2\ell) \frac 1 {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}}.
+$$
+\qed \\
+\newpage
+
+\item Show that $\wp(z)$ satisfies the differential equation
+$$ \left(\wp^{\prime}\right)^2=a \wp^3+b \wp^2+c \wp+d, $$
+
+for suitable choices of $a, b, c, d$. Find these constants. You may need to invoke Liouville's theorem to obtain this final result. It turns out that the function $\wp(z)$ is determined by the coefficients $c$ and $d$, implying that it is possible to recover $\omega_1$ and $\omega_2$ from the knowledge of $c$ and $d$. \\
+
+\noindent
+\textit{Solution:} \\
+Begin by explicitly writing out the first few terms of the Laurent expansions for both $\wp(z)$ and $\wp^\prime(z)$.
+For $\wp(z)$ we have
+\begin{align*}
+\wp(z) &= \frac{1}{z^2}
+	+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac 1 {\left( j \omega_1 + k \omega_2\right)^2}
+	+ \left( \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac 5 {\left( j \omega_1 + k \omega_2\right)^6} \right) z^2
+	+ \left( \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac 9 {\left( j \omega_1 + k \omega_2\right)^{10}} \right) z^4
+	+ \mathcal O (z^6) \\
+\end{align*}
+We also have
+\begin{align*}
+\wp^\prime(z) &= -\frac{2}{z^3}
+	+ \left( \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac 6 {\left( j \omega_1 + k \omega_2\right)^4} \right) z
+	+ \left( \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac {42} {\left( j \omega_1 + k \omega_2\right)^8} \right) z^3
+	+ \left( \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac {110} {\left( j \omega_1 + k \omega_2\right)^{12}} \right) z^5 
+	+ \mathcal O (z^7) \\
+\end{align*}
+\textbf{TODO: Only come back to this tedious algebra if you have time.}
+\\
+
+\end{enumerate}
+\end{enumerate}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
