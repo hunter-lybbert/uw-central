@@ -40,7 +40,7 @@
 \noindent
 \text{Hunter Lybbert} \\
 \text{Student ID: 2426454} \\
-\text{11-11-24} \\
+\text{11-12-24} \\
 \text{AMATH 567} \\
 
 \title{\bf { Homework 7} }
@@ -81,6 +81,7 @@ Calculating the strength of the pole we get
 $$C_{-1} = \frac{2^{-1 + 2}} {(-1 + 2)!} = 2$$
 The strength of the pole is 2.
 \qed \\
+\newpage
 
 \noindent
 (c)
@@ -96,29 +97,15 @@ f(z) &= \E^{\tan z} \\
 	&= \sum_{n=0}^\infty \frac 1 {n!} \frac {\sin^n z} {\cos^n z}.
 \end{align*}
 Therefore, $f(z)$ has singularities at $z = \pi/2 + \pi k$ for $k \in \mathbb Z$.
-These singularities are essential since the limit of $f(z)$ at teach of these points does not exist.
-Let $w$ be an arbitrary singularity of $f(z)$ of the form $w = \pi/2 + \pi k$
+Further expanding $\tan z$ is enlightening.
+We can do this quickly utilizing the expansion given in A \& F in example 3.5.3 this gives us
 \begin{align*}
-\lim_{z\rightarrow w} \E^{\tan z}
-	&= \lim_{z\rightarrow w} \sum_{n=0}^\infty \frac 1 {n!} \frac {\sin^n z} {\cos^n z} \\
-	&= \sum_{n=0}^\infty \lim_{z\rightarrow w} \frac 1 {n!} \frac {\sin^n z} {\cos^n z}
+f(z) &= \E^{\tan z} \\
+	&= \sum_{n=0}^\infty \frac {\tan^n z} {n!} \\
+	&= \sum_{n=0}^\infty \frac 1 {n!} \left( \frac 1 {z - (\pi/2 + m\pi)} + \frac 1 3 (z - (\pi/2 + m \pi) + ...\right)^n.
 \end{align*}
-Looking at just one term we have,
-\begin{align*}
-\lim_{z\rightarrow w} \frac 1 {n!} \frac {\sin^n z} {\cos^n z}
-	&= \frac 1 {n!} \frac {\sin^n (\pi/2 + \pi k)} {\cos^n (\pi/2 + \pi k)} \\
-	&= \frac 1 {n!} \frac {(-1)^{kn}} {0}.
-\end{align*}
-Using L'Hôpital's rule we have
-\begin{align*}
-\lim_{z\rightarrow w} \frac 1 {n!} \frac {\sin^n z} {\cos^n z}
-	&= \lim_{z\rightarrow w} \frac 1 {n!} \frac {n\cos^{n - 1} z} {-n\sin^{n - 1} z} \\
-	&= \lim_{z\rightarrow w} -\frac 1 {n!} \frac {\cos^{n - 1} z} {\sin^{n - 1} z} \\
-	&= -\frac 1 {n!} \frac {0} {(-1)^{k(n - 1)}} \\
-	&= 0
-\end{align*}
-Attempting to apply L'Hôpital's rule will not help us since $\sin$ and $\cos$ are infinitely differentiable and won't vanish at any point.
-\textbf{TODO} \\
+Foiling this out and since $n$ goes to $\infty$ there will be an infinite number of negative powers of $z$ so these singularities are all essential. \\
+\qed \\
 
 \noindent
 (d)
@@ -225,6 +212,7 @@ z_4 &= \sqrt{\I} \sqrt[4]{2}
 		= \frac {\sqrt{2} } {8 \I} 
 		= - \frac { \I \sqrt{2} } {8} \\
 \end{align*} \qed \\
+\newpage
 
 \noindent
 (c)
@@ -232,7 +220,38 @@ $$
 f(z) = \frac z {\sin^2 z}
 $$
 \textit{Solution:} \\
-\textbf{TODO} \\
+We first do a Taylor series expansion around $z= 0$
+\begin{align*}
+f(z) = \frac z {\sin^2 z}
+	&= \frac z {\left(\sum_{j=0}^{\infty} \frac {(-1)^j z^{2j + 1}}{(2j + 1)!} \right)^2} \\
+	&= \frac z {z^2 \left(\sum_{j=0}^{\infty} \frac {(-1)^j z^{2j}}{(2j + 1)!} \right)^2} \\
+	&= \frac 1 {z \left(\sum_{j=0}^{\infty} \frac {(-1)^j z^{2j}}{(2j + 1)!} \right)^2} \\
+	&= \frac {\frac{1}{\left(\sum_{j=0}^{\infty} \frac {(-1)^j z^{2j}}{(2j + 1)!} \right)^2}} {z }.
+\end{align*}
+The strength of this simple pole at $z = 0$
+$$
+\frac{1}{\left(\sum_{j=0}^{\infty} \frac {(-1)^j 0^{2j}}{(2j + 1)!} \right)^2}
+	= \frac{1}{\left( 1 + \cancel{\sum_{j=1}^{\infty} \frac {(-1)^j 0^{2j}}{(2j + 1)!}} \right)^2}
+	= 1.
+$$
+
+
+\noindent
+Next we do a Taylor series expansion around $z= n\pi$
+\begin{align*}
+f(z) = \frac z {\sin^2 z}
+	&= \frac z {\left(\sum_{j=0}^{\infty} \frac {(-1)^j (z - n\pi)^{2j + 1}}{(2j + 1)!} \right)^2} \\
+	&= \frac z {(z - n\pi)^2 \left(\sum_{j=0}^{\infty} \frac {(-1)^j (z - n\pi)^{2j}}{(2j + 1)!} \right)^2} \\
+	&= \frac {\frac z {\left(\sum_{j=0}^{\infty} \frac {(-1)^j (z - n\pi)^{2j}}{(2j + 1)!} \right)^2}} {(z - n\pi)^2}.
+\end{align*}
+The strength of the $2^{\rm nd}$ order pole at $z = n \pi$ for all $n \in \mathbb Z$ is
+$$
+\frac z {\left(\sum_{j=0}^{\infty} \frac {(-1)^j (z - n\pi)^{2j}}{(2j + 1)!} \right)^2}
+	= \frac {n \pi} {\left( 1 + \cancel{\sum_{j=1}^{\infty} \frac {(-1)^j (n \pi - n\pi)^{2j}}{(2j + 1)!}} \right)^2}
+	= n \pi.
+$$
+\qed \\
+\newpage
 
 \noindent
 (d)
@@ -301,11 +320,40 @@ Finally, take the derivative and negate the resulting expression
 \end{align}
 \textit{Solution:} \\
 We can plug in $z + 1$ to the formula we just computed and simplify
-\textbf{TODO: Try a comparison test to justify combining the sums... construct a series that converges whose summand is larger than our summand in absolute value}
 \begin{align*}
 &\frac {\Gamma^\prime(z + 1)} {\Gamma(z + 1)} - \frac {\Gamma^\prime(z)} {\Gamma(z)} - \frac 1 z \\
 	& \quad = - \frac 1 {z + 1} - \gamma - \sum_{n=1}^\infty \bigg( \frac 1 {z + 1 + n} - \frac 1 n \bigg) - \left(- \frac 1 z - \gamma - \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg) \right) - \frac 1 z \\
 	& \quad = - \frac 1 {z + 1} - \cancel{\gamma} - \sum_{n=1}^\infty \bigg( \frac 1 {z + 1 + n} - \frac 1 n \bigg) + \cancel{\frac 1 z} + \cancel{\gamma} + \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg) - \cancel{\frac 1 z} \\
+	& \quad = - \frac 1 {z + 1} + \sum_{n=1}^\infty \bigg( - \frac 1 {z + 1 + n} + \frac 1 n \bigg) + \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg) \\
+\end{align*}
+Now, we want to combine these two sums but in order to do so we need to ensure that they are each convergent.
+We demonstrate this briefly using the comparison test.
+For the series on the left we have
+\begin{align*}
+& - \frac 1 {z + 1 + n} + \frac 1 n = \frac {z + 1} {nz + n + n^2} \\
+& \quad \implies \left| \frac {z + 1} {nz + n + n^2}\right| \leq \frac {|z| + 1} {n^2} \leq \frac 1 {n^2}
+\end{align*}
+which gives us the series $\sum_{n=0}^\infty \frac 1 {n^2} < \infty$.
+Therefore our series we are concerned with is convergent as well.
+Furthermore, the series on the right we have
+\begin{align*}
+& \frac 1 {z + n} - \frac 1 n = \frac {- z} {nz + n^2} \\
+& \quad \implies \left| \frac {-z} {nz + n^2}\right| \leq \frac {|z|} {n^2}
+\end{align*}
+which gives us the series $|z| \sum_{n=0}^\infty \frac 1 {n^2} < \infty$.
+Therefore our series we are concerned with is convergent as well.
+Finally, we are justified to combine these.
+Let's verify that their combination is also convergent
+\begin{align*}
+& - \frac 1 {z + 1 + n} + \frac 1 {z + n} = \frac {- z - n + z + 1 + n} {(z + 1 + n)(z + n)} = \frac {1} {(z + 1 + n)(z + n)} \\
+& \quad \implies \left| \frac {1} {(z + 1 + n)(z + n)} \right| = \left| \frac {1} {z^2 + z + 2nz + n + n^2} \right| \leq \frac 1 {n^2}
+\end{align*}
+which gives us the series $\sum_{n=0}^\infty \frac 1 {n^2} < \infty$.
+
+\noindent
+Picking up where we left off we have
+\begin{align*}
+&\frac {\Gamma^\prime(z + 1)} {\Gamma(z + 1)} - \frac {\Gamma^\prime(z)} {\Gamma(z)} - \frac 1 z \\
 	& \quad = - \frac 1 {z + 1} + \sum_{n=1}^\infty \bigg( - \frac 1 {z + 1 + n} + \frac 1 n \bigg) + \sum_{n=1}^\infty \bigg( \frac 1 {z + n} - \frac 1 n \bigg) \\
 	& \quad = - \frac 1 {z + 1} + \sum_{n=1}^\infty \bigg( - \frac 1 {z + 1 + n} + \cancel{\frac 1 n} + \frac 1 {z + n} - \cancel{\frac 1 n} \bigg) \\
 	& \quad = - \frac 1 {z + 1} + \sum_{n=1}^\infty \bigg(\frac 1 {z + n}  - \frac 1 {z + 1 + n} \bigg) \\
@@ -596,27 +644,196 @@ is on the positive imaginary axis. All considerations below are meant
 for the entire complex plane, except the poles of $\wp(z)$.
 \begin{enumerate}
 \item Show that $\wp\left(z+M \omega_1+N \omega_2\right)=\wp(z)$, for any two integers $M, N$. In other words, $\wp(z)$ is a doubly-periodic function: it has two independent periods in the complex plane. Doubly periodic functions are called elliptic functions. \\
+
+\noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+Let's begin with $\wp(z + N \omega_1)$, where $N \in \mathbb Z$
+\begin{align*}
+	&= \frac{1}{(z + N \omega_1)^2}
+		+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(
+			\frac{1}{\left(z + N \omega_1 - j \omega_1 - k \omega_2 \right)^2}
+			- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\right) \\
+	&= \frac{1}{(z + N\omega_1)^2}
+		+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(
+			\frac{1}{\left(z - (j - N) \omega_1 - k \omega_2 \right)^2}
+			- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\right) \\
+	&= \frac{1}{(z + N\omega_1)^2}
+		+ \frac{1}{\left(z - (N - N) \omega_1 - 0 \omega_2 \right)^2}
+			- \frac{1}{\left(N \omega_1+0 \omega_2\right)^2}
+		+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0) \\ j,k \neq (N,0)}}^{\infty} \left(
+			\frac{1}{\left(z - (j - N) \omega_1 - k \omega_2 \right)^2}
+			- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\right) \\
+	&= \frac{1}{(z + N\omega_1)^2}
+		+ \frac 1 {z^2}
+			- \frac 1 {N^2\omega_1^2}
+		+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0) \\ j,k \neq (N,0)}}^{\infty} \left(
+			\frac{1}{\left(z - (j - N) \omega_1 - k \omega_2 \right)^2}
+			- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\right) \\
+	&= \frac 1 {z^2} 
+		\underbrace{+ \frac{1}{(z + N\omega_1)^2} - \frac 1 {N^2\omega_1^2}}_\text{j,k = (N, 0)}
+		+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0) \\ j,k \neq (N,0)}}^{\infty} \left(
+			\frac{1}{\left(z - (j - N) \omega_1 - k \omega_2 \right)^2}
+			- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\right).
+\end{align*}
+Notice the term in front of the summation is actually the $j=N,k=0$ term in the sum.
+Moving it inside we get
+\begin{align*}
+&= \frac 1 {z^2} 
+	+ \frac{1}{(z + N\omega_1)^2} - \frac 1 {N^2\omega_1^2}
+	+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0) \\ j,k \neq (N,0)}}^{\infty} \left(
+		\frac{1}{\left(z - (j - N) \omega_1 - k \omega_2 \right)^2}
+		- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+	\right) \\
+&= \frac 1 {z^2} 
+	+ \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(
+		\frac{1}{\left(z - j\omega_1 - k\omega_2 \right)^2}
+		- \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+	\right) \\
+&= \wp(z).
+\end{align*}
+Therefore, $\wp(z + N \omega_1) = \wp(z)$ for all $z \in \mathbb C$.
+Notice, at no point did my argument depend on $\omega_1$ being a positive real number.
+Hence, if we did the same algebra with $z + M \omega_2$ we would be able to shuffle things around using the $k$ index instead of the $j$ index to conclude $\wp(z + M \omega_2) = \wp(z)$ for all $z \in \mathbb C$.
+Let $z^\prime = z + N \omega_1$.
+Then we have $$\wp(z^\prime + M \omega_2) = \wp(z^\prime) = \wp(z + N\omega_1) = \wp(z).$$
+Thus
+$$\wp(z + N \omega_1 + M \omega_2) = \wp(z).$$
+\qed \\
 
 \item Establish that $\wp(z)$ is an even function: $\wp(-z)=\wp(z)$. \\
+
+\noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+Before I plugin the $z = -z$ into the Weierstrass $\wp$-function, let's pay close attention to one detail.
+Notice that the $j,k$ indices index over all combinations integers except the term $j,k = (0,1)$.
+This means, as written, the first fraction in the summand the negative signs in front of $j$ and $k$ flip the sign of that particular integer that those indices are taking on for that term in the sum.
+$$ \frac{1}{\left(z-j \omega_1-k \omega_2\right)^2} $$
+That means if we changed the sign in front of the indices $j$, $k$ we would just be ``reordering" the sum but it will still sum over the same terms.
+Therefore, 
+\begin{align*}
+\wp(-z)
+	&= \frac{1}{(-z)^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(\frac{1}{\left(-z-j \omega_1-k \omega_2\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2}\right) \\
+	&= \frac{1}{z^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(\frac{1}{\left(-(z + j \omega_1 + k \omega_2)\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2}\right) \\
+	&= \frac{1}{z^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(\frac{1}{\left(z + j \omega_1 + k \omega_2\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2}\right).
+\end{align*}
+We can change the sign in front of the indices in the summand and reverse the order of summation to preserve both equality and the order of summation.
+However, since the order in which something is summed does not change it's value we can revert the summation order in our final step.
+\begin{align*}
+	&= \frac{1}{z^2} + \sum_{\substack{j, k=\infty \\ j,k \neq (0,0)}}^{-\infty} \left(\frac{1}{\left(z - j \omega_1 - k \omega_2\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2}\right) \\
+	&= \frac{1}{z^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \left(\frac{1}{\left(z - j \omega_1 - k \omega_2\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2}\right) \\
+	&= \wp(z)
+\end{align*}
+Hence, $\wp(-z) = \wp(z)$. \\
+\qed \\
 
 \item Find Laurent expansions for $\wp(z)$ and $\wp^{\prime}(z)$ in a neighborhood of the origin in the form
 $$ \wp(z)=\frac{1}{z^2}+\alpha_0+\alpha_2 z^2+\alpha_4 z^4+\ldots $$
 and
 $$ \wp^{\prime}(z)=-\frac{2}{z^3}+\beta_1 z+\beta_3 z^3+\ldots $$
 Give expressions for the coefficients introduced above. \\
+
+\noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+Let's rewrite the terms inside the sum very carefully
+\begin{align*}
+& \frac 1 {\left(z-j \omega_1-k \omega_2\right)^2}-\frac{1}{\left(j \omega_1+k \omega_2\right)^2} \\
+	&\quad= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left(
+			\frac 1 { \frac{\left(z - (j \omega_1 + k \omega_2) \right)^2}{\left(j \omega_1+k \omega_2\right)^2}} - 1
+		\right) \\
+	&\quad= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left(
+			\frac 1 { \left(\frac z {j \omega_1 + k \omega_2} 
+			- \frac {j \omega_1 + k \omega_2}{j \omega_1 + k \omega_2} \right)^2} - 1
+		\right) \\
+	&\quad= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left( \frac 1 { \left(\frac z {j \omega_1 + k \omega_2} - 1 \right)^2} - 1\right) \\
+	&\quad= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left( \frac 1 { \left(1 -  \frac z {j \omega_1 + k \omega_2} \right)^2} - 1 \right) \\
+	&\quad= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left( \left(  \frac 1 { 1 -  \frac z {j \omega_1 + k \omega_2} }\right)^2 - 1 \right) .
+\end{align*}
+Now looking specifically at the expression being squared.
+Assuming
+$$|z| < |j \omega_1 + k \omega_2|$$ 
+which holds when $|z|$ is near the origin.
+Thus, we have a geometric series
+$$
+\frac 1 { 1 -  \frac z {j \omega_1 + k \omega_2} } = \sum_{m=0}^{\infty} \left( \frac z {j \omega_1 + k \omega_2} \right)^m.
+$$
+However, notice we can arrive at a clever representation of the squared term inside the first set of parentheses 
+\begin{align*}
+\frac d {dz} \left[ \frac 1 { 1 -  \frac z {j \omega_1 + k \omega_2} } \right]
+	&= \frac d {dz} \left[ \sum_{m=0}^{\infty} \left( \frac z {j \omega_1 + k \omega_2} \right)^m \right] \\
+- \frac 1 {(j \omega_1 + k \omega_2)} \frac {-1} {\left(1 -  \frac z {(j \omega_1 + k \omega_2)} \right)^2}
+	&= \sum_{m=0}^{\infty} \frac d {dz} \left[ \left( \frac z {j \omega_1 + k \omega_2} \right)^m \right] \\
+\frac 1 {(j \omega_1 + k \omega_2)} \frac {1} {\left(1 -  \frac z {(j \omega_1 + k \omega_2)} \right)^2}
+	&= \frac 1 {j \omega_1 + k \omega_2} \sum_{m=0}^{\infty} m \left( \frac z {j \omega_1 + k \omega_2} \right)^{m - 1} \\
+\frac {1} {\left(1 -  \frac z {(j \omega_1 + k \omega_2)} \right)^2}
+	&= \sum_{m=1}^{\infty} m \left( \frac z {j \omega_1 + k \omega_2} \right)^{m - 1} \\
+\left( \frac {1} {1 -  \frac z {(j \omega_1 + k \omega_2)} }\right)^2
+	&= \sum_{m=0}^{\infty} (m + 1) \left( \frac z {j \omega_1 + k \omega_2} \right)^{m}.
+\end{align*}
+Combining this with our representation of the summand we have
+\begin{align*}
+&\frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left( \left(  \frac 1 { 1 -  \frac z {j \omega_1 + k \omega_2} }\right)^2 - 1 \right) \\
+	&= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left( \sum_{m=0}^{\infty} (m + 1) \left( \frac z {j \omega_1 + k \omega_2} \right)^{m} - 1 \right) \\
+	&= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\left( 1 + \sum_{m=1}^{\infty} (m + 1) \left( \frac z {j \omega_1 + k \omega_2} \right)^{m} - 1 \right) \\
+	&= \frac{1}{\left(j \omega_1+k \omega_2\right)^2}
+		\sum_{m=0}^{\infty} (m + 2) \frac {z^{m + 1}} {\left( j \omega_1 + k \omega_2\right)^{m + 1}} \\
+	&= \sum_{m=0}^{\infty} (m + 2) \frac {z^{m + 1}} {\left( j \omega_1 + k \omega_2\right)^{m + 3}}
+\end{align*}
+Thus we have,
+$$\wp(z) = \frac 1 {z^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \sum_{m=0}^{\infty} (m + 2) \frac {z^{m + 1}} {\left( j \omega_1 + k \omega_2\right)^{m + 3}}.$$
+Since, $\wp$ is an even function we can let $m = 2\ell - 1$, then
+\begin{align*}
+\wp(z) &= \frac 1 {z^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \sum_{\ell=0}^{\infty} (2\ell - 1 + 2) \frac {z^{2\ell - 1 + 1}} {\left( j \omega_1 + k \omega_2\right)^{2\ell - 1 + 3}} \\
+	&= \frac 1 {z^2} + \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \sum_{\ell=0}^{\infty} (2\ell + 1) \frac {z^{2\ell}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}}
+\end{align*}
+We can reorder these sums since we have a form of our original geometric series and there are no issues with convergence at the moment
+\begin{align*}
+\wp(z) &= \frac 1 {z^2} + \sum_{\ell=0}^{\infty} \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1) \frac {z^{2\ell}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}} \\
+	&= \frac 1 {z^2} + \sum_{\ell=0}^{\infty} \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1) \frac {z^{2\ell}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}}.
+\end{align*}
+Thus our $\alpha_\ell$'s are given by
+$$
+\alpha_\ell = \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1) \frac 1 {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}} \quad \text{ for $\ell$ = 0, 1, 2, ...}.
+$$
+
+\noindent
+Furthermore, to calculate the beta's for $\wp^\prime(z)$ we have
+\begin{align*}
+\wp^\prime(z)
+	&= \frac d {dz} \left[ \frac 1 {z^2} + \sum_{\ell=0}^{\infty} \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1) \frac {z^{2\ell}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}} \right] \\
+	&= - \frac 2 {z^3} + \frac d {dz} \left[ \sum_{\ell=0}^{\infty} \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1) \frac {z^{2\ell}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}} \right].
+\end{align*}
+Because our series is convergent we can differentiate term by term to get
+\begin{align*}
+\wp^\prime(z)
+	&= - \frac 2 {z^3} + \sum_{\ell=0}^{\infty} \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} \frac d {dz} \left[  (2\ell + 1) \frac {z^{2\ell}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}} \right] \\
+	&= - \frac 2 {z^3} + \sum_{\ell=0}^{\infty} \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1)(2\ell) \frac {z^{2\ell - 1}} {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}}
+\end{align*}
+which implies
+$$
+\beta_\ell = \sum_{\substack{j, k=-\infty \\ j,k \neq (0,0)}}^{\infty} (2\ell + 1)(2\ell) \frac 1 {\left( j \omega_1 + k \omega_2\right)^{2\ell + 2}}.
+$$
+\qed \\
+\newpage
 
 \item Show that $\wp(z)$ satisfies the differential equation
 $$ \left(\wp^{\prime}\right)^2=a \wp^3+b \wp^2+c \wp+d, $$
 
-for suitable choices of $a, b, c, d$. Find these constants. You may need to invoke Liouville's theorem to obtain this final result. It turns out that the function $\varphi(z)$ is determined by the coefficients $c$ and $d$, implying that it is possible to recover $\omega_1$ and $\omega_2$ from the knowledge of $c$ and $d$. \\
+for suitable choices of $a, b, c, d$. Find these constants. You may need to invoke Liouville's theorem to obtain this final result. It turns out that the function $\wp(z)$ is determined by the coefficients $c$ and $d$, implying that it is possible to recover $\omega_1$ and $\omega_2$ from the knowledge of $c$ and $d$. \\
 \textit{Solution:} \\
-\textbf{TODO} \\
+Do a tooooon of algebra
 
 
 {\bf OH Notes: }
