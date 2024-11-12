@@ -22,7 +22,58 @@
 
 \noindent
 \textit{Solution:}
-This is it
+The probability mass function for $X\sim Binomial(n,U)$, is given by
+$$ f_X(x) = {n \choose x} U^x (1 - U)^{n - x} \quad \text{ for } x = 0, 1, 2, ..., n$$
+And the density for the Uniform distribution is 
+$$g_X(x) = \frac 1 {b - a} = \frac 1 {1 - 0} = 1 \quad \text{ for } x \in (0, 1)$$
+Then $G_X(s)$ is
+\begin{align*}
+G_X(s) &= E(s^X) \\
+	&= E(E(s^X | U )) \\
+	&= E\left(\sum_{x=0}^n {n \choose x} U^x (1 - U)^{n - x}s^x\right) \\
+	&= E\left(\sum_{x=0}^n {n \choose x} (Us)^x (1 - U)^{n - x}\right) \\
+	&= E\big( (Us + 1 - U)^n \big) \\
+	&= \int_0^1 (us + 1 - u)^n du \\
+	&= \bigg. \frac {(us + 1 - u)^{n + 1}}{(n + 1)(s - 1)} \Bigg|_0^1 \\
+	&= \frac {(1s + 1 - 1)^{n + 1}}{(n + 1)(s - 1)} - \frac {(0s + 1 - 0)^{n + 1}}{(n + 1)(s - 1)} \\
+	&= \frac {s^{n + 1}}{(n + 1)(s - 1)} - \frac {1^{n + 1}}{(n + 1)(s - 1)} \\
+	&= \frac {s^{n + 1} - 1}{(n + 1)(s - 1)}
+\end{align*}
+Now to calculate $P(X = k)$, notice
+\begin{align*}
+G_X(s)
+	= \frac {s^{n + 1} - 1}{(n + 1)(s - 1)}
+	&= \frac 1 {n + 1} \frac {s^{n + 1} - 1}{s - 1} \\
+	&= \frac 1 {n + 1} \frac {1 - s^{n + 1}}{1 - s} \\
+	&= \sum_{k=0}^n \frac 1 {n + 1} s^k \\
+	&= \sum_{k=0}^n P(X = k) s^k \\
+	&= G_X(s)
+\end{align*}
+Therefore, $$ P(X = k) = \frac 1 {n + 1} \quad \text{ for all } k \in \{0, 1, 2, .., n\}. $$
+\qed \\
+
+\noindent
+\textbf{ TODO: Prolly delete this section, though it is true} \\
+Alternatively, we need to come up with a formula for
+$$G_X^{(k)}(0) =  \frac {d^k} {ds^k} \left[ \frac {s^{n + 1} - 1}{(n + 1)(s - 1)} \right] \Bigg|_0. $$
+I'll begin by calculating this for $k = 0, 1, 2$
+\begin{align*}
+G_X^{(0)}(0) &=  \frac {d^0} {ds^0} \left[ \frac {s^{n + 1} - 1}{(n + 1)(s - 1)} \right] \Bigg|_0
+	= \frac {s^{n + 1} - 1}{(n + 1)(s - 1)} \Bigg|_0
+	= \frac {0^{n + 1} - 1}{(n + 1)(0 - 1)}
+	= \frac 1 {n + 1} \\
+G_X^{(1)}(0) &=  \frac {d^1} {ds^1} \left[ \frac {s^{n + 1} - 1}{(n + 1)(s - 1)} \right] \Bigg|_0 \\
+	&= \frac {s^{n}(n + 1)(s - 1) - (s^{n + 1} - 1)}{(n + 1)(s - 1)^2} \Bigg|_0 
+	= \frac {0^{n}(n + 1)(0 - 1) - (0^{n + 1} - 1)}{(n + 1)(0 - 1)^2}
+	= \frac 1 {n + 1} \\
+G_X^{(2)}(0) &=  \frac {d^2} {ds^2} \left[ \frac {s^{n + 1} - 1}{(n + 1)(s - 1)} \right] \Bigg|_0 \\
+	&= \left[ \bigg((n + 1) \big(n s^{n- 1}(s - 1) + s^{n}\big) - (n + 1)s^n\bigg)(s - 1)^2 \right. \\
+	& \left. \quad\quad - \bigg(s^{n}(n + 1)(s - 1) - (s^{n + 1} - 1)\bigg)2(s - 1) \right] \bigg/ \left( (n + 1)(s - 1)^4 \right) \Bigg|_0 \\
+	&= \left[ \bigg((n + 1) \big(n 0^{n- 1}(0 - 1) + 0^{n}\big) - (n + 1)0^n\bigg)(0 - 1)^2 \right. \\
+	& \left. \quad\quad - \bigg(0^{n}(n + 1)(0 - 1) - (0^{n + 1} - 1)\bigg)2(0 - 1) \right] \bigg/ \left( (n + 1)(0 - 1)^4 \right) \\
+	&= \left[ 0 - 2(0 - 1) \right] / \left( (n + 1)(0 - 1)^4 \right) \\
+	&= \frac {2}{n + 1}.
+\end{align*}
 
 \newpage
 
@@ -30,11 +81,21 @@ This is it
 
 $$Z_0 = 1, \,\,\,\,Z_{n+1} = \sum_{i=1}^{Z_n}  \xi^{n+1}_i + Y_{n+1},$$
 where the $(\xi^{n+1}_i)$ are iid with common distribution $\xi$, the $(Y_n)$ are iid with common distribution $Y$ and
-the $(\xi^{n+1}_i)$ and $(Y_{n+1})$ are independent. What is $G_{Z_{n+1}}(s)$ in terms of $G_{Z_n}(s)$, $G_{\xi}(s)$ and $G_Y(s)$? Write $G_{Z_2}(s)$ explicitly in terms of $G_\xi(s)$ and $G_Y(s)$.
-\\
+the $(\xi^{n+1}_i)$ and $(Y_{n+1})$ are independent. What is $G_{Z_{n+1}}(s)$ in terms of $G_{Z_n}(s)$, $G_{\xi}(s)$ and $G_Y(s)$? Write $G_{Z_2}(s)$ explicitly in terms of $G_\xi(s)$ and $G_Y(s)$. \\
 
 \noindent
 \textit{Solution:}
+\textbf{TODO: incorporate something about the $Z_n$ generating function being around}
+\begin{align*}
+G_{Z_{n+1}}(s) = E(s^{Z_{n+1}})
+	&= E(s^{\sum_{i=1}^{Z_n} \xi^{n+1}_i + Y_{n+1}}) \\
+	&= E( E(s^{\sum_{i=1}^{Z_n} \xi^{n+1}_i + Y_{n+1}}| \xi , Y)) \\
+	&= E( E(s^{\sum_{i=1}^{Z_n} \xi^{n+1}_i}s^{Y_{n+1}}| \xi , Y)) \\
+	&= E\left( E\left( \left( \prod_{i= 1}^{Z_n}s^{\xi^{n+1}_i} \right) s^{Y_{n+1}} \Bigg| \xi , Y\right)\right) \\
+	&= E\left( \left( \prod_{i= 1}^{Z_n} E\left( s^{\xi^{n+1}_i} \bigg| \xi , Y\right) \right) E \left( s^{Y_{n+1}} \big| \xi , Y\right)\right) \\
+	&= \left( \prod_{i= 1}^{Z_n} E\left( s^{\xi^{n+1}_i} \bigg| \xi \right) \right) E \left( s^{Y_{n+1}} \big| Y\right) \\
+	&= \left( \prod_{i= 1}^{Z_n} G_{\xi}(s)  \right) G_{Y}(s)
+\end{align*}
 
 \newpage
 
