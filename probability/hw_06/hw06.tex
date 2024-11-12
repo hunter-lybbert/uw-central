@@ -85,14 +85,13 @@ the $(\xi^{n+1}_i)$ and $(Y_{n+1})$ are independent. What is $G_{Z_{n+1}}(s)$ in
 
 \noindent
 \textit{Solution:}
-\textbf{TODO: incorporate something about the $Z_n$ generating function being around}
 \begin{align*}
 G_{Z_{n+1}}(s) = E(s^{Z_{n+1}})
 	&= E(s^{\sum_{i=1}^{Z_n} \xi^{n+1}_i + Y_{n+1}}) \\
 	&= E( E(s^{\sum_{i=1}^{Z_n} \xi^{n+1}_i + Y_{n+1}}| \xi , Y)) \\
 	&= E( E(s^{\sum_{i=1}^{Z_n} \xi^{n+1}_i}s^{Y_{n+1}}| \xi , Y)) \\
 	&= E\left( E\left( \left( \prod_{i= 1}^{Z_n}s^{\xi^{n+1}_i} \right) s^{Y_{n+1}} \Bigg| \xi , Y\right)\right) \\
-	&= E\left( \left( \prod_{i= 1}^{Z_n} E\left( s^{\xi^{n+1}_i} \bigg| \xi , Y\right) \right) E \left( s^{Y_{n+1}} \big| \xi , Y\right)\right) \\
+	&= E\left( E\left( \prod_{i= 1}^{Z_n} s^{\xi^{n+1}_i} \bigg| \xi , Y\right) E \left( s^{Y_{n+1}} \big| \xi , Y\right)\right) \\
 	&= \left( \prod_{i= 1}^{Z_n} E\left( s^{\xi^{n+1}_i} \bigg| \xi \right) \right) E \left( s^{Y_{n+1}} \big| Y\right) \\
 	&= \left( \prod_{i= 1}^{Z_n} G_{\xi}(s)  \right) G_{Y}(s)
 \end{align*}
