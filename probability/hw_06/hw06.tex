@@ -1,0 +1,178 @@
+\documentclass[10pt]{amsart}
+\include{amsmath}
+\usepackage{dsfont}													% gives you \mathds{} font
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{cancel}
+
+\newcommand{\D}{\mathrm{d}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\I}{i}
+
+\begin{document}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{11-13-24} \\
+\text{AMATH 561}
+\title{Problem Set 6}
+\maketitle
+
+\noindent {\bf 1.} Let $X\sim Binomial(n,U)$, where $U\sim Uniform((0,1))$. What is the probability generating function $G_X(s)$ of $X$? What is $P(X=k)$ for $k\in \{0,1,2,...,n\}$? \\
+
+\noindent
+\textit{Solution:}
+The probability mass function for $X\sim Binomial(n,U)$, is given by
+$$ f_X(x) = {n \choose x} U^x (1 - U)^{n - x} \quad \text{ for } x = 0, 1, 2, ..., n$$
+And the density for the Uniform distribution is 
+$$g_X(x) = \frac 1 {b - a} = \frac 1 {1 - 0} = 1 \quad \text{ for } x \in (0, 1)$$
+Then $G_X(s)$ is
+\begin{align*}
+G_X(s) &= E(s^X) \\
+	&= E(E(s^X | U )) \\
+	&= E\left(\sum_{x=0}^n {n \choose x} U^x (1 - U)^{n - x}s^x\right) \\
+	&= E\left(\sum_{x=0}^n {n \choose x} (Us)^x (1 - U)^{n - x}\right) \\
+	&= E\big( (Us + 1 - U)^n \big) \\
+	&= \int_0^1 (us + 1 - u)^n du \\
+	&= \bigg. \frac {(us + 1 - u)^{n + 1}}{(n + 1)(s - 1)} \Bigg|_0^1 \\
+	&= \frac {(1s + 1 - 1)^{n + 1}}{(n + 1)(s - 1)} - \frac {(0s + 1 - 0)^{n + 1}}{(n + 1)(s - 1)} \\
+	&= \frac {s^{n + 1}}{(n + 1)(s - 1)} - \frac {1^{n + 1}}{(n + 1)(s - 1)} \\
+	&= \frac {s^{n + 1} - 1}{(n + 1)(s - 1)}
+\end{align*}
+Now to calculate $P(X = k)$, notice
+\begin{align*}
+G_X(s)
+	= \frac {s^{n + 1} - 1}{(n + 1)(s - 1)}
+	&= \frac 1 {n + 1} \frac {s^{n + 1} - 1}{s - 1} \\
+	&= \frac 1 {n + 1} \frac {1 - s^{n + 1}}{1 - s} \\
+	&= \sum_{k=0}^n \frac 1 {n + 1} s^k \\
+	&= \sum_{k=0}^n P(X = k) s^k \\
+	&= G_X(s)
+\end{align*}
+Therefore, $$ P(X = k) = \frac 1 {n + 1} \quad \text{ for all } k \in \{0, 1, 2, .., n\}. $$
+\qed \\
+
+\newpage
+
+\noindent {\bf 2.} Consider a branching process with immigration
+
+$$Z_0 = 1, \,\,\,\,Z_{n+1} = \sum_{i=1}^{Z_n}  \xi^{n+1}_i + Y_{n+1},$$
+where the $(\xi^{n+1}_i)$ are iid with common distribution $\xi$, the $(Y_n)$ are iid with common distribution $Y$ and
+the $(\xi^{n+1}_i)$ and $(Y_{n+1})$ are independent. What is $G_{Z_{n+1}}(s)$ in terms of $G_{Z_n}(s)$, $G_{\xi}(s)$ and $G_Y(s)$? Write $G_{Z_2}(s)$ explicitly in terms of $G_\xi(s)$ and $G_Y(s)$. \\
+
+\noindent
+\textit{Solution:} \\
+We can write the generating function $G_{Z_{n + 1}}(s)$ as follows
+\begin{align*}
+G_{Z_{n+1}}(s) &=  G_{\sum_{i=1}^{Z_n}  \xi^{n+1}_i + Y_{n+1}}(s) \\
+	&=  G_{ \xi^{n+1}_1 + \xi^{n+1}_2 + \xi^{n+1}_3 + ... + \xi^{n+1}_{Z_n} + Y_{n+1}}(s) \\
+	&=  G_{ \xi^{n+1}_1 + \xi^{n+1}_2 + \xi^{n+1}_3 + ... + \xi^{n+1}_{Z_n}} G_{Y_{n+1}}(s) \\
+	&=  G_{ Z_n}(G_{\xi}(s)) G_{Y_{n+1}}(s).
+\end{align*}
+The second to third equality comes from the fact that the $Y_{n + 1}$ and $\xi_i^{n + 1}$ are independent.
+Finally, the last equality comes from an application of the Theorem 3 from Lecture 15. \\
+
+\noindent
+Next to calculate $G_{Z_2}(s)$ explicitly we get
+\begin{align*}
+G_{Z_2}(s)
+	&= G_{Z_1}(G_{\xi}(s))G_Y(s) \\
+	&= \bigg(G_{\xi}\Big(G_{\xi}(s)\Big)G_Y\Big(G_{\xi}(s)\Big)\bigg)G_Y(s).
+\end{align*}
+\qed
+
+\newpage
+
+\noindent {\bf 3.} (a) Let $X$ be exponentially distributed with parameter $\lambda$. Show by elementary integration (not complex integration) that $E(e^{itX}) = \lambda/(\lambda-i t)$.
+\\
+
+\noindent
+\textit{Solution:} \\
+We can begin by looking directly at the expectation we want to calculate
+\begin{align*}
+E(\E^{\I tX}) = \int_\Omega \E^{\I tX} dP
+	&= \int_{\mathbb R} \E^{\I tx} \lambda \E^{-\lambda x} dx \\
+	&= \int_{0}^\infty \E^{\I tx} \lambda \E^{-\lambda x} dx \\
+	&= \int_{0}^\infty \lambda \E^{(\I t -\lambda) x} dx \\
+	&= \int_{0}^\infty \lambda \E^{-(\lambda- \I t) x} dx
+\end{align*}
+Notice this integral is off by a scale factor to the density of an exponentially distributed random variable with parameter $\lambda - \I t$.
+Additionally, we know the integral of a probability density function is equal to 1, therefore, 
+\begin{align*}
+\int_{0}^\infty (\lambda - \I t) \E^{-(\lambda- \I t) x} dx = 1 \\
+\frac \lambda {\lambda - \I t} \int_{0}^\infty (\lambda - \I t) \E^{-(\lambda- \I t) x} dx = \frac \lambda {\lambda - \I t} \\
+\int_{0}^\infty \frac \lambda {\lambda - \I t} (\lambda - \I t) \E^{-(\lambda- \I t) x} dx = \frac \lambda {\lambda - \I t} \\
+\int_{0}^\infty \lambda \E^{-(\lambda- \I t) x} dx = \frac \lambda {\lambda - \I t}.
+\end{align*}
+Which is indeed the integral we wanted to compute. \\
+\qed \\
+
+\noindent
+(b) Find the characteristic function of the density function $f(x)=\frac{1}{2}e^{-|x|}$ for $x\in \mathds{R}$.
+\\
+
+\noindent
+\textit{Solution:}
+The characteristic function is (skipping directly to the change of variable form of the expectation)
+\begin{align*}
+\phi_X(t) = E(\E^{\I tX}) &= \int_{-\infty}^\infty \E^{\I tx} \frac 1 2 \E^{-|x|} dx \\
+	&= \frac 1 2 \int_{-\infty}^\infty \E^{\I tx - |x|} dx.
+\end{align*}
+Let's split up the integral into cases in order to handle the absolute value.
+Then we have
+\begin{align*}
+\phi_X(t) = \frac 1 2 \int_{-\infty}^\infty \E^{\I tx - |x|} dx
+	&= \frac 1 2 \left[ \int_{-\infty}^0 \E^{\I tx - |x|} dx + \int_0^\infty \E^{\I tx - |x|} dx \right] \\
+	&= \frac 1 2 \left[ \int_{-\infty}^0 \E^{\I tx + x} dx + \int_0^\infty \E^{\I tx - x} dx \right] \\
+	&= \frac 1 2 \left[ \int_{-\infty}^0 \E^{(\I t + 1)x} dx + \int_0^\infty \E^{-(1- \I t ) x} dx \right] \\
+	&= \frac 1 2 \left[ \left( \left. \frac 1 {\I t + 1} \E^{(\I t + 1)x} \right|_{-\infty}^0 \right)
+		+ \left( \left. - \frac 1 {1- \I t} \E^{-(1- \I t) x} \right|_0^\infty \right) \right].
+\end{align*}
+Now, as we evaluate these expressions at the their respective bounds of integration, notice the terms evaluated at $-\infty$ and at $\infty$ in the left and right integrals both go to 0.
+Then we have
+\begin{align*}
+\phi_X(t) &= \frac 1 2 \left[ \left( \frac 1 {\I t + 1} \E^{(\I t + 1)0} - \cancelto{0}{\frac 1 {\I t + 1} \E^{(\I t + 1)(-\infty)}} \right)
+		+ \left( \cancelto{0}{- \frac 1 {1- \I t} \E^{-(1- \I t) \infty}} + \frac 1 {1- \I t} \E^{-(1- \I t) 0} \right) \right] \\
+	&= \frac 1 2 \left[ \frac 1 {\I t + 1} + \frac 1 {1- \I t} \right] \\
+	&= \frac 1 2 \left( \frac {1- \I t + \I t + 1} {(\I t + 1)(1- \I t)} \right) \\
+	&= \frac 1 2 \left( \frac {2} {1 - \I^2 t^2} \right) \\
+	&= \frac 1 {1 + t^2} .
+\end{align*}
+Hence, the characteristic function for a random variable with it's density given by $f(x)=\frac{1}{2}e^{-|x|}$ for $x\in \mathds{R}$ is
+$$ \phi_X(t) = \frac 1 {1 + t^2}. $$
+
+\newpage
+
+\noindent {\bf 4.} A coin is tossed repeatedly, with heads turning up with probability $p$ on each toss. Let $N$ be the minimum number of tosses required to obtain $k$ heads. Show that, as $p \to 0$, the distribution function of $2Np$ converges to that of a gamma distribution. Note that, if $X \sim \Gamma(\lambda, r )$ then
+$$f_X(x) = \frac{1}{\Gamma(r)} \lambda^r x^{r-1} e^{-\lambda x} \, 1_{x \geq 0}.$$
+
+\noindent
+\textit{Solution:} \\
+Recall a geometric distributed variable represents the number of failures before one success.
+Therefore we can represent $N$ as the sum of $k$ i.i.d geometrically distributed random variables
+$N = \sum_{i=0}^k X_i$ where each $X_i \sim Geo(p).$
+Note, from the lectures we have
+$$
+\phi_X(t) = \frac {p \E^{\I t}}{1 - (1-p)\E^{\I t}}.
+$$
+Therefore, the characteristic function for $2Np$ is given by
+\begin{align*}
+\phi_{2Np}(t)
+	&= \phi_{N}(2pt) \\
+	&= \phi_{\sum_{i=0}^k X_i}(2pt) \\
+	&= \prod_{i=0}^k \phi_{X_i}(2pt) \\
+	&= \left( \phi_{X}(2pt) \right)^k  \\
+	&=  \left(\frac {p \E^{\I 2pt}}{1 - (1-p)\E^{\I 2pt}}\right)^k.
+\end{align*}
+Now let $p = \frac 1 n$.
+Then we can conclude following the example 6 from lecture 16 that this converges to 
+$$
+\left(\frac {\frac 1 2}{\frac 1 2 - \I t}\right)^k
+$$
+Which is equal to a product of exponential distributed characteristic functions.
+Thus defining the characteristic function of random variable which is the sum of exponential random variables.
+From lecture 9 the sum of exponential random variables is gamma distributed. \\
+\qed \\
+
+\end{document}  
