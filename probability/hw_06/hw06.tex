@@ -7,6 +7,7 @@
 
 \newcommand{\D}{\mathrm{d}}
 \DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\I}{i}
 
 \begin{document}
 
@@ -52,29 +53,6 @@ G_X(s)
 Therefore, $$ P(X = k) = \frac 1 {n + 1} \quad \text{ for all } k \in \{0, 1, 2, .., n\}. $$
 \qed \\
 
-\noindent
-\textbf{ TODO: Prolly delete this section, though it is true} \\
-Alternatively, we need to come up with a formula for
-$$G_X^{(k)}(0) =  \frac {d^k} {ds^k} \left[ \frac {s^{n + 1} - 1}{(n + 1)(s - 1)} \right] \Bigg|_0. $$
-I'll begin by calculating this for $k = 0, 1, 2$
-\begin{align*}
-G_X^{(0)}(0) &=  \frac {d^0} {ds^0} \left[ \frac {s^{n + 1} - 1}{(n + 1)(s - 1)} \right] \Bigg|_0
-	= \frac {s^{n + 1} - 1}{(n + 1)(s - 1)} \Bigg|_0
-	= \frac {0^{n + 1} - 1}{(n + 1)(0 - 1)}
-	= \frac 1 {n + 1} \\
-G_X^{(1)}(0) &=  \frac {d^1} {ds^1} \left[ \frac {s^{n + 1} - 1}{(n + 1)(s - 1)} \right] \Bigg|_0 \\
-	&= \frac {s^{n}(n + 1)(s - 1) - (s^{n + 1} - 1)}{(n + 1)(s - 1)^2} \Bigg|_0 
-	= \frac {0^{n}(n + 1)(0 - 1) - (0^{n + 1} - 1)}{(n + 1)(0 - 1)^2}
-	= \frac 1 {n + 1} \\
-G_X^{(2)}(0) &=  \frac {d^2} {ds^2} \left[ \frac {s^{n + 1} - 1}{(n + 1)(s - 1)} \right] \Bigg|_0 \\
-	&= \left[ \bigg((n + 1) \big(n s^{n- 1}(s - 1) + s^{n}\big) - (n + 1)s^n\bigg)(s - 1)^2 \right. \\
-	& \left. \quad\quad - \bigg(s^{n}(n + 1)(s - 1) - (s^{n + 1} - 1)\bigg)2(s - 1) \right] \bigg/ \left( (n + 1)(s - 1)^4 \right) \Bigg|_0 \\
-	&= \left[ \bigg((n + 1) \big(n 0^{n- 1}(0 - 1) + 0^{n}\big) - (n + 1)0^n\bigg)(0 - 1)^2 \right. \\
-	& \left. \quad\quad - \bigg(0^{n}(n + 1)(0 - 1) - (0^{n + 1} - 1)\bigg)2(0 - 1) \right] \bigg/ \left( (n + 1)(0 - 1)^4 \right) \\
-	&= \left[ 0 - 2(0 - 1) \right] / \left( (n + 1)(0 - 1)^4 \right) \\
-	&= \frac {2}{n + 1}.
-\end{align*}
-
 \newpage
 
 \noindent {\bf 2.} Consider a branching process with immigration
@@ -84,26 +62,84 @@ where the $(\xi^{n+1}_i)$ are iid with common distribution $\xi$, the $(Y_n)$ ar
 the $(\xi^{n+1}_i)$ and $(Y_{n+1})$ are independent. What is $G_{Z_{n+1}}(s)$ in terms of $G_{Z_n}(s)$, $G_{\xi}(s)$ and $G_Y(s)$? Write $G_{Z_2}(s)$ explicitly in terms of $G_\xi(s)$ and $G_Y(s)$. \\
 
 \noindent
-\textit{Solution:}
+\textit{Solution:} \\
+We can write the generating function $G_{Z_{n + 1}}(s)$ as follows
 \begin{align*}
-G_{Z_{n+1}}(s) = E(s^{Z_{n+1}})
-	&= E(s^{\sum_{i=1}^{Z_n} \xi^{n+1}_i + Y_{n+1}}) \\
-	&= E( E(s^{\sum_{i=1}^{Z_n} \xi^{n+1}_i + Y_{n+1}}| \xi , Y)) \\
-	&= E( E(s^{\sum_{i=1}^{Z_n} \xi^{n+1}_i}s^{Y_{n+1}}| \xi , Y)) \\
-	&= E\left( E\left( \left( \prod_{i= 1}^{Z_n}s^{\xi^{n+1}_i} \right) s^{Y_{n+1}} \Bigg| \xi , Y\right)\right) \\
-	&= E\left( E\left( \prod_{i= 1}^{Z_n} s^{\xi^{n+1}_i} \bigg| \xi , Y\right) E \left( s^{Y_{n+1}} \big| \xi , Y\right)\right) \\
-	&= \left( \prod_{i= 1}^{Z_n} E\left( s^{\xi^{n+1}_i} \bigg| \xi \right) \right) E \left( s^{Y_{n+1}} \big| Y\right) \\
-	&= \left( \prod_{i= 1}^{Z_n} G_{\xi}(s)  \right) G_{Y}(s)
+G_{Z_{n+1}}(s) &=  G_{\sum_{i=1}^{Z_n}  \xi^{n+1}_i + Y_{n+1}}(s) \\
+	&=  G_{ \xi^{n+1}_1 + \xi^{n+1}_2 + \xi^{n+1}_3 + ... + \xi^{n+1}_{Z_n} + Y_{n+1}}(s) \\
+	&=  G_{ \xi^{n+1}_1 + \xi^{n+1}_2 + \xi^{n+1}_3 + ... + \xi^{n+1}_{Z_n}} G_{Y_{n+1}}(s) \\
+	&=  G_{ Z_n}(G_{\xi}(s)) G_{Y_{n+1}}(s).
 \end{align*}
+The second to third equality comes from the fact that the $Y_{n + 1}$ and $\xi_i^{n + 1}$ are independent.
+Finally, the last equality comes from an application of the Theorem 3 from Lecture 15. \\
+
+\noindent
+Next to calculate $G_{Z_2}(s)$ explicitly we get
+\begin{align*}
+G_{Z_2}(s)
+	&= G_{Z_1}(G_{\xi}(s))G_Y(s) \\
+	&= \bigg(G_{\xi}\Big(G_{\xi}(s)\Big)G_Y\Big(G_{\xi}(s)\Big)\bigg)G_Y(s).
+\end{align*}
+\qed
 
 \newpage
 
-\noindent {\bf 3.} (a) Let $X$ be exponentially distributed with parameter $\lambda$. Show by elementary integration (not complex integration) that $E(e^{itX})=\lambda/(\lambda-i t)$.
+\noindent {\bf 3.} (a) Let $X$ be exponentially distributed with parameter $\lambda$. Show by elementary integration (not complex integration) that $E(e^{itX}) = \lambda/(\lambda-i t)$.
+\\
+
+\noindent
+\textit{Solution:}
+\begin{align*}
+E(\E^{\I tX}) = \int_\Omega \E^{\I tX} dP
+	&= \int_{\mathbb R} \E^{\I tx} \lambda \E^{-\lambda x} dx \\
+	&= \int_{0}^\infty \E^{\I tx} \lambda \E^{-\lambda x} dx \\
+	&= \int_{0}^\infty \lambda \E^{(\I t -\lambda) x} dx \\
+	&= \int_{0}^\infty \lambda \E^{-(\lambda- \I t) x} dx
+\end{align*}
+Notice this integral is off by a scale factor to the density of an exponentially distributed random variable with parameter $\lambda - \I t$.
+Additionally, we know the integral of a probability density function is equal to 1, therefore, 
+\begin{align*}
+\int_{0}^\infty (\lambda - \I t) \E^{-(\lambda- \I t) x} dx = 1 \\
+\frac \lambda {\lambda - \I t} \int_{0}^\infty (\lambda - \I t) \E^{-(\lambda- \I t) x} dx = \frac \lambda {\lambda - \I t} \\
+\int_{0}^\infty \frac \lambda {\lambda - \I t} (\lambda - \I t) \E^{-(\lambda- \I t) x} dx = \frac \lambda {\lambda - \I t} \\
+\int_{0}^\infty \lambda \E^{-(\lambda- \I t) x} dx = \frac \lambda {\lambda - \I t}.
+\end{align*}
+Which is indeed the integral we wanted to compute. \\
+\qed \\
+
+\noindent
 (b) Find the characteristic function of the density function $f(x)=\frac{1}{2}e^{-|x|}$ for $x\in \mathds{R}$.
 \\
 
 \noindent
 \textit{Solution:}
+The characteristic function is (skipping directly to the change of variable form of the expectation)
+\begin{align*}
+\phi_X(t) = E(\E^{\I tX}) &= \int_{-\infty}^\infty \E^{\I tx} \frac 1 2 \E^{-|x|} dx \\
+	&= \frac 1 2 \int_{-\infty}^\infty \E^{\I tx - |x|} dx.
+\end{align*}
+Let's split up the integral into cases in order to handle the absolute value.
+Then we have
+\begin{align*}
+\phi_X(t) = \frac 1 2 \int_{-\infty}^\infty \E^{\I tx - |x|} dx
+	&= \frac 1 2 \left[ \int_{-\infty}^0 \E^{\I tx - |x|} dx + \int_0^\infty \E^{\I tx - |x|} dx \right] \\
+	&= \frac 1 2 \left[ \int_{-\infty}^0 \E^{\I tx + x} dx + \int_0^\infty \E^{\I tx - x} dx \right] \\
+	&= \frac 1 2 \left[ \int_{-\infty}^0 \E^{(\I t + 1)x} dx + \int_0^\infty \E^{-(1- \I t ) x} dx \right] \\
+	&= \frac 1 2 \left[ \left( \left. \frac 1 {\I t + 1} \E^{(\I t + 1)x} \right|_{-\infty}^0 \right)
+		+ \left( \left. - \frac 1 {1- \I t} \E^{-(1- \I t) x} \right|_0^\infty \right) \right].
+\end{align*}
+Now, as we evaluate these expressions at the their respective bounds of integration, notice the terms evaluated at $-\infty$ and at $\infty$ in the left and right integrals both go to 0.
+Then we have
+\begin{align*}
+\phi_X(t) &= \frac 1 2 \left[ \left( \frac 1 {\I t + 1} \E^{(\I t + 1)0} - \cancelto{0}{\frac 1 {\I t + 1} \E^{(\I t + 1)(-\infty)}} \right)
+		+ \left( \cancelto{0}{- \frac 1 {1- \I t} \E^{-(1- \I t) \infty}} + \frac 1 {1- \I t} \E^{-(1- \I t) 0} \right) \right] \\
+	&= \frac 1 2 \left[ \frac 1 {\I t + 1} + \frac 1 {1- \I t} \right] \\
+	&= \frac 1 2 \left( \frac {1- \I t + \I t + 1} {(\I t + 1)(1- \I t)} \right) \\
+	&= \frac 1 2 \left( \frac {2} {1 - \I^2 t^2} \right) \\
+	&= \frac 1 {1 + t^2} .
+\end{align*}
+Hence, the characteristic function for a random variable with it's density given by $f(x)=\frac{1}{2}e^{-|x|}$ for $x\in \mathds{R}$ is
+$$ \phi_X(t) = \frac 1 {1 + t^2}. $$
 
 \newpage
 
@@ -111,6 +147,23 @@ G_{Z_{n+1}}(s) = E(s^{Z_{n+1}})
 $$f_X(x) = \frac{1}{\Gamma(r)} \lambda^r x^{r-1} e^{-\lambda x} \, 1_{x \geq 0}.$$
 
 \noindent
-\textit{Solution:}
+\textit{Solution:} \\
+Notice our scenario of N being the minimum number of tosses required to obtain $k$ heads (call a heads a ``succcess") is related to the negative binomial distribution.
+This distribution describes the probability of $\ell$ failures occurring before $k$ successes, the p.m.f. is given by
+$$
+P(N = n) = {n - 1 \choose k - 1} p^k (1 - p)^{n - k}.
+$$
+To further connect this distribution to our scenario $N = \ell + k$.
+I think... \\
+\begin{align*}
+\lim_{p \rightarrow 0} {n - 1 \choose k - 1} p^k (1 - p)^{n - k}
+	&= \lim_{p \rightarrow 0} \frac {(n - 1)!}{(n - k)! (k - 1)!} p^k (1 - p)^{n - k} \\
+	&= \lim_{p \rightarrow 0} \frac {(n - 1)!}{(n - k)! (k - 1)!} p^k \left[(1 - p)^{1/p}\right]^{(n - k)p} \\
+	&= \frac {(n - 1)!}{(n - k)! (k - 1)!} p^k \E^{(n - k)p} \\
+	&= \frac {\frac{(n - 1)!}{(k - 1)!}}{\Gamma(n - k + 1)} p^k \E^{(n - k)p} ...
+\end{align*} 
+\textbf{TODO: Come back to this, you're so close}
+We wish to show that as $p \rightarrow 0$ the distribution of $2Np$ converges to that of a gamma distribution.
+Recall that the density of the gamma distribution is \\
 
 \end{document}  
