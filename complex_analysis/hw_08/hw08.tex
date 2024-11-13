@@ -1,0 +1,202 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+\usepackage{mathtools}
+
+\graphicspath{ {./images/} }
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=5pt]{lemma}{Lemma}
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{11-18-24} \\
+\text{AMATH 567} \\
+
+\title{\bf { Homework 8} }
+
+
+\maketitle
+\noindent
+Collaborators*: TBD  \\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
+\normalsize
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item  The Korteweg-de Vries (KdV) equation arises whenever long waves of moderate amplitude in dispersive media are considered. For instance, it describes waves in shallow water, and ion-acoustic waves in plasmas. The equation is given by
+$$ u_t=6 u u_x+u_{x x x}, $$
+where indices denote partial differentiation.
+\begin{enumerate}
+\item By looking for solutions $u(x, t)=U(x)$, derive a first-order ordinary differential equation for $U(x)$. Introduce integration constants as required. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+This
+\end{align*}
+
+
+\item Let $U=U_0 \wp\left(x-x_0\right)$. Determine $U_0$ so that
+  $u=U(x)$ solves the KdV equation.\\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+This
+\end{align*}
+\end{enumerate}
+\newpage
+
+\item From A\&F: 3.6.5\\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+This
+\end{align*}
+\newpage
+
+\item Here's a way to evaluate
+
+$$
+\sum_{k=1}^{\infty} \frac{1}{k^2},
+$$
+
+due to Euler. We've seen that
+
+$$
+\frac{\sin \pi z}{\pi z}=\prod_{j=1}^{\infty}\left(1-\frac{z^2}{j^2}\right) .
+$$
+
+\begin{enumerate}
+\item Equate the coefficients of $z^2$ on both sides, to recover the desired sum. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+This
+\end{align*}
+
+\item Equate the coefficients of $z^4$ on both sides to recover a
+  different sum. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+This
+\end{align*}
+\end{enumerate}
+By equating coefficients of higher powers of $z$, one can recover
+other identities too.\\
+
+\newpage
+
+\item For the following, suppose that $f(z)$ is analytic in an open
+  set $\Omega$ that contains $[-1,1]$.  
+\begin{enumerate}
+\item Show that there exists a contour $C$, encircling $[-1,1]$,
+such that 
+\begin{align*}
+	\int_{-1}^1 \frac{f(x)\D x}{\sqrt{1 -x} \sqrt{1 + x}} =
+	\frac{1}{2i} \oint_C \frac{f(z)\D z}{\sqrt{z -1} \sqrt{z + 1}}.
+\end{align*} \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+This
+\end{align*}
+
+\item Use this to evaluate
+\begin{align*}
+	I_1 &= \int_{-1}^1 \frac{\D x}{\sqrt{1 -x} \sqrt{1+x}}, \quad
+	I_2 = \int_{-1}^1 \sqrt{1 -x} \sqrt{1 + x}\, \D x, \\
+	I_3 &= \int_{-1}^1 \frac{\sqrt{1 -x}}{ \sqrt{1 + x}}\ \D x,
+	\quad   I_4 = \int_{-1}^1 \frac{\sqrt{1  +x}}{ \sqrt{1 - x}} \D x,
+\end{align*}
+without using any changes of variable (e.g., no trig subs!).\\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+This
+\end{align*}
+\end{enumerate}
+\newpage
+
+\item Suppose, for $|z| = 1$, that the series
+\begin{align*}
+f(z) = \sum_{n = -\infty}^\infty f_n z^n,
+\end{align*}
+converges uniformly.
+\begin{enumerate}
+\item Compute series representations for
+\begin{align*}
+F(z) := \frac{1}{2 \pi i} \oint_{C} \frac{f(\xi)}{\xi - z} \D \xi,
+\quad |z| \neq 1, \quad C = \partial B_1(0).
+\end{align*}
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+This
+\end{align*}
+
+\item For $|z| = 1$, compute
+\begin{align*}
+\lim_{\epsilon \to 0^+} F( z(1 - \epsilon)) -       \lim_{\epsilon \to 0^+} F( z(1 + \epsilon)) .
+\end{align*}
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+This
+\end{align*}
+
+\end{enumerate}
+\end{enumerate}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
