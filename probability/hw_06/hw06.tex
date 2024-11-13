@@ -149,22 +149,30 @@ $$f_X(x) = \frac{1}{\Gamma(r)} \lambda^r x^{r-1} e^{-\lambda x} \, 1_{x \geq 0}.
 
 \noindent
 \textit{Solution:} \\
-Notice our scenario of N being the minimum number of tosses required to obtain $k$ heads (call a heads a ``succcess") is related to the negative binomial distribution.
-This distribution describes the probability of $\ell$ failures occurring before $k$ successes, the p.m.f. is given by
+Recall a geometric distributed variable represents the number of failures before one success.
+Therefore we can represent $N$ as the sum of $k$ i.i.d geometrically distributed random variables
+$N = \sum_{i=0}^k X_i$ where each $X_i \sim Geo(p).$
+Note, from the lectures we have
 $$
-P(N = n) = {n - 1 \choose k - 1} p^k (1 - p)^{n - k}.
+\phi_X(t) = \frac {p \E^{\I t}}{1 - (1-p)\E^{\I t}}.
 $$
-To further connect this distribution to our scenario $N = \ell + k$.
-I think... \\
+Therefore, the characteristic function for $2Np$ is given by
 \begin{align*}
-\lim_{p \rightarrow 0} {n - 1 \choose k - 1} p^k (1 - p)^{n - k}
-	&= \lim_{p \rightarrow 0} \frac {(n - 1)!}{(n - k)! (k - 1)!} p^k (1 - p)^{n - k} \\
-	&= \lim_{p \rightarrow 0} \frac {(n - 1)!}{(n - k)! (k - 1)!} p^k \left[(1 - p)^{1/p}\right]^{(n - k)p} \\
-	&= \frac {(n - 1)!}{(n - k)! (k - 1)!} p^k \E^{(n - k)p} \\
-	&= \frac {\frac{(n - 1)!}{(k - 1)!}}{\Gamma(n - k + 1)} p^k \E^{(n - k)p} ...
-\end{align*} 
-\textbf{TODO: Come back to this, you're so close}
-We wish to show that as $p \rightarrow 0$ the distribution of $2Np$ converges to that of a gamma distribution.
-Recall that the density of the gamma distribution is \\
+\phi_{2Np}(t)
+	&= \phi_{N}(2pt) \\
+	&= \phi_{\sum_{i=0}^k X_i}(2pt) \\
+	&= \prod_{i=0}^k \phi_{X_i}(2pt) \\
+	&= \left( \phi_{X}(2pt) \right)^k  \\
+	&=  \left(\frac {p \E^{\I 2pt}}{1 - (1-p)\E^{\I 2pt}}\right)^k.
+\end{align*}
+Now let $p = \frac 1 n$.
+Then we can conclude following the example 6 from lecture 16 that this converges to 
+$$
+\left(\frac {\frac 1 2}{\frac 1 2 - \I t}\right)^k
+$$
+Which is equal to a product of exponential distributed characteristic functions.
+Thus defining the characteristic function of random variable which is the sum of exponential random variables.
+From lecture 9 the sum of exponential random variables is gamma distributed. \\
+\qed \\
 
 \end{document}  
