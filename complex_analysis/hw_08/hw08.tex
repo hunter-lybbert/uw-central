@@ -48,7 +48,7 @@
 
 \maketitle
 \noindent
-Collaborators*: TBD  \\
+Collaborators*: Cooper Simpson, Nate Ward \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -89,10 +89,11 @@ the ratio of two entire functions. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+\textbf{TODO: multiply by something that is going to knock out all of the poles and leave you something that is entire. You need to construct something with zeros of the appropriate order to give you what you want. Definitely use the mittag lefler expansion to have zeros where you want and the right residual that you want.}
 \begin{align*}
-This
+this
 \end{align*}
+
 \newpage
 
 \item Here's a way to evaluate
@@ -104,7 +105,7 @@ $$
 due to Euler. We've seen that
 
 $$
-\frac{\sin \pi z}{\pi z}=\prod_{j=1}^{\infty}\left(1-\frac{z^2}{j^2}\right) .
+\frac{\sin \pi z}{\pi z} = \prod_{j=1}^{\infty}\left(1-\frac{z^2}{j^2}\right) .
 $$
 
 \begin{enumerate}
@@ -112,23 +113,46 @@ $$
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+Taylor expand on the left to get
 \begin{align*}
-This
+\frac{\sin \pi z}{\pi z} &= \frac 1 {\pi z} \sum_{j=0}^\infty \frac {(-1)^j (\pi z)^{2j + 1}}{(2j + 1)!} \\
+	&= \frac 1 {\pi z} \left(\pi z -\frac {(z \pi)^3}{6} + \frac{(z \pi)^5}{120} - ... \right) \\
+	&= 1 -\frac {z^2 \pi^2}{6} + \frac{z^4 \pi^4}{120} - ... 
 \end{align*}
+
+Now expand out several terms in the product on the right
+\begin{align*}
+\prod_{j=1}^{\infty}\left(1-\frac{z^2}{j^2}\right)
+	&= \left( 1 - z^2\right)\left( 1 - \frac{z^2}{4}\right)\left( 1 - \frac{z^2}{9}\right)\left( 1 - \frac{z^2}{16}\right)\left( 1 - \frac{z^2}{25}\right)... \\
+	&= \left( 1 - z^2 - \frac{z^2}{4} + \frac{z^4}{4} \right)\left( 1 - \frac{z^2}{9}\right)\left( 1 - \frac{z^2}{16}\right)\left( 1 - \frac{z^2}{25}\right)... \\
+	&= \left( 1 - z^2 - \frac{z^2}{4} + \frac{z^4}{4} - \frac{z^2}{9} + \frac{z^4}{9} + \frac{z^4}{36} -\frac{z^6}{36} \right)\left( 1 - \frac{z^2}{16}\right)\left( 1 - \frac{z^2}{25}\right)... \\
+	&= \left( 1 + z^2\Big( -1 - \frac 1 4 - \frac 1 9\Big) + z^4 \Big( \frac 1 {4} + \frac 1 {9} + \frac 1 {36} \Big) - \frac{z^6}{36} \right)\left( 1 - \frac{z^2}{16}\right)\left( 1 - \frac{z^2}{25}\right)...
+\end{align*}
+Then we have the coefficients for $z^2$ becomes the series $ - \sum_{j = 0}^\infty \frac 1 {j^2}. $
+Equating the coefficient on the left with the series on the right we have
+\begin{align*}
+-\frac {\pi^2} 6 &= - \sum_{j = 0}^\infty \frac 1 {j^2} \\
+\frac {\pi^2} 6 &= \sum_{j = 0}^\infty \frac 1 {j^2}
+\end{align*} \qed \\
+
+\newpage
 
 \item Equate the coefficients of $z^4$ on both sides to recover a
   different sum. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
-\begin{align*}
-This
-\end{align*}
+Using the results from the Taylor expansion on the left from part (a) we have the coefficient of the $z^4$ term is $ \frac {\pi^4}{120}. $
+Additionally, from expanding the first several terms in the product on the right we have that the coefficient of the $z^4$ term can be written as
+$$\sum_{j=0}^\infty \sum_{k=1}^{j - 1} \frac 1 {j^2} \frac 1 {k^2}.$$
+Combining these we have 
+$$\frac {\pi^4}{120} = \sum_{j=0}^\infty \sum_{k=1}^{j - 1} \frac 1 {j^2} \frac 1 {k^2}.$$
+A little work can be done to relate this to the sum
+$$\sum_{k=1}^\infty \frac 1 {k^4}.$$
 \end{enumerate}
 By equating coefficients of higher powers of $z$, one can recover
 other identities too.\\
+\qed \\
 
 \newpage
 
@@ -144,7 +168,7 @@ such that
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+\textbf{TODO: Utilize the logic from problem 5 on a previous hw (back when $\Sigma$ was the rectangle in the  lower half plane)}
 \begin{align*}
 This
 \end{align*}
@@ -160,7 +184,7 @@ without using any changes of variable (e.g., no trig subs!).\\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+\textbf{TODO: Kind of use problem 8 from hw 6. Now deform the contour of a rectangle into a circle... maybe at infinity}
 \begin{align*}
 This
 \end{align*}
@@ -179,7 +203,7 @@ F(z) := \frac{1}{2 \pi i} \oint_{C} \frac{f(\xi)}{\xi - z} \D \xi,
 \quad |z| \neq 1, \quad C = \partial B_1(0).
 \end{align*}
 \textit{Solution:} \\
-\textbf{TODO:}
+\textbf{TODO: two cases where $|z| < 1$ and $|z| > 1$}
 \begin{align*}
 This
 \end{align*}
@@ -189,7 +213,7 @@ This
 \lim_{\epsilon \to 0^+} F( z(1 - \epsilon)) -       \lim_{\epsilon \to 0^+} F( z(1 + \epsilon)) .
 \end{align*}
 \textit{Solution:} \\
-\textbf{TODO:}
+\textbf{TODO: should expect a ``jump" discontinuity at the boundary}
 \begin{align*}
 This
 \end{align*}
