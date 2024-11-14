@@ -48,7 +48,7 @@
 
 \maketitle
 \noindent
-Collaborators*: Cooper Simpson, Nate Ward \\
+Collaborators*: Cooper Simpson, Nate Ward, Sophia Kamien, Laura Thomas \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -65,18 +65,29 @@ where indices denote partial differentiation.
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+Since we want to find time independent ODE such that $\frac \D {\D t} U(x) = 0$, then we need
+$$ 0=6 u u_x+u_{x x x}. $$
+Integrating gives us
 \begin{align*}
-This
+\int 0 &= 6 \int u u_x \D x+ \int u_{x x x} \D x \\
+0 &= 6 \int u u_x \D x+ u_{x x} + C_1.
 \end{align*}
+Using a substitution $v = u$ and $\D v = u_x \D x$ we have
+\begin{align*}
+0 &= 6 \int u u_x \D x+ u_{x x} + C_1\\
+0 &= 6 \int v \D v + u_{x x} + C_1 \\
+0 &= 6 (3v^2) + C_2 + u_{x x} + C_1 \\
+0 &= 18u^2 + C_2 + u_{x x} + C_1 \\
+0 &= 18u^2 + u_{x x} + C.
+\end{align*}
+Hence $$U(x) = 18u^2 + u_{x x} + C.$$
+\qed
 
-
-\item Let $U=U_0 \wp\left(x-x_0\right)$. Determine $U_0$ so that
-  $u=U(x)$ solves the KdV equation.\\
+\item Let $U=U_0 \wp\left(x-x_0\right)$. Determine $U_0$ so that $u=U(x)$ solves the KdV equation.\\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+$$18u^2 + u_{x x} + C = U_0\wp(x - x_0)$$
 \begin{align*}
 This
 \end{align*}
@@ -168,10 +179,68 @@ such that
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO: Utilize the logic from problem 5 on a previous hw (back when $\Sigma$ was the rectangle in the  lower half plane)}
+For convenience, define $h(z)$ to be the integrand $h(z) = \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}}$.
+Siting Homework 5 problem 5, let $\Sigma$ define the same area as before
+$$\Sigma = \{z \in \mathbb C ~:~ |\real z | \leq r \text{ and } 0 \leq -\imag z \leq R, ~ R > 0, ~ r > 1\}$$
+and let $\partial \Sigma$ be the clockwise oriented contour along the boundary of the region $\Sigma$.
+Additionally let $\partial \Sigma \setminus [-1, 1]$ bet he contour on the boundary without the section from $-1$ to $1$ on the real line.
+From that same problem we know 
+$$
+\oint_{\partial \Sigma} h(z) \D z = 0.
+$$
+Furthermore, we can say
+\begin{align}
+\int_{-1}^{1} h(z) \D z + \oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z &= 0 \nonumber \\
+\oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z &= -\int_{-1}^{1} h(z) \D z.
+\label{eq:lower_rectangle}
+\end{align}
+We now define
+$$ \Sigma^\prime = \{z \in \mathbb C ~:~ |\real z | \leq r \text{ and } 0 \leq \imag z \leq R, ~ R > 0, ~ r > 1\} $$
+to be the upper half plane analogy of $\Sigma$.
+Therefore, let $\partial \Sigma^\prime$ be the clockwise oriented contour along the boundary of the region $\Sigma^\prime$.
+$$
+g(z) = \begin{cases}
+h(z), \quad \text{ if } \Im(z) > 0 \text{ or } |z| > 1 \\
+- h(z), \: \text{ if } \Im(z) = 0 \text{ and } |z| \leq 1
+\end{cases}.
+$$
+This helps us preserve the continuity we are concerned with in order to apply the same arguments from Homework 5 problem 5 and making use of lemma 1 from problem 4 of that same assignment.
+Then we can conclude
+$$\oint_{\partial \Sigma^\prime} g(z) \D z =  0. $$
+Furthermore, we have
+\begin{align}
+\int_{1}^{-1} g(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} g(z) \D z &= 0 \nonumber \\
+	\oint_{\partial \Sigma^\prime\setminus[-1,1]} g(z) \D z &= - \int_{1}^{-1} g(z) \D z \nonumber \\
+	\oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z &= - \int_{1}^{-1} -h(z) \D z \nonumber \\
+	\oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z &= - \int_{-1}^{1} h(z) \D z.
+\label{eq:upper_rectangle}
+\end{align}
+
+If we add equation (\ref{eq:lower_rectangle}) and equation (\ref{eq:upper_rectangle}), we have
 \begin{align*}
-This
+\oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z
+	&= -\int_{-1}^1 h(z) \D z - \int_{-1}^1 h(z) \D z \\
+\oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z
+	&= - 2\int_{-1}^1 h(z) \D z.
 \end{align*}
+Note the contours $\partial \Sigma \setminus [-1, 1]$ and $\partial \Sigma^\prime\setminus[-1,1]$ have small overlapping regions on the real axis which cancel out since they are of opposite orientation.
+We denote the combinations of these contours as $\partial \widehat \Sigma$ which is the counterclockwise oriented contour on the boundary of $\widehat \Sigma$ with
+$$ \widehat \Sigma = \{z \in \mathbb C ~:~ |\real z | \leq r \text{ and } |\imag z| \leq R, ~ R > 0, ~ r > 1\}. $$
+Hence,
+\begin{align*}
+\oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z
+	&= - 2\int_{-1}^1 h(z) \D z \\
+\oint_{\partial \widehat \Sigma } h(z) \D z
+	&= - 2\int_{-1}^1 h(z) \D z \\
+\oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
+	&= - 2\int_{-1}^1 \frac{f(x)}{\sqrt{x -1} \sqrt{x + 1}} \D x \\
+\oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
+	&= - \frac 2 \I \int_{-1}^1 \frac{f(x)}{\sqrt{1 - x} \sqrt{x + 1}} \D x \\
+\oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
+	&= 2 \I \int_{-1}^1 \frac{f(x)}{\sqrt{1 - x} \sqrt{x + 1}} \D x \\
+\frac 1 {2\I} \oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
+	&= \int_{-1}^1 \frac{f(x)}{\sqrt{1 - x} \sqrt{x + 1}} \D x.
+\end{align*} \qed \\
 
 \item Use this to evaluate
 \begin{align*}
