@@ -70,27 +70,47 @@ $$ 0=6 u u_x+u_{x x x}. $$
 Integrating gives us
 \begin{align*}
 \int 0 &= 6 \int u u_x \D x+ \int u_{x x x} \D x \\
-0 &= 6 \int u u_x \D x+ u_{x x} + C_1.
+0 &= 6 \int u u_x \D x+ u_{x x} + C_2.
 \end{align*}
 Using a substitution $v = u$ and $\D v = u_x \D x$ we have
 \begin{align*}
-0 &= 6 \int u u_x \D x+ u_{x x} + C_1\\
-0 &= 6 \int v \D v + u_{x x} + C_1 \\
-0 &= 6 (3v^2) + C_2 + u_{x x} + C_1 \\
-0 &= 18u^2 + C_2 + u_{x x} + C_1 \\
-0 &= 18u^2 + u_{x x} + C.
+0 &= 6 \int u u_x \D x+ u_{x x} + C_2\\
+0 &= 6 \int v \D v + u_{x x} + C_2 \\
+0 &= 6 \left(\frac 1 2 v^2\right) + C_3 + u_{x x} + C_2 \\
+0 &= 3u^2 + C_3 + u_{x x} + C_2.
 \end{align*}
-Hence $$U(x) = 18u^2 + u_{x x} + C.$$
+Next we multiply through by $u_x$ and use the $v=u$ ($\D v = u_x \D x$) substitution for the first integral and a $\omega = u_x$ ($\D \omega = u_{xx}\D x$) substitution for the third integral
+\begin{align*}
+0 &= 3u^2u_x + u_xC_3 + u_xu_{x x} + u_xC_2 \\
+0 &= 3 \int u^2u_x \D x + \int u_xC_3 \D x + \int u_xu_{x x} \D x + \int u_xC_2 \D x \\
+0 &= 3 \int v^2 \D v + \int u_xC_3 \D x + \int \omega \D \omega + \int u_xC_2 \D x \\
+0 &= 3 \left(\frac 1 3  v^3 \right) + C_4 + uC_3 + C_5 + \frac 1 2 \omega^2 + C_6  + uC_2 + C_7 \\
+0 &=  u^3 + \frac 1 2 (u_x)^2  +  u\big(C_2 + C_3\big) + \big(C_4 + C_5 + C_6 + C_7\big).
+\end{align*}
+Hence $$u_x^2 =  - 2 u^3 - 2 uC_0 - 2C_1$$
+which is our first-order ordinary differential equation for $U(x)$. \\
 \qed
 
 \item Let $U=U_0 \wp\left(x-x_0\right)$. Determine $U_0$ so that $u=U(x)$ solves the KdV equation.\\
 
 \noindent
 \textit{Solution:} \\
-$$18u^2 + u_{x x} + C = U_0\wp(x - x_0)$$
+Note, we proved last time that $\wp(z + N w_1 + M w_2) = \wp(z)$ therefore $\wp(x - x_0) = \wp(x)$.
+Then plugging $U=U_0 \wp(x)$ into our first-order ordinary differential equation for $U(x)$ (while suppressing the argument for $\wp$) we have
 \begin{align*}
-This
+\big(U_0 \wp^\prime\big)^2 &=  - 2 \big(U_0 \wp\big)^3 - 2 \big(U_0 \wp\big)C_0 - 2C_1 \\
+U_0^2 \big(\wp^\prime\big)^2 &= -2 U_0^3 \wp^3 - 2 U_0 C_0 \wp - 2C_1 \\
+\big(\wp^\prime\big)^2 &= -2 U_0 \wp^3 - \frac 2 {U_0} C_0 \wp - \frac 2 {U_0^2} C_1.
 \end{align*}
+Choosing $U_0 = -2$ then we have
+$$
+\big(\wp^\prime\big)^2 = 4 \wp^3 + C_0 \wp - \frac 1 2 C_1,
+$$
+which resembles what we showed in the previous assignment holds
+$$
+(\wp^\prime)^2 = 4\wp^3 + c \wp + d.
+$$
+The remaining constants can be attained through the initial conditions of the system we are solving and making sure they agree with the values of $c$, $d$ from the previous assignment.
 \end{enumerate}
 \newpage
 
@@ -100,10 +120,24 @@ the ratio of two entire functions. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO: multiply by something that is going to knock out all of the poles and leave you something that is entire. You need to construct something with zeros of the appropriate order to give you what you want. Definitely use the mittag lefler expansion to have zeros where you want and the right residual that you want.}
-\begin{align*}
-this
-\end{align*}
+Assume $f(z)$ is a meromorphic function.
+Then we know all of the singularities of $f(z)$ are poles of some order.
+If we can multiply $f(z)$ by some entire $g(z)$ function which knocks out all of the poles of $f(z)$ and are left with an entire function $h(z)$, then the original meromorphic function $f(z)$ is a ratio of two entire functions.
+Now it is left for us to successfully construct such a function $g(z)$.
+Our construction needs to have zeros at all of the locations where $f(z)$ has poles.
+Additionally we need to make sure that the multiplicity of the zeros agree with the residue of the poles.
+We can use the Mittag-Leffler Expansion to assist us here.
+Suppose $f(z)$ has poles at each $z = z_j$ for $j = 0, 1, 2, ...$ with corresponding residues $a_j$ then let $g(z)$ be
+$$
+g(z) = z^{a_0} \prod_{j=1}^\infty \left[ (z - z_j) \exp\left(\sum_{k=0}^{m-1}\frac{(z_j)^{k + 1}}{k + 1}\right) \right]^{a_j}.
+$$
+Then
+$$
+f(z)g(z) = h(z).
+$$
+Since $g(z)$ is an entire function constructed strategically, $h(z)$ has no singularities and is therefore entire in the finite complex plane.
+Therefore $f(z)$ is the ratio of two entire functions. \\
+\qed
 
 \newpage
 
@@ -302,7 +336,7 @@ F(z) := \frac{1}{2 \pi i} \oint_{C} \frac{f(\xi)}{\xi - z} \D \xi,
 \quad |z| \neq 1, \quad C = \partial B_1(0).
 \end{align*}
 \textit{Solution:} \\
-\textbf{TODO: two cases where $|z| < 1$ and $|z| > 1$}
+\textbf{TODO: two cases where $|z| < 1$ and $|z| > 1$...geometric series???}
 \begin{align*}
 This
 \end{align*}
