@@ -295,21 +295,30 @@ without using any changes of variable (e.g., no trig subs!).\\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO: Kind of use problem 8 from hw 6. Now deform the contour of a rectangle into a circle... maybe at infinity} \\
-\textbf{TODO: Something weird is happening with orientation} \\
-Using part (a) and the substitution $z = \rho \E^{\I \theta}$
+Using part (a) and the substitution $z = \rho \E^{\I \theta}$ where $\rho$ is very large making $z$ be near $\infty$.
+Additionally, our clockwise circle contour around $z=0$ can also be a counterclockwise contour around $\infty$.
+Therefore
 \begin{align*}
 I_1 = \int_{-1}^1 \frac{\D x}{\sqrt{1 -x} \sqrt{1+x}}
 	&= \frac{1}{2\I} \oint_C \frac{f(z)\D z}{\sqrt{z -1} \sqrt{z + 1}} \\
-	&= \frac{1}{2\I} \oint_0^{2\pi} \frac {\rho \I \E^{\I \theta} \D \theta}{\sqrt{\rho \E^{\I \theta} -1} \sqrt{\rho \E^{\I \theta} + 1}} \\
-	&= \oint_0^{2\pi} \frac{1}{2} \frac {\rho \E^{\I \theta} \D \theta}{\sqrt{\rho^2 \E^{2 \I \theta} -1}} \\
-	&= \left( \frac{1}{2 \I \rho} \sqrt{\rho^2 \E^{2 \I \theta} -1} \right) \bigg|_{0}^{2 \pi} \\
-	&= \left( \frac{1}{2 \I \rho} \sqrt{\rho^2 \E^{4 \pi \I} -1} - \frac{1}{2 \I \rho} \sqrt{\rho^2 \E^{0} -1} \right) \\
-	&= \left( \frac{1}{2 \I \rho} \sqrt{\rho^2 -1} - \frac{1}{2 \I \rho} \sqrt{\rho^2 -1} \right) \\
-	&= \frac{1}{2 \I \rho} \left( \sqrt{\rho^2 -1} - \sqrt{\rho^2 -1} \right) \\
-	&= 0...
+	&= \frac{1}{2\I} \int_0^{2\pi} \frac {\rho \I \E^{\I \theta} \D \theta}{\sqrt{\rho \E^{\I \theta} -1} \sqrt{\rho \E^{\I \theta} + 1}} \\
+	&= \frac{1}{2\I} \int_0^{2\pi} \frac {\rho \I \E^{\I \theta} \D \theta}{\rho \E^{\I \theta} \sqrt{1 - \frac 1{\rho \E^{\I \theta}}} \sqrt{1 + \frac 1{\rho \E^{\I \theta}}}} \\
+	&= \frac{1}{2} \int_0^{2\pi} \frac { \D \theta}{\sqrt{1 - \frac 1{\rho \E^{\I \theta}}} \sqrt{1 + \frac 1{\rho \E^{\I \theta}}}}.
 \end{align*}
-This is wrong...
+Since $\rho$ is large, $\frac 1{\rho \E^{\I \theta}} \approx 0$.
+Thus
+\begin{align*}
+	&= \frac{1}{2} \int_0^{2\pi} \frac { \D \theta}{\sqrt{1 - \frac 1{\rho \E^{\I \theta}}} \sqrt{1 + \frac 1{\rho \E^{\I \theta}}}} \\
+	&= \frac 1 2 \int_0^{2\pi} \D \theta \\
+	&= \frac 1 2 \Big( \theta \big|_0^{2\pi} \Big) \\
+	&= \frac 1 2 2 \pi \\
+	&= \pi.
+\end{align*} 
+Hence,
+$$
+I_1 = \int_{-1}^1 \frac{\D x}{\sqrt{1 -x} \sqrt{1+x}} = \pi
+$$ \qed \\
+
 \begin{align*}
 I_2 = \int_{-1}^1 \sqrt{1 -x} \sqrt{1 + x}\, \D x...
 \end{align*}
