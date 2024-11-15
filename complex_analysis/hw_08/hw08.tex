@@ -174,7 +174,7 @@ other identities too.\\
 such that 
 \begin{align*}
 	\int_{-1}^1 \frac{f(x)\D x}{\sqrt{1 -x} \sqrt{1 + x}} =
-	\frac{1}{2i} \oint_C \frac{f(z)\D z}{\sqrt{z -1} \sqrt{z + 1}}.
+	\frac{1}{2\I} \oint_C \frac{f(z)\D z}{\sqrt{z -1} \sqrt{z + 1}}.
 \end{align*} \\
 
 \noindent
@@ -224,7 +224,7 @@ If we add equation (\ref{eq:lower_rectangle}) and equation (\ref{eq:upper_rectan
 	&= - 2\int_{-1}^1 h(z) \D z.
 \end{align*}
 Note the contours $\partial \Sigma \setminus [-1, 1]$ and $\partial \Sigma^\prime\setminus[-1,1]$ have small overlapping regions on the real axis which cancel out since they are of opposite orientation.
-We denote the combinations of these contours as $\partial \widehat \Sigma$ which is the counterclockwise oriented contour on the boundary of $\widehat \Sigma$ with
+We denote the combinations of these contours as $\partial \widehat \Sigma$ which is the clockwise oriented contour on the boundary of $\widehat \Sigma$ with
 $$ \widehat \Sigma = \{z \in \mathbb C ~:~ |\real z | \leq r \text{ and } |\imag z| \leq R, ~ R > 0, ~ r > 1\}. $$
 Hence,
 \begin{align*}
@@ -240,7 +240,15 @@ Hence,
 	&= 2 \I \int_{-1}^1 \frac{f(x)}{\sqrt{1 - x} \sqrt{x + 1}} \D x \\
 \frac 1 {2\I} \oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
 	&= \int_{-1}^1 \frac{f(x)}{\sqrt{1 - x} \sqrt{x + 1}} \D x.
-\end{align*} \qed \\
+\end{align*}
+Therefore the clockwise oriented contour on the boundary of $\widehat \Sigma$, denoted as $\partial \widehat \Sigma$ is one such contour encircling [-1, 1] such that
+$$
+\int_{-1}^1 \frac{f(x)\D x}{\sqrt{1 -x} \sqrt{1 + x}} =
+	\frac{1}{2\I} \oint_C \frac{f(z)\D z}{\sqrt{z -1} \sqrt{z + 1}}.
+$$
+ \qed \\
+ Note we can deform this contour $\partial \widehat \Sigma$ into a circle centered at $z= 0$ of radius $\rho > 1$. \\
+ \newpage
 
 \item Use this to evaluate
 \begin{align*}
@@ -253,9 +261,31 @@ without using any changes of variable (e.g., no trig subs!).\\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO: Kind of use problem 8 from hw 6. Now deform the contour of a rectangle into a circle... maybe at infinity}
+\textbf{TODO: Kind of use problem 8 from hw 6. Now deform the contour of a rectangle into a circle... maybe at infinity} \\
+\textbf{TODO: Something weird is happening with orientation} \\
+Using part (a) and the substitution $z = \rho \E^{\I \theta}$
 \begin{align*}
-This
+I_1 = \int_{-1}^1 \frac{\D x}{\sqrt{1 -x} \sqrt{1+x}}
+	&= \frac{1}{2\I} \oint_C \frac{f(z)\D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= \frac{1}{2\I} \oint_0^{2\pi} \frac {\rho \I \E^{\I \theta} \D \theta}{\sqrt{\rho \E^{\I \theta} -1} \sqrt{\rho \E^{\I \theta} + 1}} \\
+	&= \oint_0^{2\pi} \frac{1}{2} \frac {\rho \E^{\I \theta} \D \theta}{\sqrt{\rho^2 \E^{2 \I \theta} -1}} \\
+	&= \left( \frac{1}{2 \I \rho} \sqrt{\rho^2 \E^{2 \I \theta} -1} \right) \bigg|_{0}^{2 \pi} \\
+	&= \left( \frac{1}{2 \I \rho} \sqrt{\rho^2 \E^{4 \pi \I} -1} - \frac{1}{2 \I \rho} \sqrt{\rho^2 \E^{0} -1} \right) \\
+	&= \left( \frac{1}{2 \I \rho} \sqrt{\rho^2 -1} - \frac{1}{2 \I \rho} \sqrt{\rho^2 -1} \right) \\
+	&= \frac{1}{2 \I \rho} \left( \sqrt{\rho^2 -1} - \sqrt{\rho^2 -1} \right) \\
+	&= 0...
+\end{align*}
+This is wrong...
+\begin{align*}
+I_2 = \int_{-1}^1 \sqrt{1 -x} \sqrt{1 + x}\, \D x...
+\end{align*}
+Another one
+\begin{align*}
+I_3 &= \int_{-1}^1 \frac{\sqrt{1 -x}}{ \sqrt{1 + x}}\, \D x...
+\end{align*}
+one more
+\begin{align*}
+I_4 = \int_{-1}^1 \frac{\sqrt{1  +x}}{ \sqrt{1 - x}}\, \D x...
 \end{align*}
 \end{enumerate}
 \newpage
