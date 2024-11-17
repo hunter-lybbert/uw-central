@@ -216,22 +216,22 @@ such that
 For convenience, define $h(z)$ to be the integrand $h(z) = \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}}$.
 Siting Homework 5 problem 5, let $\Sigma$ define the same area as before
 $$\Sigma = \{z \in \mathbb C ~:~ |\real z | \leq r \text{ and } 0 \leq -\imag z \leq R, ~ R > 0, ~ r > 1\}$$
-and let $\partial \Sigma$ be the clockwise oriented contour along the boundary of the region $\Sigma$.
-Additionally let $\partial \Sigma \setminus [-1, 1]$ bet he contour on the boundary without the section from $-1$ to $1$ on the real line.
+and let $\partial \Sigma$ be the counterclockwise oriented contour along the boundary of the region $\Sigma$.
+Additionally let $\partial \Sigma \setminus [-1, 1]$ be the contour on the boundary without the section from $-1$ to $1$ on the real line.
 From that same problem we know 
 $$
 \oint_{\partial \Sigma} h(z) \D z = 0.
 $$
 Furthermore, we can say
 \begin{align}
-\int_{-1}^{1} h(z) \D z + \oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z &= 0 \nonumber \\
-\oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z &= -\int_{-1}^{1} h(z) \D z.
+\int_1^{-1} h(z) \D z + \oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z &= 0 \nonumber \\
+\oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z &= \int_{-1}^1 h(z) \D z.
 \label{eq:lower_rectangle}
 \end{align}
 We now define
 $$ \Sigma^\prime = \{z \in \mathbb C ~:~ |\real z | \leq r \text{ and } 0 \leq \imag z \leq R, ~ R > 0, ~ r > 1\} $$
 to be the upper half plane analogy of $\Sigma$.
-Therefore, let $\partial \Sigma^\prime$ be the clockwise oriented contour along the boundary of the region $\Sigma^\prime$.
+Therefore, let $\partial \Sigma^\prime$ be the counterclockwise oriented contour along the boundary of the region $\Sigma^\prime$.
 $$
 g(z) = \begin{cases}
 h(z), \quad \text{ if } \Im(z) > 0 \text{ or } |z| > 1 \\
@@ -243,31 +243,33 @@ Then we can conclude
 $$\oint_{\partial \Sigma^\prime} g(z) \D z =  0. $$
 Furthermore, we have
 \begin{align}
-\int_{1}^{-1} g(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} g(z) \D z &= 0 \nonumber \\
-	\oint_{\partial \Sigma^\prime\setminus[-1,1]} g(z) \D z &= - \int_{1}^{-1} g(z) \D z \nonumber \\
-	\oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z &= - \int_{1}^{-1} -h(z) \D z \nonumber \\
-	\oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z &= - \int_{-1}^{1} h(z) \D z.
+\int_{-1}^1 g(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} g(z) \D z &= 0 \nonumber \\
+	\oint_{\partial \Sigma^\prime\setminus[-1,1]} g(z) \D z &= - \int_{-1}^1 g(z) \D z \nonumber \\
+	\oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z &= - \int_{-1}^1 -h(z) \D z \nonumber \\
+	\oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z &= \int_{-1}^1 h(z) \D z.
 \label{eq:upper_rectangle}
 \end{align}
 
 If we add equation (\ref{eq:lower_rectangle}) and equation (\ref{eq:upper_rectangle}), we have
 \begin{align*}
 \oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z
-	&= -\int_{-1}^1 h(z) \D z - \int_{-1}^1 h(z) \D z \\
+	&= \int_{-1}^1 h(z) \D z + \int_{-1}^1 h(z) \D z \\
 \oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z
-	&= - 2\int_{-1}^1 h(z) \D z.
+	&= 2\int_{-1}^1 h(z) \D z.
 \end{align*}
-Note the contours $\partial \Sigma \setminus [-1, 1]$ and $\partial \Sigma^\prime\setminus[-1,1]$ have small overlapping regions on the real axis which cancel out since they are of opposite orientation.
-We denote the combinations of these contours as $\partial \widehat \Sigma$ which is the clockwise oriented contour on the boundary of $\widehat \Sigma$ with
+Note the contours $\partial \Sigma \setminus [-1, 1]$ and $\partial \Sigma^\prime\setminus[-1,1]$ have small overlapping regions on the real axis $z \in (-r-1, -1)$ and $z \in (1, 1 + r)$ which cancel out since they are of opposite orientation.
+We denote the combinations of these contours as $\partial \widehat \Sigma$ which is the counterclockwise oriented contour on the boundary of $\widehat \Sigma$ with
 $$ \widehat \Sigma = \{z \in \mathbb C ~:~ |\real z | \leq r \text{ and } |\imag z| \leq R, ~ R > 0, ~ r > 1\}. $$
 Hence,
 \begin{align*}
 \oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z
-	&= - 2\int_{-1}^1 h(z) \D z \\
+	&= 2 \int_{-1}^1 h(z) \D z \\
 \oint_{\partial \widehat \Sigma } h(z) \D z
-	&= - 2\int_{-1}^1 h(z) \D z \\
+	&= 2 \int_{-1}^1 h(z) \D z \\
 \oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
-	&= - 2\int_{-1}^1 \frac{f(x)}{\sqrt{x -1} \sqrt{x + 1}} \D x \\
+	&= 2 \int_{-1}^1 \frac{f(x)}{\sqrt{x -1} \sqrt{x + 1}} \D x \\
+\oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
+	&= 2 \int_{-1}^1 \frac{f(x)}{(-\I )\sqrt{1 - x} \sqrt{x + 1}} \D x \\
 \oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
 	&= - \frac 2 \I \int_{-1}^1 \frac{f(x)}{\sqrt{1 - x} \sqrt{x + 1}} \D x \\
 \oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
@@ -275,7 +277,7 @@ Hence,
 \frac 1 {2\I} \oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
 	&= \int_{-1}^1 \frac{f(x)}{\sqrt{1 - x} \sqrt{x + 1}} \D x.
 \end{align*}
-Therefore the clockwise oriented contour on the boundary of $\widehat \Sigma$, denoted as $\partial \widehat \Sigma$ is one such contour encircling [-1, 1] such that
+Therefore the counterclockwise oriented contour on the boundary of $\widehat \Sigma$, denoted as $\partial \widehat \Sigma$ is one such contour encircling [-1, 1] such that
 $$
 \int_{-1}^1 \frac{f(x)\D x}{\sqrt{1 -x} \sqrt{1 + x}} =
 	\frac{1}{2\I} \oint_C \frac{f(z)\D z}{\sqrt{z -1} \sqrt{z + 1}}.
@@ -296,11 +298,11 @@ without using any changes of variable (e.g., no trig subs!).\\
 \noindent
 \textit{Solution:} \\
 Using part (a) and the substitution $z = \rho \E^{\I \theta}$ where $\rho$ is very large making $z$ be near $\infty$.
-Additionally, our clockwise circle contour around $z=0$ can also be a counterclockwise contour around $\infty$.
+Additionally, our counterclockwise circle contour around $z=0$ is also a counterclockwise contour around $\infty$.
 Therefore
 \begin{align*}
 I_1 = \int_{-1}^1 \frac{\D x}{\sqrt{1 -x} \sqrt{1+x}}
-	&= \frac{1}{2\I} \oint_C \frac{f(z)\D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= \frac{1}{2\I} \oint_C \frac{\D z}{\sqrt{z -1} \sqrt{z + 1}} \\
 	&= \frac{1}{2\I} \int_0^{2\pi} \frac {\rho \I \E^{\I \theta} \D \theta}{\sqrt{\rho \E^{\I \theta} -1} \sqrt{\rho \E^{\I \theta} + 1}} \\
 	&= \frac{1}{2\I} \int_0^{2\pi} \frac {\rho \I \E^{\I \theta} \D \theta}{\rho \E^{\I \theta} \sqrt{1 - \frac 1{\rho \E^{\I \theta}}} \sqrt{1 + \frac 1{\rho \E^{\I \theta}}}} \\
 	&= \frac{1}{2} \int_0^{2\pi} \frac { \D \theta}{\sqrt{1 - \frac 1{\rho \E^{\I \theta}}} \sqrt{1 + \frac 1{\rho \E^{\I \theta}}}}.
@@ -319,17 +321,73 @@ $$
 I_1 = \int_{-1}^1 \frac{\D x}{\sqrt{1 -x} \sqrt{1+x}} = \pi
 $$ \qed \\
 
+\noindent
+Now for $I_2$ we can begin by converting our integrand into something of the form that will help us use the results from part (a). Notice
+$$
+\sqrt{1 - x} \sqrt{1 + x} = \frac{(1 - x)(1 + x)}{\sqrt{1 - x} \sqrt{1 + x}} = \frac{1 - x^2}{\sqrt{1 - x} \sqrt{1 + x}}.
+$$
+Then we can evaluate the integral as follows
 \begin{align*}
-I_2 = \int_{-1}^1 \sqrt{1 -x} \sqrt{1 + x}\, \D x...
+I_2 = \int_{-1}^1 \sqrt{1 -x} \sqrt{1 + x}\, \D x &= \int_{-1}^1 \frac{1 - x^2 \D x}{\sqrt{1 - x} \sqrt{1 + x}} \\
+	&= \frac{1}{2\I} \oint_C \frac{1 - z^2\D z}{\sqrt{z -1} \sqrt{z + 1}}.
 \end{align*}
-Another one
+Let's take the contour to be a circle centered at $z=0$ of radius $\rho$ such that $\rho$ is sufficiently large.
+This integral can also be evaluated at infinity
+\begin{align*} 
+\frac{1}{2\I} \oint_C \frac{1 - z^2\D z}{\sqrt{z -1} \sqrt{z + 1}} 
+	&= \frac{1}{2\I} \oint_C \frac{(1 - z)(1 + z)\D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= - \frac{1}{2\I} \oint_C \frac{(z - 1)(1 + z)\D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= - \frac{1}{2\I} \oint_C \sqrt{z -1} \sqrt{z + 1}\, \D z.
+\end{align*}
+From a previous assignment we have that 
+\begin{align}
+\sqrt{z -1} \sqrt{z + 1} = (z - 1) \sqrt{ \frac {z + 1}{z - 1} } = z - \frac 1 2 z^{-1} + \mathcal O(z^{-3})
+\label{eq:taylor_previous}
+\end{align}
+and by the Residue theorem we have
 \begin{align*}
-I_3 &= \int_{-1}^1 \frac{\sqrt{1 -x}}{ \sqrt{1 + x}}\, \D x...
+- \frac{1}{2\I} \oint_C \sqrt{z -1} \sqrt{z + 1}\, \D z
+	&= -\pi \big( {\rm Res}( f(z); \infty) \big).
 \end{align*}
-one more
+Hence,
 \begin{align*}
-I_4 = \int_{-1}^1 \frac{\sqrt{1  +x}}{ \sqrt{1 - x}}\, \D x...
+I_2 &= - \frac{1}{2\I} \oint_C \sqrt{z -1} \sqrt{z + 1}\, \D z \\
+	&= -\pi \left( - \frac 1 2 \right) \\
+	&= \frac \pi 2
 \end{align*}
+Therefore
+$$
+I_2 = \int_{-1}^1 \sqrt{1 -x} \sqrt{1 + x}\, \D x = \frac \pi 2
+$$ \qed \\
+
+\noindent
+Notice we can rewrite the integrand from $I_3$ as follows
+$$
+\frac{\sqrt{1 -x}}{ \sqrt{1 + x}} = \frac{\sqrt{1 -x}\sqrt{1 -x}}{\sqrt{1 -x}\sqrt{1 + x}} = \frac{1 - x}{\sqrt{1 - x}\sqrt{1 + x}}.
+$$
+Then we can evaluate $I_3$ using the tools established in part (a)
+\begin{align*}
+I_3 &= \int_{-1}^1 \frac{\sqrt{1 -x}}{ \sqrt{1 + x}}\, \D x \\
+	&= \int_{-1}^1 \frac{1 - x}{\sqrt{1 - x}\sqrt{1 + x}}\, \D x \\
+	&= \frac{1}{2\I} \oint_C \frac{1 - z\, \D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= - \frac{1}{2\I} \oint_C \frac{z - 1\, \D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= - \frac{1}{2\I} \oint_C \frac{\sqrt{z - 1}}{\sqrt{z + 1}}\, \D z
+\end{align*}
+This should come out to be $\pi$. \\
+
+\noindent
+Notice we can rewrite the integrand from $I_4$ as follows
+$$
+\frac{\sqrt{1 + x}}{ \sqrt{1- x}} = \frac{\sqrt{1+ x}\sqrt{1+ x}}{\sqrt{1- x}\sqrt{1 + x}} = \frac{1 + x}{\sqrt{1 - x}\sqrt{1 + x}}.
+$$
+Then we can evaluate $I_4$ using the tools established in part (a)
+\begin{align*}
+I_4 &= \int_{-1}^1 \frac{\sqrt{1 + x}}{ \sqrt{1- x}}\, \D x \\
+	&= \int_{-1}^1 \frac{1 + x}{\sqrt{1 - x}\sqrt{1 + x}}\, \D x \\
+	&= \frac{1}{2\I} \oint_C \frac{1 + z\, \D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= - \frac{1}{2\I} \oint_C \frac{\sqrt{z + 1}}{\sqrt{z - 1}}\, \D z
+\end{align*}
+This should also come out to be $\pi$?? \\
 \end{enumerate}
 \newpage
 
@@ -345,7 +403,7 @@ F(z) := \frac{1}{2 \pi i} \oint_{C} \frac{f(\xi)}{\xi - z} \D \xi,
 \quad |z| \neq 1, \quad C = \partial B_1(0).
 \end{align*}
 \textit{Solution:} \\
-\textbf{TODO: two cases where $|z| < 1$ and $|z| > 1$...geometric series???}
+\textbf{TODO: two cases where $|z| < 1$ and $|z| > 1$...geometric series???... additional cases where $n < 0$ and $n \geq 0$}
 \begin{align*}
 This
 \end{align*}
