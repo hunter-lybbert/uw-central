@@ -1,0 +1,242 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+\usepackage{mathtools}
+
+\graphicspath{ {./images/} }
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=5pt]{lemma}{Lemma}
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{11-25-24} \\
+\text{AMATH 567} \\
+
+\title{\bf { Homework 9} }
+
+
+\maketitle
+\noindent
+Collaborators*: TBD \\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
+\normalsize
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item From A\&F: 4.1.2 only (i), i.e., only by computing residues inside.\\
+Evaluate the integrals $\frac 1 {2 \I \pi} \oint_C f(z) \D z$, where C is the unit circle centered at the origin with $f(z)$ given below.
+Do these problems ($i$) enclosing the singular points inside C. \\
+
+\noindent
+(a)
+$$
+\frac {z^2 + 1}{ z^2 - a^2 }, \quad a^2 < 1
+$$
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+\frac 1 {2 \I \pi} \oint_C \frac {z^2 + 1}{ z^2 - a^2 } \D z
+\end{align*}
+
+\noindent
+(b)
+$$
+\frac {z^2 + 1}{ z^3 }
+$$
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+\frac 1 {2 \I \pi} \oint_C \frac {z^2 + 1}{ z^3 } \D z
+\end{align*}
+
+\noindent
+(c)
+$$
+z^2\E^{-1/z}
+$$
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+\frac 1 {2 \I \pi} \oint_C z^2\E^{-1/z} \D z
+\end{align*}
+
+\newpage
+
+
+\item From A\&F: 4.2.1(b)\\
+Evaluate the following real integral
+$$
+\int_0^\infty \frac {\D x}{ (x^2 + a^2)^2 }, \quad a^2 > 0
+$$
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+\end{align*}
+
+\newpage
+
+
+\item  \textbf{Existence and uniqueness of polynomial interpolants.}
+\begin{enumerate}
+\item Suppose $(z_i)_{i = 1}^n$ are distinct points in $\mathbb C$ and suppose $f_i \in \mathbb C$ for $i = 1,\ldots,n$.
+Show that there is at most one polynomial $p(z)$ of degree $n-1$ such that $p(z_i) = f_i$ for $i = 1,\ldots,n$ using Liouville's theorem.
+Such a polynomial $p$ is called an \emph{interpolant}. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+\end{align*}
+
+\item Define the node polynomial $\nu(z) = \prod_{j=1}^n( z - z_i)$.
+Supposing that $p$ is an interpolant, as above, express $p(z)/\nu(z)$ as a rational function. 
+Find an expression for $p(z)$. This shows existence.\\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+\end{align*}
+
+\end{enumerate}
+\newpage
+
+
+\item \textbf{Bernstein interpolation formula.}   Suppose that $x_1 < x_2 <
+  \cdots x_n$.  And suppose that $f(z)$ is analytic in a region
+  $\Omega$ that contains $[-1,1]$.  Show that for any simple contour
+  $C$ inside $\Omega$ with $[-1,1]$ in its interior that
+  \begin{align*}
+    f(x) - p(x) = \frac{\nu(x)}{2 \pi i} \int_C \frac{f(z)}{z - x}
+    \frac{\D z}{\nu(z)}, \quad x \in [-1,1],
+  \end{align*}
+  where $p(x_j) = f(x_j)$ for $j = 1,2,\ldots,n$, $\nu(x) =
+  \prod_{j=1}^n (x - x_j)$.\\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+\end{align*}
+
+\newpage
+
+
+\item  \textbf{Chebyshev polynomial interpolants.}  Recall 
+\begin{align*}
+\varphi(z) = z + \sqrt{z - 1} \sqrt{z +1}, \quad z \in \mathbb C \setminus [-1,1].
+\end{align*}
+
+\begin{enumerate}
+\item Show that the polynomial
+\begin{align*}
+T_n(z) = \frac 1 2 \left( \varphi(z)^n + \varphi(z)^{-n} \right),
+\end{align*}
+has all of its roots $x_1 < x_2 < \cdots x_n$ within $[-1,1]$. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+\end{align*}
+
+\item Consider $J(w) =  1/2 (w + 1/w)$. 
+Show that the image of the circle of radius $\rho > 1$ under $J$ is an ellipse $B_\rho$ that contains $[-1,1]$ in its interior.
+Then show $\varphi(J(w)) = w$. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+\end{align*}
+
+\item Show that if $f$ is analytic in a region that contains $B_\rho$ and its interior, and $|f(z)| \leq M$ for $z$ interior to $B_\rho$ then for $-1 \leq x \leq 1$,
+\begin{align*}
+|f(x) - p(x)| \leq 2 \frac{M | B_\rho| }{\pi}  (\rho^n - \rho^{-n})^{-1} (\rho + \rho^{-1} - 1)^{-1} \leq 2 \frac{M | B_\rho| }{\pi} \frac{\rho^{1-n}}{(\rho - 1)^2}.
+\end{align*}
+where $p(x_j) = f(x_j)$, i.e., $p$ is the interpolant of $f$ at the roots of $T_n$. 
+Here $|B_\rho|$ denotes the arclength of $B_\rho$.  This shows that the exponential rate of convergence of Chebyshev interpolants is governed by the proximity of the nearest singularity of $f$. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+\end{align*}
+      
+\end{enumerate}
+\newpage
+
+
+\item Compute the following two integrals explicitly for $ z \not \in [-1,1]$:
+\begin{enumerate}
+\item
+\begin{align*}
+\frac{1}{\pi}\int_{-1}^1 \frac{1}{\sqrt{1-x} \sqrt{1 + x}} \frac{\D x}{x -z}.
+\end{align*}
+
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+\end{align*}
+
+\item 
+\begin{align*}
+\frac{2}{\pi}\int_{-1}^1 {\sqrt{1-x} \sqrt{1 + x}}
+\frac{\D x}{x -z}.
+\end{align*}
+
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+\end{align*}
+
+
+\end{enumerate}
+
+      
+    
+
+
+  
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
