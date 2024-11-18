@@ -399,10 +399,25 @@ converges uniformly.
 \begin{enumerate}
 \item Compute series representations for
 \begin{align*}
-F(z) := \frac{1}{2 \pi i} \oint_{C} \frac{f(\xi)}{\xi - z} \D \xi,
+F(z) := \frac{1}{2 \pi \I} \oint_{C} \frac{f(\xi)}{\xi - z} \D \xi,
 \quad |z| \neq 1, \quad C = \partial B_1(0).
 \end{align*}
 \textit{Solution:} \\
+Jumping right in...
+\begin{align*}
+F(z) &= \frac{1}{2 \pi \I} \oint_{C} \frac{f(\xi)}{\xi - z} \D \xi \\
+	&= \frac{1}{2 \pi \I} \oint_{C} \frac{ \sum_{n = -\infty}^\infty f_n \xi^n }{\xi - z} \D \xi \\
+	&= \frac{1}{2 \pi \I} \oint_{C} \sum_{n = -\infty}^\infty \frac{ f_n \xi^n }{\xi - z} \D \xi \\
+	&= \frac{1}{2 \pi \I} \oint_{C} \sum_{n = -\infty}^{-1} \frac{ f_n \xi^n }{\xi - z}
+		+ \sum_{n = 0}^\infty \frac{ f_n \xi^n }{\xi - z} \D \xi \\
+	&= \frac{1}{2 \pi \I} \oint_{C} \sum_{n = 1}^\infty \frac{ f_n }{\xi^n(\xi - z)}
+		+ \sum_{n = 0}^\infty \frac{ f_n \xi^n }{\xi - z} \D \xi \\
+	&= \frac{1}{2 \pi \I} \oint_{C} \sum_{n = 1}^{\infty} \frac{ f_n }{\xi^n(\xi - z)} \D \xi
+		+ \oint_{C} \sum_{n = 0}^\infty \frac{ f_n \xi^n }{\xi - z} \D \xi
+\end{align*}
+Do I want to evaluate this sum and then integrate or should I switch the order of integration and summation and integrate the summand to be left with a series?
+Furthermore, where does the geometric series come into play?
+What do we know about $f_n$?
 \textbf{TODO: two cases where $|z| < 1$ and $|z| > 1$...geometric series???... additional cases where $n < 0$ and $n \geq 0$}
 \begin{align*}
 This
@@ -414,6 +429,7 @@ This
 \end{align*}
 \textit{Solution:} \\
 \textbf{TODO: should expect a ``jump" discontinuity at the boundary}
+Use the series representation you arrived at from the previous problem to evaluate this.
 \begin{align*}
 This
 \end{align*}
