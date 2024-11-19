@@ -1,0 +1,181 @@
+\documentclass[10pt]{amsart}
+%\include{amsmath}
+\usepackage{mathtools}
+\usepackage{amsmath}  
+\usepackage{amssymb}  % gives you \mathbb{} font
+\usepackage{dsfont}	% gives you \mathds{} font
+
+%                   Math Blackboard Bold Symbols
+
+\newcommand\Cb{\mathds{C}}
+\newcommand\Eb{\mathds{E}}
+\newcommand\Fb{\mathds{F}}
+\newcommand\Gb{\mathds{G}}
+\newcommand\Ib{\mathds{I}}
+\newcommand\Pb{\mathds{P}}
+\newcommand\Qb{\mathds{Q}}
+\newcommand\Rb{\mathds{R}}
+%\newcommand\Zb{\mathds{Z}}
+\newcommand\Nb{\mathds{N}}
+\newcommand\Vb{\mathds{V}}
+\newcommand\Ub{\mathds{U}}
+
+\usepackage[shortlabels]{enumitem}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{cancel}
+
+\newcommand{\D}{\mathrm{d}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\I}{i}
+
+
+\begin{document}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{11-22-24} \\
+\text{AMATH 561}
+\title{Problem Set 7}
+\maketitle
+
+{\it Note: Exercises 1-4 are from Matt Lorig's
+notes (link on course website).}
+\\
+
+\noindent {\bf 1.} Exercise 4.1. \\
+A six-sided die is rolled repeatedly. Which of the following a Markov chains? For those
+that are, find the one-step transition matrix.\\
+
+\begin{enumerate}[(a)]
+\item $X_n$ is the largest number rolled up to the $n$th roll. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+\end{align*}
+
+
+\item $X - n$ is the number of sixes rolled in the first $n$ rolls. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+\end{align*}
+
+
+\item At time $n$, $X_n$ is the time since the last six was rolled. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+\end{align*}
+
+
+\item At time $n$, $X_n$ is the time until the next six is rolled. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+\end{align*}
+
+
+\end{enumerate}
+\newpage
+
+
+\noindent {\bf 2.} Exercise 4.2. \\
+Let $Y_n = X_{2n}$. Compute the transition matrix for $Y$ when
+
+\begin{enumerate}[(a)]
+\item $X$ is a simple random walk (i.e., $X$ increases by one with probability $p$ and decreases by $1$ with probability $q$. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+\end{align*}
+\item $X$ is a branching process where $G$ is the generating function of the number of offspring from each individual. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+\end{align*}
+
+\end{enumerate}
+
+\newpage
+
+
+\noindent {\bf 3.} Exercise 4.3. \\
+Let $X$ be a Markov chain with state space $S$ and absorbing state $k$ (i.e., $p(k, j) = 0$ for all $j \in S$).
+Suppose $j \rightarrow k$ for all $j \in S$.
+Show that all states other than $k$ are transient. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+\end{align*}
+
+\newpage
+
+
+\noindent {\bf 4.}  Exercise 4.4. \\
+Suppose two distinct states $i, j$ satisfy
+$$
+P(\tau_j < \tau_i | X_0 = i) = P(\tau_i < \tau_j | X_0 = j)
+$$
+where $\tau := {\rm inf}\{n \geq 1: X_n = j\}$.
+Show that, if $X_0 = i$, the expected number of visits to $j$ prior to re-visiting $i$ is one. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+\end{align*}
+
+\newpage
+
+
+\noindent {\bf 5. Stationary distribution of Ehrenfest chain.} (a) Let $X_n$ be the number of balls in the left urn at time $n$ (total number of balls in both urns is $r$). At each time step, one of the $r$ balls is picked at random and moved to the other urn. \\
+
+\noindent
+(a) Let $G_n(s)$ be the generating function of $X_n$. Derive a formula for $G_{n+1}$ as a function of $G_n$. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+\end{align*}
+
+\noindent
+(b) Let $G(s)= \lim_{n \to \infty}  G_n(s)$. Use the relation in part a) to derive an equation for $G$. Solve it and find $G$. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+\end{align*}
+
+\noindent
+(c) Find the stationary distribution $\pi$ of Ehrenfest chain. What is the connection between $G$ and $\pi$? \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+\end{align*}
+
+\newpage
+
+
+
+
+\end{document}  
