@@ -112,19 +112,48 @@ $$
 
 \item  \textbf{Existence and uniqueness of polynomial interpolants.}
 \begin{enumerate}
-\item Suppose $(z_i)_{i = 1}^n$ are distinct points in $\mathbb C$ and suppose $f_i \in \mathbb C$ for $i = 1,\ldots,n$.
-Show that there is at most one polynomial $p(z)$ of degree $n-1$ such that $p(z_i) = f_i$ for $i = 1,\ldots,n$ using Liouville's theorem.
+\item Suppose $(z_j)_{j = 1}^n$ are distinct points in $\mathbb C$ and suppose $f_j \in \mathbb C$ for $j = 1,\ldots,n$.
+Show that there is at most one polynomial $p(z)$ of degree $n-1$ such that $p(z_j) = f_j$ for $j = 1,\ldots,n$ using Liouville's theorem.
 Such a polynomial $p$ is called an \emph{interpolant}. \\
 
 \noindent
 \textit{Solution:} \\
 Suppose there exists two polynomials $p_1(z)$ and $p_2(z)$ each of degree $n - 1$.
-Assume both agree with $f_i$ at each $z_i$ such that
+Assume both agree with $f_j$ at each $z_j$ such that
 $$
-p_1(z_i) = p_2(z_i) = f_i \quad \text{ for each } i = 1, ..., n.
+p_1(z_j) = p_2(z_j) = f_j \quad \text{ for each } j = 1, ..., n.
 $$
+Additionally define the node polynomial $\nu (z) = \prod_{j=1}^n (z - z_j)$.
+Now let's consider the function
+$$
+g(z) = \frac {p_1(z) - p_2(z)}{\nu(z)}.
+$$
+We want to utilize Liouville's theorem to conclude that $g(z)$ is constant.
+In order to do this we need to show that $g(z)$ is entire and bounded.
+Let's begin by demonstrating that it is bounded by taking the limit as $z\rightarrow\infty$
 \begin{align*}
+\lim_{z\rightarrow\infty}g(z) 
+	&= \lim_{z\rightarrow\infty}\frac {p_1(z) - p_2(z)}{\nu(z)} \\
+	&= \lim_{z\rightarrow\infty}\frac {p_1(z) - p_2(z)}{\prod_{j=1}^n (z - z_j)} \\
+	&= \frac \infty \infty.
 \end{align*}
+Applying L'Hôpitals rule repeatedly we will end up with $1/z$ which goes to 0 as $z$ goes to infinity since the denominator is an $n$th degree polynomial while the numerator is a degree $n - 1$ polynomial.
+Therefore,
+$$
+\lim_{z\rightarrow\infty}g(z) = \lim_{z\rightarrow\infty}\frac {p_1(z) - p_2(z)}{\nu(z)} = 0,
+$$
+which implies that $g(z)$ is bounded.
+Next, we need to determine if $g(z)$ is entire.
+Since polynomials are entire in the finite $z$ plane, $p_1(z) - p_2(z)$ is entire.
+However, $g(z)$ overall requires a little more analysis since it has singularities where $z=z_j$.
+Notice, since the expression $p_1(z) - p_2(z)$ and $\nu(z)$ are both zero at each $z_j$, then there exists a factorization of $p_1(z) - p_2(z)$ which would allows us to cancel out each of the factors in the product in the denominator.
+Therefore, the singularities of $g(z)$ are removable and thus $g(z)$ is entire (or can be made entire, with the right extension at each $z_j$ as we have done in previous assignments).
+Hence, by Liouville's Theorem, we can conclude that $g(z)$ is constant.
+Combining with the fact that $p_1(z_j) - p_2(z_j) = 0$ for each $j = 1, ..., n$, then $g(z)$ must be 0 everywhere, thus implying $p_1(z) = p_2(z)$ everywhere.
+In conclusion, since these two functions are the same therefore there is at most one polynomial $p(z)$ of degree $n - 1$ such that $p(z_j) = f_j$ for $j = 1,\ldots,n$, otherwise known at the interpolant. \\
+\qed \\
+
+\newpage
 
 \item Define the node polynomial $\nu(z) = \prod_{j=1}^n( z - z_i)$.
 Supposing that $p$ is an interpolant, as above, express $p(z)/\nu(z)$ as a rational function. 
@@ -132,7 +161,7 @@ Find an expression for $p(z)$. This shows existence.\\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+\textbf{TODO: something with the residues of the ratio p/nu}
 \begin{align*}
 \end{align*}
 
@@ -153,7 +182,7 @@ Find an expression for $p(z)$. This shows existence.\\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+\textbf{TODO: the $x_j$ are in -1,1...residue on the right, and p is degree n-1}
 \begin{align*}
 \end{align*}
 
@@ -184,7 +213,7 @@ Then show $\varphi(J(w)) = w$. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+\textbf{TODO: apply things from hw3 problem 7 or 8?}
 \begin{align*}
 \end{align*}
 
@@ -197,7 +226,8 @@ Here $|B_\rho|$ denotes the arclength of $B_\rho$.  This shows that the exponent
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+\textbf{TODO:} \
+\textbf{TODO: p is the polynomial interpolant of f of degree n - 1, lots of varphi stuff hw 3 prob 6/7/8}
 \begin{align*}
 \end{align*}
       
