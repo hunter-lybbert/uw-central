@@ -48,7 +48,7 @@
 
 \maketitle
 \noindent
-Collaborators*: TBD \\
+Collaborators*: Cooper Simpson, Nate Ward, Laura Thomas \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -155,17 +155,45 @@ In conclusion, since these two functions are the same therefore there is at most
 
 \newpage
 
-\item Define the node polynomial $\nu(z) = \prod_{j=1}^n( z - z_i)$.
+\item Define the node polynomial $\nu(z) = \prod_{j=1}^n( z - z_j)$.
 Supposing that $p$ is an interpolant, as above, express $p(z)/\nu(z)$ as a rational function. 
 Find an expression for $p(z)$. This shows existence.\\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO: something with the residues of the ratio p/nu}
+Let's look at $p(z)/\nu(z)$ and consider what happens if we subtract off a specially cooked up collection of terms including the residues $r_j$ for $j=1, ..., n$.
+We can express the residues of $p(z)/\nu(z)$ as
+$$
+\frac 1 {2 \pi \I} \oint_C \frac {p(z)}{\nu(z)} \D z
+	= \sum_{j = 0}^n {\rm Res}\bigg(\frac {p(z)}{\nu(z)}; z_j\bigg)
+	= \sum_{j = 0}^n \frac {f_j} {\prod_{k \neq j}( z _k - z_j )}.
+$$
+Recall partial fractions is connected to the residues.
+We construct the expression to subtract from $p(z)/\nu(z)$ using the partial fraction decomposition relationship to residues
 \begin{align*}
+& \frac {p(z)}{\nu(z)} - \sum_{j = 0}^n \frac {f_j \Big(\prod_{k \neq j}( z _k - z_j )\Big)^{-1}} {z - z_j} \\
+	&\: = \frac {p(z)}{\nu(z)}
+		- \frac {f_1 \Big(\prod_{k \neq 1}( z _k - z_1 )\Big)^{-1}}{z - z_1}
+		- \frac {f_2 \Big(\prod_{k \neq 2}( z _k - z_2 )\Big)^{-1}}{z - z_2} 
+		- ...
+		- \frac {f_n \Big(\prod_{k \neq n}( z _k - z_n )\Big)^{-1}}{z - z_n}
+	&= 0.
 \end{align*}
-
+\textbf{TODO: Why is this 0 besides saying it's the partial fraction decomposition?}
+This expression is equal to 0 because the collection of terms we are subtracting is the partial fraction decomposition of $p(z)/\nu(z)$.
+If we can show that this function is bounded and entire then it is a constant.
+Therefore, we would be able to state that since it is a constant and 0 then it must be a 0 everywhere.
+Thus we can say
+\begin{align*}
+\frac {p(z)}{\nu(z)} - \sum_{j = 0}^n \frac {f_j \Big(\prod_{k \neq j}( z _k - z_j )\Big)^{-1}} {z - z_j} &= 0 \\
+\frac {p(z)}{\nu(z)} &= \sum_{j = 0}^n \frac {f_j \Big(\prod_{k \neq j}( z _k - z_j )\Big)^{-1}} {z - z_j} \\
+p(z) &= \nu(z)\sum_{j = 0}^n \frac {f_j \Big(\prod_{k \neq j}( z _k - z_j )\Big)^{-1}} {z - z_j} \\
+p(z) &= \prod_{j=1}^n( z - z_j)\sum_{j = 0}^n \frac {f_j \Big(\prod_{k \neq j}( z _k - z_j )\Big)^{-1}} {z - z_j} \\
+p(z) &= \sum_{j = 0}^n \frac {f_j \prod_{\ell \neq j}( z - z_\ell) } {\prod_{k \neq j}( z _k - z_j )}.
+\end{align*}
+Therefore we have this expression for $p(z)$.
 \end{enumerate}
+
 \newpage
 
 
