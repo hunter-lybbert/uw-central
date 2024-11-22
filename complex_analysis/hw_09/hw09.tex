@@ -197,16 +197,15 @@ Therefore we have this expression for $p(z)$.
 \newpage
 
 
-\item \textbf{Bernstein interpolation formula.}   Suppose that $x_1 < x_2 <
-  \cdots x_n$.  And suppose that $f(z)$ is analytic in a region
-  $\Omega$ that contains $[-1,1]$.  Show that for any simple contour
-  $C$ inside $\Omega$ with $[-1,1]$ in its interior that
-  \begin{align*}
-    f(x) - p(x) = \frac{\nu(x)}{2 \pi i} \int_C \frac{f(z)}{z - x}
-    \frac{\D z}{\nu(z)}, \quad x \in [-1,1],
-  \end{align*}
-  where $p(x_j) = f(x_j)$ for $j = 1,2,\ldots,n$, $\nu(x) =
-  \prod_{j=1}^n (x - x_j)$.\\
+\item \textbf{Bernstein interpolation formula.}   Suppose that $-1 \leq x_1 < x_2 < \cdots x_n \leq 1$. 
+And suppose that $f(z)$ is analytic in a region $\Omega$ that contains $[-1,1]$.
+Show that for any simple contour $C$ inside $\Omega$ with $[-1,1]$ in its interior that
+\begin{align*}
+	f(x) - p(x) = \frac{\nu(x)}{2 \pi i} \int_C \frac{f(z)}{z - x}
+	\frac{\D z}{\nu(z)}, \quad x \in [-1,1],
+\end{align*}
+where $p$ is the degree $n - 1$ polynomial interpolant satisfying $p(x_j) = f(x_j)$ for $j = 1,2,\ldots,n$.
+We also have $\nu(x) = \prod_{j=1}^n (x - x_j)$.\\
 
 \noindent
 \textit{Solution:} \\
