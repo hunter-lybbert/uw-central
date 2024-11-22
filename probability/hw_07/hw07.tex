@@ -192,18 +192,15 @@ Let $Y_n = X_{2n}$. Compute the transition matrix for $Y$ when
 \noindent
 \textit{Solution:} \\
 Let's define the one step transition matrix for the random variable $X$ which is a random walk increasing by 1 or decreasing by 1 with probability $p$ and $q$ respectively.
-The matrix is
-\begin{align*}
-\begin{bmatrix}
-0 & p & 0 & 0 & 0 & \dots \\
-q & 0 & p & 0 & 0 & \dots \\
-0 & q & 0 & p & 0 & \dots \\
-0 & 0 & q & 0 & p & \dots \\
-0 & 0 & 0 & q & 0 & \ddots \\
-\vdots & \vdots & \vdots & \ddots & \ddots & \ddots \\
-\end{bmatrix}
-\end{align*}
-Looking at the graph in Figure \ref{fig:f4}
+The entries of the one step transition matrix for $X_n$ are given by
+$$
+p(i, j) = P(X_{n + 1} = j | X_n = i) = \begin{cases}
+p, & j = i + 1\\
+q, & j = i - 1 \\
+0, & {\rm else}
+\end{cases}
+$$
+Looking at the graph in Figure \ref{fig:f4}, we represent the Markov chain for $X_n$ where moving to the right with probability $p$ and to the left with probability $q$.
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{two_part_a_markov_graph.png}
@@ -211,29 +208,54 @@ Looking at the graph in Figure \ref{fig:f4}
 		A graphical representation of the Markov Chain in problem 2 part (a).
 	}\label{fig:f4}
 \end{figure}
-Let $P$ be transition matrix for $X_n$, then transition matrix for $Y_n$ should be $P^2$, also could use kolmogorov equation or something...
-\textbf{TODO:} \\
+Now we want to represent the one step transition matrix for $Y_n$.
 \begin{align*}
+p(i, j) = P(Y_{n + 1} = j | Y_n = i) 
+= P(X_{2n + 2} = j | X_2n = i) = \begin{cases}
+p^2, & j = i + 2\\
+q^2, & j = i - 2 \\
+2pq, & j = i \\
+0, & {\rm else}.
+\end{cases}
 \end{align*}
+This is the representation of the entries of the one state transition matrix for $Y_n = X_{2n}$. \\
+\qed \\
 
 
 \item $X$ is a branching process where $G$ is the generating function of the number of offspring from each individual. \\
 
 \noindent
-\textit{Solution:} \\
-\textbf{TODO: Office Hour notes} \\
-\begin{enumerate}[--]
-\item $G_{i + 1}$ conditioning?
-\item $\xi_i$
-\item $\sum_i \xi_i \implies E(s^{\sum_i \xi_i})$
-\item ends up being $G^i$ maybe
-\item (random) $G^i(s) = E( s^{X_{2n+ 1}}| X_{2n} = i)$
-\end{enumerate}
-\begin{align*}
-\end{align*}
+\textit{Solution:} \\ 
+Let's begin by looking at what $p(i, j)$ looks like in the transition matrix for the branching process that $X$ represents.
+Without loss of generality and for convenience, we will assume we are beginning with the term $X_{2n} = i$ and asking about the values $X_{2n + 1}$ will take on.
+We have
+$$
+p(i,j) = P(X_{2n + 1} = j | X_{2n} = i).
+$$
+Recall that in our branching process we define $X_{n + 1}$ as follows
+$$
+X_{2n+1} = \xi_1 + ... + \xi_{X_{2n}} = \sum_{\ell = 1}^{X_{2n}} \xi_\ell =  \sum_{\ell = 1}^i \xi_\ell.
+$$
+Furthermore, looking at the generating function we have
+$$
+G_{X_{2n + 1}}(s) = G_{\sum_{\ell = 0}^i \xi_\ell}(s) = \big(G_\xi(s)\big)^i.
+$$
+Suppose, $X_{2n+1} = k$.
+Then
+$$
+X_{2n+2} = \xi_1 + \dots + \xi_{X_{2n + 1}} = \sum_{m = 1}^{X_{2n + 1}} \xi_m = \sum_{m = 1}^k \xi_m
+$$
+Finally, let's look at the generating function of $Y$,
+$$
+G_{Y_{n + 1}}(s) = G_{k}(G(s)) = \Big( G\big(G(s)\big) \Big)^i.
+$$
+Using this generating function we can determine the distribution which describes the entries of the one step transition matrix for $Y$ using the formula for distribution from generating function
+$$
+p(i,j) = \frac {\D^j}{\D s^j} \left[ \frac {\Big( G\big(G(0)\big) \Big)^i}{j!} \right]
+$$
+\qed \\
 
 \end{enumerate}
-
 \newpage
 
 
@@ -244,13 +266,33 @@ Show that all states other than $k$ are transient. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:} \\
-This is supposedly a clean quick proof... \\
-argue with words...? No needs to be written in mathematical probability terms ... \\
-chapman? no \\
-Consider a proof by contradiction... actually maybe not though
-\begin{align*}
-\end{align*}
+Assume $X$ is a Markov chain with state space $S$.
+This means there exists a one step transition matrix representing the Markov chain transition probabilities.
+Additionally, by definition the rows of these matrices should add up to one.
+Intuitively this translates to summing up the probability of going to each state you can access in one move from the current state should produce 1. Additionally assume that there exists a state $k \in S$ which is an absorbing state, meaning
+$$p(k, j) = 0 \quad \text{ for all } j \in S.$$
+Finally assume that every state $j \in S$ communicates with $k$ that is written as $j \rightarrow k$ and means
+$$
+p_n(j,k) = P(X_n = k | X_0 = j) > 0 \quad \text{ for some } n \geq 1
+$$
+Figure \ref{fig:f5} may help visualize this a little.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{three_markov_graph.png}
+	\caption{
+		A graphical representation of the Markov Chain in problem 3 which has an absorbing state $k$.
+	}\label{fig:f5}
+\end{figure}
+Assume by way of contradiction that there exists a persistent state $\ell \in S$.
+Then $P(X_n = \ell | X_0 = \ell) = 1$ for some $n > 0$.
+If this is were true, then we would need $P(X_n = k | X_0 = \ell) = 0$ in order to avoid entering the absorbing state and never being able to leave.
+However, this contradicts our assumption that $j \rightarrow k$ for all $j \in S$ which originally indicated
+$$
+P(X_n = k | X_0 = j) > 0
+$$
+not equal to 0 as the contradictory assumption led us to believe.
+Therefore, $\ell$ must not be a persistent state, which means all states $j \in S$ other than $k$ are transient. \\
+\qed \\
 
 \newpage
 
@@ -260,19 +302,60 @@ Suppose two distinct states $i, j$ satisfy
 $$
 P(\tau_j < \tau_i | X_0 = i) = P(\tau_i < \tau_j | X_0 = j)
 $$
-where $\tau := {\rm inf}\{n \geq 1: X_n = j\}$.
+where $\tau_j := {\rm inf}\{n \geq 1: X_n = j\}$.
 Show that, if $X_0 = i$, the expected number of visits to $j$ prior to re-visiting $i$ is one. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:} \\
-Layer cake representation 
+Let's first analyze the given information.
+In english the first passage time, written as $\tau_j := {\rm inf}\{n \geq 1: X_n = j\}$, is the smallest $n$ such that we arrive at state $j$.
+Therefore the information we are given states, if we start in state $i$ the probability that you arrive at state $j$ before arriving at state $i$ again is equal to the probability of arriving at state $i$ before state $j$ given that we start in state $j$ this time.
+Apologies for how confusing that may come across in english but It helped me think through the problem being asked.
+Figure \ref{fig:f6} may help visualize this a little.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.85]{four_markov_graph.png}
+	\caption{
+		A graphical representation of the Markov Chain in problem 4. Note the directed edges don't necassarily represent immediate paths but rather could include any number of visits to any number of other states in $S$ along the way. For simplicity, we only look at the nodes of interest and supres other possible states from the Markov chain graph visualization.
+	}\label{fig:f6}
+\end{figure}
+Let us define the random variable $Y$ to be equal to the number of times we visit $j$ before re-visiting $i$.
+We want to show $E(Y) = 1$.
+Notice, the expected value of $Y$ is (skipping change of variables and relying on the fact that we have a discrete but countable random outcome space)
 $$
-E(X) = \int_0^\infty P(X > t) \D t
+E(Y) = \sum_{y=0}^\infty yP(Y = y) = 0 \cdot P(Y = 0) + \sum_{y=1}^\infty yP(Y = y) = \sum_{y=1}^\infty yP(Y = y).
 $$
-but this is a summation in our scenario
+In order to look more closely at what $P(Y = y)$ will look like we need to define a few more things.
+Let $p$ be the probability of starting at $i$ and visiting $j$ before revisiting $i$. And thus $1-p$ be the probability of revisiting $i$ before visiting $j$.
+Due to our assumptions about the relationships of the first passage times and starting states, this is the same probabilities changing the role of $j$ and $i$ in the previous statement.
+We can update our visual with these probabilities in Figure \ref{fig:f7}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.85]{four_with_prob_markov_graph.png}
+	\caption{
+		A graphical representation of the Markov Chain in problem 4, now with probabilities added.
+	}\label{fig:f7}
+\end{figure}
+Now we can denote the following
 \begin{align*}
+P(Y = 1) &= p^2 \\
+P(Y = 2) &= p^2(1 - p) \\
+P(Y = 3) &= p^2(1 - p)^2 \\
+& \vdots \\
+P(Y = y) &= p^2(1 - p)^{y - 1}
 \end{align*}
+This relationship comes from the fact that to visit $j$ once and come back to $i$ you have a chance $p$ of going each way hence $p^2$.
+Additionally, revisiting $j$ before coming back to $i$ has a probability of $1 - p$ so each time it would do that get's us another power of $1 - p$. combining this with the expectation from earlier we have
+\begin{align*}
+E(Y) &= \sum_{y=1}^\infty yP(Y = y) \\
+	&= \sum_{y=1}^\infty yp^2 (1 - p)^{y- 1} \\
+	&= p^2 \sum_{y = 1}^\infty y(1 - p)^{y - 1} \\
+	&= p^2 \frac 1 {\big(1 - (1 - p)\big)^2} \\
+	&= p^2 \frac 1 {p^2} \\
+	&= 1.
+\end{align*}
+Therefore the expected number of times we visit $j$ before revisiting $i$ given that we start at $i$ is 1. \\
+\qed \\
 
 \newpage
 
@@ -284,6 +367,7 @@ but this is a summation in our scenario
 
 \noindent
 \textit{Solution:} \\
+there's nothing really to go off of here yet. \\
 \textbf{TODO:} \\
 \begin{align*}
 \end{align*}
