@@ -48,7 +48,7 @@
 
 \maketitle
 \noindent
-Collaborators*: Cooper Simpson, Nate Ward, Laura Thomas \\
+Collaborators*: Cooper Simpson, Nate Ward, Laura Thomas, Sophie Kamien, Erin Szalda-Petree \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -67,7 +67,7 @@ $$
 \frac {z^2 + 1}{ z^2 - a^2 }, \quad a^2 < 1
 $$
 \textit{Solution:} \\
-\textbf{TODO:}
+\textbf{TODO: gonna do some residues? Maybe principal value integrals...?}
 \begin{align*}
 \frac 1 {2 \I \pi} \oint_C \frac {z^2 + 1}{ z^2 - a^2 } \D z
 \end{align*}
@@ -103,7 +103,7 @@ $$
 \int_0^\infty \frac {\D x}{ (x^2 + a^2)^2 }, \quad a^2 > 0
 $$
 \textit{Solution:} \\
-\textbf{TODO:}
+\textbf{TODO: gonna do some residues? Maybe principal value integrals...?}
 \begin{align*}
 \end{align*}
 
@@ -209,9 +209,42 @@ We also have $\nu(x) = \prod_{j=1}^n (x - x_j)$.\\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO: the $x_j$ are in -1,1...residue on the right, and p is degree n-1}
+Starting from the right we have
+\begin{align}
+\frac{\nu(x)}{2 \pi i} \int_C \frac{f(z)}{z - x} \frac{\D z}{\nu(z)} &= \frac 1 {2 \pi i} \int_C \frac{f(z)\nu(x)}{(z - x)\nu(z)} \D z \nonumber \\
+	&= \underset{z=x}{{\rm Res}} \left( \frac{f(z)\nu(x)}{(z - x)\nu(z)}; 0\right)
+		+ \sum_{i=1}^n \underset{z=x_i}{{\rm Res}} \left( \frac{f(z)\nu(x)}{(z - x)\nu(z)}; 0\right).
+\label{eq:eq1}
+\end{align}
+Calculating the residue at $z=x$ is easy because $x$ is a simple pole
 \begin{align*}
+\underset{z=x}{{\rm Res}} \left( \frac{f(z)\nu(x)}{(z - x)\nu(z)}; 0\right)
+	= \underset{z=x}{{\rm Res}} \left( \frac{\frac {f(z)\nu(x)}{\nu(z)}}{(z - x)}; 0\right)
+	= \frac{f(x)\nu(x)}{\nu(x)}
+	= f(x).
 \end{align*}
+Calculating the residue at each $z = x_i$ is similarly quick since they are simple poles
+\begin{align}
+\sum_{i=1}^n \underset{z=x_i}{{\rm Res}} \left( \frac{f(z)\nu(x)}{(z - x)\nu(z)}; 0\right)
+	&= \sum_{i=1}^n \underset{z=x_i}{{\rm Res}} \left( \frac{f(z)\nu(x)}{(z - x)\prod_{j=1}^n (z - x_j)}; 0\right) \nonumber \\
+	&= \sum_{i=1}^n \underset{z=x_i}{{\rm Res}} \left( \left(\frac{f(z)\nu(x)}{(z - x)\prod_{\substack{j=1 \\ j \neq i}}^n (z - x_j)}\right)\Bigg/(z - x_i) \:\:\: ; \:\:\: 0\right) \nonumber \\
+	&= \sum_{i=1}^n \frac{f(x_i)\nu(x)}{(x_i - x)\prod_{\substack{j=1 \\ j \neq i}}^n (x_i - x_j)} \nonumber \\
+	&= - \sum_{i=1}^n \frac{f(x_i)\prod_{j=1}^n (x - x_j)}{(x - x_i)\prod_{\substack{j=1 \\ j \neq i}}^n (x_i - x_j)} \nonumber \\
+	&= - \sum_{i=1}^n \frac{f(x_i)\prod_{\substack{j=1 \\ j \neq i}}^n (x - x_j)}{\prod_{\substack{j=1 \\ j \neq i}}^n (x_i - x_j)}
+\label{eq:eq2}
+	= - p(x)
+\end{align}
+Where we know this is $p(z)$ from our work in problem 4. \\
+Therefore we have Equation \eqref{eq:eq1} is equal to $f(x) - p(x)$.
+Furthermore, since $\nu(x_i) = 0$ for each $i = 1, ..., n$, then
+\begin{align*}
+f(x_i) - p(x_i) &= 0 \\
+f(x_i) &= p(x_i)
+\end{align*}
+for all $i = 1, ..., n$.
+Finally we can also determine the degree of the polynomial $p(x)$ is $n - 1$.
+This is due the equation \eqref{eq:eq2} being made up of some scalar or weight factor and the product in the numerator which is $\nu(x)$ (a degree n polynomial) but without one of it's factors leaving it as an $n - 1$ degree polynomial.
+\qed \\
 
 \newpage
 
@@ -270,20 +303,33 @@ Here $|B_\rho|$ denotes the arclength of $B_\rho$.  This shows that the exponent
 \end{align*}
 
 \textit{Solution:} \\
-\textbf{TODO:}
+We first recall that from homework 8 problem 4 part a) we showed
+\begin{align}
+\int_{-1}^1 \frac {f(x)\D x} {\sqrt {1 - x} \sqrt {1 + x}} = \frac 1 {2 \I} \oint_C \frac {f(z)\D z} {\sqrt {z - 1} \sqrt {z + 1}}.
+\label{eq:eq3}
+\end{align}
+Applying that here we have
 \begin{align*}
+\frac 1 \pi \int_{-1}^1 \frac {\frac 1 {x - z_0}\D x} {\sqrt {1 - x} \sqrt {1 + x}}
+	&= \frac 1 {2 \pi \I} \oint_C \frac {\frac 1 {z - z_0}\D z} {\sqrt {z - 1} \sqrt {z + 1}}.
 \end{align*}
+Now we want to calculate the integral on the right as the sum of the residues at $\infty$ and at $z_0$. \\
+\textbf{TODO: Finish calculating the residues} \\
+\qed \\
 
 \item 
 \begin{align*}
-\frac{2}{\pi}\int_{-1}^1 {\sqrt{1-x} \sqrt{1 + x}}
-\frac{\D x}{x -z}.
+\frac{2}{\pi}\int_{-1}^1 {\sqrt{1-x} \sqrt{1 + x}} \frac{\D x}{x -z}.
 \end{align*}
 
 \textit{Solution:} \\
-\textbf{TODO:}
+Again applying equation \eqref{eq:eq3}, we have
 \begin{align*}
-\end{align*}
+\frac{2}{\pi}\int_{-1}^1 {\sqrt{1-x} \sqrt{1 + x}} \frac{\D x}{x -z}
+	&= \frac 1 {\pi \I} \oint_C \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0} \D z
+\end{align*} 
+\textbf{TODO: Finish calculating the residues} \\
+\qed \\
 
 
 \end{enumerate}
