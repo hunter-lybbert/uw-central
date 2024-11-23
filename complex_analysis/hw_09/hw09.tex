@@ -103,6 +103,86 @@ $$
 \int_0^\infty \frac {\D x}{ (x^2 + a^2)^2 }, \quad a^2 > 0
 $$
 \textit{Solution:} \\
+For convenience throughout this problem lets define
+$$f(x) = \frac 1 {(x^2 + a^2)^2}.$$
+Since the $f(x)$ is an even function we can say
+$$
+\int_0^\infty \frac {\D x}{ (x^2 + a^2)^2 } = \frac 1 2 \int_{-\infty}^\infty \frac {\D x}{ (x^2 + a^2)^2 }.
+$$
+Then we can use the principal value integral which is given by
+$$
+\int_{-\infty}^{\infty}f(x) \D x = \lim_{R\rightarrow \infty} \int_{-R}^R f(x) \D x, \quad \text{if it exists.}
+$$
+Now let's consider the counterclockwise contour $C$ around the closed semicircle centered at the origin in the upper half plane with radius $R$.
+We can say 
+\begin{align}
+\oint_C f(z) \D z = \int_{-R}^R f(x) \D x + \oint_{C_R}f(z) \D z,
+\label{eq:eq01}
+\end{align}
+where $-R$ to $R$ is the section of $C$ along the real axis and $C_R$ is the open semicircle (counterclockwise).
+We can combine these ideas by taking the limit of both sides as $R\rightarrow \infty$.
+Let's take the limit of the right and analyze what is going on.
+This gives us
+\begin{align*}
+\lim_{R\rightarrow \infty} \left(\int_{-R}^R f(x) \D x + \oint_{C_R}f(z) \D z \right)
+	&= \lim_{R\rightarrow \infty} \int_{-R}^R f(x) \D x + \lim_{R\rightarrow \infty} \oint_{C_R}f(z) \D z \\
+	&= \int_{-\infty}^\infty f(x) \D x + \lim_{R\rightarrow \infty} \oint_{C_R} \frac {\D z}{ (z^2 + a^2)^2 }
+\end{align*}
+Let's try to bound the integrand to something that depends on $R^{-1}$.
+We will use the substitution $z = R\E^{\I\theta}$ with $\theta \in [0, \pi]$.
+\begin{align*}
+\left| \frac 1 {(z^2 + a^2)^2} \right|
+	&= \left| \frac 1 {(R^2\E^{2\I\theta} + a^2)^2} \right| \\
+	&= \frac 1 {\left|R^4\E^{4\I\theta} + 2R^2a^2\E^{2\I\theta} + a^4 \right|} \\
+	&\leq \frac 1 {R^2\left|R^2\E^{4\I\theta} + 2a^2\E^{2\I\theta} \right|} \\
+\end{align*}
+Since $f(z)$ is continuous on $C_R$, we can use the $ML$ bound on the integral to say
+\begin{align*}
+\lim_{R\rightarrow\infty}\left| \oint_{C_R} \frac {\D z}{ (z^2 + a^2)^2 } \right|
+	&\leq \lim_{R\rightarrow\infty} \frac {\pi R} {R^2\left|R^2\E^{4\I\theta} + 2a^2\E^{2\I\theta} \right|} \\
+	&= \lim_{R\rightarrow\infty} \frac {\pi} {R\left|R^2\E^{4\I\theta} + 2a^2\E^{2\I\theta} \right|} = 0.
+\end{align*}
+Applying a similar squeeze theorem argument from homework 4 problem 4, we can conclude
+$$
+\lim_{R\rightarrow\infty} \oint_{C_R} \frac {\D z}{ (z^2 + a^2)^2 } = 0.
+$$
+Therefore, equation \eqref{eq:eq01} becomes
+\begin{align*}
+\lim_{R\rightarrow\infty} \oint_C f(z) \D z &= \int_{-\infty}^\infty f(x) \D x + \cancelto{0}{\oint_{C_R} f(z) \D z} \\
+\lim_{R\rightarrow\infty} \oint_C f(z) \D z &= \int_{-\infty}^\infty f(x) \D x
+\end{align*}
+Notice, as $R$ goes to infinity the integral of $f(z)$ along the contour $C$ is equal to the sum of all of the residues at all singularities in the upper half plane for $f(z)$.
+Let $S$ be the collection of singularities in the upper half plane, then we can say
+$$
+\lim_{R\rightarrow\infty} \oint_C f(z) \D z
+	= 2\pi \I \sum_{w \in S} \underset{z=w}{\rm Res} \left( \frac 1 { (z^2 + a^2)^2 } \right). 
+$$
+Hence,
+$$
+\int_{-\infty}^\infty \frac 1 {(x^2 + a^2)^2} \D x
+	= 2\pi \I \sum_{w \in S} \underset{z=w}{\rm Res} \left( \frac 1 { (z^2 + a^2)^2 } \right).
+$$
+We now need to locate the singularities.
+The denominator is only 0 when $z^2 + a^2 = 0$ so we know the singularities are at $z = \pm \I a$.
+However, since only $z = \I a$ is in the upper half plane we can simplify the previous equation and solve for the one residue we need
+\begin{align*}
+\int_{-\infty}^\infty \frac 1 {(x^2 + a^2)^2} \D x
+	&= 2\pi \I \underset{z=\I a}{\rm Res} \left( \frac 1 { (z^2 + a^2)^2 } \right) \\
+	&= 2\pi \I \frac 1 {(2 - 1)!}\frac {\D}{\D z} \left((z - \I a)^2\frac 1 {(z^2 + a^2)^2} \right)\Bigg|_{\I a} \\
+	&= 2\pi \I \frac {\D}{\D z} \left((z - \I a)^2\frac 1 {(z + \I a)^2(z - \I a)^2} \right)\Bigg|_{\I a} \\
+	&= 2\pi \I \frac {\D}{\D z} \left(\frac 1 {(z + \I a)^2} \right)\Bigg|_{\I a} \\
+	&= 2\pi \I \frac {-2} {(\I a + \I a)^3} \\
+	&= 2\pi \I \frac {-2} {- 8 \I a^3} \\
+	&= \frac \pi {2 a^3}.
+\end{align*}
+Recall our original integral was
+$$
+\int_0^\infty \frac {\D x}{ (x^2 + a^2)^2 }
+	= \frac 1 2 \int_{-\infty}^\infty \frac {\D x}{ (x^2 + a^2)^2 }
+	= \frac 1 2 \frac \pi {2 a^3}
+	= \frac \pi {4a^3}
+$$
+Why am I dividing by zero??
 \textbf{TODO: gonna do some residues? Maybe principal value integrals...?}
 \begin{align*}
 \end{align*}
@@ -398,8 +478,10 @@ Again applying equation \eqref{eq:eq3}, we have
 	&= \frac 1 {\pi \I} \oint_C \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0} \D z.
 \end{align*}
 Let
-$$g(z) = \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0},$$
-then
+$$g(z) = \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0}.$$
+Then as we expand our contour $C$ outwards we run into the singularity at $z_0$, leaving behind a clockwise circular contour around $z_0$ denoted as $-C_{z_0}$.
+We also have the normal counterclockwise contour around infinity which we will use in our residue calculation.
+Hence we have
 \begin{align}
 \frac 1 {\pi \I} \oint_C g(z) \D z
 	&= \frac 1 {\pi \I} \oint_{-C_{z_0}} g(z) \D z + \frac 1 {\pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
