@@ -313,9 +313,78 @@ Applying that here we have
 \frac 1 \pi \int_{-1}^1 \frac {\frac 1 {x - z_0}\D x} {\sqrt {1 - x} \sqrt {1 + x}}
 	&= \frac 1 {2 \pi \I} \oint_C \frac {\frac 1 {z - z_0}\D z} {\sqrt {z - 1} \sqrt {z + 1}}.
 \end{align*}
-Now we want to calculate the integral on the right as the sum of the residues at $\infty$ and at $z_0$. \\
-\textbf{TODO: Finish calculating the residues} \\
+For notational convenience let
+$$g(z) = \frac {\frac 1 {z - z_0}} {\sqrt {z - 1} \sqrt {z + 1}}.$$
+As we expand our contour $C$ outwards we run into the singularity at $z_0$, leaving behind a clockwise circular contour around $z_0$ denoted as $-C_{z_0}$.
+We also have the normal counterclockwise contour around infinity which we will use in our residue calculation.
+Hence we have
+\begin{align}
+\frac 1 {2 \pi \I} \oint_C g(z) \D z
+	&= \frac 1 {2 \pi \I} \oint_{-C_{z_0}} g(z) \D z + \frac 1 {2 \pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
+	&= - \frac 1 {2 \pi \I} \oint_{C_{z_0}} g(z) \D z + \frac 1 {2 \pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
+	&= - \underset{z=z_0}{{\rm Res}} g(z)  + \underset{z=\infty}{{\rm Res}} g(z) \label{eq:eq4}
+\end{align}
+Now we want to calculate the residues at $\infty$ and at $z_0$.
+Let
+$$ h(z) = \frac 1 {\sqrt {z - 1} \sqrt {z + 1}} $$
+and
+$$H(z) = h\bigg( \frac 1 z \bigg) = \frac 1 {\sqrt {1/z - 1} \sqrt {1/z + 1}} \frac z z = \frac z {\sqrt {1 - z} \sqrt {1 + z}}. $$
+Then we can see $H(0) = 0$.
+Let's calculate $h^\prime(0)$.
+\begin{align*}
+H^\prime(z) = \frac {\sqrt {1 - z} \sqrt {1 + z} - z\big(-1/2(1 - z)^{-1/2}(1 + z)^{1/2} +1/2(1 - z)^{1/2}(1 + z)^{-1/2} \big)}{ (1 - z)(1 + z)}
+\end{align*}
+Hence,
+\begin{align*}
+H^\prime(0) &= \frac {\sqrt {1} \sqrt {1} - 0\big(-1/2(1)^{-1/2}(1)^{1/2} +1/2(1)^{1/2}(1)^{-1/2} \big)}{ (1)(1)} = 1.
+\end{align*}
+Then our Taylor series expansion of $H(z)$ is
+\begin{align*}
+H(z) &= H(0) z^0 /0! + H^\prime(0) z^1 /1! + \mathcal O (z^2) \\
+	&= 0 + z + \mathcal O (z^2) \\
+	&= z + \mathcal O (z^2)
+\end{align*}
+then for $h(z)$ is
+\begin{align*}
+h(z) &= z^{-1} + \mathcal O (z^{-2}).
+\end{align*}
+We really care about $\frac 1 {z - z_0} h(z)$ so we have
+\begin{align*}
+\frac 1 {z - z_0} h(z) &= \frac 1 {z - z_0} \left( z^{-1} + \mathcal O (z^{-2})\right) \\
+	&= \frac 1 {z} \frac 1 {1 - z_0/z} \left( z^{-1} + \mathcal O (z^{-2})\right) \\
+	&= \frac 1 {z} \sum_{k=0}^\infty \left(\frac {z_0} z\right)^k \left( z^{-1} + \mathcal O (z^{-2})\right)
+\end{align*}
+where $|z_0| < |z|$ since we are on a contour with a large radius $R$.
+Then
+\begin{align*}
+\frac 1 {z} \sum_{k=0}^\infty \left(\frac {z_0} z\right)^k \left( z^{-1} + \mathcal O (z^{-2})\right)
+	&=  \frac 1 {z^2} \sum_{k=0}^\infty \left(\frac {z_0} z\right)^k + \mathcal O (z^{-3}) \sum_{k=0}^\infty \left(\frac {z_0} z\right)^k
+\end{align*}
+Therefore the residue of this function at $\infty$ is trivially
+$$
+\underset{z=\infty}{{\rm Res}} \left( \frac 1 {(z - z_0) \sqrt {z - 1} \sqrt {z + 1}} \right) = 0
+$$
+since the coefficient of the $1/z$ is 0.
+Computing the residue at $z_0$ is a little easier since it is a simple pole.
+Therefore
+\begin{align*}
+\underset{z=z_0}{{\rm Res}} \left( \frac 1 {(z - z_0) \sqrt {z - 1} \sqrt {z + 1}} \right)
+	& = \underset{z=z_0}{{\rm Res}} \left( \frac {\frac 1 {\sqrt {z - 1} \sqrt {z + 1}}} {z - z_0} \right) \\
+	& = \frac 1 {\sqrt {z_0 - 1} \sqrt {z_0 + 1}}.
+\end{align*}
+Plugging these into equation \eqref{eq:eq4} we have
+$$
+\frac 1 {2 \pi \I} \oint_C g(z) \D z
+	= - \underset{z=z_0}{{\rm Res}} g(z)  + \underset{z=\infty}{{\rm Res}} g(z) = - \frac 1 {\sqrt {z_0 - 1} \sqrt {z_0 + 1}} + 0.
+$$
+Hence,
+$$
+\frac 1 \pi \int_{-1}^1 \frac {\frac 1 {x - z_0}\D x} {\sqrt {1 - x} \sqrt {1 + x}}
+	= - \frac 1 {\sqrt {z_0 - 1} \sqrt {z_0 + 1}}.
+$$
 \qed \\
+
+\newpage
 
 \item 
 \begin{align*}
@@ -326,11 +395,49 @@ Now we want to calculate the integral on the right as the sum of the residues at
 Again applying equation \eqref{eq:eq3}, we have
 \begin{align*}
 \frac{2}{\pi}\int_{-1}^1 {\sqrt{1-x} \sqrt{1 + x}} \frac{\D x}{x -z}
-	&= \frac 1 {\pi \I} \oint_C \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0} \D z
-\end{align*} 
-\textbf{TODO: Finish calculating the residues} \\
+	&= \frac 1 {\pi \I} \oint_C \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0} \D z.
+\end{align*}
+Let
+$$g(z) = \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0},$$
+then
+\begin{align}
+\frac 1 {\pi \I} \oint_C g(z) \D z
+	&= \frac 1 {\pi \I} \oint_{-C_{z_0}} g(z) \D z + \frac 1 {\pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
+	&= - \frac 1 {\pi \I} \oint_{C_{z_0}} g(z) \D z + \frac 1 {\pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
+	&= - 2 \underset{z=z_0}{{\rm Res}} g(z) + 2 \underset{z=\infty}{{\rm Res}} g(z).
+\label{eq:eq5}
+\end{align}
+Recall, that we have the Taylor expansion of $\sqrt {z - 1} \sqrt {z + 1}$ at $\infty$ is
+$$
+\sqrt {z - 1} \sqrt {z + 1} = z - \frac 1 2 z^{-1} + \mathcal O(z^{-3}).
+$$
+Then we can multiply through by our extra term in this scenario to get
+\begin{align*}
+\frac 1 {z - z_0}\sqrt {z - 1} \sqrt {z + 1} &= \frac 1 {z - z_0} \left(z - \frac 1 2 z^{-1} + \mathcal O(z^{-3})\right) \\
+	&= \frac 1 z \frac 1 {1 - z_0/z} \left(z - \frac 1 2 z^{-1} + \mathcal O(z^{-3})\right) \\
+	&= \frac 1 z \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k \left(z - \frac 1 2 z^{-1} + \mathcal O(z^{-3})\right) \\
+	&=  z\frac 1 z \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k - \frac 1 2 z^{-1}\frac 1 z \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k + \mathcal O(z^{-3})\frac 1 z \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k \\
+	&= \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k - \frac 1 2 \frac 1 {z^2} \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k + \mathcal O(z^{-4}) \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k.
+\end{align*}
+Therefore,
+$$
+\underset{z=\infty}{{\rm Res}} \left( \frac 1 {z - z_0}\sqrt {z - 1} \sqrt {z + 1} \right) = z_0.
+$$
+While the residue at the point $z_0$ is 
+$$
+\underset{z=z_0}{{\rm Res}} \left( \frac 1 {z - z_0} \sqrt {z - 1} \sqrt {z + 1} \right) = \sqrt {z_0 - 1} \sqrt {z_0 + 1}.
+$$
+Lets plug these in to equation \eqref{eq:eq5} to have
+\begin{align*}
+\frac 1 {\pi \I} \oint_C g(z) \D z
+	= - 2 \underset{z=z_0}{{\rm Res}} g(z) + 2 \underset{z=\infty}{{\rm Res}} g(z)
+	=  - 2 \sqrt {z_0 - 1} \sqrt {z_0 + 1} + 2z_0.
+\end{align*}
+Hence,
+$$
+\frac{2}{\pi}\int_{-1}^1 {\sqrt{1-x} \sqrt{1 + x}} \frac{\D x}{x -z} = 2 (z_0 - \sqrt {z_0 - 1} \sqrt {z_0 + 1}).
+$$
 \qed \\
-
 
 \end{enumerate}
 
