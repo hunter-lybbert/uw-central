@@ -341,9 +341,38 @@ has all of its roots $x_1 < x_2 < \cdots x_n$ within $[-1,1]$. \\
 \noindent
 \textit{Solution:} \\
 Let's begin by looking more closely at $\varphi(z)$ with a specific substitution, namely $z = \cos \theta$ with $\theta \in [0, \pi]$.
-\textbf{TODO:}
+Then we have
 \begin{align*}
+\varphi(\cos \theta) &= \cos \theta + \sqrt{\cos \theta - 1}\sqrt{\cos \theta + 1} \\
+	&= \cos \theta - \I \sqrt{1 - \cos \theta}\sqrt{1 + \cos \theta} \\
+	&= \cos \theta - \I \sqrt{1 - \cos^2 \theta} \\
+	&= \cos \theta - \I \sqrt{\sin^2 \theta} \\
+	&= \cos \theta - \I \sin \theta \\
+	&= \E^{-\I \theta}.
 \end{align*}
+Now putting this thing again we have
+\begin{align*}
+T_n(\cos\theta) &= \frac 1 2 \left( \varphi(\cos\theta)^n + \varphi(\cos\theta)^{-n} \right) \\
+	&= \frac 1 2 \left( \left(\E^{-\I \theta}\right)^n + \left(\E^{-\I \theta}\right)^{-n} \right) \\
+	&= \frac 1 2 \left( \E^{-n\I \theta} + \E^{n\I \theta} \right) \\
+	&= \frac 1 2 \left( \cos n\theta - \cancel{\I \sin n \theta} + \cos n \theta + \cancel{\I \sin n \theta} \right) \\
+	&= \frac 1 2 ( 2 \cos n\theta ) \\
+	&= \cos n\theta.
+\end{align*}
+Notice, $\theta = \arccos z$, then we have
+$$
+T_n(z) = \cos \big( n \arccos z \big).
+$$
+Let's find out what values of $z$ this function $T_n(z) = 0$, let $k \in \mathbb Z$, then
+\begin{align*}
+n \arccos z &= \frac \pi 2 + \pi k \\
+\arccos z &= \frac 1 n \Big( \frac \pi 2 + \pi k \Big) \\
+z &= \cos \Bigg( \frac 1 n \bigg( \frac \pi 2 + \pi k \bigg) \Bigg).
+\end{align*}
+Therefore, the zeros of $T_n(z)$ are all within the range of $\cos$ which is between $[-1, 1]$.
+Additionally, because we are dividing by $n$ there will be $n$ zeros between $-1$ and $1$. \\
+\qed \\
+
 
 \item Consider $J(w) =  1/2 (w + 1/w)$. 
 Show that the image of the circle of radius $\rho > 1$ under $J$ is an ellipse $B_\rho$ that contains $[-1,1]$ in its interior.
@@ -351,9 +380,17 @@ Then show $\varphi(J(w)) = w$. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO: apply things from hw3 problem 7 or 8?}
+Let's consider the image of a circle with radius $\rho > 1$, if we parameterize this with $z = \rho \E^{\I \theta}$ and plug this in to $J(w)$ we have
 \begin{align*}
+J(\rho\E^{\I \theta})
+	&= \frac 1 2 \left( \rho\E^{\I \theta} + \frac 1 \rho \E^{-\I \theta} \right) \\
+	&= \frac 1 2 \left( \rho \cos \theta + \rho \sin \theta + \frac 1 \rho \cos \theta - \I \frac 1 \rho \sin \theta \right) \\
+	&= \frac 1 2 \left( \left( \rho + \frac 1 \rho\right) \cos \theta + \I \left( \rho  - \frac 1 \rho \right) \sin \theta \right).
 \end{align*}
+Notice this is the equation of an ellipse since it is a slightly stretched and flattened out circle.
+This is almost a circle of radius $\rho$ but it is slightly stretched in different amounts in the $x$ (real) and $y$ (imaginary) directions.
+Therefore the image is an ellipse. \\
+\qed \\
 
 \item Show that if $f$ is analytic in a region that contains $B_\rho$ and its interior, and $|f(z)| \leq M$ for $z$ interior to $B_\rho$ then for $-1 \leq x \leq 1$,
 \begin{align*}
@@ -364,7 +401,11 @@ Here $|B_\rho|$ denotes the arclength of $B_\rho$.  This shows that the exponent
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:} \
+Assume $f$ is analytic in a region that contains the ellipse $B_\rho$ and it's interior.
+Additionally, assume $|f(z)| < M$ for $z$ interior to $B_\rho$.
+Now consider where $-1 \leq x \leq 1$ 
+\\
+
 \textbf{TODO: p is the polynomial interpolant of f of degree n - 1, lots of varphi stuff hw 3 prob 6/7/8}
 \begin{align*}
 \end{align*}
@@ -471,6 +512,7 @@ $$
 
 \textit{Solution:} \\
 Again applying equation \eqref{eq:eq3}, we have
+\textbf{TODO: Manipulate things back again}
 \begin{align*}
 \frac{2}{\pi}\int_{-1}^1 {\sqrt{1-x} \sqrt{1 + x}} \frac{\D x}{x -z}
 	&= \frac 1 {\pi \I} \oint_C \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0} \D z.
