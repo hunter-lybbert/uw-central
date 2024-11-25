@@ -48,7 +48,7 @@
 
 \maketitle
 \noindent
-Collaborators*: Cooper Simpson, Nate Ward, Laura Thomas, Sophie Kamien, Erin Szalda-Petree, Anja Vogt, Hailey \\
+Collaborators*: Cooper Simpson, Nate Ward, Laura Thomas, Sophie Kamien, Erin Szalda-Petree, Anja Vogt, Hailey, Nate Wybra \\
 \\
 \tiny
 \text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
@@ -78,9 +78,8 @@ Then we have
 \frac 1 {2 \pi \I} \oint_C \frac {z^2 + 1}{ z^2 - a^2 } \D z
 	&= \underset{z=-a}{\rm Res} f(z) + \underset{z=a}{\rm Res} f(z) \\
 	&= \frac {(-a)^2 + 1}{ (-a - a) } + \frac {(a)^2 + 1}{ (a +a) } \\
-	&= - \frac {a^2 + 1}{ 2a } + \frac {a^2 + 1}{ 2a } = 0????
+	&= - \frac {a^2 + 1}{ 2a } + \frac {a^2 + 1}{ 2a } = 0.
 \end{align*}
-\textbf{Fix issue} here \\
 \qed \\
 
 \noindent
@@ -99,7 +98,6 @@ Looking at this in terms of the residue we have
 	&= \frac 1 2 2  \\
 	&= 1.
 \end{align*}
-\textbf{TODO: Double check with someone else} \\
 \qed \\
 
 \noindent
@@ -113,7 +111,28 @@ Looking at this in terms of the residue we have, what is the order of this pole?
 \frac 1 {2 \pi \I} \oint_C z^2\E^{-1/z} \D z
 	&= \underset{z=0}{\rm Res} f(z) \\
 \end{align*}
-\textbf{TODO: Something about the pole order is throwing me off.}
+Let's look at things, in terms of the Taylor series expansion
+\begin{align*}
+\frac 1 {2 \pi \I} \oint_C z^2\E^{-1/z} \D z 
+	&= \frac 1 {2 \pi \I} \oint_C z^2 \sum_{j=0}^\infty \left(- \frac 1 z \right)^j \frac 1 {j!} \D z \\
+	&= \frac 1 {2 \pi \I} \oint_C \sum_{j=0}^\infty \frac {(-1)^j}{j!} \frac {z^2} {z^j} \D z \\
+	&= \frac 1 {2 \pi \I} \oint_C \sum_{j=0}^\infty \frac {(-1)^j}{j!} \frac 1 {z^{j - 2}} \D z \\
+	&= \underset{z=0}{\rm Res} \left( \sum_{j=0}^\infty \frac {(-1)^j}{j!} \frac 1 {z^{j - 2}} \right) \\
+	&= \underset{z=0}{\rm Res} \left(
+		\frac {(-1)^0}{0!} \frac 1 {z^{0 - 2}} 
+		+ \frac {(-1)^1}{1!} \frac 1 {z^{1 - 2}} 
+		+ \frac {(-1)^2}{2!} \frac 1 {z^{2 - 2}} 
+		+ \frac {(-1)^3}{3!} \frac 1 {z^{3 - 2}} 
+		+ \sum_{j=4}^\infty \frac {(-1)^j}{j!} \frac 1 {z^{j - 2}}
+	\right) \\
+	&= \underset{z=0}{\rm Res} \left(
+		z^2 - z + \frac 1 2
+		- \frac 1 {6z}
+		+ \sum_{j=4}^\infty \frac {(-1)^j}{j!} \frac 1 {z^{j - 2}}
+	\right) \\
+	&= - \frac 1 6.
+\end{align*}
+\qed \\
 
 \newpage
 
@@ -417,14 +436,13 @@ We wish to show that $\varphi(J(w)) = w $.
 Notice, 
 \begin{align*}
 \varphi(J(w)) &= J(w) + \sqrt{J(w) - 1}\sqrt{J(w) + 1} \\
-	&= J(w) - \I \sqrt{1 - J(w)}\sqrt{1 + J(w) } \\
-	&= \frac 1 2 \left( w + \frac 1 w \right) - \I \sqrt{1 - J(w)^2} \\
-	&= \frac 1 2 \left( w + \frac 1 w \right) - \I \sqrt{1 - \frac 1 4 \left( w + \frac 1 w \right)^2} \\
-	&= \frac 1 2 \left( w + \frac 1 w \right) - \I \sqrt{1 - \frac 1 4 \left( w^2 + 2 + \frac 1 {w^2} \right)} \\
-	&= \frac 1 2 \left( w + \frac 1 w \right) - \I \sqrt{- \frac 1 4 w^2 + \frac 1 2 - \frac 1 {4w^2} } \\
-	&= \frac 1 2 \left( w + \frac 1 w \right) - \I \sqrt{- \frac 1 4 \left( w^2 - 2  + \frac 1 {w^2} \right) } \\
-	&= \frac 1 2 \left( w + \frac 1 w \right) - \I \sqrt{- \frac 1 4 \left( w -  \frac 1 {w} \right)^2 } \\
-	&= \frac 1 2 \left( w + \frac 1 w \right) - \I^2 \frac 1 2 \left( w -  \frac 1 {w} \right) \\
+	&= J(w) + \sqrt{1/2 (w + 1/w) - 1}\sqrt{1/2 (w + 1/w) + 1 } \\
+	&= J(w) + \sqrt{\frac w 2 + \frac 1 {2w} - 1}\sqrt{\frac w 2 + \frac 1 {2w} + 1 } \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) + \sqrt{\frac {w^2} {2w} + \frac 1 {2w} - \frac {2w}{2w} }\sqrt{\frac {w^2} {2w} + \frac 1 {2w} + \frac {2w}{2w}  } \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) + \sqrt{\frac {(w - 1)^2} {2w} }\sqrt{\frac {(w + 1)^2} {2w}   } \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) + \frac {(w - 1)(w + 1)} {2w} \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) + \frac {w^2 - 1} {2w} \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) + \frac 1 2 \left( w - \frac 1 w \right) \\
 	&= \frac 1 2 w + \cancel{\frac 1 {2w}} + \frac 1 2 w - \cancel{\frac 1 {2w}} \\
 	&= w.
 \end{align*}
@@ -456,124 +474,104 @@ Hence
 \left| \frac{\nu(x)}{2 \pi \I} \oint_C \frac{f(z)}{z - x} \frac{\D z}{\nu(z)} \right|
 	&= \left| \frac{T_n(x)}{2^n \pi \I} \oint_C \frac{f(z)}{z - x} \frac{2^{n - 1}\D z}{T_n(z)} \right| \\
 	&= \left| \frac 1 {2 \pi \I} T_n(x) \oint_C \frac{ f(z)}{z - x} \frac{\D z}{T_n(z)} \right| \\
-	&\leq \frac 1 {2 \pi \I} |T_n(x)| \oint_C \left| \frac{ f(z)}{z - x} \right| \frac 1 {|T_n(z)|} |\D z|.
+	&\leq \frac 1 {2 \pi } |T_n(x)| \oint_C \left| \frac{ f(z)}{z - x} \right| \frac 1 {|T_n(z)|} |\D z|.
 \end{align*}
-We take the contour $C$ to be the ellipse $B_\rho$ and parameterize with $z = J(w)$.
+Recall in homework 3 we showed $|T_n(z)| \leq 1$ on the interval $[-1, 1]$.
+We take the contour $C$ to be the ellipse $B_\rho$ and parameterize with $z = J(w) = \frac 1 2 (w + \frac 1 w)$.
 Then $\D z = J^\prime(w) \D w = \frac 1 2 (1 - 1/w^2) \D w$.
 Now we continue with our from the previous inequality
 \begin{align*}
-&\leq \frac 1 {2 \pi \I}
+&= \frac 1 {2 \pi }
 	\oint_{B_\rho}
 		\left| \frac{ f(z)}{J(w) - x} \right|
 		\frac 1 {|T_n(J(w))|}
 		\left|\frac 1 2 \left(1 - \frac 1 {w^2} \right) \D w \right| \\
-&= \frac 1 {2 \pi \I}
+&= \frac 1 {2 \pi}
 	\oint_{B_\rho}
-		\left| \frac{ f(z)}{J(w) - x} \right|
+		\left| \frac{ f(z)}{\frac 1 2 (w + \frac 1 w) - x} \right|
 		\frac 1  {\left| \frac 1 2 \left( \varphi(J(w))^n + \varphi(J(w))^{-n} \right) \right|}
 		\left|\frac 1 2 \left(1 - \frac 1 {w^2} \right) \D w \right| \\
-&= \frac 1 {2 \pi \I}
+&= \frac 1 {2 \pi}
 	\oint_{B_\rho}
-		\left| \frac{ f(z)}{J(w) - x} \right|
+		\left| \frac{ f(z)}{\frac 1 2 (w + \frac 1 w) - x} \right|
 		\frac 1  {\left| \frac 1 2 \left( w^n + w^{-n} \right) \right|}
-		\left|\frac 1 2 \left(1 - \frac 1 {w^2} \right) \D w \right| \\
-&= \frac 1 {2 \pi \I}
-	\oint_{B_\rho}
-		\left| \frac{ f(z)}{J(w) - x} \right|
-		\left| \frac {1 - \frac 1 {w^2}}  { w^n + w^{-n} } \right|
-		|\D w|
+		\left|\frac 1 2 \left(1 - \frac 1 {w^2} \right) \D w \right|
 \end{align*}
 In the last few steps we used the fact from part (b) which showed $\varphi(J(w)) = w$.
 Now we will use $w = \rho \E^{\I \theta}$ and $\D w = \rho \I \E^{\I \theta}$ we have
 \begin{align*}
-&= \frac 1 {2 \pi \I}
+&= \frac 1 {2 \pi}
 	\oint_{B_\rho}
-		\left| \frac{ f(z)}{J(w) - x} \right|
-		\left| \frac {\left( 1 - \frac 1 {\rho^2\E^{2 \I \theta}} \right) \rho \I \E^{\I \theta}}  { \rho^n\E^{n \I \theta} + \rho^{-n}\E^{-n \I \theta} } \right|
-		|\D \theta| \\
-&= \frac 1 {2 \pi \I}
-	\oint_{B_\rho}
-		\left| \frac{ f(z)}{J(w) - x} \right|
-		\left| \frac {\left( \frac {\rho^2\E^{2 \I \theta}}{\rho^2\E^{2 \I \theta}} - \frac 1 {\rho^2\E^{2 \I \theta}} \right) \rho \I \E^{\I \theta}}  { \rho^n\E^{n \I \theta} + \rho^{-n}\E^{-n \I \theta} } \right|
-		|\D \theta| \\
-&= \frac 1 {2 \pi \I}
-	\oint_{B_\rho}
-		\left| \frac{ f(z)}{J(w) - x} \right|
-		\left| \frac {\left( \frac {\rho^2\E^{2 \I \theta} - 1}{\rho \E^{ \I \theta}}\right) \I }  { \rho^n\E^{n \I \theta} + \rho^{-n}\E^{-n \I \theta} } \right|
-		|\D \theta|
+		\frac{ |f(z)|}{|\frac 1 2 (\rho \E^{\I \theta} + \frac 1 \rho \E^{- \I \theta}) - x|}
+		\frac 1  {\left| \frac 1 2 \left( \rho^n \E^{n \I \theta} + \rho^{-n} \E^{-n\I \theta} \right) \right|}
+		\left|\frac 1 2 \left(1 - \frac 1 {\rho^2 \E^{2 \I \theta}} \right) \rho \I \E^{\I \theta} \D \theta \right|.
 \end{align*}
-This is the first fuzzy part for me \textbf{TODO: Fix}
+Notice, applying the reverse triangle inequality to this term we have
 \begin{align*}
-&\leq \frac 1 {2 \pi \I}
-	\frac 1 { \rho^n + \rho^{-n} }
-	\oint_{B_\rho}
-		\left| \frac{ f(z)}{J(w) - x} \right|
-		\left| \left( \frac {\rho^2\E^{2 \I \theta} - 1}{\rho \E^{ \I \theta}}\right) \I  \right|
-		|\D \theta| \\
-&= \frac 1 {2 \pi }
-	\frac 1 { \rho^n + \rho^{-n} }
-	\oint_{B_\rho}
-		\left| \frac{ f(z)}{J(w) - x} \right|
-		\left| \frac {\rho^2\E^{2 \I \theta} - 1}{\rho \E^{ \I \theta}} \right|
-		|\D \theta|
+\frac 1  {\frac 1 2 \left| \rho^n \E^{n \I \theta} + \rho^{-n} \E^{-n\I \theta} \right|}
+	\leq \frac 1  {\frac 1 2 \Big| \left| \rho^n \E^{n \I \theta} \right| - \left| - \rho^{-n} \E^{-n\I \theta} \right| \Big|} 
+	\leq \frac 1  {\frac 1 2 \left| \rho^n - \rho^{-n} \right|}.
 \end{align*}
-This is another fuzzy part for me \textbf{TODO: Fix}
+Additionally, using a well known ellipse fact, we have
 \begin{align*}
-&\leq \frac 1 {2 \pi }
-	\frac 1 { \rho^n + \rho^{-n} }
-	\left| \frac {\rho^2 - 1}{\rho} \right|
-	\oint_{B_\rho}
-		\left| \frac{ f(z)}{J(w) - x} \right|
-		|\D \theta| \\
-&= \frac 1 {2 \pi }
-	\frac 1 { \rho^n + \rho^{-n} }
-	\left| \frac {\rho^2 - 1}{\rho} \right|
-	\oint_{B_\rho}
-		\left| \frac{ f(z)}{\frac 1 2 \left( \rho \E^{\I \theta } + \frac 1 \rho \E^{-\I \theta } \right) - x} \right|
-		|\D \theta| \\
-&\leq \frac 1 {2 \pi }
-	\frac 1 { \rho^n + \rho^{-n} }
-	\left| \frac {\rho^2 - 1} { \rho \left( \frac 1 2 \left( \rho + \frac 1 \rho \right) - 1 \right)} \right|
-	\oint_{B_\rho}
-		\left| f(z) \right|
-		|\D \theta| \\
-&= \frac 1 {2 \pi }
-	\frac 1 { \rho^n + \rho^{-n} }
-	\left| \frac {\rho^2 - 1} {  \frac 1 2 \rho^2 + \frac 1 2  - \rho } \right|
-	\oint_{B_\rho}
-		\left| f(z) \right|
-		|\D \theta| \\
-&= \frac 1 {2 \pi }
-	\frac 1 { \rho^n + \rho^{-n} }
-	\left| \frac {2 \rho^2 - 2} { \rho^2 + 1 - 2 \rho } \right|
-	\oint_{B_\rho}
-		\left| f(z) \right|
-		|\D \theta| \\
-&= \frac 1 {2 \pi }
-	\frac 1 { \rho^n + \rho^{-n} }
-	\left| \frac {2 (\rho - 1 )( \rho + 1)} { (\rho - 1)^2 } \right|
-	\oint_{B_\rho}
-		\left| f(z) \right|
-		|\D \theta| \\
-&= \frac 1 {2 \pi }
-	\frac 1 { \rho^n + \rho^{-n} }
-	\frac {2\rho + 2} { \rho - 1 }
-	\oint_{B_\rho}
-		\left| f(z) \right|
-		|\D \theta| \\
-&\leq \frac 1 {2 \pi }
-	\frac 1 { \rho^n + \rho^{-n} }
-	\frac {2\rho + 2} { \rho - 1 }
-	|B_\rho|M \\
-&= \frac {|B_\rho|M} {\pi }
-	\frac 1 { \rho^n + \rho^{-n} }
-	\frac {\rho + 1} { \rho - 1 } \\
-&\leq \frac {|B_\rho|M} {\pi }
-	\frac 1 { \rho^n}
-	\frac {\rho + 1} { \rho - 1 } \\
-&\leq \frac {|B_\rho|M} {\pi }
-	\frac {\rho + 1} { \rho - 1 } \rho^{-n}
+\frac 1 {|\frac 1 2 (\rho \E^{\I \theta} + \frac 1 \rho \E^{- \I \theta}) - x|}
+	&\leq \frac 1 {\frac 1 2 \left( \rho + \frac 1 \rho \right)- 1} \\
+	&\leq \frac 1 { \frac { \rho + \frac 1 \rho - 2}{2}} \\
+	&= \frac 2 { \rho + \frac 1 \rho - 2} \\
 \end{align*}
+Now we can move forward with our original statement, applying these two inequalities at once,
+\begin{align*}
+&= \frac 1 {2 \pi}
+	\oint_{B_\rho}
+		\frac{ |f(z)|}{|\frac 1 2 (\rho \E^{\I \theta} + \frac 1 \rho \E^{- \I \theta}) - x|}
+		\frac 1  {\left| \frac 1 2 \left( \rho^n \E^{n \I \theta} + \rho^{-n} \E^{-n\I \theta} \right) \right|}
+		\left|\frac 1 2 \left(1 - \frac 1 {\rho^2 \E^{2 \I \theta}} \right) \rho \I \E^{\I \theta} \D \theta \right| \\
+&\leq \frac 1 {2 \pi}
+	\frac 1  {\frac 1 2 \left| \rho^n - \rho^{-n} \right|}
+	\frac 2 { \left( \rho + \frac 1 \rho - 2 \right)}
+	\oint_{B_\rho} |f(z)| \left|\frac 1 2 \left(1 - \frac 1 {\rho^2 \E^{2 \I \theta}} \right) \rho \I \E^{\I \theta} \D \theta \right| \\
+&\leq \frac 1 {\pi}
+	\frac 1  {\left| \rho^n - \rho^{-n} \right|}
+	\frac 2 { \left( \rho + \frac 1 \rho - 2 \right)}
+	\oint_{B_\rho} |f(z)| \left|\frac 1 2 \left(1 - \frac 1 {\rho^2 \E^{2 \I \theta}} \right) \rho \I \E^{\I \theta} \D \theta \right| \\
+&\leq \frac {2 M \big| B_\rho \big|} {\pi}
+	\frac 1  {\left| \rho^n - \rho^{-n} \right|}
+	\frac 1 { \left( \rho + \frac 1 \rho - 2 \right)} \\
+&\leq \frac {2 M \big| B_\rho \big|} {\pi}
+	( \rho^n - \rho^{-n} )^{-1}
+	\left( \rho + \rho^{-1} - 2 \right)^{-1}.
+\end{align*}
+Now to get to the final inequality requested we have
+\begin{align*}
+\frac 1 {\rho^n - \rho^{-n}} \frac 1 {\rho + \rho^{-1} - 2} &= \frac 1 {\rho^n - \rho^{-n}} \frac {\rho} {\rho^2 - 2\rho + 1} \\
+	&= \frac 1 {\rho^n - \rho^{-n}} \frac {\rho} {(\rho - 1)^2} \frac {\rho^{-n}}{\rho^{-n}} \\
+	&= \frac {\rho^{-n}} {1 - \rho^{-2n}} \frac {\rho} {(\rho - 1)^2} \\
+	&= \frac 1 {1 - \rho^{-2n}} \frac {\rho^{1-n}} {(\rho - 1)^2}
+\end{align*}
+Now consider
+$$
+\rho^{2n} \geq \rho \implies
+$$
+$$
+\rho^{-2n} \leq \rho^{-1} \implies
+$$
+$$
+- \rho^{-2n} \geq - \rho^{-1} \implies
+$$
+$$
+1 - \rho^{-2n} \geq 1 - \rho^{-1}
+$$
+thus
+$$
+\frac 1 {1 - \rho^{-2n}} \leq \frac 1 {1 - \rho^{-1}}
+$$
+Apply this to the term on the left then you get
+$$
+\frac 1 {1 - \rho^{-2n}} \frac {\rho^{1-n}} {(\rho - 1)^2}
+	\leq \frac 1 {1 - \rho^{-1}} \frac {\rho^{1-n}} {(\rho - 1)^2}
+	= \frac \rho {\rho - 1} \frac {\rho^{1-n}} {(\rho - 1)^2}
+	= \frac {\rho^{2-n}} {(\rho - 1)^3}
+$$
 \qed
 \\
       
@@ -679,7 +677,6 @@ $$
 
 \textit{Solution:} \\
 Again applying equation \eqref{eq:eq3}, we have \\
-\textbf{TODO: Double check this final manipulation}
 \begin{align*}
 \frac{2}{\pi} \int_{-1}^1 \sqrt{1 -x} \sqrt{1 + x}\, \frac{\D x}{x -z}
 	&= \frac{2}{\pi}  \int_{-1}^1 \frac{1 - x^2}{\sqrt{1 - x} \sqrt{1 + x}} \frac{\D x}{x -z}\\
