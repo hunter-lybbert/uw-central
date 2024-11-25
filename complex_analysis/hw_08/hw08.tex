@@ -1,0 +1,573 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+\usepackage{mathtools}
+
+\graphicspath{ {./images/} }
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=5pt]{lemma}{Lemma}
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{11-18-24} \\
+\text{AMATH 567} \\
+
+\title{\bf { Homework 8} }
+
+
+\maketitle
+\noindent
+Collaborators*: Cooper Simpson, Nate Ward, Sophia Kamien, Laura Thomas \\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
+\normalsize
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item  The Korteweg-de Vries (KdV) equation arises whenever long waves of moderate amplitude in dispersive media are considered. For instance, it describes waves in shallow water, and ion-acoustic waves in plasmas. The equation is given by
+$$ u_t=6 u u_x+u_{x x x}, $$
+where indices denote partial differentiation.
+\begin{enumerate}
+\item By looking for solutions $u(x, t)=U(x)$, derive a first-order ordinary differential equation for $U(x)$. Introduce integration constants as required. \\
+
+\noindent
+\textit{Solution:} \\
+Since we want to find time independent ODE such that $\frac \D {\D t} U(x) = 0$, then we need
+$$ 0=6 u u_x+u_{x x x}. $$
+Integrating gives us
+\begin{align*}
+\int 0 &= 6 \int u u_x \D x+ \int u_{x x x} \D x \\
+0 &= 6 \int u u_x \D x+ u_{x x} + C_2.
+\end{align*}
+Using a substitution $v = u$ and $\D v = u_x \D x$ we have
+\begin{align*}
+0 &= 6 \int u u_x \D x+ u_{x x} + C_2\\
+0 &= 6 \int v \D v + u_{x x} + C_2 \\
+0 &= 6 \left(\frac 1 2 v^2\right) + C_3 + u_{x x} + C_2 \\
+0 &= 3u^2 + C_3 + u_{x x} + C_2.
+\end{align*}
+Next we multiply through by $u_x$ and use the $v=u$ ($\D v = u_x \D x$) substitution for the first integral and a $\omega = u_x$ ($\D \omega = u_{xx}\D x$) substitution for the third integral
+\begin{align*}
+0 &= 3u^2u_x + u_xC_3 + u_xu_{x x} + u_xC_2 \\
+0 &= 3 \int u^2u_x \D x + \int u_xC_3 \D x + \int u_xu_{x x} \D x + \int u_xC_2 \D x \\
+0 &= 3 \int v^2 \D v + \int u_xC_3 \D x + \int \omega \D \omega + \int u_xC_2 \D x \\
+0 &= 3 \left(\frac 1 3  v^3 \right) + C_4 + uC_3 + C_5 + \frac 1 2 \omega^2 + C_6  + uC_2 + C_7 \\
+0 &=  u^3 + \frac 1 2 (u_x)^2  +  u\big(C_2 + C_3\big) + \big(C_4 + C_5 + C_6 + C_7\big) \\
+- \frac 1 2 (u_x)^2 &=  u^3  +  u\big(C_2 + C_3\big) + \big(C_4 + C_5 + C_6 + C_7\big) \\
+(u_x)^2 &=  - 2 u^3  - 2 u\big(C_2 + C_3\big) - 2 \big(C_4 + C_5 + C_6 + C_7\big).
+\end{align*}
+Hence $$u_x^2 =  - 2 u^3 + uC_0 + C_1$$
+which is our first-order ordinary differential equation for $U(x)$. \\
+\qed
+
+\item Let $U=U_0 \wp\left(x-x_0\right)$. Determine $U_0$ so that $u=U(x)$ solves the KdV equation.\\
+
+\noindent
+\textit{Solution:} \\
+Note, we proved last time that $\wp(z + N w_1 + M w_2) = \wp(z)$ therefore $\wp(x - x_0) = \wp(x)$.
+Then plugging $U=U_0 \wp(x)$ into our first-order ordinary differential equation for $U(x)$ (while suppressing the argument for $\wp$) we have
+\begin{align*}
+\big(U_0 \wp^\prime\big)^2 &=  - 2 \big(U_0 \wp\big)^3 + \big(U_0 \wp\big)C_0 + C_1 \\
+U_0^2 \big(\wp^\prime\big)^2 &= -2 U_0^3 \wp^3 + U_0 C_0 \wp + C_1 \\
+\big(\wp^\prime\big)^2 &= -2 U_0 \wp^3 + \frac {C_0} {U_0} \wp + \frac {C_1} {U_0^2}.
+\end{align*}
+Choosing $U_0 = -2$ then we have
+$$
+\big(\wp^\prime\big)^2 = 4 \wp^3 -\frac 1 2 C_0 \wp + \frac 1 4 C_1,
+$$
+which resembles the ode which we proved holds true in the last assignment
+$$
+(\wp^\prime)^2 = 4\wp^3 + c \wp + d.
+$$
+The remaining constants can be attained through the initial conditions of the system we are solving and making sure they agree with the values of $c$, $d$ from the previous assignment. \\
+\qed \\
+\end{enumerate}
+\newpage
+
+\item From A\&F: 3.6.5\\
+Show that if $f (z)$ is meromorphic in the finite $z$ plane, then $f (z)$ must be
+the ratio of two entire functions. \\
+
+\noindent
+\textit{Solution:} \\
+Assume $f(z)$ is a meromorphic function.
+Then we know all of the singularities of $f(z)$ are poles of some order.
+If we can multiply $f(z)$ by some entire $g(z)$ function which knocks out all of the poles of $f(z)$ and are left with an entire function $h(z)$, then the original meromorphic function $f(z)$ is a ratio of two entire functions.
+Now it is left for us to successfully construct such a function $g(z)$.
+Our construction needs to have zeros at all of the locations where $f(z)$ has poles.
+Additionally we need to make sure that the multiplicity of the zeros agree with the residue of the poles.
+We can use the Mittag-Leffler Expansion to assist us here.
+Suppose $f(z)$ has poles at each $z = z_j$ for $j = 0, 1, 2, ...$ with corresponding residues $a_j$ then let $g(z)$ be
+$$
+g(z) = z^{a_0} \prod_{j=1}^\infty \left[ (z - z_j) \exp\left(\sum_{k=0}^{m-1}\frac{(z_j)^{k + 1}}{k + 1}\right) \right]^{a_j}.
+$$
+Then
+$$
+f(z)g(z) = h(z).
+$$
+Since $g(z)$ is an entire function constructed strategically, $h(z)$ has no singularities and is therefore entire in the finite complex plane.
+Therefore $f(z)$ is the ratio of two entire functions. \\
+\qed
+
+\newpage
+
+\item Here's a way to evaluate
+
+$$
+\sum_{k=1}^{\infty} \frac{1}{k^2},
+$$
+
+due to Euler. We've seen that
+
+$$
+\frac{\sin \pi z}{\pi z} = \prod_{j=1}^{\infty}\left(1-\frac{z^2}{j^2}\right) .
+$$
+
+\begin{enumerate}
+\item Equate the coefficients of $z^2$ on both sides, to recover the desired sum. \\
+
+\noindent
+\textit{Solution:} \\
+Taylor expand on the left to get
+\begin{align*}
+\frac{\sin \pi z}{\pi z} &= \frac 1 {\pi z} \sum_{j=0}^\infty \frac {(-1)^j (\pi z)^{2j + 1}}{(2j + 1)!} \\
+	&= \frac 1 {\pi z} \left(\pi z -\frac {(z \pi)^3}{6} + \frac{(z \pi)^5}{120} - ... \right) \\
+	&= 1 -\frac {z^2 \pi^2}{6} + \frac{z^4 \pi^4}{120} - ... 
+\end{align*}
+
+Now expand out several terms in the product on the right
+\begin{align*}
+\prod_{j=1}^{\infty}\left(1-\frac{z^2}{j^2}\right)
+	&= \left( 1 - z^2\right)\left( 1 - \frac{z^2}{4}\right)\left( 1 - \frac{z^2}{9}\right)\left( 1 - \frac{z^2}{16}\right)\left( 1 - \frac{z^2}{25}\right)... \\
+	&= \left( 1 - z^2 - \frac{z^2}{4} + \frac{z^4}{4} \right)\left( 1 - \frac{z^2}{9}\right)\left( 1 - \frac{z^2}{16}\right)\left( 1 - \frac{z^2}{25}\right)... \\
+	&= \left( 1 - z^2 - \frac{z^2}{4} + \frac{z^4}{4} - \frac{z^2}{9} + \frac{z^4}{9} + \frac{z^4}{36} -\frac{z^6}{36} \right)\left( 1 - \frac{z^2}{16}\right)\left( 1 - \frac{z^2}{25}\right)... \\
+	&= \left( 1 + z^2\Big( -1 - \frac 1 4 - \frac 1 9\Big) + z^4 \Big( \frac 1 {4} + \frac 1 {9} + \frac 1 {36} \Big) - \frac{z^6}{36} \right)\left( 1 - \frac{z^2}{16}\right)\left( 1 - \frac{z^2}{25}\right)...
+\end{align*}
+Then we have the coefficients for $z^2$ becomes the series $ - \sum_{j = 0}^\infty \frac 1 {j^2}. $
+Equating the coefficient on the left with the series on the right we have
+\begin{align*}
+-\frac {\pi^2} 6 &= - \sum_{j = 0}^\infty \frac 1 {j^2} \\
+\frac {\pi^2} 6 &= \sum_{j = 0}^\infty \frac 1 {j^2}
+\end{align*} \qed \\
+
+\newpage
+
+\item Equate the coefficients of $z^4$ on both sides to recover a
+  different sum. \\
+
+\noindent
+\textit{Solution:} \\
+Using the results from the Taylor expansion on the left from part (a) we have the coefficient of the $z^4$ term is $ \frac {\pi^4}{120}. $
+Additionally, from expanding the first several terms in the product on the right we have that the coefficient of the $z^4$ term can be written as
+$$\sum_{j=0}^\infty \sum_{k=1}^{j - 1} \frac 1 {j^2} \frac 1 {k^2}.$$
+Combining these we have 
+$$\frac {\pi^4}{120} = \sum_{j=0}^\infty \sum_{k=1}^{j - 1} \frac 1 {j^2} \frac 1 {k^2}.$$
+A little work can be done to relate this to the sum
+$$\sum_{k=1}^\infty \frac 1 {k^4},$$
+I will only come back to this and complete that step if I have time, since Tom expressed that the question was asked in a vague enough way that stopping here is sufficient for grading. \\
+\end{enumerate}
+By equating coefficients of higher powers of $z$, one can recover
+other identities too.\\
+\qed \\
+
+\newpage
+
+\item For the following, suppose that $f(z)$ is analytic in an open
+  set $\Omega$ that contains $[-1,1]$.  
+\begin{enumerate}
+\item Show that there exists a contour $C$, encircling $[-1,1]$,
+such that 
+\begin{align*}
+	\int_{-1}^1 \frac{f(x)\D x}{\sqrt{1 -x} \sqrt{1 + x}} =
+	\frac{1}{2\I} \oint_C \frac{f(z)\D z}{\sqrt{z -1} \sqrt{z + 1}}.
+\end{align*} \\
+
+\noindent
+\textit{Solution:} \\
+For convenience, define $h(z)$ to be the integrand $h(z) = \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}}$.
+Siting Homework 5 problem 5, let $\Sigma$ define the same area as before
+$$\Sigma = \{z \in \mathbb C ~:~ |\real z | \leq r \text{ and } 0 \leq -\imag z \leq R, ~ R > 0, ~ r > 1\}$$
+and let $\partial \Sigma$ be the counterclockwise oriented contour along the boundary of the region $\Sigma$.
+Additionally let $\partial \Sigma \setminus [-1, 1]$ be the contour on the boundary without the section from $-1$ to $1$ on the real line.
+From that same problem we know 
+$$
+\oint_{\partial \Sigma} h(z) \D z = 0.
+$$
+Furthermore, we can say
+\begin{align}
+\int_1^{-1} h(z) \D z + \oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z &= 0 \nonumber \\
+\oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z &= \int_{-1}^1 h(z) \D z.
+\label{eq:lower_rectangle}
+\end{align}
+We now define
+$$ \Sigma^\prime = \{z \in \mathbb C ~:~ |\real z | \leq r \text{ and } 0 \leq \imag z \leq R, ~ R > 0, ~ r > 1\} $$
+to be the upper half plane analogy of $\Sigma$.
+Therefore, let $\partial \Sigma^\prime$ be the counterclockwise oriented contour along the boundary of the region $\Sigma^\prime$.
+$$
+g(z) = \begin{cases}
+h(z), \quad \text{ if } \Im(z) > 0 \text{ or } |z| > 1 \\
+- h(z), \: \text{ if } \Im(z) = 0 \text{ and } |z| \leq 1
+\end{cases}.
+$$
+This helps us preserve the continuity we are concerned with in order to apply the same arguments from Homework 5 problem 5 and making use of lemma 1 from problem 4 of that same assignment.
+Then we can conclude
+$$\oint_{\partial \Sigma^\prime} g(z) \D z =  0. $$
+Furthermore, we have
+\begin{align}
+\int_{-1}^1 g(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} g(z) \D z &= 0 \nonumber \\
+	\oint_{\partial \Sigma^\prime\setminus[-1,1]} g(z) \D z &= - \int_{-1}^1 g(z) \D z \nonumber \\
+	\oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z &= - \int_{-1}^1 -h(z) \D z \nonumber \\
+	\oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z &= \int_{-1}^1 h(z) \D z.
+\label{eq:upper_rectangle}
+\end{align}
+
+If we add equation (\ref{eq:lower_rectangle}) and equation (\ref{eq:upper_rectangle}), we have
+\begin{align*}
+\oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z
+	&= \int_{-1}^1 h(z) \D z + \int_{-1}^1 h(z) \D z \\
+\oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z
+	&= 2\int_{-1}^1 h(z) \D z.
+\end{align*}
+Note the contours $\partial \Sigma \setminus [-1, 1]$ and $\partial \Sigma^\prime\setminus[-1,1]$ have small overlapping regions on the real axis $z \in (-r-1, -1)$ and $z \in (1, 1 + r)$ which cancel out since they are of opposite orientation.
+We denote the combinations of these contours as $\partial \widehat \Sigma$ which is the counterclockwise oriented contour on the boundary of $\widehat \Sigma$ with
+$$ \widehat \Sigma = \{z \in \mathbb C ~:~ |\real z | \leq r \text{ and } |\imag z| \leq R, ~ R > 0, ~ r > 1\}. $$
+Hence,
+\begin{align*}
+\oint_{\partial \Sigma \setminus [-1, 1]} h(z) \D z + \oint_{\partial \Sigma^\prime\setminus[-1,1]} h(z) \D z
+	&= 2 \int_{-1}^1 h(z) \D z \\
+\oint_{\partial \widehat \Sigma } h(z) \D z
+	&= 2 \int_{-1}^1 h(z) \D z \\
+\oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
+	&= 2 \int_{-1}^1 \frac{f(x)}{\sqrt{x -1} \sqrt{x + 1}} \D x \\
+\oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
+	&= 2 \int_{-1}^1 \frac{f(x)}{(-\I )\sqrt{1 - x} \sqrt{x + 1}} \D x \\
+\oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
+	&= - \frac 2 \I \int_{-1}^1 \frac{f(x)}{\sqrt{1 - x} \sqrt{x + 1}} \D x \\
+\oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
+	&= 2 \I \int_{-1}^1 \frac{f(x)}{\sqrt{1 - x} \sqrt{x + 1}} \D x \\
+\frac 1 {2\I} \oint_{\partial \widehat \Sigma } \frac{f(z)}{\sqrt{z -1} \sqrt{z + 1}} \D z
+	&= \int_{-1}^1 \frac{f(x)}{\sqrt{1 - x} \sqrt{x + 1}} \D x.
+\end{align*}
+Therefore the counterclockwise oriented contour on the boundary of $\widehat \Sigma$, denoted as $\partial \widehat \Sigma$ is one such contour encircling [-1, 1] such that
+$$
+\int_{-1}^1 \frac{f(x)\D x}{\sqrt{1 -x} \sqrt{1 + x}} =
+	\frac{1}{2\I} \oint_C \frac{f(z)\D z}{\sqrt{z -1} \sqrt{z + 1}}.
+$$
+ \qed \\
+ Note we can deform this contour $\partial \widehat \Sigma$ into a circle centered at $z= 0$ of radius $\rho > 1$. \\
+ \newpage
+
+\item Use this to evaluate
+\begin{align*}
+	I_1 &= \int_{-1}^1 \frac{\D x}{\sqrt{1 -x} \sqrt{1+x}}, \quad
+	I_2 = \int_{-1}^1 \sqrt{1 -x} \sqrt{1 + x}\, \D x, \\
+	I_3 &= \int_{-1}^1 \frac{\sqrt{1 -x}}{ \sqrt{1 + x}}\ \D x,
+	\quad   I_4 = \int_{-1}^1 \frac{\sqrt{1  +x}}{ \sqrt{1 - x}} \D x,
+\end{align*}
+without using any changes of variable (e.g., no trig subs!).\\
+
+\noindent
+\textit{Solution:} \\
+Using part (a) and the substitution $z = \rho \E^{\I \theta}$ where $\rho$ is very large making $z$ be near $\infty$.
+Additionally, our counterclockwise circle contour around $z=0$ is also a counterclockwise contour around $\infty$.
+Therefore
+\begin{align*}
+I_1 = \int_{-1}^1 \frac{\D x}{\sqrt{1 -x} \sqrt{1+x}}
+	&= \frac{1}{2\I} \oint_C \frac{\D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= \frac{1}{2\I} \int_0^{2\pi} \frac {\rho \I \E^{\I \theta} \D \theta}{\sqrt{\rho \E^{\I \theta} -1} \sqrt{\rho \E^{\I \theta} + 1}} \\
+	&= \frac{1}{2\I} \int_0^{2\pi} \frac {\rho \I \E^{\I \theta} \D \theta}{\rho \E^{\I \theta} \sqrt{1 - \frac 1{\rho \E^{\I \theta}}} \sqrt{1 + \frac 1{\rho \E^{\I \theta}}}} \\
+	&= \frac{1}{2} \int_0^{2\pi} \frac { \D \theta}{\sqrt{1 - \frac 1{\rho \E^{\I \theta}}} \sqrt{1 + \frac 1{\rho \E^{\I \theta}}}}.
+\end{align*}
+Since $\rho$ is large, $\frac 1{\rho \E^{\I \theta}} \approx 0$.
+Thus
+\begin{align*}
+	&= \frac{1}{2} \int_0^{2\pi} \frac { \D \theta}{\sqrt{1 - \frac 1{\rho \E^{\I \theta}}} \sqrt{1 + \frac 1{\rho \E^{\I \theta}}}} \\
+	&= \frac 1 2 \int_0^{2\pi} \D \theta \\
+	&= \frac 1 2 \Big( \theta \big|_0^{2\pi} \Big) \\
+	&= \frac 1 2 2 \pi \\
+	&= \pi.
+\end{align*} 
+Hence,
+$$
+I_1 = \int_{-1}^1 \frac{\D x}{\sqrt{1 -x} \sqrt{1+x}} = \pi
+$$ \qed \\
+
+\noindent
+Now for $I_2$ we can begin by converting our integrand into something of the form that will help us use the results from part (a). Notice
+$$
+\sqrt{1 - x} \sqrt{1 + x} = \frac{(1 - x)(1 + x)}{\sqrt{1 - x} \sqrt{1 + x}} = \frac{1 - x^2}{\sqrt{1 - x} \sqrt{1 + x}}.
+$$
+Then we can evaluate the integral as follows
+\begin{align*}
+I_2 = \int_{-1}^1 \sqrt{1 -x} \sqrt{1 + x}\, \D x &= \int_{-1}^1 \frac{1 - x^2 \D x}{\sqrt{1 - x} \sqrt{1 + x}} \\
+	&= \frac{1}{2\I} \oint_C \frac{1 - z^2\D z}{\sqrt{z -1} \sqrt{z + 1}}.
+\end{align*}
+Let's take the contour to be a circle centered at $z=0$ of radius $\rho$ such that $\rho$ is sufficiently large.
+This integral can also be evaluated at infinity
+\begin{align*} 
+\frac{1}{2\I} \oint_C \frac{1 - z^2\D z}{\sqrt{z -1} \sqrt{z + 1}} 
+	&= \frac{1}{2\I} \oint_C \frac{(1 - z)(1 + z)\D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= - \frac{1}{2\I} \oint_C \frac{(z - 1)(1 + z)\D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= - \frac{1}{2\I} \oint_C \sqrt{z -1} \sqrt{z + 1}\, \D z.
+\end{align*}
+From a previous assignment we have that 
+\begin{align}
+\sqrt{z -1} \sqrt{z + 1} = (z - 1) \sqrt{ \frac {z + 1}{z - 1} } = z - \frac 1 2 z^{-1} + \mathcal O(z^{-3})
+\label{eq:taylor_previous}
+\end{align}
+and by the Residue theorem we have
+\begin{align*}
+- \frac{1}{2\I} \oint_C \sqrt{z -1} \sqrt{z + 1}\, \D z
+	&= -\pi \big( {\rm Res}( f(z); \infty) \big).
+\end{align*}
+Hence,
+\begin{align*}
+I_2 &= - \frac{1}{2\I} \oint_C \sqrt{z -1} \sqrt{z + 1}\, \D z \\
+	&= -\pi \left( - \frac 1 2 \right) \\
+	&= \frac \pi 2
+\end{align*}
+Therefore,
+$$
+I_2 = \int_{-1}^1 \sqrt{1 -x} \sqrt{1 + x}\, \D x = \frac \pi 2
+$$ \qed \\
+
+\noindent
+Notice we can rewrite the integrand from $I_3$ as follows
+$$
+\frac{\sqrt{1 -x}}{ \sqrt{1 + x}} = \frac{\sqrt{1 -x}\sqrt{1 -x}}{\sqrt{1 -x}\sqrt{1 + x}} = \frac{1 - x}{\sqrt{1 - x}\sqrt{1 + x}}.
+$$
+Then we can evaluate $I_3$ using the tools established in part (a)
+\begin{align*}
+I_3 &= \int_{-1}^1 \frac{\sqrt{1 -x}}{ \sqrt{1 + x}}\, \D x \\
+	&= \int_{-1}^1 \frac{1 - x}{\sqrt{1 - x}\sqrt{1 + x}}\, \D x \\
+	&= \frac{1}{2\I} \oint_C \frac{1 - z\, \D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= - \frac{1}{2\I} \oint_C \frac{z - 1\, \D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= - \frac{1}{2\I} \oint_C \frac{\sqrt{z - 1}}{\sqrt{z + 1}}\, \D z
+\end{align*}
+The Taylor expansion of our integrand centered at infinity is
+$$ \frac 1 {H(z)} = \frac 1 {\frac{\sqrt{\frac 1 z + 1}}{\sqrt{\frac 1 z - 1}}} = \frac{\sqrt{1 - z}}{\sqrt{1 + z}} = 1 - \frac 1 z + \mathcal O(z^{-2}). $$
+By the Residue theorem we have
+\begin{align*}
+I_4 &= - \frac{1}{2\I} \oint_C \frac{\sqrt{z - 1}}{\sqrt{z + 1}}\, \D z \\
+	&= -\pi \big( {\rm Res}( 1/H(z); \infty) \big) \\
+	&= - \pi \big( -1 \big) \\
+	&= \pi.
+\end{align*}
+\qed \\
+
+\noindent
+Notice we can rewrite the integrand from $I_4$ as follows
+$$
+\frac{\sqrt{1 + x}}{ \sqrt{1- x}} = \frac{\sqrt{1+ x}\sqrt{1+ x}}{\sqrt{1- x}\sqrt{1 + x}} = \frac{1 + x}{\sqrt{1 - x}\sqrt{1 + x}}.
+$$
+Then we can evaluate $I_4$ using the tools established in part (a)
+\begin{align*}
+I_4 &= \int_{-1}^1 \frac{\sqrt{1 + x}}{ \sqrt{1- x}}\, \D x \\
+	&= \int_{-1}^1 \frac{1 + x}{\sqrt{1 - x}\sqrt{1 + x}}\, \D x \\
+	&= \frac{1}{2\I} \oint_C \frac{1 + z\, \D z}{\sqrt{z -1} \sqrt{z + 1}} \\
+	&= \frac{1}{2\I} \oint_C \frac{\sqrt{z + 1}}{\sqrt{z - 1}}\, \D z.
+\end{align*}
+The Taylor expansion of our integrand centered at infinity is
+$$ h(z) = \frac{\sqrt{z + 1}}{\sqrt{z - 1}} = 1 + \frac 1 z + \frac {z^{-2}} 2 + \frac{z^{-3}} 2 + \mathcal O(z^{-4}). $$
+By the Residue theorem we have
+\begin{align*}
+I_4 &= \frac{1}{2\I} \oint_C \frac{\sqrt{z + 1}}{\sqrt{z - 1}}\, \D z \\
+	&= \pi \big( {\rm Res}( h(z); \infty) \big) \\
+	&= \pi \big( 1 \big) \\
+	&= \pi.
+\end{align*}
+\qed \\
+\end{enumerate}
+\newpage
+
+\item Suppose, for $|z| = 1$, that the series
+\begin{align*}
+f(z) = \sum_{n = -\infty}^\infty f_n z^n,
+\end{align*}
+converges uniformly.
+\begin{enumerate}
+\item Compute series representations for
+\begin{align*}
+F(z) := \frac{1}{2 \pi \I} \oint_{C} \frac{f(\xi)}{\xi - z} \D \xi,
+\quad |z| \neq 1, \quad C = \partial B_1(0).
+\end{align*}
+\textit{Solution:} \\
+Jumping right in we can calculate this as follows
+\begin{align*}
+F(z) &= \frac{1}{2 \pi \I} \oint_{C} \frac{f(\xi)}{\xi - z} \D \xi \\
+	&= \frac{1}{2 \pi \I} \oint_{C} \frac{ \sum_{n = -\infty}^\infty f_n \xi^n }{\xi - z} \D \xi \\
+	&= \frac{1}{2 \pi \I}  \sum_{n = -\infty}^\infty \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi \\
+	&= \frac{1}{2 \pi \I} \left[
+		\sum_{n = -\infty}^{-1} \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+		+ \sum_{n = 0}^\infty \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+	\right].
+\end{align*}
+We can now evaluate this using the two cases when $|z| > 1$ and when $|z| < 1$.
+Beginning first when $|z| > 1$ we have
+\begin{align}
+F(z) = \frac{1}{2 \pi \I} \left[
+		\sum_{n = -\infty}^{-1} \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+		+ \sum_{n = 0}^\infty \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+	\right]
+\label{eq:z_greater_than_1}
+\end{align}
+Now let's look at solving the term on the left where $n \leq -1$,
+\begin{align*}
+\sum_{n = -\infty}^{-1} \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+	&= \sum_{n = -\infty}^{-1} f_n \oint_{C} \frac{ \xi^n }{\xi - z} \D \xi \\
+	&= \sum_{n = -\infty}^{-1} f_n \oint_{C} - \frac {\xi^n} z \frac 1 {1 - \frac \xi z } \D \xi
+\end{align*}
+On our contour around the unit circle, $|\xi| = 1$.
+Therefore, $|\xi / z| < 1$, since $|z| > 1$.
+Thus we can rewrite this using the geometric series
+\begin{align*}
+&= \sum_{n = -\infty}^{-1} f_n \oint_{C} - \frac {\xi^n} z \sum_{\ell = 0}^\infty \frac {\xi^\ell}{z^\ell} \D \xi \\
+&= \sum_{n = -\infty}^{-1} - f_n \oint_{C} \sum_{\ell = 0}^\infty \frac {\xi^\ell\xi^n}{z^\ell z} \D \xi \\
+&= \sum_{n = -\infty}^{-1} - f_n \oint_{C} \sum_{\ell = 0}^\infty \frac {\xi^{\ell + n}}{z^{\ell + 1}} \D \xi.
+\end{align*}
+Notice that by the residue theorem, and considering that $n \leq -1$, we only have $\ell + n = -1$ when $\ell = -n -1$.
+Therefore,
+$$
+\oint_{C} \sum_{\ell = 0}^\infty \frac {\xi^{\ell + n}}{z^{\ell + 1}} \D \xi
+	= 2\pi \I \,\, {\rm Res}\Big( \sum_{\ell = 0}^\infty \frac {\xi^{\ell + n}}{z^{\ell + 1}}; \infty \Big)
+	= 2\pi \I \, \frac 1 {z^{-n-1 + 1}}
+	= 2\pi \I \, z^n.
+$$
+Hence,
+\begin{align*}
+\sum_{n = -\infty}^{-1} \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+	&= \sum_{n = -\infty}^{-1} - f_n \oint_{C} \sum_{\ell = 0}^\infty \frac {\xi^{\ell + n}}{z^{\ell + 1}} \D \xi \\
+	&= \sum_{n = -\infty}^{-1} - f_n 2\pi \I \, z^n
+\end{align*}
+Next, let's look at solving the term on the right where $n \geq 0$,
+\begin{align*}
+\sum_{n = 0}^\infty \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+	&= \sum_{n = 0}^\infty f_n \oint_{C} \frac{ \xi^n }{\xi - z} \D \xi
+		\quad \text{maybe } \rightarrow \sum_{n = 0}^\infty f_n 2 \pi \I \, z^n \\
+	&= \sum_{n = 0}^\infty f_n \oint_{C} - \frac {\xi^n} z \frac 1 {1 - \frac \xi z} \D \xi \\
+	&= \sum_{n = 0}^\infty f_n \oint_{C} - \frac {\xi^n} z \sum_{\ell = 0}^\infty \frac {\xi^\ell}{z^\ell} \D \xi \\
+	&= \sum_{n = 0}^\infty - f_n \oint_{C} \sum_{\ell = 0}^\infty \frac {\xi^{\ell + n}}{z^{\ell + 1}} \D \xi \\
+	&= \sum_{n = 0}^\infty - f_n \sum_{\ell = 0}^\infty \frac 1 {z^{\ell + 1}} \oint_{C} \xi^{\ell + n} \D \xi
+\end{align*}
+substitute $\xi = \E^{\I \theta}$
+\begin{align*}
+	&= \sum_{n = 0}^\infty - f_n \sum_{\ell = 0}^\infty \frac 1 {z^{\ell + 1}} \int_0^{2 \pi} \big(\E^{\I \theta}\big)^{\ell + n} \I \E^{\I \theta} \D \theta \\
+	&= \sum_{n = 0}^\infty - f_n \sum_{\ell = 0}^\infty \frac 1 {z^{\ell + 1}} \left(
+		\big(\E^{\I \theta}\big)^{\ell + n + 1} \Big|_0^{2 \pi}
+	\right) \\
+	&= \sum_{n = 0}^\infty - f_n \sum_{\ell = 0}^\infty \frac 1 {z^{\ell + 1}} \left(
+		\big(\E^{\I 2 \pi}\big)^{\ell + n + 1} - \big(\E^{\I 0}\big)^{\ell + n + 1}
+	\right) \\
+	&= \sum_{n = 0}^\infty - f_n \sum_{\ell = 0}^\infty \frac 1 {z^{\ell + 1}} \left( 1 - 1 \right) \\
+	&= \sum_{n = 0}^\infty - f_n \sum_{\ell = 0}^\infty \frac 1 {z^{\ell + 1}} 0 \\
+	&= 0 \\
+\end{align*}
+Now combining this and our previous result into equation (\ref{eq:z_greater_than_1}) we have
+\begin{align*}
+F(z) &= \frac{1}{2 \pi \I} \left[
+		\sum_{n = -\infty}^{-1} \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+		+ \sum_{n = 0}^\infty \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+	\right] \\
+	&= \frac{1}{2 \pi \I} \left[ \sum_{n = -\infty}^{-1} - f_n 2\pi \I \, z^n \right] \\
+	&= \sum_{n = -\infty}^{-1} - f_n \, z^n
+\end{align*}
+This is the result for when $|z| > 1$.
+Continuing on with $|z| < 1$ we have the following
+Now let's look at solving the term on the left where $n \leq -1$,
+\begin{align*}
+\sum_{n = -\infty}^{-1} \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+	&= \sum_{n = -\infty}^{-1} f_n \oint_{C} \frac{ \xi^n }{\xi - z} \D \xi \\
+	&= \sum_{n = -\infty}^{-1} f_n \oint_{C} \frac {\xi^n} {\xi} \frac 1 {1 - \frac z \xi } \D \xi
+\end{align*}
+On our contour around the unit circle, $|\xi| = 1$.
+Therefore, $|z / \xi | < 1$, since $|z| < 1$.
+Thus we can rewrite this using the geometric series
+\begin{align*}
+	&= \sum_{n = -\infty}^{-1} f_n \oint_{C} \frac {\xi^n} {\xi} \sum_{\ell = 0}^\infty \frac {z^\ell}{\xi^\ell} \D \xi \\
+	&= \sum_{n = -\infty}^{-1} f_n \oint_{C} \sum_{\ell = 0}^\infty \frac {z^\ell \xi^n}{\xi^{\ell + 1}} \D \xi
+\end{align*}
+Notice that by the residue theorem, and considering that $n \leq -1$, we only have a $\xi^{-1}$ when $\ell = n$.
+Therefore,
+$$
+\oint_{C} \sum_{\ell = 0}^\infty \frac {z^\ell \xi^n}{\xi^{\ell + 1}} \D \xi
+	= 2\pi \I \,\, {\rm Res}\Big( \sum_{\ell = 0}^\infty \frac {z^\ell \xi^n}{\xi^{\ell + 1}}; 0 \Big)
+	= 0.
+$$
+Hence,
+\begin{align*}
+\sum_{n = -\infty}^{-1} \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+	&= \sum_{n = -\infty}^{-1} f_n \oint_{C} \sum_{\ell = 0}^\infty \frac {z^\ell \xi^n}{\xi^{\ell + 1}} \D \xi \\
+	&= \sum_{n = -\infty}^{-1} f_n 0 \\
+	&= 0.
+\end{align*}
+Now for the case when $n \geq 0$ we have
+\begin{align*}
+\sum_{n = 0}^\infty \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+	&= \sum_{n = 0}^\infty f_n \oint_{C} \frac{ \xi^n }{\xi - z} \D \xi \\
+	&= \sum_{n = 0}^\infty f_n 2 \pi \I \, z^n
+\end{align*}
+by Cauchy's Integral formula.
+Now combining this and our previous result into equation (\ref{eq:z_greater_than_1}) we have
+\begin{align*}
+F(z) &= \frac{1}{2 \pi \I} \left[
+		\sum_{n = -\infty}^{-1} \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+		+ \sum_{n = 0}^\infty \oint_{C} \frac{ f_n \xi^n }{\xi - z} \D \xi
+	\right] \\
+	&= \frac{1}{2 \pi \I} \left[ \sum_{n = 0}^\infty f_n 2 \pi \I \, z^n \right] \\
+	&= \sum_{n = 0}^\infty f_n \, z^n
+\end{align*}
+This is the result for when $|z| < 1$. \\
+\qed \\
+
+\item For $|z| = 1$, compute
+\begin{align*}
+\lim_{\epsilon \to 0^+} F( z(1 - \epsilon)) -       \lim_{\epsilon \to 0^+} F( z(1 + \epsilon)) .
+\end{align*}
+\textit{Solution:} \\
+\textbf{TODO: should expect a ``jump" discontinuity at the boundary}
+Use the series representation you arrived at from the previous problem to evaluate this.
+\begin{align*}
+This
+\end{align*}
+
+\end{enumerate}
+\end{enumerate}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,753 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+\usepackage{mathtools}
+
+\graphicspath{ {./images/} }
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=5pt]{lemma}{Lemma}
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{11-25-24} \\
+\text{AMATH 567} \\
+
+\title{\bf { Homework 9} }
+
+
+\maketitle
+\noindent
+Collaborators*: Cooper Simpson, Nate Ward, Laura Thomas, Sophie Kamien, Erin Szalda-Petree, Anja Vogt, Hailey, Nate Wybra \\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
+\normalsize
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item From A\&F: 4.1.2 only (i), i.e., only by computing residues inside.\\
+Evaluate the integrals $\frac 1 {2 \I \pi} \oint_C f(z) \D z$, where C is the unit circle centered at the origin with $f(z)$ given below.
+Do these problems ($i$) enclosing the singular points inside C. \\
+
+\noindent
+(a)
+$$
+f(z) = \frac {z^2 + 1}{ z^2 - a^2 }, \quad a^2 < 1
+$$
+\textit{Solution:} \\
+Let the set of singularities of $f(z)$ be $S$
+\begin{align*}
+\frac 1 {2 \pi \I} \oint_C \frac {z^2 + 1}{ z^2 - a^2 } \D z
+	&= \sum_{w \in S} \underset{z=w}{\rm Res} f(z).
+\end{align*}
+The denominator can be factored to $z^2 - a^2 = (z - a)(z + a)$, therefore the singularities of $f(z)$ are $z = \pm a$.
+Then we have
+\begin{align*}
+\frac 1 {2 \pi \I} \oint_C \frac {z^2 + 1}{ z^2 - a^2 } \D z
+	&= \underset{z=-a}{\rm Res} f(z) + \underset{z=a}{\rm Res} f(z) \\
+	&= \frac {(-a)^2 + 1}{ (-a - a) } + \frac {(a)^2 + 1}{ (a +a) } \\
+	&= - \frac {a^2 + 1}{ 2a } + \frac {a^2 + 1}{ 2a } = 0.
+\end{align*}
+\qed \\
+
+\noindent
+(b)
+$$
+f(z) = \frac {z^2 + 1}{ z^3 }
+$$
+\textit{Solution:} \\
+Looking at this in terms of the residue we have
+\begin{align*}
+\frac 1 {2 \pi \I} \oint_C \frac {z^2 + 1}{ z^3 } \D z
+	&= \underset{z=0}{\rm Res} f(z) \\
+	&= \frac 1 {(3 - 1)!} \frac {\D^2} {\D z^2} \left( (z - 0)^3\left( \frac {z^2 + 1}{ z^3 } \right) \right) \Big|_0 \\
+	&= \frac 1 {2!} \frac {\D^2} {\D z^2} \left( z^2 + 1 \right) \Big|_0 \\
+	&= \frac 1 2 \frac {\D} {\D z} \left( 2z \right) \Big|_0 \\
+	&= \frac 1 2 2  \\
+	&= 1.
+\end{align*}
+\qed \\
+
+\noindent
+(c)
+$$
+f(z) = z^2\E^{-1/z}
+$$
+\textit{Solution:} \\
+Looking at this in terms of the residue we have, what is the order of this pole?? Do I need to do something else?
+\begin{align*}
+\frac 1 {2 \pi \I} \oint_C z^2\E^{-1/z} \D z
+	&= \underset{z=0}{\rm Res} f(z) \\
+\end{align*}
+Let's look at things, in terms of the Taylor series expansion
+\begin{align*}
+\frac 1 {2 \pi \I} \oint_C z^2\E^{-1/z} \D z 
+	&= \frac 1 {2 \pi \I} \oint_C z^2 \sum_{j=0}^\infty \left(- \frac 1 z \right)^j \frac 1 {j!} \D z \\
+	&= \frac 1 {2 \pi \I} \oint_C \sum_{j=0}^\infty \frac {(-1)^j}{j!} \frac {z^2} {z^j} \D z \\
+	&= \frac 1 {2 \pi \I} \oint_C \sum_{j=0}^\infty \frac {(-1)^j}{j!} \frac 1 {z^{j - 2}} \D z \\
+	&= \underset{z=0}{\rm Res} \left( \sum_{j=0}^\infty \frac {(-1)^j}{j!} \frac 1 {z^{j - 2}} \right) \\
+	&= \underset{z=0}{\rm Res} \left(
+		\frac {(-1)^0}{0!} \frac 1 {z^{0 - 2}} 
+		+ \frac {(-1)^1}{1!} \frac 1 {z^{1 - 2}} 
+		+ \frac {(-1)^2}{2!} \frac 1 {z^{2 - 2}} 
+		+ \frac {(-1)^3}{3!} \frac 1 {z^{3 - 2}} 
+		+ \sum_{j=4}^\infty \frac {(-1)^j}{j!} \frac 1 {z^{j - 2}}
+	\right) \\
+	&= \underset{z=0}{\rm Res} \left(
+		z^2 - z + \frac 1 2
+		- \frac 1 {6z}
+		+ \sum_{j=4}^\infty \frac {(-1)^j}{j!} \frac 1 {z^{j - 2}}
+	\right) \\
+	&= - \frac 1 6.
+\end{align*}
+\qed \\
+
+\newpage
+
+
+\item From A\&F: 4.2.1(b)\\
+Evaluate the following real integral
+$$
+\int_0^\infty \frac {\D x}{ (x^2 + a^2)^2 }, \quad a^2 > 0
+$$
+\textit{Solution:} \\
+For convenience throughout this problem lets define
+$$f(x) = \frac 1 {(x^2 + a^2)^2}.$$
+Since the $f(x)$ is an even function we can say
+$$
+\int_0^\infty \frac {\D x}{ (x^2 + a^2)^2 } = \frac 1 2 \int_{-\infty}^\infty \frac {\D x}{ (x^2 + a^2)^2 }.
+$$
+Then we can use the principal value integral which is given by
+$$
+\int_{-\infty}^{\infty}f(x) \D x = \lim_{R\rightarrow \infty} \int_{-R}^R f(x) \D x, \quad \text{if it exists.}
+$$
+Now let's consider the counterclockwise contour $C$ around the closed semicircle centered at the origin in the upper half plane with radius $R$.
+We can say 
+\begin{align}
+\oint_C f(z) \D z = \int_{-R}^R f(x) \D x + \oint_{C_R}f(z) \D z,
+\label{eq:eq01}
+\end{align}
+where $-R$ to $R$ is the section of $C$ along the real axis and $C_R$ is the open semicircle (counterclockwise).
+We can combine these ideas by taking the limit of both sides as $R\rightarrow \infty$.
+Let's take the limit of the right and analyze what is going on.
+This gives us
+\begin{align*}
+\lim_{R\rightarrow \infty} \left(\int_{-R}^R f(x) \D x + \oint_{C_R}f(z) \D z \right)
+	&= \lim_{R\rightarrow \infty} \int_{-R}^R f(x) \D x + \lim_{R\rightarrow \infty} \oint_{C_R}f(z) \D z \\
+	&= \int_{-\infty}^\infty f(x) \D x + \lim_{R\rightarrow \infty} \oint_{C_R} \frac {\D z}{ (z^2 + a^2)^2 }
+\end{align*}
+Let's try to bound the integrand to something that depends on $R^{-1}$.
+We will use the substitution $z = R\E^{\I\theta}$ with $\theta \in [0, \pi]$.
+\begin{align*}
+\left| \frac 1 {(z^2 + a^2)^2} \right|
+	&= \left| \frac 1 {(R^2\E^{2\I\theta} + a^2)^2} \right| \\
+	&= \frac 1 {\left|R^4\E^{4\I\theta} + 2R^2a^2\E^{2\I\theta} + a^4 \right|} \\
+	&\leq \frac 1 {R^2\left|R^2\E^{4\I\theta} + 2a^2\E^{2\I\theta} \right|} \\
+\end{align*}
+Since $f(z)$ is continuous on $C_R$, we can use the $ML$ bound on the integral to say
+\begin{align*}
+\lim_{R\rightarrow\infty}\left| \oint_{C_R} \frac {\D z}{ (z^2 + a^2)^2 } \right|
+	&\leq \lim_{R\rightarrow\infty} \frac {\pi R} {R^2\left|R^2\E^{4\I\theta} + 2a^2\E^{2\I\theta} \right|} \\
+	&= \lim_{R\rightarrow\infty} \frac {\pi} {R\left|R^2\E^{4\I\theta} + 2a^2\E^{2\I\theta} \right|} = 0.
+\end{align*}
+Applying a similar squeeze theorem argument from homework 4 problem 4, we can conclude
+$$
+\lim_{R\rightarrow\infty} \oint_{C_R} \frac {\D z}{ (z^2 + a^2)^2 } = 0.
+$$
+Therefore, equation \eqref{eq:eq01} becomes
+\begin{align*}
+\lim_{R\rightarrow\infty} \oint_C f(z) \D z &= \int_{-\infty}^\infty f(x) \D x + \cancelto{0}{\oint_{C_R} f(z) \D z} \\
+\lim_{R\rightarrow\infty} \oint_C f(z) \D z &= \int_{-\infty}^\infty f(x) \D x
+\end{align*}
+Notice, as $R$ goes to infinity the integral of $f(z)$ along the contour $C$ is equal to the sum of all of the residues at all singularities in the upper half plane for $f(z)$.
+Let $S$ be the collection of singularities in the upper half plane, then we can say
+$$
+\lim_{R\rightarrow\infty} \oint_C f(z) \D z
+	= 2\pi \I \sum_{w \in S} \underset{z=w}{\rm Res} \left( \frac 1 { (z^2 + a^2)^2 } \right). 
+$$
+Hence,
+$$
+\int_{-\infty}^\infty \frac 1 {(x^2 + a^2)^2} \D x
+	= 2\pi \I \sum_{w \in S} \underset{z=w}{\rm Res} \left( \frac 1 { (z^2 + a^2)^2 } \right).
+$$
+We now need to locate the singularities.
+The denominator is only 0 when $z^2 + a^2 = 0$ so we know the singularities are at $z = \pm \I a$.
+However, since only $z = \I a$ is in the upper half plane we can simplify the previous equation and solve for the one residue we need
+\begin{align*}
+\int_{-\infty}^\infty \frac 1 {(x^2 + a^2)^2} \D x
+	&= 2\pi \I \underset{z=\I a}{\rm Res} \left( \frac 1 { (z^2 + a^2)^2 } \right) \\
+	&= 2\pi \I \frac 1 {(2 - 1)!}\frac {\D}{\D z} \left((z - \I a)^2\frac 1 {(z^2 + a^2)^2} \right)\Bigg|_{\I a} \\
+	&= 2\pi \I \frac {\D}{\D z} \left((z - \I a)^2\frac 1 {(z + \I a)^2(z - \I a)^2} \right)\Bigg|_{\I a} \\
+	&= 2\pi \I \frac {\D}{\D z} \left(\frac 1 {(z + \I a)^2} \right)\Bigg|_{\I a} \\
+	&= 2\pi \I \frac {-2} {(\I a + \I a)^3} \\
+	&= 2\pi \I \frac {-2} {- 8 \I a^3} \\
+	&= \frac \pi {2 a^3}.
+\end{align*}
+Recall our original integral was
+$$
+\int_0^\infty \frac {\D x}{ (x^2 + a^2)^2 }
+	= \frac 1 2 \int_{-\infty}^\infty \frac {\D x}{ (x^2 + a^2)^2 }
+	= \frac 1 2 \frac \pi {2 a^3}
+	= \frac \pi {4a^3}
+$$
+\qed \\
+
+\newpage
+
+
+\item  \textbf{Existence and uniqueness of polynomial interpolants.}
+\begin{enumerate}
+\item Suppose $(z_j)_{j = 1}^n$ are distinct points in $\mathbb C$ and suppose $f_j \in \mathbb C$ for $j = 1,\ldots,n$.
+Show that there is at most one polynomial $p(z)$ of degree $n-1$ such that $p(z_j) = f_j$ for $j = 1,\ldots,n$ using Liouville's theorem.
+Such a polynomial $p$ is called an \emph{interpolant}. \\
+
+\noindent
+\textit{Solution:} \\
+Suppose there exists two polynomials $p_1(z)$ and $p_2(z)$ each of degree $n - 1$.
+Assume both agree with $f_j$ at each $z_j$ such that
+$$
+p_1(z_j) = p_2(z_j) = f_j \quad \text{ for each } j = 1, ..., n.
+$$
+Additionally define the node polynomial $\nu (z) = \prod_{j=1}^n (z - z_j)$.
+Now let's consider the function
+$$
+g(z) = \frac {p_1(z) - p_2(z)}{\nu(z)}.
+$$
+We want to utilize Liouville's theorem to conclude that $g(z)$ is constant.
+In order to do this we need to show that $g(z)$ is entire and bounded.
+Let's begin by demonstrating that it is bounded by taking the limit as $z\rightarrow\infty$
+\begin{align*}
+\lim_{z\rightarrow\infty}g(z) 
+	&= \lim_{z\rightarrow\infty}\frac {p_1(z) - p_2(z)}{\nu(z)} \\
+	&= \lim_{z\rightarrow\infty}\frac {p_1(z) - p_2(z)}{\prod_{j=1}^n (z - z_j)} \\
+	&= \frac \infty \infty.
+\end{align*}
+Applying L'Hôpitals rule repeatedly we will end up with $1/z$ which goes to 0 as $z$ goes to infinity since the denominator is an $n$th degree polynomial while the numerator is a degree $n - 1$ polynomial.
+Therefore,
+$$
+\lim_{z\rightarrow\infty}g(z) = \lim_{z\rightarrow\infty}\frac {p_1(z) - p_2(z)}{\nu(z)} = 0,
+$$
+which implies that $g(z)$ is bounded.
+Next, we need to determine if $g(z)$ is entire.
+Since polynomials are entire in the finite $z$ plane, $p_1(z) - p_2(z)$ is entire.
+However, $g(z)$ overall requires a little more analysis since it has singularities where $z=z_j$.
+Notice, since the expression $p_1(z) - p_2(z)$ and $\nu(z)$ are both zero at each $z_j$, then there exists a factorization of $p_1(z) - p_2(z)$ which would allows us to cancel out each of the factors in the product in the denominator.
+Therefore, the singularities of $g(z)$ are removable and thus $g(z)$ is entire (or can be made entire, with the right extension at each $z_j$ as we have done in previous assignments).
+Hence, by Liouville's Theorem, we can conclude that $g(z)$ is constant.
+Combining with the fact that $p_1(z_j) - p_2(z_j) = 0$ for each $j = 1, ..., n$, then $g(z)$ must be 0 everywhere, thus implying $p_1(z) = p_2(z)$ everywhere.
+In conclusion, since these two functions are the same therefore there is at most one polynomial $p(z)$ of degree $n - 1$ such that $p(z_j) = f_j$ for $j = 1,\ldots,n$, otherwise known at the interpolant. \\
+\qed \\
+
+\newpage
+
+\item Define the node polynomial $\nu(z) = \prod_{j=1}^n( z - z_j)$.
+Supposing that $p$ is an interpolant, as above, express $p(z)/\nu(z)$ as a rational function. 
+Find an expression for $p(z)$. This shows existence.\\
+
+\noindent
+\textit{Solution:} \\
+Let's look at $p(z)/\nu(z)$ and consider what happens if we subtract off a specially cooked up collection of terms including the residues $r_j$ for $j=1, ..., n$.
+We can express the residues of $p(z)/\nu(z)$ as
+$$
+\frac 1 {2 \pi \I} \oint_C \frac {p(z)}{\nu(z)} \D z
+	= \sum_{j = 0}^n {\rm Res}\bigg(\frac {p(z)}{\nu(z)}; z_j\bigg)
+	= \sum_{j = 0}^n \frac {f_j} {\prod_{k \neq j}( z _k - z_j )}.
+$$
+Recall partial fractions is connected to the residues.
+We construct the expression to subtract from $p(z)/\nu(z)$ using the partial fraction decomposition relationship to residues
+\begin{align*}
+& \frac {p(z)}{\nu(z)} - \sum_{j = 0}^n \frac {f_j \Big(\prod_{k \neq j}( z _k - z_j )\Big)^{-1}} {z - z_j} \\
+	&\: = \frac {p(z)}{\nu(z)}
+		- \frac {f_1 \Big(\prod_{k \neq 1}( z _k - z_1 )\Big)^{-1}}{z - z_1}
+		- \frac {f_2 \Big(\prod_{k \neq 2}( z _k - z_2 )\Big)^{-1}}{z - z_2} 
+		- ...
+		- \frac {f_n \Big(\prod_{k \neq n}( z _k - z_n )\Big)^{-1}}{z - z_n}
+	&= 0.
+\end{align*}
+This expression is equal to 0 because the collection of terms we are subtracting is the partial fraction decomposition of $p(z)/\nu(z)$.
+I also claim this is possible since $p(z)$ is an interpolant which means it is a polynomial as stated in the last line of the problem statement in part (a).
+Since we constructed this thing we are subtracting off using partial fraction decomposition of $p(z)/\nu(z)$ using the residues, then our expression is 0 everywhere.
+Thus we can say
+\begin{align*}
+\frac {p(z)}{\nu(z)} - \sum_{j = 0}^n \frac {f_j \Big(\prod_{k \neq j}( z _k - z_j )\Big)^{-1}} {z - z_j} &= 0 \\
+\frac {p(z)}{\nu(z)} &= \sum_{j = 0}^n \frac {f_j \Big(\prod_{k \neq j}( z _k - z_j )\Big)^{-1}} {z - z_j} \\
+p(z) &= \nu(z)\sum_{j = 0}^n \frac {f_j \Big(\prod_{k \neq j}( z _k - z_j )\Big)^{-1}} {z - z_j} \\
+p(z) &= \prod_{j=1}^n( z - z_j)\sum_{j = 0}^n \frac {f_j \Big(\prod_{k \neq j}( z _k - z_j )\Big)^{-1}} {z - z_j} \\
+p(z) &= \sum_{j = 0}^n \frac {f_j \prod_{\ell \neq j}( z - z_\ell) } {\prod_{k \neq j}( z _k - z_j )}.
+\end{align*}
+This is our expression for $p(z)$. \\
+\qed \\
+\end{enumerate}
+
+\newpage
+
+
+\item \textbf{Bernstein interpolation formula.}   Suppose that $-1 \leq x_1 < x_2 < \cdots x_n \leq 1$. 
+And suppose that $f(z)$ is analytic in a region $\Omega$ that contains $[-1,1]$.
+Show that for any simple contour $C$ inside $\Omega$ with $[-1,1]$ in its interior that
+\begin{align*}
+	f(x) - p(x) = \frac{\nu(x)}{2 \pi i} \int_C \frac{f(z)}{z - x}
+	\frac{\D z}{\nu(z)}, \quad x \in [-1,1],
+\end{align*}
+where $p$ is the degree $n - 1$ polynomial interpolant satisfying $p(x_j) = f(x_j)$ for $j = 1,2,\ldots,n$.
+We also have $\nu(x) = \prod_{j=1}^n (x - x_j)$.\\
+
+\noindent
+\textit{Solution:} \\
+Starting from the right we have
+\begin{align}
+\frac{\nu(x)}{2 \pi i} \int_C \frac{f(z)}{z - x} \frac{\D z}{\nu(z)} &= \frac 1 {2 \pi i} \int_C \frac{f(z)\nu(x)}{(z - x)\nu(z)} \D z \nonumber \\
+	&= \underset{z=x}{{\rm Res}} \left( \frac{f(z)\nu(x)}{(z - x)\nu(z)}; 0\right)
+		+ \sum_{i=1}^n \underset{z=x_i}{{\rm Res}} \left( \frac{f(z)\nu(x)}{(z - x)\nu(z)}; 0\right).
+\label{eq:eq1}
+\end{align}
+Calculating the residue at $z=x$ is easy because $x$ is a simple pole
+\begin{align*}
+\underset{z=x}{{\rm Res}} \left( \frac{f(z)\nu(x)}{(z - x)\nu(z)}; 0\right)
+	= \underset{z=x}{{\rm Res}} \left( \frac{\frac {f(z)\nu(x)}{\nu(z)}}{(z - x)}; 0\right)
+	= \frac{f(x)\nu(x)}{\nu(x)}
+	= f(x).
+\end{align*}
+Calculating the residue at each $z = x_i$ is similarly quick since they are simple poles
+\begin{align}
+\sum_{i=1}^n \underset{z=x_i}{{\rm Res}} \left( \frac{f(z)\nu(x)}{(z - x)\nu(z)}; 0\right)
+	&= \sum_{i=1}^n \underset{z=x_i}{{\rm Res}} \left( \frac{f(z)\nu(x)}{(z - x)\prod_{j=1}^n (z - x_j)}; 0\right) \nonumber \\
+	&= \sum_{i=1}^n \underset{z=x_i}{{\rm Res}} \left( \left(\frac{f(z)\nu(x)}{(z - x)\prod_{\substack{j=1 \\ j \neq i}}^n (z - x_j)}\right)\Bigg/(z - x_i) \:\:\: ; \:\:\: 0\right) \nonumber \\
+	&= \sum_{i=1}^n \frac{f(x_i)\nu(x)}{(x_i - x)\prod_{\substack{j=1 \\ j \neq i}}^n (x_i - x_j)} \nonumber \\
+	&= - \sum_{i=1}^n \frac{f(x_i)\prod_{j=1}^n (x - x_j)}{(x - x_i)\prod_{\substack{j=1 \\ j \neq i}}^n (x_i - x_j)} \nonumber \\
+	&= - \sum_{i=1}^n \frac{f(x_i)\prod_{\substack{j=1 \\ j \neq i}}^n (x - x_j)}{\prod_{\substack{j=1 \\ j \neq i}}^n (x_i - x_j)}
+\label{eq:eq2}
+	= - p(x)
+\end{align}
+Where we know this is $p(z)$ from our work in problem 4. \\
+Therefore we have Equation \eqref{eq:eq1} is equal to $f(x) - p(x)$.
+Furthermore, since $\nu(x_i) = 0$ for each $i = 1, ..., n$, then
+\begin{align*}
+f(x_i) - p(x_i) &= 0 \\
+f(x_i) &= p(x_i)
+\end{align*}
+for all $i = 1, ..., n$.
+Finally we can also determine the degree of the polynomial $p(x)$ is $n - 1$.
+This is due the equation \eqref{eq:eq2} being made up of some scalar or weight factor and the product in the numerator which is $\nu(x)$ (a degree n polynomial) but without one of it's factors leaving it as an $n - 1$ degree polynomial.
+\qed \\
+
+\newpage
+
+
+\item  \textbf{Chebyshev polynomial interpolants.}  Recall 
+\begin{align*}
+\varphi(z) = z + \sqrt{z - 1} \sqrt{z +1}, \quad z \in \mathbb C \setminus [-1,1].
+\end{align*}
+
+\begin{enumerate}
+\item Show that the polynomial
+\begin{align*}
+T_n(z) = \frac 1 2 \left( \varphi(z)^n + \varphi(z)^{-n} \right),
+\end{align*}
+has all of its roots $x_1 < x_2 < \cdots x_n$ within $[-1,1]$. \\
+
+\noindent
+\textit{Solution:} \\
+Let's begin by looking more closely at $\varphi(z)$ with a specific substitution, namely $z = \cos \theta$ with $\theta \in [0, \pi]$.
+Then we have
+\begin{align*}
+\varphi(\cos \theta) &= \cos \theta + \sqrt{\cos \theta - 1}\sqrt{\cos \theta + 1} \\
+	&= \cos \theta - \I \sqrt{1 - \cos \theta}\sqrt{1 + \cos \theta} \\
+	&= \cos \theta - \I \sqrt{1 - \cos^2 \theta} \\
+	&= \cos \theta - \I \sqrt{\sin^2 \theta} \\
+	&= \cos \theta - \I \sin \theta \\
+	&= \E^{-\I \theta}.
+\end{align*}
+Now putting this thing again we have
+\begin{align*}
+T_n(\cos\theta) &= \frac 1 2 \left( \varphi(\cos\theta)^n + \varphi(\cos\theta)^{-n} \right) \\
+	&= \frac 1 2 \left( \left(\E^{-\I \theta}\right)^n + \left(\E^{-\I \theta}\right)^{-n} \right) \\
+	&= \frac 1 2 \left( \E^{-n\I \theta} + \E^{n\I \theta} \right) \\
+	&= \frac 1 2 \left( \cos n\theta - \cancel{\I \sin n \theta} + \cos n \theta + \cancel{\I \sin n \theta} \right) \\
+	&= \frac 1 2 ( 2 \cos n\theta ) \\
+	&= \cos n\theta.
+\end{align*}
+Notice, $\theta = \arccos z$, then we have
+$$
+T_n(z) = \cos \big( n \arccos z \big).
+$$
+Let's find out what values of $z$ this function $T_n(z) = 0$, let $k \in \mathbb Z$, then
+\begin{align*}
+n \arccos z &= \frac \pi 2 + \pi k \\
+\arccos z &= \frac 1 n \Big( \frac \pi 2 + \pi k \Big) \\
+z &= \cos \Bigg( \frac 1 n \bigg( \frac \pi 2 + \pi k \bigg) \Bigg).
+\end{align*}
+Therefore, the zeros of $T_n(z)$ are all within the range of $\cos$ which is between $[-1, 1]$.
+Additionally, because we are dividing by $n$ there will be $n$ zeros between $-1$ and $1$. \\
+\qed \\
+
+
+\item Consider $J(w) =  1/2 (w + 1/w)$. 
+Show that the image of the circle of radius $\rho > 1$ under $J$ is an ellipse $B_\rho$ that contains $[-1,1]$ in its interior.
+Then show $\varphi(J(w)) = w$. \\
+
+\noindent
+\textit{Solution:} \\
+Let's consider the image of a circle with radius $\rho > 1$, if we parameterize this with $z = \rho \E^{\I \theta}$ and plug this in to $J(w)$ we have
+\begin{align*}
+J(\rho\E^{\I \theta})
+	&= \frac 1 2 \left( \rho\E^{\I \theta} + \frac 1 \rho \E^{-\I \theta} \right) \\
+	&= \frac 1 2 \left( \rho \cos \theta + \rho \sin \theta + \frac 1 \rho \cos \theta - \I \frac 1 \rho \sin \theta \right) \\
+	&= \frac 1 2 \left( \left( \rho + \frac 1 \rho\right) \cos \theta + \I \left( \rho  - \frac 1 \rho \right) \sin \theta \right).
+\end{align*}
+Notice this is the equation of an ellipse since it is a slightly stretched and flattened out circle.
+This is almost a circle of radius $\rho$ but it is slightly stretched in different amounts in the $x$ (real) and $y$ (imaginary) directions.
+Therefore the image is an ellipse. \\
+
+\noindent
+We wish to show that $\varphi(J(w)) = w $.
+Notice, 
+\begin{align*}
+\varphi(J(w)) &= J(w) + \sqrt{J(w) - 1}\sqrt{J(w) + 1} \\
+	&= J(w) + \sqrt{1/2 (w + 1/w) - 1}\sqrt{1/2 (w + 1/w) + 1 } \\
+	&= J(w) + \sqrt{\frac w 2 + \frac 1 {2w} - 1}\sqrt{\frac w 2 + \frac 1 {2w} + 1 } \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) + \sqrt{\frac {w^2} {2w} + \frac 1 {2w} - \frac {2w}{2w} }\sqrt{\frac {w^2} {2w} + \frac 1 {2w} + \frac {2w}{2w}  } \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) + \sqrt{\frac {(w - 1)^2} {2w} }\sqrt{\frac {(w + 1)^2} {2w}   } \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) + \frac {(w - 1)(w + 1)} {2w} \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) + \frac {w^2 - 1} {2w} \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) + \frac 1 2 \left( w - \frac 1 w \right) \\
+	&= \frac 1 2 w + \cancel{\frac 1 {2w}} + \frac 1 2 w - \cancel{\frac 1 {2w}} \\
+	&= w.
+\end{align*}
+Hence, we have what we desired. \\
+\qed \\
+
+\item Show that if $f$ is analytic in a region that contains $B_\rho$ and its interior, and $|f(z)| \leq M$ for $z$ interior to $B_\rho$ then for $-1 \leq x \leq 1$,
+\begin{align*}
+|f(x) - p(x)|
+	&\leq 2 \frac{M | B_\rho| }{\pi}  (\rho^n - \rho^{-n})^{-1} (\rho + \rho^{-1} - 2)^{-1} \leq 2 \frac{M | B_\rho| }{\pi} \frac{\rho^{2-n}}{(\rho - 1)^3} \\
+	&\leq C_\rho \rho^{-n}, \quad \text{for a constant} \quad C_\rho > 0,
+\end{align*}
+where $p(x_j) = f(x_j)$, i.e., $p$ is the degree $n - 1$ interpolant of $f$ at the roots of $T_n$. 
+Here $|B_\rho|$ denotes the arclength of $B_\rho$.  This shows that the exponential rate of convergence of Chebyshev interpolants is governed by the proximity of the nearest singularity of $f$. \\
+
+\noindent
+\textit{Solution:} \\
+Assume $f$ is analytic in a region that contains the ellipse $B_\rho$ and it's interior.
+Additionally, assume $|f(z)| < M$ for $z$ interior to $B_\rho$.
+Now consider where $-1 \leq x \leq 1$ and let's look at bounding the following
+\begin{align*}
+|f(x) - p(x)| = \left| \frac{\nu(x)}{2 \pi \I} \oint_C \frac{f(z)}{z - x}
+	\frac{\D z}{\nu(z)} \right|.
+\end{align*}
+First of all, utilizing the conclusions of the Bernstein–Walsh inequality we know that $|\nu(x)| = \frac 1 {2^{n - 1}} |T_n(x)|$.
+Therefore, we change the instances of $\nu(x)$ to $T_n(x)$'s with the appropriate scaling.
+Hence
+\begin{align*}
+\left| \frac{\nu(x)}{2 \pi \I} \oint_C \frac{f(z)}{z - x} \frac{\D z}{\nu(z)} \right|
+	&= \left| \frac{T_n(x)}{2^n \pi \I} \oint_C \frac{f(z)}{z - x} \frac{2^{n - 1}\D z}{T_n(z)} \right| \\
+	&= \left| \frac 1 {2 \pi \I} T_n(x) \oint_C \frac{ f(z)}{z - x} \frac{\D z}{T_n(z)} \right| \\
+	&\leq \frac 1 {2 \pi } |T_n(x)| \oint_C \left| \frac{ f(z)}{z - x} \right| \frac 1 {|T_n(z)|} |\D z|.
+\end{align*}
+Recall in homework 3 we showed $|T_n(z)| \leq 1$ on the interval $[-1, 1]$.
+We take the contour $C$ to be the ellipse $B_\rho$ and parameterize with $z = J(w) = \frac 1 2 (w + \frac 1 w)$.
+Then $\D z = J^\prime(w) \D w = \frac 1 2 (1 - 1/w^2) \D w$.
+Now we continue with our from the previous inequality
+\begin{align*}
+&= \frac 1 {2 \pi }
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{J(w) - x} \right|
+		\frac 1 {|T_n(J(w))|}
+		\left|\frac 1 2 \left(1 - \frac 1 {w^2} \right) \D w \right| \\
+&= \frac 1 {2 \pi}
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{\frac 1 2 (w + \frac 1 w) - x} \right|
+		\frac 1  {\left| \frac 1 2 \left( \varphi(J(w))^n + \varphi(J(w))^{-n} \right) \right|}
+		\left|\frac 1 2 \left(1 - \frac 1 {w^2} \right) \D w \right| \\
+&= \frac 1 {2 \pi}
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{\frac 1 2 (w + \frac 1 w) - x} \right|
+		\frac 1  {\left| \frac 1 2 \left( w^n + w^{-n} \right) \right|}
+		\left|\frac 1 2 \left(1 - \frac 1 {w^2} \right) \D w \right|
+\end{align*}
+In the last few steps we used the fact from part (b) which showed $\varphi(J(w)) = w$.
+Now we will use $w = \rho \E^{\I \theta}$ and $\D w = \rho \I \E^{\I \theta}$ we have
+\begin{align*}
+&= \frac 1 {2 \pi}
+	\oint_{B_\rho}
+		\frac{ |f(z)|}{|\frac 1 2 (\rho \E^{\I \theta} + \frac 1 \rho \E^{- \I \theta}) - x|}
+		\frac 1  {\left| \frac 1 2 \left( \rho^n \E^{n \I \theta} + \rho^{-n} \E^{-n\I \theta} \right) \right|}
+		\left|\frac 1 2 \left(1 - \frac 1 {\rho^2 \E^{2 \I \theta}} \right) \rho \I \E^{\I \theta} \D \theta \right|.
+\end{align*}
+Notice, applying the reverse triangle inequality to this term we have
+\begin{align*}
+\frac 1  {\frac 1 2 \left| \rho^n \E^{n \I \theta} + \rho^{-n} \E^{-n\I \theta} \right|}
+	\leq \frac 1  {\frac 1 2 \Big| \left| \rho^n \E^{n \I \theta} \right| - \left| - \rho^{-n} \E^{-n\I \theta} \right| \Big|} 
+	\leq \frac 1  {\frac 1 2 \left| \rho^n - \rho^{-n} \right|}.
+\end{align*}
+Additionally, using a well known ellipse fact, we have
+\begin{align*}
+\frac 1 {|\frac 1 2 (\rho \E^{\I \theta} + \frac 1 \rho \E^{- \I \theta}) - x|}
+	&\leq \frac 1 {\frac 1 2 \left( \rho + \frac 1 \rho \right)- 1} \\
+	&\leq \frac 1 { \frac { \rho + \frac 1 \rho - 2}{2}} \\
+	&= \frac 2 { \rho + \frac 1 \rho - 2} \\
+\end{align*}
+Now we can move forward with our original statement, applying these two inequalities at once,
+\begin{align*}
+&= \frac 1 {2 \pi}
+	\oint_{B_\rho}
+		\frac{ |f(z)|}{|\frac 1 2 (\rho \E^{\I \theta} + \frac 1 \rho \E^{- \I \theta}) - x|}
+		\frac 1  {\left| \frac 1 2 \left( \rho^n \E^{n \I \theta} + \rho^{-n} \E^{-n\I \theta} \right) \right|}
+		\left|\frac 1 2 \left(1 - \frac 1 {\rho^2 \E^{2 \I \theta}} \right) \rho \I \E^{\I \theta} \D \theta \right| \\
+&\leq \frac 1 {2 \pi}
+	\frac 1  {\frac 1 2 \left| \rho^n - \rho^{-n} \right|}
+	\frac 2 { \left( \rho + \frac 1 \rho - 2 \right)}
+	\oint_{B_\rho} |f(z)| \left|\frac 1 2 \left(1 - \frac 1 {\rho^2 \E^{2 \I \theta}} \right) \rho \I \E^{\I \theta} \D \theta \right| \\
+&\leq \frac 1 {\pi}
+	\frac 1  {\left| \rho^n - \rho^{-n} \right|}
+	\frac 2 { \left( \rho + \frac 1 \rho - 2 \right)}
+	\oint_{B_\rho} |f(z)| \left|\frac 1 2 \left(1 - \frac 1 {\rho^2 \E^{2 \I \theta}} \right) \rho \I \E^{\I \theta} \D \theta \right| \\
+&\leq \frac {2 M \big| B_\rho \big|} {\pi}
+	\frac 1  {\left| \rho^n - \rho^{-n} \right|}
+	\frac 1 { \left( \rho + \frac 1 \rho - 2 \right)} \\
+&\leq \frac {2 M \big| B_\rho \big|} {\pi}
+	( \rho^n - \rho^{-n} )^{-1}
+	\left( \rho + \rho^{-1} - 2 \right)^{-1}.
+\end{align*}
+Now to get to the final inequality requested we can manipulate the terms depending on $\rho$ to have
+\begin{align}
+\frac 1 {\rho^n - \rho^{-n}} \frac 1 {\rho + \rho^{-1} - 2} &= \frac 1 {\rho^n - \rho^{-n}} \frac {\rho} {\rho^2 - 2\rho + 1} \nonumber \\
+	&= \frac 1 {\rho^n - \rho^{-n}} \frac {\rho} {(\rho - 1)^2} \frac {\rho^{-n}}{\rho^{-n}} \nonumber \\
+	&= \frac {\rho^{-n}} {1 - \rho^{-2n}} \frac {\rho} {(\rho - 1)^2} \nonumber \\
+	&= \frac 1 {1 - \rho^{-2n}} \frac {\rho^{1-n}} {(\rho - 1)^2}.
+\label{eq:eq02}
+\end{align}
+Notice, 
+\begin{align*}
+\rho^{2n} &\geq \rho \\
+\rho^{-2n} &\leq \rho^{-1} \\
+- \rho^{-2n} &\geq - \rho^{-1} \\
+1 - \rho^{-2n} &\geq 1 - \rho^{-1}.
+\end{align*}
+Hence, 
+$$
+\frac 1 {1 - \rho^{-2n}} \leq \frac 1 {1 - \rho^{-1}}.
+$$
+Apply this to the term on the expression \eqref{eq:eq02} then you get
+$$
+\frac 1 {1 - \rho^{-2n}} \frac {\rho^{1-n}} {(\rho - 1)^2}
+	\leq \frac 1 {1 - \rho^{-1}} \frac {\rho^{1-n}} {(\rho - 1)^2}
+	= \frac \rho {\rho - 1} \frac {\rho^{1-n}} {(\rho - 1)^2}
+	= \frac {\rho^{2-n}} {(\rho - 1)^3}
+$$
+Therefore, 
+\begin{align*}
+\frac {2 M \big| B_\rho \big|} {\pi} ( \rho^n - \rho^{-n} )^{-1} \left( \rho + \rho^{-1} - 2 \right)^{-1}
+	&\leq \frac {2 M \big| B_\rho \big|} {\pi} \frac {\rho^{2-n}} {(\rho - 1)^3} \\
+	&= \frac {2 M \big| B_\rho \big|} {\pi} \frac {\rho^2} {(\rho - 1)^3} \rho^{-n} \\
+	&= C_\rho \rho^{-n}
+\end{align*}
+where 
+$$
+C_\rho = \frac {2 M \big| B_\rho \big|} {\pi} \frac {\rho^2} {(\rho - 1)^3}
+$$
+as desired.
+\qed
+\\
+      
+\end{enumerate}
+\newpage
+
+
+\item Compute the following two integrals explicitly for $ z \not \in [-1,1]$:
+\begin{enumerate}
+\item
+\begin{align*}
+\frac{1}{\pi}\int_{-1}^1 \frac{1}{\sqrt{1-x} \sqrt{1 + x}} \frac{\D x}{x -z}.
+\end{align*}
+
+\textit{Solution:} \\
+We first recall that from homework 8 problem 4 part a) we showed
+\begin{align}
+\int_{-1}^1 \frac {f(x)\D x} {\sqrt {1 - x} \sqrt {1 + x}} = \frac 1 {2 \I} \oint_C \frac {f(z)\D z} {\sqrt {z - 1} \sqrt {z + 1}}.
+\label{eq:eq3}
+\end{align}
+Applying that here we have
+\begin{align*}
+\frac 1 \pi \int_{-1}^1 \frac {\frac 1 {x - z_0}\D x} {\sqrt {1 - x} \sqrt {1 + x}}
+	&= \frac 1 {2 \pi \I} \oint_C \frac {\frac 1 {z - z_0}\D z} {\sqrt {z - 1} \sqrt {z + 1}}.
+\end{align*}
+For notational convenience let
+$$g(z) = \frac {\frac 1 {z - z_0}} {\sqrt {z - 1} \sqrt {z + 1}}.$$
+As we expand our contour $C$ outwards we run into the singularity at $z_0$, leaving behind a clockwise circular contour around $z_0$ denoted as $-C_{z_0}$.
+We also have the normal counterclockwise contour around infinity which we will use in our residue calculation.
+Hence we have
+\begin{align}
+\frac 1 {2 \pi \I} \oint_C g(z) \D z
+	&= \frac 1 {2 \pi \I} \oint_{-C_{z_0}} g(z) \D z + \frac 1 {2 \pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
+	&= - \frac 1 {2 \pi \I} \oint_{C_{z_0}} g(z) \D z + \frac 1 {2 \pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
+	&= - \underset{z=z_0}{{\rm Res}} g(z)  + \underset{z=\infty}{{\rm Res}} g(z) \label{eq:eq4}
+\end{align}
+Now we want to calculate the residues at $\infty$ and at $z_0$.
+Let
+$$ h(z) = \frac 1 {\sqrt {z - 1} \sqrt {z + 1}} $$
+and
+$$H(z) = h\bigg( \frac 1 z \bigg) = \frac 1 {\sqrt {1/z - 1} \sqrt {1/z + 1}} \frac z z = \frac z {\sqrt {1 - z} \sqrt {1 + z}}. $$
+Then we can see $H(0) = 0$.
+Let's calculate $h^\prime(0)$.
+\begin{align*}
+H^\prime(z) = \frac {\sqrt {1 - z} \sqrt {1 + z} - z\big(-1/2(1 - z)^{-1/2}(1 + z)^{1/2} +1/2(1 - z)^{1/2}(1 + z)^{-1/2} \big)}{ (1 - z)(1 + z)}
+\end{align*}
+Hence,
+\begin{align*}
+H^\prime(0) &= \frac {\sqrt {1} \sqrt {1} - 0\big(-1/2(1)^{-1/2}(1)^{1/2} +1/2(1)^{1/2}(1)^{-1/2} \big)}{ (1)(1)} = 1.
+\end{align*}
+Then our Taylor series expansion of $H(z)$ is
+\begin{align*}
+H(z) &= H(0) z^0 /0! + H^\prime(0) z^1 /1! + \mathcal O (z^2) \\
+	&= 0 + z + \mathcal O (z^2) \\
+	&= z + \mathcal O (z^2)
+\end{align*}
+then for $h(z)$ is
+\begin{align*}
+h(z) &= z^{-1} + \mathcal O (z^{-2}).
+\end{align*}
+We really care about $\frac 1 {z - z_0} h(z)$ so we have
+\begin{align*}
+\frac 1 {z - z_0} h(z) &= \frac 1 {z - z_0} \left( z^{-1} + \mathcal O (z^{-2})\right) \\
+	&= \frac 1 {z} \frac 1 {1 - z_0/z} \left( z^{-1} + \mathcal O (z^{-2})\right) \\
+	&= \frac 1 {z} \sum_{k=0}^\infty \left(\frac {z_0} z\right)^k \left( z^{-1} + \mathcal O (z^{-2})\right)
+\end{align*}
+where $|z_0| < |z|$ since we are on a contour with a large radius $R$.
+Then
+\begin{align*}
+\frac 1 {z} \sum_{k=0}^\infty \left(\frac {z_0} z\right)^k \left( z^{-1} + \mathcal O (z^{-2})\right)
+	&=  \frac 1 {z^2} \sum_{k=0}^\infty \left(\frac {z_0} z\right)^k + \mathcal O (z^{-3}) \sum_{k=0}^\infty \left(\frac {z_0} z\right)^k
+\end{align*}
+Therefore the residue of this function at $\infty$ is trivially
+$$
+\underset{z=\infty}{{\rm Res}} \left( \frac 1 {(z - z_0) \sqrt {z - 1} \sqrt {z + 1}} \right) = 0
+$$
+since the coefficient of the $1/z$ is 0.
+Computing the residue at $z_0$ is a little easier since it is a simple pole.
+Therefore
+\begin{align*}
+\underset{z=z_0}{{\rm Res}} \left( \frac 1 {(z - z_0) \sqrt {z - 1} \sqrt {z + 1}} \right)
+	& = \underset{z=z_0}{{\rm Res}} \left( \frac {\frac 1 {\sqrt {z - 1} \sqrt {z + 1}}} {z - z_0} \right) \\
+	& = \frac 1 {\sqrt {z_0 - 1} \sqrt {z_0 + 1}}.
+\end{align*}
+Plugging these into equation \eqref{eq:eq4} we have
+$$
+\frac 1 {2 \pi \I} \oint_C g(z) \D z
+	= - \underset{z=z_0}{{\rm Res}} g(z)  + \underset{z=\infty}{{\rm Res}} g(z) = - \frac 1 {\sqrt {z_0 - 1} \sqrt {z_0 + 1}} + 0.
+$$
+Hence,
+$$
+\frac 1 \pi \int_{-1}^1 \frac {\frac 1 {x - z_0}\D x} {\sqrt {1 - x} \sqrt {1 + x}}
+	= - \frac 1 {\sqrt {z_0 - 1} \sqrt {z_0 + 1}}.
+$$
+\qed \\
+
+\newpage
+
+\item 
+\begin{align*}
+\frac{2}{\pi}\int_{-1}^1 {\sqrt{1-x} \sqrt{1 + x}} \frac{\D x}{x -z}.
+\end{align*}
+
+\textit{Solution:} \\
+Again applying equation \eqref{eq:eq3}, we have \\
+\begin{align*}
+\frac{2}{\pi} \int_{-1}^1 \sqrt{1 -x} \sqrt{1 + x}\, \frac{\D x}{x -z}
+	&= \frac{2}{\pi}  \int_{-1}^1 \frac{1 - x^2}{\sqrt{1 - x} \sqrt{1 + x}} \frac{\D x}{x -z}\\
+	&= \frac{1}{\pi \I} \oint_C \frac{1 - z^2\D z}{\sqrt{z -1} \sqrt{z + 1}} \frac{\D z}{z - z_0} \\
+	&= \frac{1}{\pi \I} \oint_C \frac{(1 - z)(1 + z) }{\sqrt{z -1} \sqrt{z + 1}} \frac{\D z}{z - z_0} \\
+	&= - \frac 1 {\pi \I} \oint_C \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0} \D z.
+\end{align*}
+Let
+$$g(z) = \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0}.$$
+Then as we expand our contour $C$ outwards we run into the singularity at $z_0$, leaving behind a clockwise circular contour around $z_0$ denoted as $-C_{z_0}$.
+We also have the normal counterclockwise contour around infinity which we will use in our residue calculation.
+Hence we have
+\begin{align}
+- \frac 1 {\pi \I} \oint_C g(z) \D z
+	&= - \frac 1 {\pi \I} \oint_{-C_{z_0}} g(z) \D z - \frac 1 {\pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
+	&= \frac 1 {\pi \I} \oint_{C_{z_0}} g(z) \D z - \frac 1 {\pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
+	&= 2 \underset{z=z_0}{{\rm Res}} g(z) - 2 \underset{z=\infty}{{\rm Res}} g(z).
+\label{eq:eq5}
+\end{align}
+Recall, that we have the Taylor expansion of $\sqrt {z - 1} \sqrt {z + 1}$ at $\infty$ is
+$$
+\sqrt {z - 1} \sqrt {z + 1} = z - \frac 1 2 z^{-1} + \mathcal O(z^{-3}).
+$$
+Then we can multiply through by our extra term in this scenario to get
+\begin{align*}
+\frac 1 {z - z_0}\sqrt {z - 1} \sqrt {z + 1} &= \frac 1 {z - z_0} \left(z - \frac 1 2 z^{-1} + \mathcal O(z^{-3})\right) \\
+	&= \frac 1 z \frac 1 {1 - z_0/z} \left(z - \frac 1 2 z^{-1} + \mathcal O(z^{-3})\right) \\
+	&= \frac 1 z \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k \left(z - \frac 1 2 z^{-1} + \mathcal O(z^{-3})\right) \\
+	&=  z\frac 1 z \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k - \frac 1 2 z^{-1}\frac 1 z \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k + \mathcal O(z^{-3})\frac 1 z \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k \\
+	&= \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k - \frac 1 2 \frac 1 {z^2} \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k + \mathcal O(z^{-4}) \sum_{k = 0}^\infty \left(\frac {z_0} z\right)^k.
+\end{align*}
+Therefore,
+$$
+\underset{z=\infty}{{\rm Res}} \left( \frac 1 {z - z_0}\sqrt {z - 1} \sqrt {z + 1} \right) = z_0.
+$$
+While the residue at the point $z_0$ is 
+$$
+\underset{z=z_0}{{\rm Res}} \left( \frac 1 {z - z_0} \sqrt {z - 1} \sqrt {z + 1} \right) = \sqrt {z_0 - 1} \sqrt {z_0 + 1}.
+$$
+Lets plug these in to equation \eqref{eq:eq5} to have
+\begin{align*}
+- \frac 1 {\pi \I} \oint_C g(z) \D z
+	= 2 \underset{z=z_0}{{\rm Res}} g(z) - 2 \underset{z=\infty}{{\rm Res}} g(z)
+	% = - 2 \underset{z=z_0}{{\rm Res}} g(z) + 2 \underset{z=\infty}{{\rm Res}} g(z)
+	=  2 \sqrt {z_0 - 1} \sqrt {z_0 + 1} - 2z_0.
+\end{align*}
+Hence,
+$$
+\frac{2}{\pi}\int_{-1}^1 {\sqrt{1-x} \sqrt{1 + x}} \frac{\D x}{x -z} = 2 (\sqrt {z_0 - 1} \sqrt {z_0 + 1} - z_0).
+$$
+\qed \\
+
+\end{enumerate}
+
+      
+    
+
+
+  
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
