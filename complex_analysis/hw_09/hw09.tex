@@ -64,35 +64,56 @@ Do these problems ($i$) enclosing the singular points inside C. \\
 \noindent
 (a)
 $$
-\frac {z^2 + 1}{ z^2 - a^2 }, \quad a^2 < 1
+f(z) = \frac {z^2 + 1}{ z^2 - a^2 }, \quad a^2 < 1
 $$
 \textit{Solution:} \\
-\textbf{TODO: gonna do some residues? Maybe principal value integrals...?}
+Let the set of singularities of $f(z)$ be $S$
 \begin{align*}
-\frac 1 {2 \I \pi} \oint_C \frac {z^2 + 1}{ z^2 - a^2 } \D z
+\frac 1 {2 \pi \I} \oint_C \frac {z^2 + 1}{ z^2 - a^2 } \D z
+	&= \sum_{w \in S} \underset{z=w}{\rm Res} f(z).
 \end{align*}
+The denominator can be factored to $z^2 - a^2 = (z - a)(z + a)$, therefore the singularities of $f(z)$ are $z = \pm a$.
+Then we have
+\begin{align*}
+\frac 1 {2 \pi \I} \oint_C \frac {z^2 + 1}{ z^2 - a^2 } \D z
+	&= \underset{z=-a}{\rm Res} f(z) + \underset{z=a}{\rm Res} f(z) \\
+	&= \frac {(-a)^2 + 1}{ (-a - a) } + \frac {(a)^2 + 1}{ (a +a) } \\
+	&= - \frac {a^2 + 1}{ 2a } + \frac {a^2 + 1}{ 2a } = 0????
+\end{align*}
+\textbf{Fix issue} here \\
+\qed \\
 
 \noindent
 (b)
 $$
-\frac {z^2 + 1}{ z^3 }
+f(z) = \frac {z^2 + 1}{ z^3 }
 $$
 \textit{Solution:} \\
-\textbf{TODO:}
+Looking at this in terms of the residue we have
 \begin{align*}
-\frac 1 {2 \I \pi} \oint_C \frac {z^2 + 1}{ z^3 } \D z
+\frac 1 {2 \pi \I} \oint_C \frac {z^2 + 1}{ z^3 } \D z
+	&= \underset{z=0}{\rm Res} f(z) \\
+	&= \frac 1 {(3 - 1)!} \frac {\D^2} {\D z^2} \left( (z - 0)^3\left( \frac {z^2 + 1}{ z^3 } \right) \right) \Big|_0 \\
+	&= \frac 1 {2!} \frac {\D^2} {\D z^2} \left( z^2 + 1 \right) \Big|_0 \\
+	&= \frac 1 2 \frac {\D} {\D z} \left( 2z \right) \Big|_0 \\
+	&= \frac 1 2 2  \\
+	&= 1.
 \end{align*}
+\textbf{TODO: Double check with someone else} \\
+\qed \\
 
 \noindent
 (c)
 $$
-z^2\E^{-1/z}
+f(z) = z^2\E^{-1/z}
 $$
 \textit{Solution:} \\
-\textbf{TODO:}
+Looking at this in terms of the residue we have, what is the order of this pole?? Do I need to do something else?
 \begin{align*}
-\frac 1 {2 \I \pi} \oint_C z^2\E^{-1/z} \D z
+\frac 1 {2 \pi \I} \oint_C z^2\E^{-1/z} \D z
+	&= \underset{z=0}{\rm Res} f(z) \\
 \end{align*}
+\textbf{TODO: Something about the pole order is throwing me off.}
 
 \newpage
 
@@ -390,25 +411,171 @@ J(\rho\E^{\I \theta})
 Notice this is the equation of an ellipse since it is a slightly stretched and flattened out circle.
 This is almost a circle of radius $\rho$ but it is slightly stretched in different amounts in the $x$ (real) and $y$ (imaginary) directions.
 Therefore the image is an ellipse. \\
+
+\noindent
+We wish to show that $\varphi(J(w)) = w $.
+Notice, 
+\begin{align*}
+\varphi(J(w)) &= J(w) + \sqrt{J(w) - 1}\sqrt{J(w) + 1} \\
+	&= J(w) - \I \sqrt{1 - J(w)}\sqrt{1 + J(w) } \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) - \I \sqrt{1 - J(w)^2} \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) - \I \sqrt{1 - \frac 1 4 \left( w + \frac 1 w \right)^2} \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) - \I \sqrt{1 - \frac 1 4 \left( w^2 + 2 + \frac 1 {w^2} \right)} \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) - \I \sqrt{- \frac 1 4 w^2 + \frac 1 2 - \frac 1 {4w^2} } \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) - \I \sqrt{- \frac 1 4 \left( w^2 - 2  + \frac 1 {w^2} \right) } \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) - \I \sqrt{- \frac 1 4 \left( w -  \frac 1 {w} \right)^2 } \\
+	&= \frac 1 2 \left( w + \frac 1 w \right) - \I^2 \frac 1 2 \left( w -  \frac 1 {w} \right) \\
+	&= \frac 1 2 w + \cancel{\frac 1 {2w}} + \frac 1 2 w - \cancel{\frac 1 {2w}} \\
+	&= w.
+\end{align*}
+Hence, we have what we desired. \\
 \qed \\
 
 \item Show that if $f$ is analytic in a region that contains $B_\rho$ and its interior, and $|f(z)| \leq M$ for $z$ interior to $B_\rho$ then for $-1 \leq x \leq 1$,
 \begin{align*}
-|f(x) - p(x)| \leq 2 \frac{M | B_\rho| }{\pi}  (\rho^n - \rho^{-n})^{-1} (\rho + \rho^{-1} - 1)^{-1} \leq 2 \frac{M | B_\rho| }{\pi} \frac{\rho^{1-n}}{(\rho - 1)^2}.
+|f(x) - p(x)|
+	&\leq 2 \frac{M | B_\rho| }{\pi}  (\rho^n - \rho^{-n})^{-1} (\rho + \rho^{-1} - 2)^{-1} \leq 2 \frac{M | B_\rho| }{\pi} \frac{\rho^{2-n}}{(\rho - 1)^3} \\
+	&\leq C_\rho \rho^{-n}, \quad \text{for a constant} \quad C_\rho > 0,
 \end{align*}
-where $p(x_j) = f(x_j)$, i.e., $p$ is the interpolant of $f$ at the roots of $T_n$. 
+where $p(x_j) = f(x_j)$, i.e., $p$ is the degree $n - 1$ interpolant of $f$ at the roots of $T_n$. 
 Here $|B_\rho|$ denotes the arclength of $B_\rho$.  This shows that the exponential rate of convergence of Chebyshev interpolants is governed by the proximity of the nearest singularity of $f$. \\
 
 \noindent
 \textit{Solution:} \\
 Assume $f$ is analytic in a region that contains the ellipse $B_\rho$ and it's interior.
 Additionally, assume $|f(z)| < M$ for $z$ interior to $B_\rho$.
-Now consider where $-1 \leq x \leq 1$ 
-\\
-
-\textbf{TODO: p is the polynomial interpolant of f of degree n - 1, lots of varphi stuff hw 3 prob 6/7/8}
+Now consider where $-1 \leq x \leq 1$ and let's look at bounding the following
 \begin{align*}
+|f(x) - p(x)| = \left| \frac{\nu(x)}{2 \pi \I} \oint_C \frac{f(z)}{z - x}
+	\frac{\D z}{\nu(z)} \right|.
 \end{align*}
+First of all, utilizing the conclusions of the Bernstein–Walsh inequality we know that $|\nu(x)| = \frac 1 {2^{n - 1}} |T_n(x)|$.
+Therefore, we change the instances of $\nu(x)$ to $T_n(x)$'s with the appropriate scaling.
+Hence
+\begin{align*}
+\left| \frac{\nu(x)}{2 \pi \I} \oint_C \frac{f(z)}{z - x} \frac{\D z}{\nu(z)} \right|
+	&= \left| \frac{T_n(x)}{2^n \pi \I} \oint_C \frac{f(z)}{z - x} \frac{2^{n - 1}\D z}{T_n(z)} \right| \\
+	&= \left| \frac 1 {2 \pi \I} T_n(x) \oint_C \frac{ f(z)}{z - x} \frac{\D z}{T_n(z)} \right| \\
+	&\leq \frac 1 {2 \pi \I} |T_n(x)| \oint_C \left| \frac{ f(z)}{z - x} \right| \frac 1 {|T_n(z)|} |\D z|.
+\end{align*}
+We take the contour $C$ to be the ellipse $B_\rho$ and parameterize with $z = J(w)$.
+Then $\D z = J^\prime(w) \D w = \frac 1 2 (1 - 1/w^2) \D w$.
+Now we continue with our from the previous inequality
+\begin{align*}
+&\leq \frac 1 {2 \pi \I}
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{J(w) - x} \right|
+		\frac 1 {|T_n(J(w))|}
+		\left|\frac 1 2 \left(1 - \frac 1 {w^2} \right) \D w \right| \\
+&= \frac 1 {2 \pi \I}
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{J(w) - x} \right|
+		\frac 1  {\left| \frac 1 2 \left( \varphi(J(w))^n + \varphi(J(w))^{-n} \right) \right|}
+		\left|\frac 1 2 \left(1 - \frac 1 {w^2} \right) \D w \right| \\
+&= \frac 1 {2 \pi \I}
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{J(w) - x} \right|
+		\frac 1  {\left| \frac 1 2 \left( w^n + w^{-n} \right) \right|}
+		\left|\frac 1 2 \left(1 - \frac 1 {w^2} \right) \D w \right| \\
+&= \frac 1 {2 \pi \I}
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{J(w) - x} \right|
+		\left| \frac {1 - \frac 1 {w^2}}  { w^n + w^{-n} } \right|
+		|\D w|
+\end{align*}
+In the last few steps we used the fact from part (b) which showed $\varphi(J(w)) = w$.
+Now we will use $w = \rho \E^{\I \theta}$ and $\D w = \rho \I \E^{\I \theta}$ we have
+\begin{align*}
+&= \frac 1 {2 \pi \I}
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{J(w) - x} \right|
+		\left| \frac {\left( 1 - \frac 1 {\rho^2\E^{2 \I \theta}} \right) \rho \I \E^{\I \theta}}  { \rho^n\E^{n \I \theta} + \rho^{-n}\E^{-n \I \theta} } \right|
+		|\D \theta| \\
+&= \frac 1 {2 \pi \I}
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{J(w) - x} \right|
+		\left| \frac {\left( \frac {\rho^2\E^{2 \I \theta}}{\rho^2\E^{2 \I \theta}} - \frac 1 {\rho^2\E^{2 \I \theta}} \right) \rho \I \E^{\I \theta}}  { \rho^n\E^{n \I \theta} + \rho^{-n}\E^{-n \I \theta} } \right|
+		|\D \theta| \\
+&= \frac 1 {2 \pi \I}
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{J(w) - x} \right|
+		\left| \frac {\left( \frac {\rho^2\E^{2 \I \theta} - 1}{\rho \E^{ \I \theta}}\right) \I }  { \rho^n\E^{n \I \theta} + \rho^{-n}\E^{-n \I \theta} } \right|
+		|\D \theta|
+\end{align*}
+This is the first fuzzy part for me \textbf{TODO: Fix}
+\begin{align*}
+&\leq \frac 1 {2 \pi \I}
+	\frac 1 { \rho^n + \rho^{-n} }
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{J(w) - x} \right|
+		\left| \left( \frac {\rho^2\E^{2 \I \theta} - 1}{\rho \E^{ \I \theta}}\right) \I  \right|
+		|\D \theta| \\
+&= \frac 1 {2 \pi }
+	\frac 1 { \rho^n + \rho^{-n} }
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{J(w) - x} \right|
+		\left| \frac {\rho^2\E^{2 \I \theta} - 1}{\rho \E^{ \I \theta}} \right|
+		|\D \theta|
+\end{align*}
+This is another fuzzy part for me \textbf{TODO: Fix}
+\begin{align*}
+&\leq \frac 1 {2 \pi }
+	\frac 1 { \rho^n + \rho^{-n} }
+	\left| \frac {\rho^2 - 1}{\rho} \right|
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{J(w) - x} \right|
+		|\D \theta| \\
+&= \frac 1 {2 \pi }
+	\frac 1 { \rho^n + \rho^{-n} }
+	\left| \frac {\rho^2 - 1}{\rho} \right|
+	\oint_{B_\rho}
+		\left| \frac{ f(z)}{\frac 1 2 \left( \rho \E^{\I \theta } + \frac 1 \rho \E^{-\I \theta } \right) - x} \right|
+		|\D \theta| \\
+&\leq \frac 1 {2 \pi }
+	\frac 1 { \rho^n + \rho^{-n} }
+	\left| \frac {\rho^2 - 1} { \rho \left( \frac 1 2 \left( \rho + \frac 1 \rho \right) - 1 \right)} \right|
+	\oint_{B_\rho}
+		\left| f(z) \right|
+		|\D \theta| \\
+&= \frac 1 {2 \pi }
+	\frac 1 { \rho^n + \rho^{-n} }
+	\left| \frac {\rho^2 - 1} {  \frac 1 2 \rho^2 + \frac 1 2  - \rho } \right|
+	\oint_{B_\rho}
+		\left| f(z) \right|
+		|\D \theta| \\
+&= \frac 1 {2 \pi }
+	\frac 1 { \rho^n + \rho^{-n} }
+	\left| \frac {2 \rho^2 - 2} { \rho^2 + 1 - 2 \rho } \right|
+	\oint_{B_\rho}
+		\left| f(z) \right|
+		|\D \theta| \\
+&= \frac 1 {2 \pi }
+	\frac 1 { \rho^n + \rho^{-n} }
+	\left| \frac {2 (\rho - 1 )( \rho + 1)} { (\rho - 1)^2 } \right|
+	\oint_{B_\rho}
+		\left| f(z) \right|
+		|\D \theta| \\
+&= \frac 1 {2 \pi }
+	\frac 1 { \rho^n + \rho^{-n} }
+	\frac {2\rho + 2} { \rho - 1 }
+	\oint_{B_\rho}
+		\left| f(z) \right|
+		|\D \theta| \\
+&\leq \frac 1 {2 \pi }
+	\frac 1 { \rho^n + \rho^{-n} }
+	\frac {2\rho + 2} { \rho - 1 }
+	|B_\rho|M \\
+&= \frac {|B_\rho|M} {\pi }
+	\frac 1 { \rho^n + \rho^{-n} }
+	\frac {\rho + 1} { \rho - 1 } \\
+&\leq \frac {|B_\rho|M} {\pi }
+	\frac 1 { \rho^n}
+	\frac {\rho + 1} { \rho - 1 } \\
+&\leq \frac {|B_\rho|M} {\pi }
+	\frac {\rho + 1} { \rho - 1 } \rho^{-n}
+\end{align*}
+\qed
+\\
       
 \end{enumerate}
 \newpage
@@ -511,11 +678,14 @@ $$
 \end{align*}
 
 \textit{Solution:} \\
-Again applying equation \eqref{eq:eq3}, we have
-\textbf{TODO: Manipulate things back again}
+Again applying equation \eqref{eq:eq3}, we have \\
+\textbf{TODO: Double check this final manipulation}
 \begin{align*}
-\frac{2}{\pi}\int_{-1}^1 {\sqrt{1-x} \sqrt{1 + x}} \frac{\D x}{x -z}
-	&= \frac 1 {\pi \I} \oint_C \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0} \D z.
+\frac{2}{\pi} \int_{-1}^1 \sqrt{1 -x} \sqrt{1 + x}\, \frac{\D x}{x -z}
+	&= \frac{2}{\pi}  \int_{-1}^1 \frac{1 - x^2}{\sqrt{1 - x} \sqrt{1 + x}} \frac{\D x}{x -z}\\
+	&= \frac{1}{\pi \I} \oint_C \frac{1 - z^2\D z}{\sqrt{z -1} \sqrt{z + 1}} \frac{\D z}{z - z_0} \\
+	&= \frac{1}{\pi \I} \oint_C \frac{(1 - z)(1 + z) }{\sqrt{z -1} \sqrt{z + 1}} \frac{\D z}{z - z_0} \\
+	&= - \frac 1 {\pi \I} \oint_C \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0} \D z.
 \end{align*}
 Let
 $$g(z) = \sqrt {z - 1} \sqrt {z + 1} \frac 1 {z - z_0}.$$
@@ -523,10 +693,10 @@ Then as we expand our contour $C$ outwards we run into the singularity at $z_0$,
 We also have the normal counterclockwise contour around infinity which we will use in our residue calculation.
 Hence we have
 \begin{align}
-\frac 1 {\pi \I} \oint_C g(z) \D z
-	&= \frac 1 {\pi \I} \oint_{-C_{z_0}} g(z) \D z + \frac 1 {\pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
-	&= - \frac 1 {\pi \I} \oint_{C_{z_0}} g(z) \D z + \frac 1 {\pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
-	&= - 2 \underset{z=z_0}{{\rm Res}} g(z) + 2 \underset{z=\infty}{{\rm Res}} g(z).
+- \frac 1 {\pi \I} \oint_C g(z) \D z
+	&= - \frac 1 {\pi \I} \oint_{-C_{z_0}} g(z) \D z - \frac 1 {\pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
+	&= \frac 1 {\pi \I} \oint_{C_{z_0}} g(z) \D z - \frac 1 {\pi \I} \oint_{C_\infty} g(z) \D z \nonumber \\
+	&= 2 \underset{z=z_0}{{\rm Res}} g(z) - 2 \underset{z=\infty}{{\rm Res}} g(z).
 \label{eq:eq5}
 \end{align}
 Recall, that we have the Taylor expansion of $\sqrt {z - 1} \sqrt {z + 1}$ at $\infty$ is
@@ -551,13 +721,14 @@ $$
 $$
 Lets plug these in to equation \eqref{eq:eq5} to have
 \begin{align*}
-\frac 1 {\pi \I} \oint_C g(z) \D z
-	= - 2 \underset{z=z_0}{{\rm Res}} g(z) + 2 \underset{z=\infty}{{\rm Res}} g(z)
-	=  - 2 \sqrt {z_0 - 1} \sqrt {z_0 + 1} + 2z_0.
+- \frac 1 {\pi \I} \oint_C g(z) \D z
+	= 2 \underset{z=z_0}{{\rm Res}} g(z) - 2 \underset{z=\infty}{{\rm Res}} g(z)
+	% = - 2 \underset{z=z_0}{{\rm Res}} g(z) + 2 \underset{z=\infty}{{\rm Res}} g(z)
+	=  2 \sqrt {z_0 - 1} \sqrt {z_0 + 1} - 2z_0.
 \end{align*}
 Hence,
 $$
-\frac{2}{\pi}\int_{-1}^1 {\sqrt{1-x} \sqrt{1 + x}} \frac{\D x}{x -z} = 2 (z_0 - \sqrt {z_0 - 1} \sqrt {z_0 + 1}).
+\frac{2}{\pi}\int_{-1}^1 {\sqrt{1-x} \sqrt{1 + x}} \frac{\D x}{x -z} = 2 (\sqrt {z_0 - 1} \sqrt {z_0 + 1} - z_0).
 $$
 \qed \\
 
