@@ -70,7 +70,13 @@ Following the sketch provided in class let's look at an import representation of
 \tan(N z) &= \frac {\sin (N z)}{\cos (N z)} \\
 	&= \frac{ \E^{\I N z} + \E^{- \I N z} }{2\I} \left( \frac {\E^{\I N z} - \E^{- \I N z}} 2 \right)^{-1} \\
 	&= \frac{ \E^{\I N z} + \E^{- \I N z} }{2\I} \left( \frac 2 {\E^{\I N z} - \E^{- \I N z}} \right) \\
-	&= \frac 1 \I \left( \frac { \E^{\I N z} + \E^{- \I N z} }{ \E^{\I N z} - \E^{- \I N z} } \right)
+	&= \frac 1 \I \left( \frac { \E^{\I N z} + \E^{- \I N z} }{ \E^{\I N z} - \E^{- \I N z} } \right) \\
+	&= \frac 1 \I \Bigg( \frac {\E^{\I N z}}{\E^{\I N z}} \left( \frac { 1 + \E^{- 2 \I N z} }{ 1 - \E^{- 2 \I N z} } \right) \Bigg) \\
+	&= \frac 1 \I \Bigg( \frac { 1 + \E^{- 2 \I N z} }{ 1 - \E^{- 2 \I N z} } \Bigg) \\
+	&= \frac 1 \I \Bigg( \frac { 1 + \left( \cos (N z) - \I \sin(N z) \right)^2 }{ 1 - \left( \cos (N z) - \I \sin(N z) \right)^2 } \Bigg) \\
+	&= \frac 1 \I \Bigg( \frac { 1 +  \cos^2 (N z) - 2 \I \cos(N z) \sin(N z)- \sin^2(N z) }{ 1 - \cos^2 (N z) + 2 \I \cos(N z) \sin(N z) + \sin^2(N z) } \Bigg) \\
+	&... \\
+	&= \I + \mathcal O(\E^{-2Nh})
 \end{align*}
 \newpage
 
