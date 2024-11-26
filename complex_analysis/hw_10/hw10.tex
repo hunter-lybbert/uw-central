@@ -1,0 +1,220 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+\usepackage{mathtools}
+
+\graphicspath{ {./images/} }
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=5pt]{lemma}{Lemma}
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{12-02-24} \\
+\text{AMATH 567} \\
+
+\title{\bf { Homework 10} }
+
+
+\maketitle
+\noindent
+Collaborators*: TBD \\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
+\normalsize
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item I sketched the following in class.  Complete the argument.  Show that for an integer $j \in (-N,N)$ and $h > 0$,
+\begin{align*}
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac{\E^{2 \I jz}}{\tan (N z)} \D z
+	= \begin{cases} - \I \pi & j = 0,\\ 0 & \text{otherwise}.\end{cases}
+\end{align*}
+ 
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+Following the sketch provided in class let's look at an import representation of $\tan (Nz)$
+\begin{align*}
+\tan(N z) &= \frac {\sin (N z)}{\cos (N z)} \\
+	&= \frac{ \E^{\I N z} + \E^{- \I N z} }{2\I} \left( \frac {\E^{\I N z} - \E^{- \I N z}} 2 \right)^{-1} \\
+	&= \frac{ \E^{\I N z} + \E^{- \I N z} }{2\I} \left( \frac 2 {\E^{\I N z} - \E^{- \I N z}} \right) \\
+	&= \frac 1 \I \left( \frac { \E^{\I N z} + \E^{- \I N z} }{ \E^{\I N z} - \E^{- \I N z} } \right)
+\end{align*}
+\newpage
+
+\item From A\&F: 4.2.1 (b)\\
+ 
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+f(x) = mx + b
+\end{align*}
+
+
+\item From A\&F: 4.2.2 (a, h)\\
+ 
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+f(x) = mx + b
+\end{align*}
+
+
+\newpage
+
+\item
+  \begin{enumerate}
+\item  Show that
+$$
+\operatorname{Res}_{z=k} f(z) \cot (\pi z)=\frac{1}{\pi} f(k),
+$$
+provided $f(z)$ is analytic at $z=k, ~~k \in \mathbb{Z}$. \\
+ 
+\noindent
+\textit{Solution:} \\
+Recall from homework 6 problem 3 we derived a series representation for $\cot z$
+\begin{align*}
+\cot(\pi z) &= \sum_{n = 0}^\infty (-1)^n \frac {2^{2n}B_{2n}}{(2n)!} \pi^{2n - 1} z^{2n - 1} \\
+	&= (-1)^0 \frac {2^{0}B_{0}}{0!} \pi^{0 - 1} z^{0 - 1} + \sum_{n = 1}^\infty (-1)^n \frac {2^{2n}B_{2n}}{(2n)!} \pi^{2n - 1} z^{2n - 1} \\
+	&= \frac {B_0} {z\pi} + \sum_{n = 1}^\infty (-1)^n \frac {2^{2n}B_{2n}}{(2n)!} \pi^{2n - 1} z^{2n - 1}.
+\end{align*}
+Therefore, we can compute the residue by multiplying $f(z)$ through this Taylor series and evaluating the expression in the numerator of the simple pole at $z = 0$
+\begin{align*}
+\operatorname{Res}_{z=k} f(z) \cot (\pi z)
+	&= \operatorname{Res}_{z=k} \left[ f(z) \left( \frac {B_0} {z\pi} + \sum_{n = 1}^\infty (-1)^n \frac {2^{2n}B_{2n}}{(2n)!} \pi^{2n - 1} z^{2n - 1}\right) \right] \\
+	&= \operatorname{Res}_{z=k} \left[  \frac {B_0 f(z)} {z\pi} + f(z)\sum_{n = 1}^\infty (-1)^n \frac {2^{2n}B_{2n}}{(2n)!} \pi^{2n - 1} z^{2n - 1} \right] \\
+	&= \frac{B_0}{\pi} f(k) \\
+	&= \frac 1 {\pi} f(k).
+\end{align*}
+We can conclude this because there is no irregularities contributed by the analytic function $f(z)$. \\
+\qed \\
+
+\item Let $\Gamma_N$ be a square contour, with corners at $(N+1 / 2)( \pm 1 \pm i), N \in \mathbb{Z}^{+}$. Show that
+$$
+|\cot (\pi z)| \leq 2,
+$$
+for $z$ on $\Gamma_N$.\\
+ 
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+f(x) = mx + b
+\end{align*}
+
+
+\item Suppose $f(z)=p(z) / q(z)$, where $p(z)$ and $q(z)$ are polynomials, so that the degree of $q(z)$ is at least two more than the degree of $p(z)$. Show that
+$$
+\lim _{N \rightarrow \infty}\left|\oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) d z\right|=0
+$$
+ 
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+f(x) = mx + b
+\end{align*}
+
+
+\item Suppose, in addition, that $q(z)$ has no roots at the integers. Show that
+$$
+\sum_{k=-\infty}^{\infty} \frac{p(k)}{q(k)}=-\pi \sum_j \operatorname{Res}_{z=z_j} f(z) \cot (\pi z)
+$$
+where the $z_j$'s are the roots of $q(z)$. Notice that the sum on the
+right-hand side has a finite number of terms. \\
+ 
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+f(x) = mx + b
+\end{align*}
+
+\newpage
+
+\item Use the result of the previous problem to evaluate the following sums:
+\begin{enumerate}
+\item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{k^2+1}$ \\
+ 
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+f(x) = mx + b
+\end{align*}
+
+\item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{k^4+1}$ \\
+ 
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+f(x) = mx + b
+\end{align*}
+
+
+\item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{k^2-1/4}$ \\
+ 
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+f(x) = mx + b
+\end{align*}
+
+
+\item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{16k^4 -1}$ \\
+ 
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+\begin{align*}
+f(x) = mx + b
+\end{align*}
+
+
+\end{enumerate}
+\end{enumerate}
+
+\end{enumerate}
+  
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
