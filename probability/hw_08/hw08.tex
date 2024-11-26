@@ -1,0 +1,117 @@
+\documentclass[10pt]{amsart}
+%\include{amsmath}
+\usepackage{mathtools}
+\usepackage{amsmath}  
+\usepackage{amssymb}  % gives you \mathbb{} font
+\usepackage{dsfont}	% gives you \mathds{} font
+
+%                   Math Blackboard Bold Symbols
+
+\newcommand\Cb{\mathds{C}}
+\newcommand\Eb{\mathds{E}}
+\newcommand\Fb{\mathds{F}}
+\newcommand\Gb{\mathds{G}}
+\newcommand\Ib{\mathds{I}}
+\newcommand\Pb{\mathds{P}}
+\newcommand\Qb{\mathds{Q}}
+\newcommand\Rb{\mathds{R}}
+%\newcommand\Zb{\mathds{Z}}
+\newcommand\Nb{\mathds{N}}
+\newcommand\Vb{\mathds{V}}
+\newcommand\Ub{\mathds{U}}
+
+\usepackage[shortlabels]{enumitem}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+
+\graphicspath{ {./images/} }
+
+\newcommand{\D}{\mathrm{d}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\I}{i}
+
+
+\begin{document}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{12-04-24} \\
+\text{AMATH 561}
+\title{Problem Set 8}
+\maketitle
+
+{\it Note: Exercises are from Matt Lorig's notes (link on course website).} \\
+
+\noindent {\bf 1.} Exercise 5.1.
+Patients arrive at an emergency room as a Poisson process with intensity $\lambda$.
+The time to treat each patient is an independent exponential random variable with parameter $\mu$.
+Let $X = (X_t)_{t \geq 0}$ be the number of patients in the system (either being treated or waiting).
+Write down the generator of $X$.
+Show that $X$ has an invariant distribution $\pi$ if and only if $\lambda < \mu$.
+Find $\mu$.
+What is the total expected time (waiting + treatment) a patient waits when the system is in its invariant distribution? \\
+
+\noindent
+Hint: You can use Little's law, which states that the expected number of people in the hospital at steady-state is equal to the average arrival rate multiplied by the average processing time. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+Here you
+\end{align*}
+
+\newpage
+
+
+\noindent {\bf 2.} Exercise 5.3.
+Let $X = (X_t)_{t \geq 0}$ be a Markov chain with state space $S = {0, 1, 2, \dots}$ and with a generator ${ \bf G} $ whose $i$th row has entries
+$$
+g_{i, i-1} = i\mu, \quad g_{i, i} = -i \mu - \lambda, \quad g_{i, i+1} = \lambda,
+$$
+with all other entries being zero (the zeroth row has only two entries: $g_{0,0}$ and $g_{0,1}$).
+Assume $X_0 = j$.
+Find $G_{X_T}(s) := E(s^{X_t})$.
+What is the distribution of $X_t$ as $t \rightarrow \infty$? \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+Here you
+\end{align*}
+
+\newpage
+
+\noindent {\bf 3.} Exercise 5.4.
+Let $N$ be a time-inhomogeneous Poisson process with intensity function $\lambda(t)$.
+That is, the probability of a jump of size one in the time interval $(t, t + \D t$) is $\lambda(t) \D t$ and the probability of two jumps in that interval of time is $\mathcal O(\D t^2)$.
+Write down the Kolmogorov forward and backward equations of $N$ and solve them.
+Let $N_0 = 0$ and let $\tau_1$ be the time of the first jump of $N$.
+If $\lambda(t) = c/(1 + t)$ show that $E(\tau) < \infty$ if and only if $c > 1$. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+Here you
+\end{align*}
+
+\newpage
+
+\noindent {\bf 4.} Exercise 5.5.
+Let $N$ be a poisson process with a random intensity $\Lambda$ witch is equal to $\lambda_1$ with probability $p$ and $\lambda_2$ with probability $1 - p$.
+Find $G_{N_t}(s) = E(s^{N_t})$.
+What is the mean and variance of $N_t$? \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:} \\
+\begin{align*}
+Here you
+\end{align*}
+
+\end{document}  
