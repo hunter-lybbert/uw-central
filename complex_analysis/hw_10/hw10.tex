@@ -117,9 +117,9 @@ In order to evaluate this integral we look at the integral over the contour $C$ 
 Then applying the Residue Theorem and taking the limit as $R \rightarrow \infty$, we have the following
 \begin{align*}
 \oint_{C} \frac {z \E^{\I z}}{z^2 + a^2 } \D z
-	&= \int_{-R}^{R} \frac {x \E^{\I x}}{x^2 + a^2 } \D x + \oint_{C^{R}} \frac {z \E^{\I z}}{z^2 + a^2 } \D z \\
+	&= \int_{-R}^{R} \frac {x \E^{\I x}}{x^2 + a^2 } \D x + \oint_{C_R} \frac {z \E^{\I z}}{z^2 + a^2 } \D z \\
 2 \pi \I\sum_{w \in S} \left( \frac {z \E^{\I z}}{z^2 + a^2 } \right)
-	&= \int_{-\infty}^{\infty} \frac {x \E^{\I x}}{x^2 + a^2 } \D x + \cancelto{0}{\oint_{C^{R}} \frac {z \E^{\I z}}{z^2 + a^2 } \D z}
+	&= \int_{-\infty}^{\infty} \frac {x \E^{\I x}}{x^2 + a^2 } \D x + \cancelto{0}{\oint_{C_R} \frac {z \E^{\I z}}{z^2 + a^2 } \D z}
 \end{align*}
 where $S$ is the set of singularities of our function in the upper half plane and I claim the $C_R$ contour integral goes to 0 by Jordan's Lemma.
 I will verify this second claim next.\\
@@ -143,20 +143,11 @@ Clearly the denominator will win out as we take $R \rightarrow \infty$ since it 
 Therefore, $K_R \rightarrow 0 $ as $ R \rightarrow \infty$ and thus $f(z) \rightarrow 0$ {\bf uniformly} as $R\rightarrow \infty $ in $C_R$.
 Thus we have verified that
 $$
-\cancelto{0}{\oint_{C^{R}} \frac {z \E^{\I z}}{z^2 + a^2 } \D z}
+\cancelto{0}{\oint_{C_R} \frac {z \E^{\I z}}{z^2 + a^2 } \D z}
 $$
 by Jordan's Lemma. \\
 
 \noindent
-\textbf{TODO: Square away that this is a good argument or not.} \\
-We need to evaluate this limit
-$$
-\lim_{R \rightarrow \infty} \frac z {z^2 + a^2} = \frac R {R^2 + a^2} = \frac \infty \infty
-$$
-and then use L'Hôpitals to get
-$$
-\lim_{R \rightarrow \infty} \frac z {z^2 + a^2} = \frac 1 {z} = 0
-$$
 Therefore we no longer need to be concerned with the integral over $C_R$.
 Notice the denominator of our function factors to $(z - \I a)(z + \I a)$ therefore the set of singularities in the upper half plane is $S = \{ \I a \} $.
 Hence we have
@@ -284,18 +275,74 @@ for $z$ on $\Gamma_N$.\\
 \noindent
 \textit{Solution:} \\
 Consider the following representation of $\cot \pi z$ with some manipulation
-\begin{align*}
-| \cot \pi z | = \left| \frac 1 {\tan \pi z} \right| &= \left| \frac {\cos \pi z} {\sin \pi z} \right| \\
-	&= \left| \cos \pi z ( \sin \pi z )^{-1} \right| \\
-	&= \left| \frac {\E^{\I \pi z} + \E^{-\I \pi z} }{2} \left( \frac {\E^{\I \pi z} - \E^{-\I \pi z} }{2\I} \right)^{-1} \right| \\
-	&= \left| \frac {\E^{\I \pi z} + \E^{-\I \pi z} }{2} \left( \frac {2\I} {\E^{\I \pi z} - \E^{-\I \pi z} } \right) \right| \\
-	&= \left| \frac {\I \left( \E^{\I \pi z} + \E^{-\I \pi z} \right) } {\E^{\I \pi z} - \E^{-\I \pi z} } \right| \\
-	&\leq |\I | \left| \frac { \E^{\I \pi z} + \E^{-\I \pi z} } {\E^{\I \pi z} - \E^{-\I \pi z} } \right| \\
-	&= \left| \frac { \E^{\I \pi z} + \E^{-\I \pi z} } {\E^{\I \pi z} - \E^{-\I \pi z} } \right| \\
-	&= \left| \frac {\E^{\I \pi z}} {\E^{\I \pi z}} \frac { 1 + \E^{- 2 \pi \I z} } {1 - \E^{-2 \pi \I z} } \right| \\
+\begin{align}
+| \cot \pi z | = \left| \frac 1 {\tan \pi z} \right| &= \left| \frac {\cos \pi z} {\sin \pi z} \right| \nonumber \\
+	&= \left| \cos \pi z ( \sin \pi z )^{-1} \right| \nonumber \\
+	&= \left| \frac {\E^{\I \pi z} + \E^{-\I \pi z} }{2} \left( \frac {\E^{\I \pi z} - \E^{-\I \pi z} }{2\I} \right)^{-1} \right| \nonumber \\
+	&= \left| \frac {\E^{\I \pi z} + \E^{-\I \pi z} }{2} \left( \frac {2\I} {\E^{\I \pi z} - \E^{-\I \pi z} } \right) \right| \nonumber \\
+	&= \left| \frac {\I \left( \E^{\I \pi z} + \E^{-\I \pi z} \right) } {\E^{\I \pi z} - \E^{-\I \pi z} } \right| \nonumber \\
+	&\leq |\I | \left| \frac { \E^{\I \pi z} + \E^{-\I \pi z} } {\E^{\I \pi z} - \E^{-\I \pi z} } \right| \nonumber \\
+	&= \left| \frac { \E^{\I \pi z} + \E^{-\I \pi z} } {\E^{\I \pi z} - \E^{-\I \pi z} } \right| \nonumber \\
+	&= \left| \frac {\E^{\I \pi z}} {\E^{\I \pi z}} \frac { 1 + \E^{- 2 \pi \I z} } {1 - \E^{-2 \pi \I z} } \right| \nonumber \\
 	&= \left| \frac { 1 + \E^{- 2 \pi \I z} } {1 - \E^{-2 \pi \I z} } \right|.
+\label{eq:eq1}
+\end{align}
+We will analyze this to show $|\cot \pi z| \leq 2$ along the contour $\Gamma_N$.
+Let's first do the section of the contour along the top and bottom of the box.
+The parameterizations for the top and bottom of the box are
+$$z(t) = -2t(N + 1/2) + (N + 1/2) + \I (N + 1/2)$$
+$$z(t) = 2t(N + 1/2) - (N + 1/2) - \I (N + 1/2)$$
+respectively, where $t \in [0,1]$.
+Plugging in the parameterization for the top of the box to expression \eqref{eq:eq1} we have
+\begin{align*}
+&= \left|
+	\frac
+	{1 + \E^{-2 \pi \I \big( -2t(N + 1/2) + (N + 1/2) + \I (N + 1/2) \big) } }
+	{1 - \E^{-2 \pi \I \big( -2t(N + 1/2) + (N + 1/2) + \I (N + 1/2) \big) } }
+\right| \\
+&= \left|
+	\frac
+	{1 + \E^{4 \pi \I t(N + 1/2) -2 \pi \I (N + 1/2) -2 \pi \I^2 (N + 1/2) } }
+	{1 - \E^{4 \pi \I t(N + 1/2) -2 \pi \I (N + 1/2) -2 \pi \I^2 (N + 1/2) } }
+\right| \\
+&= \left|
+	\frac
+	{1 + \E^{4 \pi \I t(N + 1/2)} \E^{-2 \pi \I (N + 1/2)} \E^{2 \pi (N + 1/2) } }
+	{1 - \E^{4 \pi \I t(N + 1/2)} \E^{-2 \pi \I (N + 1/2)} \E^{2 \pi (N + 1/2) } }
+\right| \\
+&\leq \frac
+	{|1| + |\E^{4 \pi \I t(N + 1/2)} \E^{-2 \pi \I (N + 1/2)} \E^{2 \pi (N + 1/2) }| }
+	{\big| |1| - |\E^{4 \pi \I t(N + 1/2)} \E^{-2 \pi \I (N + 1/2)} \E^{2 \pi (N + 1/2) }| \big| } \\
+&\leq \frac
+	{1 + \E^{2 \pi (N + 1/2) } }
+	{|1 - \E^{2 \pi (N + 1/2) } |}.
 \end{align*}
-We will analyze this to show $|\cot \pi z| \leq 2$ along the contour $\Gamma_N$. \\
+We finished these last few lines using the triangle inequality and noting that the exponential terms on the right two of them have imaginary parts in the exponent therefore the exponential without any imaginary parts in the exponent is the radius or modulus of the overall imaginary number.
+Furthermore note,
+$$\E^{2 \pi (N + 1/2) } > 1 $$
+implies
+$$ |1 - \E^{2 \pi (N + 1/2) } | = \E^{2 \pi (N + 1/2) } - 1.$$
+Therefore we have,
+\begin{align*}
+\frac
+	{1 + \E^{2 \pi (N + 1/2) } }
+	{|1 - \E^{2 \pi (N + 1/2) } |}
+&= \frac
+	{1 + \E^{2 \pi (N + 1/2) } }
+	{\E^{2 \pi (N + 1/2) } - 1} \\
+&= \frac {1 + \E^{2 \pi (N + 1/2) } } {\E^{2 \pi (N + 1/2) } - 1}
+	\frac {\E^{-\pi (N + 1/2)}}{\E^{-\pi (N + 1/2)}} \\
+&= \frac {\E^{-\pi (N + 1/2)} + \E^{\pi (N + 1/2) } } {\E^{\pi (N + 1/2) } - \E^{-\pi (N + 1/2)}} \\
+&= \coth{\pi (N + 1/2)} \leq 2
+\end{align*}
+Since it was a decreasing function...
+
+\noindent
+Let's now do the section of the contour along the two sides of the box.
+The parameterizations for the top and bottom of the box are
+$$z(t) = -(N + 1/2) - t \I (N + 1/2) + (1 - t )\I (N + 1/2)$$
+$$z(t) = N + 1/2 + t \I (N + 1/2) - (1 - t )\I (N + 1/2)$$
+respectively, where $t \in [0,1]$.
 \textbf{TODO: Parameterize the contour (along the top and bottom pieces of the rectangle where the real part is parameterized but the imaginary part is constant) to get something in terms of $ \coth \pi z $ and show that that is bounded by 2 since it is a decreasing function.}
 \textbf{TODO: Do something similar to this for the sides of the contour where the imaginary part is variable but the real part is constant.}
 \begin{align*}
@@ -305,11 +352,12 @@ f(x) = mx + b
 
 \item Suppose $f(z)=p(z) / q(z)$, where $p(z)$ and $q(z)$ are polynomials, so that the degree of $q(z)$ is at least two more than the degree of $p(z)$. Show that
 $$
-\lim _{N \rightarrow \infty}\left|\oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) d z\right|=0
+\lim _{N \rightarrow \infty}\left| \oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) d z\right|=0
 $$
  
 \noindent
 \textit{Solution:} \\
+Not sure what the argument is going to be here...but we can use this in part (d).
 \textbf{TODO:}
 \begin{align*}
 f(x) = mx + b
@@ -318,7 +366,7 @@ f(x) = mx + b
 
 \item Suppose, in addition, that $q(z)$ has no roots at the integers. Show that
 $$
-\sum_{k=-\infty}^{\infty} \frac{p(k)}{q(k)}=-\pi \sum_j \operatorname{Res}_{z=z_j} f(z) \cot (\pi z)
+\sum_{k=-\infty}^{\infty} \frac{p(k)}{q(k)} = -\pi \sum_j \operatorname{Res}_{z=z_j} f(z) \cot (\pi z)
 $$
 where the $z_j$'s are the roots of $q(z)$. Notice that the sum on the
 right-hand side has a finite number of terms. \\
@@ -327,8 +375,17 @@ right-hand side has a finite number of terms. \\
 \textit{Solution:} \\
 \textbf{TODO:}
 \begin{align*}
-f(x) = mx + b
+\cancelto{0}{\oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) d z}
+	&= \sum_{k \in \mathbb Z} \underset{z=k}{ \rm Res} \left( \frac{p(z)}{q(z)} \cot (\pi z) \right)
+		+ \sum_j \underset{z=z_j}{ \rm Res} \left( \frac{p(z)}{q(z)} \cot (\pi z) \right) \\
+0 &= \frac 1 \pi \sum_{k=-\infty}^{\infty} \frac{p(k)}{q(k)}
+		+ \sum_j \underset{z=z_j}{ \rm Res} f(z) \cot (\pi z) \\
+- \frac 1 \pi \sum_{k=-\infty}^{\infty} \frac{p(k)}{q(k)}
+	&= \sum_j \underset{z=z_j}{ \rm Res} f(z) \cot (\pi z) \\
+\sum_{k=-\infty}^{\infty} \frac{p(k)}{q(k)}
+	&= - \pi \sum_j \underset{z=z_j}{ \rm Res} f(z) \cot (\pi z)
 \end{align*}
+\qed
 
 \newpage
 
@@ -338,6 +395,7 @@ f(x) = mx + b
  
 \noindent
 \textit{Solution:} \\
+Apply the conclusion of part (d) \\
 \textbf{TODO:}
 \begin{align*}
 f(x) = mx + b
