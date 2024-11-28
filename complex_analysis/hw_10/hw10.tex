@@ -64,7 +64,16 @@ Collaborators*: Laura Thomas, Cooper Simpson, Nate Ward, Sophia Kamien \\
  
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:} \\
+\textbf{TODO: new hint from office hours as given below} \\
+Consider the following equivalent integral
+\begin{align*}
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac{\E^{2 \I jz}}{\tan (N z)} \D z 
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \Bigg( \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) + \frac 1 \I \Bigg) \D z \\
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \Bigg( \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) + \frac {\E^{2 \I jz}} \I \Bigg) \D z \\
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) \D z + \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac {\E^{2 \I jz}} \I  \D z \\
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  + \I \bigg) \D z - \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{2 \I jz}   \D z
+\end{align*}
+\textbf{TODO: Is this what other people did from office hours?}
 Following the sketch provided in class let's look at an import representation of $\tan (Nz)$
 \begin{align*}
 \tan(N z) &= \frac {\sin (N z)}{\cos (N z)} \\
@@ -399,7 +408,7 @@ right-hand side has a finite number of terms. \\
  
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+\textbf{TODO: I think you should argue that this holds for a particular $N$, and then take a limit as $N \rightarrow \infty$}
 \begin{align*}
 \cancelto{0}{\oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) d z}
 	&= \sum_{k \in \mathbb Z} \underset{z=k}{ \rm Res} \left( \frac{p(z)}{q(z)} \cot (\pi z) \right)
