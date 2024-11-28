@@ -295,11 +295,11 @@ $$z(t) = 2t(N + 1/2) - (N + 1/2) - \I (N + 1/2)$$
 respectively, where $t \in [0,1]$.
 Plugging in the parameterization for the top of the box to expression \eqref{eq:eq1} we have
 \begin{align*}
-&= \left|
+\left|
 	\frac
 	{1 + \E^{-2 \pi \I \big( -2t(N + 1/2) + (N + 1/2) + \I (N + 1/2) \big) } }
 	{1 - \E^{-2 \pi \I \big( -2t(N + 1/2) + (N + 1/2) + \I (N + 1/2) \big) } }
-\right| \\
+\right|
 &= \left|
 	\frac
 	{1 + \E^{4 \pi \I t(N + 1/2) -2 \pi \I (N + 1/2) -2 \pi \I^2 (N + 1/2) } }
@@ -333,16 +333,42 @@ Therefore we have,
 &= \frac {1 + \E^{2 \pi (N + 1/2) } } {\E^{2 \pi (N + 1/2) } - 1}
 	\frac {\E^{-\pi (N + 1/2)}}{\E^{-\pi (N + 1/2)}} \\
 &= \frac {\E^{-\pi (N + 1/2)} + \E^{\pi (N + 1/2) } } {\E^{\pi (N + 1/2) } - \E^{-\pi (N + 1/2)}} \\
-&= \coth{\pi (N + 1/2)} \leq 2
+&= \coth \big( \pi (N + 1/2) \big) \leq 2
 \end{align*}
-Since it was a decreasing function...
+Since $\coth ( \pi/2 ) \approx 1.09$ and $\coth$ is a decreasing function for any value of $N$ we can say
+$$
+| \cot (\pi z ) | \leq \coth \big( \pi (N + 1/2) \big) \leq 2.
+$$
+Notice, we can plugin the other parameterization for the bottom part of the contour and we would arrive at the same conclusion but when we multiplied by 1 in the form $\E^{-\pi (N + 1/2)} /\E^{-\pi (N + 1/2)}$ we would instead need to multiply by $ \E^{\pi (N + 1/2)} / \E^{\pi (N + 1/2)}$ to arrive at $\coth \big( \pi (N + 1/2) \big)$ again. \\
 
 \noindent
 Let's now do the section of the contour along the two sides of the box.
 The parameterizations for the top and bottom of the box are
-$$z(t) = -(N + 1/2) - t \I (N + 1/2) + (1 - t )\I (N + 1/2)$$
-$$z(t) = N + 1/2 + t \I (N + 1/2) - (1 - t )\I (N + 1/2)$$
+$$z(t) = -(N + 1/2) - 2 t \I (N + 1/2) + \I (N + 1/2)$$
+$$z(t) = N + 1/2 + 2 t \I (N + 1/2) - \I (N + 1/2)$$
 respectively, where $t \in [0,1]$.
+Plugging in this version of the parameterization for the left side of the box to expression \eqref{eq:eq1} we have
+\begin{align*}
+\left|
+	\frac
+	{1 + \E^{-2 \pi \I \big( -(N + 1/2) - 2 t \I (N + 1/2) + \I (N + 1/2) \big) } }
+	{1 - \E^{-2 \pi \I \big( -(N + 1/2) - 2 t \I (N + 1/2) + \I (N + 1/2) \big) } }
+\right| 
+&= \left|
+	\frac
+	{1 + \E^{2 \pi \I (N + 1/2) + 4 \pi \I^2 t (N + 1/2) -2 \pi \I^2 (N + 1/2) } }
+	{1 - \E^{2 \pi \I (N + 1/2) + 4 \pi \I^2 t (N + 1/2) -2 \pi \I^2 (N + 1/2) } }
+\right| \\
+&= \left|
+	\frac
+	{1 + \E^{2 \pi \I (N + 1/2)} \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) } }
+	{1 - \E^{2 \pi \I (N + 1/2)} \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) } }
+\right| \\
+&\leq \frac {|1| + |\E^{2 \pi \I (N + 1/2)} \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) }| }
+	{\big| |1| - |\E^{2 \pi \I (N + 1/2)} \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) }| \big|} \\
+&\leq \frac {1 + \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) } }
+	{\big| 1 - \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) } \big|}
+\end{align*}
 \textbf{TODO: Parameterize the contour (along the top and bottom pieces of the rectangle where the real part is parameterized but the imaginary part is constant) to get something in terms of $ \coth \pi z $ and show that that is bounded by 2 since it is a decreasing function.}
 \textbf{TODO: Do something similar to this for the sides of the contour where the imaginary part is variable but the real part is constant.}
 \begin{align*}
@@ -395,40 +421,94 @@ right-hand side has a finite number of terms. \\
  
 \noindent
 \textit{Solution:} \\
-Apply the conclusion of part (d) \\
+Directly applying the conclusion from part (d)
 \textbf{TODO:}
 \begin{align*}
-f(x) = mx + b
+\sum_{k=-\infty}^{\infty} \frac{1}{k^2 + 1}
+	&= - \pi \sum_j \underset{z=z_j}{ \rm Res} \left( \frac{1}{z^2 + 1} \cot (\pi z) \right) \\
+	&= - \pi \left[
+		\underset{z=\I}{ \rm Res} \left( \frac{1}{(z - \I)(z + \I))} \cot (\pi z) \right)
+		+ \underset{z=-\I}{ \rm Res} \left( \frac{1}{(z - \I)(z + \I)} \cot (\pi z) \right)
+		\right] \\
+	&= - \pi \left( \frac{1}{2\I} \cot (\pi \I) - \frac{1}{2\I} \cot (- \pi \I) \right) \\
+	&= - \frac{\pi} {2\I} \left( \frac {\I \left( \E^{\I \pi \I} + \E^{-\I \pi \I} \right) } {\E^{\I \pi \I} - \E^{-\I \pi \I} } - \frac {\I \left( \E^{- \I \pi \I} + \E^{\I \pi \I} \right) } {\E^{- \I \pi \I} - \E^{\I \pi \I} } \right) \\
+	&= - \frac \pi 2 \left( \frac { \E^{-\pi} + \E^{\pi} } {\E^{- \pi } - \E^{ \pi } } - \frac { \E^{ \pi } + \E^{- \pi } } {\E^{ \pi } - \E^{- \pi } } \right) \\
+	&= - \frac \pi 2 \left( - \frac { \E^{\pi} + \E^{-\pi} } { \E^{ \pi } - \E^{- \pi } } - \frac { \E^{ \pi } + \E^{- \pi } } {\E^{ \pi } - \E^{- \pi } } \right) \\
+	&= - \frac \pi 2 \left( - 2 \frac { \E^{ \pi } + \E^{- \pi } } {\E^{ \pi } - \E^{- \pi } } \right) \\
+	&= \pi \frac { \E^{ \pi } + \E^{- \pi } } {\E^{ \pi } - \E^{- \pi } } \\
+	&= \pi \coth{\pi}.
 \end{align*}
+\qed \\
 
 \item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{k^4+1}$ \\
  
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+Before jumping into evaluating this summation using our formula from part (d), let's determine what the singularities of $1/(k^4 + 1)$ are.
+In other words we need to find where $q(z) = 0$ with $q(z) := z^4 + 1$.
+Notice we can factor to arrive at
 \begin{align*}
-f(x) = mx + b
+z^4 + 1 &= (z^2 + \I)(z^2 - \I) \\
+	&= (z - \I \sqrt{\I})(z + \I \sqrt{\I})(z - \sqrt{\I})(z + \sqrt{\I}).
 \end{align*}
+Thus, $S$, the set of values $w \in \mathbb C$ such that $q(z) = 0$, is  $S = \{ \I \sqrt{\I}, - \I \sqrt{\I}, \sqrt{\I}, - \sqrt{\I} \}$.
+Now we can evaluate the sum
+\begin{align*}
+\sum_{k=-\infty}^{\infty} \frac{1}{k^4 + 1}
+	&= - \pi \sum_{w \in S} \underset{z=w}{ \rm Res} \left( \frac{1}{z^4 + 1} \cot (\pi z) \right) \\
+	&= - \pi \left[ \frac 1 {(\I \sqrt \I + \I \sqrt{\I})(\I \sqrt \I - \sqrt{\I})(\I \sqrt \I + \sqrt{\I})} \cot (\pi \I \sqrt{\I}) + \frac 1 {(- \I \sqrt{\I} - \I \sqrt{\I})(- \I \sqrt{\I} - \sqrt{\I})(- \I \sqrt{\I} + \sqrt{\I})} \cot (- \pi \I \sqrt{\I}) \right. \\
+		&\quad\quad\quad + \frac 1 {(\sqrt \I - \I \sqrt{\I})(\sqrt \I + \I \sqrt{\I})(\sqrt \I + \sqrt{\I})} \cot (\pi \sqrt{\I}) \\
+		&\quad\quad\quad \left. + \frac 1 {(- \sqrt \I - \I \sqrt{\I})(- \sqrt \I + \I \sqrt{\I})(- \sqrt \I - \sqrt{\I})} \cot (- \pi \sqrt{\I}) \right] \\
+	&= - \pi \left[ \frac 1 {(2 \I \sqrt \I)\sqrt \I(\I  - 1)\sqrt \I (\I + 1)} \cot (\pi \I \sqrt{\I}) + \frac 1 {(- 2\I \sqrt{\I})(- \sqrt \I)(\I + 1)(- \sqrt \I)(\I - 1)} \cot (- \pi \I \sqrt{\I}) \right. \\
+		&  \left. \quad\quad\quad + \frac 1 {\sqrt \I(1 - \I )\sqrt \I(1 + \I )(2 \sqrt \I )} \cot (\pi \sqrt{\I}) + \frac 1 {(- \sqrt \I)(1 + \I )(- \sqrt \I)(1 - \I )(- 2\sqrt \I)} \cot (- \pi \sqrt{\I}) \right] \\
+	&= - \pi \left[ \frac 1 {4\sqrt \I} \cot (\pi \I \sqrt{\I}) - \frac 1 {4\sqrt{\I}} \cot (- \pi \I \sqrt{\I}) + \frac 1 {4 \I \sqrt \I } \cot (\pi \sqrt{\I}) - \frac 1 {4 \I\sqrt \I} \cot (- \pi \sqrt{\I}) \right] \\
+\end{align*}
+\textbf{TODO: Check if this is as far as anyone else simplified it.} \\
 
 
 \item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{k^2-1/4}$ \\
  
 \noindent
 \textit{Solution:} \\
+$S = \{ \pm 1/2 \}$
 \textbf{TODO:}
 \begin{align*}
-f(x) = mx + b
+\sum_{k=-\infty}^{\infty} \frac{1}{k^2-1/4}
+	&= - \pi \sum_{w \in S} \underset{z=w}{ \rm Res} \left( \frac{1}{z^2-1/4} \cot (\pi z) \right) \\
+	&= - \pi \left( \underset{z=1/2}{ \rm Res} \left( \frac{1}{(z - 1/2)( z + 1/2)} \cot (\pi z) \right) \right. \\
+		& \quad \quad +\left. \underset{z=-1/2}{ \rm Res} \left( \frac{1}{(z - 1/2)( z + 1/2)} \cot (\pi z) \right)\right) \\
+	&= - \pi \left( \frac{1}{( 1/2 + 1/2)} \cot (\pi / 2) + \frac{1}{(-1/2 - 1/2)} \cot (-\pi /2) \right) \\
+	&= - \pi \big( \cot (\pi / 2) -\cot (-\pi /2) \big)
 \end{align*}
+\qed \\
+\newpage
 
-
-\item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{16k^4 -1}$ \\
+\item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{16k^4 - 1}$ \\
  
 \noindent
 \textit{Solution:} \\
+Let $q(z) = 16z^4 - 1$.
+We can factor the $q(z)$ to $$16z^4 - 1 = (2z - 1)(2z + 1)(2z - \I)(2z + \I).$$
+Therefore, the zeros of this function are found at $w \in S = \{ \pm 1/2, \pm \I/2 \}.$
 \textbf{TODO:}
 \begin{align*}
-f(x) = mx + b
+\sum_{k=-\infty}^{\infty} \frac{1}{16k^4 - 1}
+	&= - \pi \sum_{w \in S} \underset{z=w}{ \rm Res} \left( \frac{1}{16z^4 -1} \cot (\pi z) \right) \\
+	&= - \pi \sum_{w \in S} \underset{z=w}{ \rm Res} \left( \frac{1}{2^4(z - 1/2)(z + 1/2)(z - \I/2)(z + \I/2)} \cot (\pi z) \right) \\
+	&= - \pi \left[
+		\left( \frac{1}{16(1/2 + 1/2)(1/2 - \I/2)(1/2 + \I/2)} \cot (\pi /2) \right) \right. \\
+		&+ \left( \frac{1}{16(-1/2 - 1/2)(-1/2 - \I/2)(-1/2 + \I/2)} \cot (- \pi / 2) \right) \\
+		&+ \left( \frac{1}{16(\I/2 - 1/2)(\I/2 + 1/2)(\I/2 + \I/2)} \cot (\pi \I /2) \right) \\
+		&+ \left. \left( \frac{1}{16(- \I/2 - 1/2)(- \I/2 + 1/2)(- \I/2 - \I/2)} \cot (- \pi \I/2) \right)
+	\right] \\
+	&= - \pi \left[
+		\frac 1 8 \cot (\pi /2) - \frac 1 8 \cot (- \pi / 2) - \frac 1 {8\I} \cot (\pi \I /2) + \frac 1 {8 \I} \cot (- \pi \I/2)
+	\right] \\
+	&= - \pi \left[
+		\frac 1 8 \cot (\pi /2) - \frac 1 8 \cot (- \pi / 2) + \frac \I 8 \cot (\pi \I /2) - \frac \I 8 \cot (- \pi \I/2)
+	\right]
 \end{align*}
+\qed \\
 
 
 \end{enumerate}
