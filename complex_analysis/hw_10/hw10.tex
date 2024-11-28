@@ -64,7 +64,6 @@ Collaborators*: Laura Thomas, Cooper Simpson, Nate Ward, Sophia Kamien \\
  
 \noindent
 \textit{Solution:} \\
-\textbf{TODO: new hint from office hours as given below} \\
 Consider the following equivalent integral
 \begin{align*}
 \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac{\E^{2 \I jz}}{\tan (N z)} \D z 
@@ -72,6 +71,34 @@ Consider the following equivalent integral
 	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \Bigg( \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) + \frac {\E^{2 \I jz}} \I \Bigg) \D z \\
 	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) \D z + \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac {\E^{2 \I jz}} \I  \D z \\
 	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  + \I \bigg) \D z - \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{2 \I jz}   \D z
+\end{align*}
+We want to be able to show the first integral on the left goes to 0, then we can show the second integral produces the expected results we are looking for from the problem statement.
+\begin{align*}
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z
+\end{align*}
+\textbf{TODO: Determine how this goes to 0. It might be because $\tan(Nz)$ behaves approximately like $1/\I + \mathcal O(\E^{-2Nh})$ because then we would end up with the integral of $\E^{2 \I jz}/\E^{2Nh}$ which would go to 0 as $h \rightarrow \infty$. This is kinda tricky.}
+Now let's look into the second one more closely.
+Specifically when $j \neq 0$ we have
+\begin{align*}
+- \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{2 \I jz} \D z
+	&= - \lim_{h \to \infty} \left( \frac 1 {2 j } \E^{2 \I jz} \bigg|_{\I h}^{\I h + \pi}  \right) \\
+	&= - \lim_{h \to \infty} \left( \frac 1 {2 j } \E^{2 \I j(\I h + \pi)} - \frac 1 {2 j } \E^{2 \I j(\I h)}  \right) \\
+	&= - \lim_{h \to \infty} \left( \frac 1 {2 j } \E^{- 2 j h}\E^{2 \pi \I j}
+		- \frac 1 {2 j } \E^{- 2 j h}  \right) \\
+	&= - \lim_{h \to \infty} \left( \frac 1 {2 j \E^{2 j h}} \E^{2 \pi \I j}
+		- \frac 1 {2 j \E^{2 j h}}  \right) \\
+	&= - \lim_{h \to \infty} \left( \frac { \E^{2 \pi \I j} - 1} {2 j \E^{2 j h}}  \right)  \\
+	&= - \lim_{h \to \infty} \left( \frac { 1 - 1} {2 j \E^{2 j h}}  \right)  \\
+	&= - \lim_{h \to \infty} \left( \frac 0 {2 j \E^{2 j h}}  \right) = 0
+\end{align*}
+Now if $j = 0$ then we have
+\begin{align*}
+- \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{0} \D z
+	&= - \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \D z \\
+	&= - \lim_{h \to \infty} \left( \I z \right) \bigg|_{\I h}^{\I h + \pi} \\
+	&= - \lim_{h \to \infty} \left( \cancel{- h} + \I \pi \cancel{+ h} \right) \\
+	&= - \lim_{h \to \infty} \I \pi \\
+	&= -\I \pi
 \end{align*}
 \textbf{TODO: Is this what other people did from office hours?}
 Following the sketch provided in class let's look at an import representation of $\tan (Nz)$
@@ -378,7 +405,6 @@ Plugging in this version of the parameterization for the left side of the box to
 &\leq \frac {1 + \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) } }
 	{\big| 1 - \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) } \big|}
 \end{align*}
-\textbf{TODO: Parameterize the contour (along the top and bottom pieces of the rectangle where the real part is parameterized but the imaginary part is constant) to get something in terms of $ \coth \pi z $ and show that that is bounded by 2 since it is a decreasing function.}
 \textbf{TODO: Do something similar to this for the sides of the contour where the imaginary part is variable but the real part is constant.}
 \begin{align*}
 f(x) = mx + b
@@ -431,7 +457,6 @@ right-hand side has a finite number of terms. \\
 \noindent
 \textit{Solution:} \\
 Directly applying the conclusion from part (d)
-\textbf{TODO:}
 \begin{align*}
 \sum_{k=-\infty}^{\infty} \frac{1}{k^2 + 1}
 	&= - \pi \sum_j \underset{z=z_j}{ \rm Res} \left( \frac{1}{z^2 + 1} \cot (\pi z) \right) \\
@@ -479,8 +504,8 @@ Now we can evaluate the sum
  
 \noindent
 \textit{Solution:} \\
-$S = \{ \pm 1/2 \}$
-\textbf{TODO:}
+The zeros of the denominator (or the singularities of the overall function) are found at $w \in S = \{ \pm 1/2 \}$.
+Then applying the formula from part (d) we have
 \begin{align*}
 \sum_{k=-\infty}^{\infty} \frac{1}{k^2-1/4}
 	&= - \pi \sum_{w \in S} \underset{z=w}{ \rm Res} \left( \frac{1}{z^2-1/4} \cot (\pi z) \right) \\
@@ -499,7 +524,6 @@ $S = \{ \pm 1/2 \}$
 Let $q(z) = 16z^4 - 1$.
 We can factor the $q(z)$ to $$16z^4 - 1 = (2z - 1)(2z + 1)(2z - \I)(2z + \I).$$
 Therefore, the zeros of this function are found at $w \in S = \{ \pm 1/2, \pm \I/2 \}.$
-\textbf{TODO:}
 \begin{align*}
 \sum_{k=-\infty}^{\infty} \frac{1}{16k^4 - 1}
 	&= - \pi \sum_{w \in S} \underset{z=w}{ \rm Res} \left( \frac{1}{16z^4 -1} \cot (\pi z) \right) \\
