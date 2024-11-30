@@ -1,4 +1,5 @@
 """Construct difference matrices intended for use in solving large systems of differential equations."""
+
 from typing import Optional
 
 import numpy as np

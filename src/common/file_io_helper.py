@@ -1,4 +1,5 @@
 """Helper functions for reading and writing in and out of files."""
+
 import os
 
 def incriment_file(base_filename: str, directory: str) -> None:
