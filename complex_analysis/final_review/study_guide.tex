@@ -1,0 +1,121 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+\usepackage{mathtools}
+
+\graphicspath{ {./images/} }
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\csch}{csch}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=5pt]{lemma}{Lemma}
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+
+\title{\bf {AMATH 567 Complex Analysis Final Study Guide} }
+
+
+\maketitle
+\noindent
+\begin{center}
+The final is scheduled for Monday December 9th at 2:30pm in Johnson Hall 075.
+\end{center}
+
+\mline
+\noindent
+Be able to use the important theorem's and know their respective assumptions and limitations.
+Be able to state examples and counter examples for each.
+Be comfortable with all important computation applications of the main principals.
+\\
+
+\noindent
+Below I've listed some key topics from memory (trying to force myself to recall).
+Each of these should be supplemented by looking in the textbook, Bernard's notes, and homework assignments for more information related to the listed topics.
+\\
+
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item Basic complex arithmetic
+\begin{itemize}
+\item $z = x + \I y$
+\item $z = \rho \E^{\I \theta} = \rho ( \cos \theta + \I \sin \theta )$
+\item $\bar z = x - \I y$
+\item $|z| = \sqrt{x^2 + y^2} = \rho$
+\item $z \bar z = |z|^2$ \\
+\end{itemize}
+
+\item Roots of unity, logs, and the square of complex number
+\begin{itemize}
+\item $z^n = a = |a|\E^{\I (\theta + 2 \pi k)} \implies
+	z = |a|^{1/n}\E^{\I(\theta + 2 \pi k)/n} \text{ with } k \in \mathbb Z$
+\item $\log z = \log r + \I \theta + 2 \pi \I k \text{ with } k \in \mathbb Z$ \\
+\end{itemize}
+
+\item Branch Cuts and branch points
+\begin{itemize}
+\item Figure out what the heck they \textit{really} are and how they apply \\
+\end{itemize}
+
+\item Analyticity, Cauchy Riemann Equations, Cauchy's Theorem, and Cauchy Integral Formula
+\begin{itemize}
+\item Remember the { \bf Cauchy-Riemann equations }? If $f(z) = f(x,y) = u(x, y) + \I v(x,y)$ then $f(z)$ is analytic if and only if $$\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y} \quad \text{ and } \quad \frac{\partial v}{\partial x} = - \frac{\partial u}{\partial y}.$$
+\item \textbf{Cauchy's Theorem:} {\it If $f(z)$ is analytic in a simply connected region $\Omega$ which contains the closed contour $C$ then $$ \oint_C f(z) \D z = 0. $$}
+\item \textbf{Cauchy's Integral Formula:} {\it If $f(z)$ is analytic on and interior to a simple closed contour $C$ then for any point $z$ interior to $C$ $$f(z) = \frac 1 {2 \pi \I}\oint_C \frac {f(\zeta) \D \zeta}{\zeta - z}. $$}
+\item Derivative's using \textbf{Cauchy's Integral Formula.} {\it If $f(z)$ is analytic on and interior to a simple closed contour $C$ then all derivatives $f^{(k)}(z)$, $k = 1, 2, ...$ exist in the domain $D$ interior to $C$, and $$f^{(k)}(z) = \frac {k!} {2 \pi \I}\oint_C \frac {f(\zeta) \D \zeta}{(\zeta - z)^{k + 1}}. $$} \\
+\end{itemize}
+
+\item Contour Integration \\
+Just be really good at it that's it. \\
+\textbf{TODO: } Maybe add a few methods of solving these problems in general cases.\\
+
+\item Analytic Continuation, Entire Functions, Maximum Modulus Principal, and Liouville's Theorem \\
+
+\item Taylor and Laurent Series representations of complex valued functions \\
+
+\item Singularities and their types \\
+
+\item Residue Theorem and applications \\
+
+\item Miscellaneous things to have memorized (Taylor/Laurent series representations and others)
+\begin{enumerate}
+\item Know the series representations of $\E^z$, $\sin z$ and $\cos z$
+\item Know the exponential representation of $\sin z$ and $\cos z$
+\item Know helpful representations for $\tan z$, $\sec z$, $\csc z$, $\cot z$, $\sinh z$, $\cosh z$, $\tanh z$, $\coth z$, $\sech z$, and $\csch z$ in terms of exponentials, sines, and cosines.
+\item Geometric series
+\item
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
