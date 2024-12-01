@@ -415,15 +415,60 @@ f(x) = mx + b
 $$
 \lim _{N \rightarrow \infty}\left| \oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) d z\right|=0
 $$
- 
+
 \noindent
 \textit{Solution:} \\
 Not sure what the argument is going to be here...but we can use this in part (d).
 \textbf{TODO:}
 \begin{align*}
-f(x) = mx + b
+\lim_{N \rightarrow \infty}\left| \oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) \D z \right|
+	&\leq \lim_{N \rightarrow \infty} \oint_{\Gamma_N} \left|\frac{p(z)}{q(z)}\right| |\cot (\pi z)| |\D z| \\
+	&\leq \lim_{N \rightarrow \infty} 2 \oint_{\Gamma_N} \left|\frac{p(z)}{q(z)}\right| |\D z|.
 \end{align*}
-
+The largest modulus of any point on the contour is $|w| \leq (N + 1/2) \sqrt 2$ for all $w \in \Gamma_N$ polynomial.
+Additionally we can determine the smallest modulus is $|w| \geq N + 1/2$.
+Therefore we have the bound
+$$
+N + 1/2 \leq |w| \leq (N + 1/2)\sqrt 2 \quad\quad \text{for all} ~~ w \in \Gamma_N.
+$$
+Hence, plugging in the largest term for the numerator and the smallest possible term in the denominator we have
+\begin{align*}
+\lim_{N \rightarrow \infty} 2 \oint_{\Gamma_N} \left|\frac{p(z)}{q(z)}\right| |\D z|
+	&\leq \lim_{N \rightarrow \infty} 2 \oint_{\Gamma_N} \left|\frac{p\big( (N + 1/2)\sqrt2 \big)}{q(N + 1/2)}\right| |\D z| \\
+	&\leq \lim_{N \rightarrow \infty} 2 \oint_{\Gamma_N} \left| 
+		\frac{ C_0 \Big( (N + 1/2)\sqrt2 \Big)^ {n - 2}
+			+ \mathcal O \left(\Big( (N + 1/2)\sqrt2 \Big)^ {n - 3} \right)}
+			{C_1 \Big( N + 1/2 \Big)^ n
+			+ \mathcal O \left(\Big( N + 1/2 \Big)^ {n - 1} \right)}
+		\right| |\D z|.
+\end{align*}
+Let $M = N + 1/2$.
+We can also write $|\D z|$ as the arc length of the contour which is $4(2N + 1)$.
+Then we rewrite the last inequality as
+\begin{align*}
+&\lim_{N \rightarrow \infty} 2 \oint_{\Gamma_N} \left| 
+	\frac{ C_0 \Big( (N + 1/2)\sqrt2 \Big)^ {n - 2}
+	+ \mathcal O \left(\Big( (N + 1/2)\sqrt2 \Big)^ {n - 3} \right)}
+	{C_1 \Big( N + 1/2 \Big)^ n
+	+ \mathcal O \left(\Big( N + 1/2 \Big)^ {n - 1} \right)}
+	\right| |\D z| \\
+&\leq \lim_{M \rightarrow \infty} 2 \left| 
+	\frac{ C_0 M^{n - 2} \sqrt{2}^{n - 2}
+	+ \mathcal O \left( M^{n - 3} \sqrt{2}^{n - 3} \right)}
+	{C_1 M^n
+	+ \mathcal O \left( M^{n-1} \right)}
+	\right| 4(2N + 1) \\
+&\leq \lim_{M \rightarrow \infty} 2 \left| 
+	\frac{ C_0 M^{n - 2} \sqrt{2}^{n - 2}
+	+ \mathcal O \left( M^{n - 3} \sqrt{2}^{n - 3} \right)}
+	{C_1 M^n
+	+ \mathcal O \left( M^{n-1} \right)}
+	\right| 8M \\
+&\leq \lim_{M \rightarrow \infty} 2 
+	\frac{ 8M\left|C_0 M^{n - 2} \sqrt{2}^{n - 2}\right| + 8M\left|\mathcal O \left( M^{n - 3} \sqrt{2}^{n - 3} \right) \right|}
+	{\left| C_1 M^n + \mathcal O \left( M^{n-1} \right) \right|}
+\end{align*}
+\textbf{TODO: multiply by 8M then there is going to just be one final power of M in the denominator which will send it to 0 as M goes to infinity.}
 
 \item Suppose, in addition, that $q(z)$ has no roots at the integers. Show that
 $$
