@@ -65,19 +65,86 @@ Collaborators*: Laura Thomas, Cooper Simpson, Nate Ward, Sophia Kamien \\
 \noindent
 \textit{Solution:} \\
 Consider the following equivalent integral
-\begin{align*}
+\begin{align}
 \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac{\E^{2 \I jz}}{\tan (N z)} \D z 
-	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \Bigg( \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) + \frac 1 \I \Bigg) \D z \\
-	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \Bigg( \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) + \frac {\E^{2 \I jz}} \I \Bigg) \D z \\
-	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) \D z + \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac {\E^{2 \I jz}} \I  \D z \\
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \Bigg( \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) + \frac 1 \I \Bigg) \D z \nonumber \\
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \Bigg( \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) + \frac {\E^{2 \I jz}} \I \Bigg) \D z \nonumber \\
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) \D z + \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac {\E^{2 \I jz}} \I  \D z \nonumber \\
 	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  + \I \bigg) \D z - \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{2 \I jz}   \D z
-\end{align*}
+\label{eq:eqFirst}
+\end{align}
 We want to be able to show the first integral on the left goes to 0, then we can show the second integral produces the expected results we are looking for from the problem statement.
+Notice, we can say
 \begin{align*}
 \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z
+	&\leq \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \left| \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z \right|
 \end{align*}
-\textbf{TODO: Determine how this goes to 0. It might be because $\tan(Nz)$ behaves approximately like $1/\I + \mathcal O(\E^{-2Nh})$ because then we would end up with the integral of $\E^{2 \I jz}/\E^{2Nh}$ which would go to 0 as $h \rightarrow \infty$. This is kinda tricky.}
-Now let's look into the second one more closely.
+Let's analyze the expression in the integrand a little
+\begin{align*}
+\E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg)
+	&= \E^{2 \I jz} \bigg(
+		\frac{\I \left( \E^{\I N z} + \E^{-\I N z} \right) }{\E^{\I N z} - \E^{-\I N z}} + \I
+	\bigg) \\
+	&= \E^{2 \I jz} \bigg( \frac{\I \left( \E^{\I N z} + \E^{-\I N z} \right) + \I\left( \E^{\I N z} - \E^{-\I N z} \right)}{ \E^{\I N z} - \E^{-\I N z} } \bigg) \\
+	&= \E^{2 \I jz} \bigg( \frac{ 2 \I \E^{\I N z} }{ \E^{\I N z} - \E^{-\I N z} } \bigg) \\
+	&= \E^{2 \I jz} \bigg( \frac{ 2 \I \E^{2 \I N z} }{ \E^{2 \I N z} - 1 } \bigg).
+\end{align*}
+Then we have
+\begin{align*}
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \left| \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z \right|
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \left| \E^{2 \I jz}
+		\bigg( \frac{ 2 \I \E^{2 \I N z} }{ \E^{2 \I N z} - 1 } \bigg) \D z \right| \\
+	&= \lim_{h \to \infty} \int_0^\pi \left| \E^{2 \I j(t + \I h)}
+		\bigg( \frac{ 2 \I \E^{2 \I N (t + \I h)} }{ \E^{2 \I N (t + \I h)} - 1 } \bigg) \D t \right| \\
+	&= \lim_{h \to \infty} \int_0^\pi \left| \E^{2 \I j(t + \I h)}
+		\bigg( \frac{ 2 \I \E^{2 \I N t}\E^{- 2 N h} }{ \E^{2 \I N t}\E^{- 2 N h} - 1 } \bigg) \D t \right|.
+\end{align*}
+Applying the reverse triangle inequality in the denominator we have
+\begin{align*}
+	&\leq \lim_{h \to \infty} \int_0^\pi | 2 \I | \left| \E^{2 \I j t}\E^{- 2 j h} \right|
+		\frac{ | \E^{2 \I N t}\E^{- 2 N h} |}{| \E^{2 \I N t}\E^{- 2 N h} - 1 |} | \D t | \\
+	&\leq \lim_{h \to \infty} \int_0^\pi 2 \E^{- 2 j h}
+		\frac{ \E^{- 2 N h} }{| |\E^{2 \I N t}\E^{- 2 N h}| - |1| |} | \D t | \\
+	&\leq \lim_{h \to \infty} \int_0^\pi 2 \E^{- 2 j h}
+		\frac{ \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |} | \D t | \\
+	&\leq \lim_{h \to \infty} \int_0^\pi 2 \E^{- 2 j h}
+		\frac{ \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |} | \D t | \\
+	&= \lim_{h \to \infty} 2 \E^{- 2 j h}
+		\frac{ \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |} \int_0^\pi | \D t | \\
+	&= \lim_{h \to \infty}
+		\frac{ 2 \pi \E^{- 2 j h} \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |}
+\end{align*}
+Multiplying by one in a clever manner we have
+\begin{align*}
+&= \lim_{h \to \infty} \frac {\E^{ 2 N h}} {\E^{ 2 N h}} \frac{ 2 \pi \E^{- 2 j h} \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |} \\
+&= \lim_{h \to \infty} \frac{ 2 \pi \E^{- 2 j h} }{| 1 - \E^{ 2 N h} |} \\
+&= \lim_{h \to \infty} \frac{ 2 \pi }{\E^{ 2 j h}| 1 - \E^{ 2 N h} |} \\
+&= \lim_{h \to \infty} \frac{ 2 \pi }{\E^{ 2 j h}( \E^{ 2 N h}  - 1)} = 0
+\end{align*}
+The conclusion is easy since the numerator is constant and as $h \rightarrow \infty$ the denominator blows up at an exponential rate.
+Hence,
+\begin{align*}
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \left| \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z \right| \leq 0.
+\end{align*}
+Since modulus is nonnegative then this less than or equal to is really just an equality.
+Since,
+$$\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \left| \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z \right| = 0 $$
+similarly we can show
+$$
+\lim_{h \to \infty} - \int_{\I h}^{\I h + \pi} \left| \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z \right| = 0.
+$$
+Finally, by the squeeze theorem
+$$
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z  = 0
+$$
+hence, from equation \eqref{eq:eqFirst} we have
+\begin{align*}
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac{\E^{2 \I jz}}{\tan (N z)} \D z
+	&= \cancelto{0}{\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  + \I \bigg) \D z} - \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{2 \I jz}   \D z \\
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac{\E^{2 \I jz}}{\tan (N z)} \D z
+	&= - \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{2 \I jz}   \D z
+\end{align*}
+Now let's look at this remaining integral carefully.
 Specifically when $j \neq 0$ we have
 \begin{align*}
 - \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{2 \I jz} \D z
@@ -201,8 +268,7 @@ Therefore,
 	&= { \rm Im } \left[ \int_{-\infty}^{\infty} \frac {x \E^{\| x}}{x^2 + a^2 } \D x \right] \\
 	&= { \rm Im } \left[ \pi \I \E^{- a} \right] \\
 	&= \pi \E^{- a}
-\end{align*}
-\textbf{TODO: consider doing a case where $a < 0$.} \\
+\end{align*} \qed \\
 
 
 \noindent
@@ -418,8 +484,7 @@ $$
 
 \noindent
 \textit{Solution:} \\
-Not sure what the argument is going to be here...but we can use this in part (d).
-\textbf{TODO:}
+Let's begin by Utilizing the bound we just established for $|\cot \pi z|$
 \begin{align*}
 \lim_{N \rightarrow \infty}\left| \oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) \D z \right|
 	&\leq \lim_{N \rightarrow \infty} \oint_{\Gamma_N} \left|\frac{p(z)}{q(z)}\right| |\cot (\pi z)| |\D z| \\
@@ -463,12 +528,33 @@ Then we rewrite the last inequality as
 	+ \mathcal O \left( M^{n - 3} \sqrt{2}^{n - 3} \right)}
 	{C_1 M^n
 	+ \mathcal O \left( M^{n-1} \right)}
-	\right| 8M \\
+	\right| 8M.
+\end{align*}
+Multiplying through by the $8M$ and dropping the coefficients in the $\mathcal O$ terms, we finally have
+\begin{align*}
+\lim_{N \rightarrow \infty}\left| \oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) \D z \right| 
 &\leq \lim_{M \rightarrow \infty} 2 
-	\frac{ 8M\left|C_0 M^{n - 2} \sqrt{2}^{n - 2}\right| + 8M\left|\mathcal O \left( M^{n - 3} \sqrt{2}^{n - 3} \right) \right|}
+	\frac{ \left| C_2 M^{n - 1} \right| + \left|\mathcal O \left( M^{n - 2} \right) \right|}
 	{\left| C_1 M^n + \mathcal O \left( M^{n-1} \right) \right|}
 \end{align*}
-\textbf{TODO: multiply by 8M then there is going to just be one final power of M in the denominator which will send it to 0 as M goes to infinity.}
+where $C_2 = C_0 8 \sqrt{2}^{n - 2}$.
+Notice, this limit is 0 since there is a higher power of $M$ in the denominator.
+Repeating L'Hôpital's rule $n - 1$ times would leave us with $1/M$ multiplied by some constant perhaps, which goes to 0 as $M$ goes to infinity.
+Therefore, since
+\begin{align*}
+\lim_{M \rightarrow \infty} 2 
+	\frac{ \left| C_2 M^{n - 1} \right| + \left|\mathcal O \left( M^{n - 2} \right) \right|}
+	{\left| C_1 M^n + \mathcal O \left( M^{n-1} \right) \right|} = 0,
+\end{align*}
+then 
+\begin{align*}
+\lim_{N \rightarrow \infty}\left| \oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) \D z \right| \leq 0.
+\end{align*}
+Notice, the modulus is a nonnegative function so the only thing less than or equal to 0 is 0, therefore,
+$$
+\lim_{N \rightarrow \infty}\left| \oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) \D z \right| = 0.
+$$
+\qed \\
 
 \item Suppose, in addition, that $q(z)$ has no roots at the integers. Show that
 $$
@@ -541,8 +627,10 @@ Now we can evaluate the sum
 	&= - \pi \left[ \frac 1 {(2 \I \sqrt \I)\sqrt \I(\I  - 1)\sqrt \I (\I + 1)} \cot (\pi \I \sqrt{\I}) + \frac 1 {(- 2\I \sqrt{\I})(- \sqrt \I)(\I + 1)(- \sqrt \I)(\I - 1)} \cot (- \pi \I \sqrt{\I}) \right. \\
 		&  \left. \quad\quad\quad + \frac 1 {\sqrt \I(1 - \I )\sqrt \I(1 + \I )(2 \sqrt \I )} \cot (\pi \sqrt{\I}) + \frac 1 {(- \sqrt \I)(1 + \I )(- \sqrt \I)(1 - \I )(- 2\sqrt \I)} \cot (- \pi \sqrt{\I}) \right] \\
 	&= - \pi \left[ \frac 1 {4\sqrt \I} \cot (\pi \I \sqrt{\I}) - \frac 1 {4\sqrt{\I}} \cot (- \pi \I \sqrt{\I}) + \frac 1 {4 \I \sqrt \I } \cot (\pi \sqrt{\I}) - \frac 1 {4 \I\sqrt \I} \cot (- \pi \sqrt{\I}) \right] \\
-\end{align*}
-\textbf{TODO: Check if this is as far as anyone else simplified it.} \\
+	&= - \pi \left[ \frac 1 {2 \sqrt \I} \cot (\pi \I \sqrt{\I}) + \frac 1 {2 \I \sqrt \I } \cot (\pi \sqrt{\I}) \right] \\
+	&= - \pi \left[ \frac 1 {2 \sqrt \I} \cot (\pi \I \sqrt{\I}) - \frac \I {2 \sqrt \I } \cot (\pi \sqrt{\I}) \right] \\
+	&= \frac \pi {2\sqrt \I} \left( \I \cot (\pi \sqrt{\I}) - \cot (\pi \I \sqrt{\I}) \right)
+\end{align*} \qed \\
 
 
 \item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{k^2-1/4}$ \\
@@ -557,7 +645,8 @@ Then applying the formula from part (d) we have
 	&= - \pi \left( \underset{z=1/2}{ \rm Res} \left( \frac{1}{(z - 1/2)( z + 1/2)} \cot (\pi z) \right) \right. \\
 		& \quad \quad +\left. \underset{z=-1/2}{ \rm Res} \left( \frac{1}{(z - 1/2)( z + 1/2)} \cot (\pi z) \right)\right) \\
 	&= - \pi \left( \frac{1}{( 1/2 + 1/2)} \cot (\pi / 2) + \frac{1}{(-1/2 - 1/2)} \cot (-\pi /2) \right) \\
-	&= - \pi \big( \cot (\pi / 2) -\cot (-\pi /2) \big)
+	&= - \pi \big( \cot (\pi / 2) -\cot (-\pi /2) \big) \\
+	&= - 2 \pi \cot (\pi / 2) = 0
 \end{align*}
 \qed \\
 \newpage
@@ -584,7 +673,9 @@ Therefore, the zeros of this function are found at $w \in S = \{ \pm 1/2, \pm \I
 	\right] \\
 	&= - \pi \left[
 		\frac 1 8 \cot (\pi /2) - \frac 1 8 \cot (- \pi / 2) + \frac \I 8 \cot (\pi \I /2) - \frac \I 8 \cot (- \pi \I/2)
-	\right]
+	\right] \\
+	&= - \pi \left( \frac 1 4 \cot (\pi /2) + \frac \I 4 \cot (\pi \I /2) \right) \\
+	&= - \frac{ \pi \I } 4 \cot (\pi \I /2)
 \end{align*}
 \qed \\
 
