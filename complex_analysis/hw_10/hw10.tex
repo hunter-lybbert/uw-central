@@ -112,14 +112,14 @@ Applying the reverse triangle inequality in the denominator we have
 	&= \lim_{h \to \infty} 2 \E^{- 2 j h}
 		\frac{ \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |} \int_0^\pi | \D t | \\
 	&= \lim_{h \to \infty}
-		\frac{ 2 \pi \E^{- 2 j h} \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |}
+		\frac{ 2 \pi \E^{- 2 j h} \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |}.
 \end{align*}
 Multiplying by one in a clever manner we have
 \begin{align*}
 &= \lim_{h \to \infty} \frac {\E^{ 2 N h}} {\E^{ 2 N h}} \frac{ 2 \pi \E^{- 2 j h} \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |} \\
 &= \lim_{h \to \infty} \frac{ 2 \pi \E^{- 2 j h} }{| 1 - \E^{ 2 N h} |} \\
 &= \lim_{h \to \infty} \frac{ 2 \pi }{\E^{ 2 j h}| 1 - \E^{ 2 N h} |} \\
-&= \lim_{h \to \infty} \frac{ 2 \pi }{\E^{ 2 j h}( \E^{ 2 N h}  - 1)} = 0
+&= \lim_{h \to \infty} \frac{ 2 \pi }{\E^{ 2 j h}( \E^{ 2 N h}  - 1)} = 0.
 \end{align*}
 The conclusion is easy since the numerator is constant and as $h \rightarrow \infty$ the denominator blows up at an exponential rate.
 Hence,
@@ -156,7 +156,7 @@ Specifically when $j \neq 0$ we have
 		- \frac 1 {2 j \E^{2 j h}}  \right) \\
 	&= - \lim_{h \to \infty} \left( \frac { \E^{2 \pi \I j} - 1} {2 j \E^{2 j h}}  \right)  \\
 	&= - \lim_{h \to \infty} \left( \frac { 1 - 1} {2 j \E^{2 j h}}  \right)  \\
-	&= - \lim_{h \to \infty} \left( \frac 0 {2 j \E^{2 j h}}  \right) = 0
+	&= - \lim_{h \to \infty} \left( \frac 0 {2 j \E^{2 j h}}  \right) = 0.
 \end{align*}
 Now if $j = 0$ then we have
 \begin{align*}
@@ -165,22 +165,10 @@ Now if $j = 0$ then we have
 	&= - \lim_{h \to \infty} \left( \I z \right) \bigg|_{\I h}^{\I h + \pi} \\
 	&= - \lim_{h \to \infty} \left( \cancel{- h} + \I \pi \cancel{+ h} \right) \\
 	&= - \lim_{h \to \infty} \I \pi \\
-	&= -\I \pi
+	&= -\I \pi.
 \end{align*}
-\textbf{TODO: Is this what other people did from office hours?}
-Following the sketch provided in class let's look at an import representation of $\tan (Nz)$
-\begin{align*}
-\tan(N z) &= \frac {\sin (N z)}{\cos (N z)} \\
-	&= \frac{ \E^{\I N z} + \E^{- \I N z} }{2\I} \left( \frac {\E^{\I N z} - \E^{- \I N z}} 2 \right)^{-1} \\
-	&= \frac{ \E^{\I N z} + \E^{- \I N z} }{2\I} \left( \frac 2 {\E^{\I N z} - \E^{- \I N z}} \right) \\
-	&= \frac 1 \I \left( \frac { \E^{\I N z} + \E^{- \I N z} }{ \E^{\I N z} - \E^{- \I N z} } \right) \\
-	&= \frac 1 \I \Bigg( \frac {\E^{\I N z}}{\E^{\I N z}} \left( \frac { 1 + \E^{- 2 \I N z} }{ 1 - \E^{- 2 \I N z} } \right) \Bigg) \\
-	&= \frac 1 \I \Bigg( \frac { 1 + \E^{- 2 \I N z} }{ 1 - \E^{- 2 \I N z} } \Bigg) \\
-	&= \frac 1 \I \Bigg( \frac { 1 + \left( \cos (N z) - \I \sin(N z) \right)^2 }{ 1 - \left( \cos (N z) - \I \sin(N z) \right)^2 } \Bigg) \\
-	&= \frac 1 \I \Bigg( \frac { 1 +  \cos^2 (N z) - 2 \I \cos(N z) \sin(N z)- \sin^2(N z) }{ 1 - \cos^2 (N z) + 2 \I \cos(N z) \sin(N z) + \sin^2(N z) } \Bigg) \\
-	&... \\
-	&= \I + \mathcal O(\E^{-2Nh})
-\end{align*}
+Thus we have demonstrated the necessary equalities. \\
+\qed \\
 \newpage
 
 \item From A\&F: 4.2.1 (b) \\
@@ -429,9 +417,9 @@ Therefore we have,
 \frac
 	{1 + \E^{2 \pi (N + 1/2) } }
 	{|1 - \E^{2 \pi (N + 1/2) } |}
-&= \frac
+= \frac
 	{1 + \E^{2 \pi (N + 1/2) } }
-	{\E^{2 \pi (N + 1/2) } - 1} \\
+	{\E^{2 \pi (N + 1/2) } - 1}
 &= \frac {1 + \E^{2 \pi (N + 1/2) } } {\E^{2 \pi (N + 1/2) } - 1}
 	\frac {\E^{-\pi (N + 1/2)}}{\E^{-\pi (N + 1/2)}} \\
 &= \frac {\E^{-\pi (N + 1/2)} + \E^{\pi (N + 1/2) } } {\E^{\pi (N + 1/2) } - \E^{-\pi (N + 1/2)}} \\
@@ -445,37 +433,25 @@ Notice, we can plugin the other parameterization for the bottom part of the cont
 
 \noindent
 Let's now do the section of the contour along the two sides of the box.
-The parameterizations for the top and bottom of the box are
-$$z(t) = -(N + 1/2) - 2 t \I (N + 1/2) + \I (N + 1/2)$$
-$$z(t) = N + 1/2 + 2 t \I (N + 1/2) - \I (N + 1/2)$$
-respectively, where $t \in [0,1]$.
-Plugging in this version of the parameterization for the left side of the box to expression \eqref{eq:eq1} we have
+Using a basic parameterization $z = x + \I y$ knowing that $x$ is a constant and $y$ is varying
 \begin{align*}
-\left|
-	\frac
-	{1 + \E^{-2 \pi \I \big( -(N + 1/2) - 2 t \I (N + 1/2) + \I (N + 1/2) \big) } }
-	{1 - \E^{-2 \pi \I \big( -(N + 1/2) - 2 t \I (N + 1/2) + \I (N + 1/2) \big) } }
-\right| 
-&= \left|
-	\frac
-	{1 + \E^{2 \pi \I (N + 1/2) + 4 \pi \I^2 t (N + 1/2) -2 \pi \I^2 (N + 1/2) } }
-	{1 - \E^{2 \pi \I (N + 1/2) + 4 \pi \I^2 t (N + 1/2) -2 \pi \I^2 (N + 1/2) } }
-\right| \\
-&= \left|
-	\frac
-	{1 + \E^{2 \pi \I (N + 1/2)} \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) } }
-	{1 - \E^{2 \pi \I (N + 1/2)} \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) } }
-\right| \\
-&\leq \frac {|1| + |\E^{2 \pi \I (N + 1/2)} \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) }| }
-	{\big| |1| - |\E^{2 \pi \I (N + 1/2)} \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) }| \big|} \\
-&\leq \frac {1 + \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) } }
-	{\big| 1 - \E^{- 4 \pi t (N + 1/2)} \E^{2 \pi (N + 1/2) } \big|}
+|\cot \pi z| = \left| \frac { \cos \pi z}{\sin \pi z} \right| = \left| \frac { \cos \big(\pi (x + \I y)\big)}{\sin \big(\pi (x + \I y)\big)} \right|
+	&= \left| \frac { \cos (\pi x + \pi \I y)}{\sin (\pi x + \pi \I y)} \right| \\
+	&= \left| \frac { \cos (\pi x)\cos(\pi \I y) - \sin(\pi x)\sin(\pi \I y)}{\sin (\pi x)\cos(\pi \I y) + \cos(\pi x)\sin(\pi \I y)} \right| \\
+	&= \left| \frac { \cos (\pi x)\cosh(\pi y) - \sin(\pi x)\I \sinh(\pi y)}{\sin (\pi x)\cosh(\pi y) + \cos(\pi x)\I \sinh(\pi y)} \right|.
 \end{align*}
-\textbf{TODO: Do something similar to this for the sides of the contour where the imaginary part is variable but the real part is constant.}
+Notice, $x = \pm (N + 1/2) = \pm \frac {2N + 1}{2}$, where the plus or minus depends on which contour you are on.
+Therefore, $\cos\left(\pi \frac {2N + 1}{2}\right) = 0 $ for any $N$.
+Then we have
 \begin{align*}
-f(x) = mx + b
+\left| \frac { \cos (\pi x)\cosh(\pi y) - \sin(\pi x)\I \sinh(\pi y)}{\sin (\pi x)\cosh(\pi y) + \cos(\pi x)\I \sinh(\pi y)} \right|
+	&= \left| \frac {- \sin(\pi x)\I \sinh(\pi y)}{\sin (\pi x)\cosh(\pi y)} \right| \\
+	&= \left| \frac {- \I \sinh(\pi y)}{\cosh(\pi y)} \right| \\
+	&\leq \left| \frac { \sinh(\pi y)}{\cosh(\pi y)} \right| \\
+	&= \left| \tanh (\pi y) \right| < 1 < 2.
 \end{align*}
-
+where $y \in [-(N + 1/2), N + 1/2]$.
+Hence on $\Gamma_N$ we have $| \cot ( \pi z) | \leq 2$. \qed \\
 
 \item Suppose $f(z)=p(z) / q(z)$, where $p(z)$ and $q(z)$ are polynomials, so that the degree of $q(z)$ is at least two more than the degree of $p(z)$. Show that
 $$
@@ -565,7 +541,12 @@ right-hand side has a finite number of terms. \\
  
 \noindent
 \textit{Solution:} \\
-\textbf{TODO: I think you should argue that this holds for a particular $N$, and then take a limit as $N \rightarrow \infty$}
+Fix $N$ and let $S = \{ w : |w| \leq N \text{ and } w \in \mathbb Z \}$ then by the residue theorem we have
+$$
+\oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) d z = \sum_{k \in S} \underset{z=k}{ \rm Res} \left( \frac{p(z)}{q(z)} \cot (\pi z) \right)
+		+ \sum_j \underset{z=z_j}{ \rm Res} \left( \frac{p(z)}{q(z)} \cot (\pi z) \right).
+$$
+Furthermore, taking the limit as $N \rightarrow \infty$, $S$ becomes $\mathbb Z$, then
 \begin{align*}
 \cancelto{0}{\oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) d z}
 	&= \sum_{k \in \mathbb Z} \underset{z=k}{ \rm Res} \left( \frac{p(z)}{q(z)} \cot (\pi z) \right)
@@ -577,6 +558,7 @@ right-hand side has a finite number of terms. \\
 \sum_{k=-\infty}^{\infty} \frac{p(k)}{q(k)}
 	&= - \pi \sum_j \underset{z=z_j}{ \rm Res} f(z) \cot (\pi z)
 \end{align*}
+as required. \\
 \qed
 
 \newpage
@@ -675,7 +657,10 @@ Therefore, the zeros of this function are found at $w \in S = \{ \pm 1/2, \pm \I
 		\frac 1 8 \cot (\pi /2) - \frac 1 8 \cot (- \pi / 2) + \frac \I 8 \cot (\pi \I /2) - \frac \I 8 \cot (- \pi \I/2)
 	\right] \\
 	&= - \pi \left( \frac 1 4 \cot (\pi /2) + \frac \I 4 \cot (\pi \I /2) \right) \\
-	&= - \frac{ \pi \I } 4 \cot (\pi \I /2)
+	&= - \frac{ \pi \I } 4 \cot (\pi \I /2) \\
+	&= - \frac{ \pi \I } 4 \left ( - \I \coth (\pi / 2)  \right ) \\
+	&= \frac{ \pi \I^2 } 4 \coth (\pi / 2) \\
+	&= - \frac{ \pi } 4 \coth (\pi / 2)
 \end{align*}
 \qed \\
 
