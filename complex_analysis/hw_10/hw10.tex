@@ -1,0 +1,678 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+\usepackage{mathtools}
+
+\graphicspath{ {./images/} }
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=5pt]{lemma}{Lemma}
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{12-02-24} \\
+\text{AMATH 567} \\
+
+\title{\bf { Homework 10} }
+
+
+\maketitle
+\noindent
+Collaborators*: Laura Thomas, Cooper Simpson, Nate Ward, Sophia Kamien \\
+\\
+\tiny
+\text{*Listed in no particular order. And anyone I discussed at least part of one problem with is considered a collaborator.}
+\normalsize
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item I sketched the following in class.  Complete the argument.  Show that for an integer $j \in (-N,N)$ and $h > 0$,
+\begin{align*}
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac{\E^{2 \I jz}}{\tan (N z)} \D z
+	= \begin{cases} - \I \pi & j = 0,\\ 0 & \text{otherwise}.\end{cases}
+\end{align*}
+ 
+\noindent
+\textit{Solution:} \\
+Consider the following equivalent integral
+\begin{align}
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac{\E^{2 \I jz}}{\tan (N z)} \D z 
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \Bigg( \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) + \frac 1 \I \Bigg) \D z \nonumber \\
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \Bigg( \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) + \frac {\E^{2 \I jz}} \I \Bigg) \D z \nonumber \\
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  - \frac 1 \I \bigg) \D z + \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac {\E^{2 \I jz}} \I  \D z \nonumber \\
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  + \I \bigg) \D z - \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{2 \I jz}   \D z
+\label{eq:eqFirst}
+\end{align}
+We want to be able to show the first integral on the left goes to 0, then we can show the second integral produces the expected results we are looking for from the problem statement.
+Notice, we can say
+\begin{align*}
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z
+	&\leq \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \left| \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z \right|
+\end{align*}
+Let's analyze the expression in the integrand a little
+\begin{align*}
+\E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg)
+	&= \E^{2 \I jz} \bigg(
+		\frac{\I \left( \E^{\I N z} + \E^{-\I N z} \right) }{\E^{\I N z} - \E^{-\I N z}} + \I
+	\bigg) \\
+	&= \E^{2 \I jz} \bigg( \frac{\I \left( \E^{\I N z} + \E^{-\I N z} \right) + \I\left( \E^{\I N z} - \E^{-\I N z} \right)}{ \E^{\I N z} - \E^{-\I N z} } \bigg) \\
+	&= \E^{2 \I jz} \bigg( \frac{ 2 \I \E^{\I N z} }{ \E^{\I N z} - \E^{-\I N z} } \bigg) \\
+	&= \E^{2 \I jz} \bigg( \frac{ 2 \I \E^{2 \I N z} }{ \E^{2 \I N z} - 1 } \bigg).
+\end{align*}
+Then we have
+\begin{align*}
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \left| \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z \right|
+	&= \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \left| \E^{2 \I jz}
+		\bigg( \frac{ 2 \I \E^{2 \I N z} }{ \E^{2 \I N z} - 1 } \bigg) \D z \right| \\
+	&= \lim_{h \to \infty} \int_0^\pi \left| \E^{2 \I j(t + \I h)}
+		\bigg( \frac{ 2 \I \E^{2 \I N (t + \I h)} }{ \E^{2 \I N (t + \I h)} - 1 } \bigg) \D t \right| \\
+	&= \lim_{h \to \infty} \int_0^\pi \left| \E^{2 \I j(t + \I h)}
+		\bigg( \frac{ 2 \I \E^{2 \I N t}\E^{- 2 N h} }{ \E^{2 \I N t}\E^{- 2 N h} - 1 } \bigg) \D t \right|.
+\end{align*}
+Applying the reverse triangle inequality in the denominator we have
+\begin{align*}
+	&\leq \lim_{h \to \infty} \int_0^\pi | 2 \I | \left| \E^{2 \I j t}\E^{- 2 j h} \right|
+		\frac{ | \E^{2 \I N t}\E^{- 2 N h} |}{| \E^{2 \I N t}\E^{- 2 N h} - 1 |} | \D t | \\
+	&\leq \lim_{h \to \infty} \int_0^\pi 2 \E^{- 2 j h}
+		\frac{ \E^{- 2 N h} }{| |\E^{2 \I N t}\E^{- 2 N h}| - |1| |} | \D t | \\
+	&\leq \lim_{h \to \infty} \int_0^\pi 2 \E^{- 2 j h}
+		\frac{ \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |} | \D t | \\
+	&\leq \lim_{h \to \infty} \int_0^\pi 2 \E^{- 2 j h}
+		\frac{ \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |} | \D t | \\
+	&= \lim_{h \to \infty} 2 \E^{- 2 j h}
+		\frac{ \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |} \int_0^\pi | \D t | \\
+	&= \lim_{h \to \infty}
+		\frac{ 2 \pi \E^{- 2 j h} \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |}.
+\end{align*}
+Multiplying by one in a clever manner we have
+\begin{align*}
+&= \lim_{h \to \infty} \frac {\E^{ 2 N h}} {\E^{ 2 N h}} \frac{ 2 \pi \E^{- 2 j h} \E^{- 2 N h} }{| \E^{- 2 N h} - 1 |} \\
+&= \lim_{h \to \infty} \frac{ 2 \pi \E^{- 2 j h} }{| 1 - \E^{ 2 N h} |} \\
+&= \lim_{h \to \infty} \frac{ 2 \pi }{\E^{ 2 j h}| 1 - \E^{ 2 N h} |} \\
+&= \lim_{h \to \infty} \frac{ 2 \pi }{\E^{ 2 j h}( \E^{ 2 N h}  - 1)} = 0.
+\end{align*}
+The conclusion is easy since the numerator is constant and as $h \rightarrow \infty$ the denominator blows up at an exponential rate.
+Hence,
+\begin{align*}
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \left| \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z \right| \leq 0.
+\end{align*}
+Since modulus is nonnegative then this less than or equal to is really just an equality.
+Since,
+$$\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \left| \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z \right| = 0 $$
+similarly we can show
+$$
+\lim_{h \to \infty} - \int_{\I h}^{\I h + \pi} \left| \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z \right| = 0.
+$$
+Finally, by the squeeze theorem
+$$
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)} + \I \bigg) \D z  = 0
+$$
+hence, from equation \eqref{eq:eqFirst} we have
+\begin{align*}
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac{\E^{2 \I jz}}{\tan (N z)} \D z
+	&= \cancelto{0}{\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \E^{2 \I jz} \bigg( \frac 1 {\tan (N z)}  + \I \bigg) \D z} - \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{2 \I jz}   \D z \\
+\lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \frac{\E^{2 \I jz}}{\tan (N z)} \D z
+	&= - \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{2 \I jz}   \D z
+\end{align*}
+Now let's look at this remaining integral carefully.
+Specifically when $j \neq 0$ we have
+\begin{align*}
+- \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{2 \I jz} \D z
+	&= - \lim_{h \to \infty} \left( \frac 1 {2 j } \E^{2 \I jz} \bigg|_{\I h}^{\I h + \pi}  \right) \\
+	&= - \lim_{h \to \infty} \left( \frac 1 {2 j } \E^{2 \I j(\I h + \pi)} - \frac 1 {2 j } \E^{2 \I j(\I h)}  \right) \\
+	&= - \lim_{h \to \infty} \left( \frac 1 {2 j } \E^{- 2 j h}\E^{2 \pi \I j}
+		- \frac 1 {2 j } \E^{- 2 j h}  \right) \\
+	&= - \lim_{h \to \infty} \left( \frac 1 {2 j \E^{2 j h}} \E^{2 \pi \I j}
+		- \frac 1 {2 j \E^{2 j h}}  \right) \\
+	&= - \lim_{h \to \infty} \left( \frac { \E^{2 \pi \I j} - 1} {2 j \E^{2 j h}}  \right)  \\
+	&= - \lim_{h \to \infty} \left( \frac { 1 - 1} {2 j \E^{2 j h}}  \right)  \\
+	&= - \lim_{h \to \infty} \left( \frac 0 {2 j \E^{2 j h}}  \right) = 0.
+\end{align*}
+Now if $j = 0$ then we have
+\begin{align*}
+- \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \E^{0} \D z
+	&= - \lim_{h \to \infty} \int_{\I h}^{\I h + \pi} \I \D z \\
+	&= - \lim_{h \to \infty} \left( \I z \right) \bigg|_{\I h}^{\I h + \pi} \\
+	&= - \lim_{h \to \infty} \left( \cancel{- h} + \I \pi \cancel{+ h} \right) \\
+	&= - \lim_{h \to \infty} \I \pi \\
+	&= -\I \pi.
+\end{align*}
+Thus we have demonstrated the necessary equalities. \\
+\qed \\
+\newpage
+
+\item From A\&F: 4.2.1 (b) \\
+ 
+\noindent
+\textit{Solution:} \\
+See solution to problem 2 from homework set 9. \\
+\qed \\
+
+
+\item From A\&F: 4.2.2 (a, h) \\
+Evaluate the following real integrals by residue integration: \\
+ 
+\noindent
+(a) \\
+\begin{align*}
+\int_{-\infty}^{\infty} \frac {x \sin x}{x^2 + a^2 } \D x, \quad a^2 > 0
+\end{align*}
+\textit{Solution:} \\
+We can also look at just the imaginary part of another version of this integral
+\begin{align*}
+\int_{-\infty}^{\infty} \frac {x \sin x}{x^2 + a^2 } \D x
+	&= { \rm Im } \int_{-\infty}^{\infty} \frac {x \E^{\I x}}{x^2 + a^2 } \D x \\
+	&= { \rm Im } \int_{-\infty}^{\infty} \frac {x \left( \cos x + \I \sin x \right)}{x^2 + a^2 } \D x \\
+	&= { \rm Im } \left[
+		\int_{-\infty}^{\infty} \frac {x \cos x }{x^2 + a^2 } \D x
+		+ \I \int_{-\infty}^{\infty} \frac {x \sin x }{x^2 + a^2 } \D x
+	\right] \\
+	&= \int_{-\infty}^{\infty} \frac {x \sin x}{x^2 + a^2 } \D x.
+\end{align*}
+Therefore, we consider the integral 
+$$
+\int_{-\infty}^{\infty} \frac {x \E^{\I x}}{x^2 + a^2 } \D x
+$$
+and then take the imaginary part at the end.
+In order to evaluate this integral we look at the integral over the contour $C$ which is a counterclockwise semicircle in the upper half plane with radius $R$.
+Then applying the Residue Theorem and taking the limit as $R \rightarrow \infty$, we have the following
+\begin{align*}
+\oint_{C} \frac {z \E^{\I z}}{z^2 + a^2 } \D z
+	&= \int_{-R}^{R} \frac {x \E^{\I x}}{x^2 + a^2 } \D x + \oint_{C_R} \frac {z \E^{\I z}}{z^2 + a^2 } \D z \\
+2 \pi \I\sum_{w \in S} \left( \frac {z \E^{\I z}}{z^2 + a^2 } \right)
+	&= \int_{-\infty}^{\infty} \frac {x \E^{\I x}}{x^2 + a^2 } \D x + \cancelto{0}{\oint_{C_R} \frac {z \E^{\I z}}{z^2 + a^2 } \D z}
+\end{align*}
+where $S$ is the set of singularities of our function in the upper half plane and I claim the $C_R$ contour integral goes to 0 by Jordan's Lemma.
+I will verify this second claim next.\\
+
+\noindent
+To justify using Jordan's Lemma I want to note we are using $k = 1$ in assumptions from the lemma of concern.
+Moreover, I will be assuming $a > 0$ for now.
+Additionally, we need to show $f(z) \rightarrow 0$ {\bf uniformly} as $R\rightarrow \infty $ in $C_R$, that is if $|f(z)| \leq K_R$, where $K_R$ only depends on $R$ and not arg $z$ and $K_R \rightarrow 0 $ as $ R \rightarrow \infty$.
+Let's first find this bound $K_R$
+\begin{align*}
+|f(z)| &= \left| \frac z {z^2 + a^2} \right| \\
+	&= \left| \frac {R \E^{\I \theta}} {R^2 \E^{2 \I \theta} + a^2} \right| \\
+	&= \frac {R} { \left|  R^2 \E^{2 \I \theta} + a^2 \right| } \\
+	&\leq \frac {R} { \big| \left|R^2 \E^{2 \I \theta} \right| - \left| - a^2 \right| \big| } \\
+	&\leq \frac {R} { R^2 - a^2 }.
+\end{align*}
+In the final two steps with inequalities we first apply the inverse triangle inequality, followed by recognizing the following.
+Since $R$ is becoming arbitrarily large then for a given $a$ eventually $R$ will be larger such that $R^2 > a^2$ and therefore the expression $R^2 - a^2 > 0$ thus we can drop the absolute value in the end.
+Now, let $K_R = R/(R^2 - a^2)$.
+Clearly the denominator will win out as we take $R \rightarrow \infty$ since it has a squared $R$ in it, while the numerator only has a linear $R$.
+Therefore, $K_R \rightarrow 0 $ as $ R \rightarrow \infty$ and thus $f(z) \rightarrow 0$ {\bf uniformly} as $R\rightarrow \infty $ in $C_R$.
+Thus we have verified that
+$$
+\cancelto{0}{\oint_{C_R} \frac {z \E^{\I z}}{z^2 + a^2 } \D z}
+$$
+by Jordan's Lemma. \\
+
+\noindent
+Therefore we no longer need to be concerned with the integral over $C_R$.
+Notice the denominator of our function factors to $(z - \I a)(z + \I a)$ therefore the set of singularities in the upper half plane is $S = \{ \I a \} $.
+Hence we have
+\begin{align*}
+\int_{-\infty}^{\infty} \frac {x \E^{\I x}}{x^2 + a^2 } \D x
+	&= 2 \pi \I \sum_{w \in S} \underset{z = w }{ \rm Res } \left( \frac {z \E^{\I z}}{z^2 + a^2 } \right) \\
+	&= 2 \pi \I \, \, \underset{z = \I a }{ \rm Res } \left( \frac {z \E^{\I z}}{(z - \I a)(z + \I a) } \right) \\
+	&= 2 \pi \I \left( \frac {\I a \E^{\I^2 a}}{ \I a + \I a } \right) \\
+	&= 2 \pi \I \left( \frac {\I a \E^{- a}}{ 2 \I a } \right) \\
+	&= \pi \I \E^{- a}.
+\end{align*}
+Therefore,
+\begin{align*}
+\int_{-\infty}^{\infty} \frac {x \sin x}{x^2 + a^2 } \D x
+	&= { \rm Im } \left[ \int_{-\infty}^{\infty} \frac {x \E^{\| x}}{x^2 + a^2 } \D x \right] \\
+	&= { \rm Im } \left[ \pi \I \E^{- a} \right] \\
+	&= \pi \E^{- a}
+\end{align*} \qed \\
+
+
+\noindent
+(h) \\
+\begin{align*}
+\int_{0}^{2 \pi} \frac {\D \theta}{ (5 - 3\sin\theta)^2 }
+\end{align*}
+\textit{Solution:} \\
+Let's begin by reverse parameterizing this into a contour integral around the unit circle.
+Notice, using the normal parameterization but going the other way we have, $z = \E^{\I \theta}$ and
+$$ \D z = \I \E^{\I \theta } \D \theta \implies \frac 1 {\I z} \D z = \D \theta. $$
+Additionally, notice,
+$$
+\sin\theta = \frac {\E^{\I \theta} - \E^{-\I \theta}}{2 \I} = \frac {z - \frac 1 z}{2 \I}.
+$$
+Hence, our reverse parameterization can get us here (with a little simplification)
+\begin{align*}
+\int_{0}^{2 \pi} \frac {\D \theta}{ (5 - 3\sin\theta)^2 }
+	&= \oint_{\partial B_1(0)} \left(5 - 3 \left( \frac {z - \frac 1 z}{2 \I} \right) \right)^{-2} \frac {\D z}{ \I z } \\
+	&= \oint_{\partial B_1(0)} \left(5 - \frac {3z}{2 \I} + \frac 3 {2 \I z} \right)^{-2} \frac {\D z}{ \I z } \\
+	&= \oint_{\partial B_1(0)} \left(\frac {10 \I z - 3z^2 + 3}{2 \I z}\right)^{-2} \frac {\D z}{ \I z } \\
+	&= \oint_{\partial B_1(0)} \frac {(2 \I z)^2} {\left(10 \I z - 3z^2 + 3\right)^{2}\I z} \D z \\
+	&= \oint_{\partial B_1(0)} \frac {4 \I z} {\left(10 \I z - 3z^2 + 3\right)^{2}} \D z.
+\end{align*}
+Now we need to factor the quadratic in the denominator to determine the singularities of the integrand
+\begin{align*}
+10 \I z - 3z^2 + 3
+	&= (\I - 3 z)(z - 3 \I) \\
+	&= - 3 \left(z - \I / 3 \right) \left(z - 3 \I \right).
+\end{align*}
+Then we have
+\begin{align*}
+\oint_{\partial B_1(0)} \frac {4 \I z} {\left(10 \I z - 3z^2 + 3\right)^{2}} \D z
+	&= \oint_{\partial B_1(0)} \frac {4 \I z} {\left(- 3 \left(z - \I / 3 \right) \left(z - 3 \I \right)\right)^{2}} \D z \\
+	&= \oint_{\partial B_1(0)} \frac {4 \I z} {9 (z - \I / 3 )^2 (z - 3 \I )^2} \D z \\
+	&= 2 \pi \I \, \, \underset{z = \I/3 }{ \rm Res } \left( \frac {4 \I z} {9 (z - \I / 3 )^2 (z - 3 \I )^2} \right).
+\end{align*}
+Let's compute the residue at the simple pole with this formula
+\begin{align*}
+2 \pi \I \, \, \underset{z = \I a }{ \rm Res } \left( \frac {4 \I z} {9 (z - \I / 3 )^2 (z - 3 \I )^2} \right)
+	&= 2 \pi \I \, \, \frac 1 {(2 - 1)!} \frac {\D^{2 - 1}}{\D z^{2 - 1}} \left( \cancel{(z - \I / 3 )^2} \frac {4 \I z} {9 \cancel{(z - \I / 3 )^2} (z - 3 \I )^2} \right) \Bigg|_{\I / 3} \\
+	&= 2 \pi \I \, \, \frac {\D}{\D z} \left( \frac {4 \I z} {9 (z - 3 \I )^2} \right) \Bigg|_{\I / 3} \\
+	&= 2 \pi \I \, \, \left( \frac {4 \I 9 (z - 3 \I )^2 - 4 \I z (9 \cdot 2 (z - 3 \I ))} {9^2 (z - 3 \I )^4} \right) \Bigg|_{\I / 3} \\
+	&= 2 \pi \I \, \, \left( \frac {4 \I (z - 3 \I ) - 8 \I z } {9 (z - 3 \I )^3} \right) \Bigg|_{\I / 3} \\
+	&= 2 \pi \I \, \, \left( \frac {4 \I z + 12 - 8 \I z } {9 (z - 3 \I )^3} \right) \Bigg|_{\I / 3} \\
+	&= 2 \pi \I \, \, \left( \frac {- 4 \I z + 12 } {9 (z - 3 \I )^3} \right) \Bigg|_{\I / 3} \\
+	&= 2 \pi \I \, \, \left( \frac {- 4 \I \frac \I 3 + 12 } {9 (\frac \I 3 - 3 \I )^3} \right) \\
+	&= 2 \pi \I \, \, \left( \frac {\frac 4 3 + 12 } {9 (\frac {- 8 \I} 3 )^3} \right) \\
+	&= 2 \pi \I \, \, \left( \frac {\frac {40} 3 } {9 \frac {(-1)^3 8 \cdot 64 \I^3} {9 \cdot 3} } \right) \\
+	&= 2 \pi \I \, \, \left( \frac { 40 } {- 8 \cdot 64 (-1) \I} \right) \\
+	&= \pi \, \, \left( \frac { 40 } {8 \cdot 32 } \right) \\
+	&= \frac { 5 \pi } { 32 }.
+\end{align*}
+\qed \\
+
+\newpage
+
+\item
+\begin{enumerate}
+\item  Show that
+$$
+\operatorname{Res}_{z=k} f(z) \cot (\pi z)=\frac{1}{\pi} f(k),
+$$
+provided $f(z)$ is analytic at $z=k, ~~k \in \mathbb{Z}$. \\
+ 
+\noindent
+\textit{Solution:} \\
+Recall that if $z = z_k$ is a pole of order $N$ of $f(z)\cot \pi z$ then
+$$
+\underset{z = z_k }{ \rm Res } \left( f(z)\cot \pi z \right)
+	= \frac 1 {(N - 1)!} \lim_{z\rightarrow z_k} \frac {\D^{N -1}}{\D z^{N - 1}} \left[(z - z_k)^N f(z)\cot \pi z \right].
+$$
+Notice, that the only places where our function $f(z)\cot \pi z$ only blows up in the locations where $\tan(\pi z) = 0$, therefore, $\sin \pi z = 0$.
+This holds at all the integers $z=k$.
+Each $k \in \mathbb Z $ will therefore be a simple pole of $f(z) \cot \pi z$.
+Then let's calculate 
+\begin{align*}
+\underset{z = k }{ \rm Res } \left( f(z)\cot \pi z \right)
+	&= \frac 1 {(1 - 1)!} \lim_{z\rightarrow k} \frac {\D^{1-1}}{\D z^{1 - 1}} \left[(z - k)^1 f(z)\cot \pi z \right] \\
+	&= \lim_{z\rightarrow k} \left[(z - k) f(z)\cot \pi z \right] \\
+	&= \lim_{z\rightarrow k} \left[ \frac {(z - k) f(z)} {\tan \pi z} \right] \\
+	&= \frac {(k - k) f(k)} {\tan \pi k} \\
+	&= \frac 0 0.
+\end{align*}
+Using L'Hôpital's, we have
+\begin{align*}
+\lim_{z\rightarrow k} \left[ \frac {(z - k) f(z)} {\tan \pi z} \right]
+	&= \lim_{z\rightarrow k} \left[ \frac {\frac{\D}{\D z}(z - k) f(z)} { \frac{\D}{\D z}\tan \pi z} \right] \\
+	&= \lim_{z\rightarrow k} \left[ \frac {f(z) + (z - k) f^\prime(z)} { \pi \sec^2 (\pi z)} \right] \\
+	&= \frac {f(k) + (k - k) f^\prime(k)} { \pi \sec^2 (\pi k)} \\
+	&= \frac 1 \pi ( f(k) + (k - k) f^\prime(k) ) \cos^2 (\pi k) \\
+	&= \frac 1 \pi f(k) \cos^2 (\pi k) \\
+	&= \frac 1 \pi f(k).
+\end{align*}
+\qed
+\\
+
+\newpage
+
+\item Let $\Gamma_N$ be a square contour, with corners at $(N+1 / 2)( \pm 1 \pm i), N \in \mathbb{Z}^{+}$. Show that
+$$
+|\cot (\pi z)| \leq 2,
+$$
+for $z$ on $\Gamma_N$.\\
+ 
+\noindent
+\textit{Solution:} \\
+Consider the following representation of $\cot \pi z$ with some manipulation
+\begin{align}
+| \cot \pi z | = \left| \frac 1 {\tan \pi z} \right| &= \left| \frac {\cos \pi z} {\sin \pi z} \right| \nonumber \\
+	&= \left| \cos \pi z ( \sin \pi z )^{-1} \right| \nonumber \\
+	&= \left| \frac {\E^{\I \pi z} + \E^{-\I \pi z} }{2} \left( \frac {\E^{\I \pi z} - \E^{-\I \pi z} }{2\I} \right)^{-1} \right| \nonumber \\
+	&= \left| \frac {\E^{\I \pi z} + \E^{-\I \pi z} }{2} \left( \frac {2\I} {\E^{\I \pi z} - \E^{-\I \pi z} } \right) \right| \nonumber \\
+	&= \left| \frac {\I \left( \E^{\I \pi z} + \E^{-\I \pi z} \right) } {\E^{\I \pi z} - \E^{-\I \pi z} } \right| \nonumber \\
+	&\leq |\I | \left| \frac { \E^{\I \pi z} + \E^{-\I \pi z} } {\E^{\I \pi z} - \E^{-\I \pi z} } \right| \nonumber \\
+	&= \left| \frac { \E^{\I \pi z} + \E^{-\I \pi z} } {\E^{\I \pi z} - \E^{-\I \pi z} } \right| \nonumber \\
+	&= \left| \frac {\E^{\I \pi z}} {\E^{\I \pi z}} \frac { 1 + \E^{- 2 \pi \I z} } {1 - \E^{-2 \pi \I z} } \right| \nonumber \\
+	&= \left| \frac { 1 + \E^{- 2 \pi \I z} } {1 - \E^{-2 \pi \I z} } \right|.
+\label{eq:eq1}
+\end{align}
+We will analyze this to show $|\cot \pi z| \leq 2$ along the contour $\Gamma_N$.
+Let's first do the section of the contour along the top and bottom of the box.
+The parameterizations for the top and bottom of the box are
+$$z(t) = -2t(N + 1/2) + (N + 1/2) + \I (N + 1/2)$$
+$$z(t) = 2t(N + 1/2) - (N + 1/2) - \I (N + 1/2)$$
+respectively, where $t \in [0,1]$.
+Plugging in the parameterization for the top of the box to expression \eqref{eq:eq1} we have
+\begin{align*}
+\left|
+	\frac
+	{1 + \E^{-2 \pi \I \big( -2t(N + 1/2) + (N + 1/2) + \I (N + 1/2) \big) } }
+	{1 - \E^{-2 \pi \I \big( -2t(N + 1/2) + (N + 1/2) + \I (N + 1/2) \big) } }
+\right|
+&= \left|
+	\frac
+	{1 + \E^{4 \pi \I t(N + 1/2) -2 \pi \I (N + 1/2) -2 \pi \I^2 (N + 1/2) } }
+	{1 - \E^{4 \pi \I t(N + 1/2) -2 \pi \I (N + 1/2) -2 \pi \I^2 (N + 1/2) } }
+\right| \\
+&= \left|
+	\frac
+	{1 + \E^{4 \pi \I t(N + 1/2)} \E^{-2 \pi \I (N + 1/2)} \E^{2 \pi (N + 1/2) } }
+	{1 - \E^{4 \pi \I t(N + 1/2)} \E^{-2 \pi \I (N + 1/2)} \E^{2 \pi (N + 1/2) } }
+\right| \\
+&\leq \frac
+	{|1| + |\E^{4 \pi \I t(N + 1/2)} \E^{-2 \pi \I (N + 1/2)} \E^{2 \pi (N + 1/2) }| }
+	{\big| |1| - |\E^{4 \pi \I t(N + 1/2)} \E^{-2 \pi \I (N + 1/2)} \E^{2 \pi (N + 1/2) }| \big| } \\
+&\leq \frac
+	{1 + \E^{2 \pi (N + 1/2) } }
+	{|1 - \E^{2 \pi (N + 1/2) } |}.
+\end{align*}
+We finished these last few lines using the triangle inequality and noting that the exponential terms on the right two of them have imaginary parts in the exponent therefore the exponential without any imaginary parts in the exponent is the radius or modulus of the overall imaginary number.
+Furthermore note,
+$$\E^{2 \pi (N + 1/2) } > 1 $$
+implies
+$$ |1 - \E^{2 \pi (N + 1/2) } | = \E^{2 \pi (N + 1/2) } - 1.$$
+Therefore we have,
+\begin{align*}
+\frac
+	{1 + \E^{2 \pi (N + 1/2) } }
+	{|1 - \E^{2 \pi (N + 1/2) } |}
+= \frac
+	{1 + \E^{2 \pi (N + 1/2) } }
+	{\E^{2 \pi (N + 1/2) } - 1}
+&= \frac {1 + \E^{2 \pi (N + 1/2) } } {\E^{2 \pi (N + 1/2) } - 1}
+	\frac {\E^{-\pi (N + 1/2)}}{\E^{-\pi (N + 1/2)}} \\
+&= \frac {\E^{-\pi (N + 1/2)} + \E^{\pi (N + 1/2) } } {\E^{\pi (N + 1/2) } - \E^{-\pi (N + 1/2)}} \\
+&= \coth \big( \pi (N + 1/2) \big) \leq 2
+\end{align*}
+Since $\coth ( \pi/2 ) \approx 1.09$ and $\coth$ is a decreasing function for any value of $N$ we can say
+$$
+| \cot (\pi z ) | \leq \coth \big( \pi (N + 1/2) \big) \leq 2.
+$$
+Notice, we can plugin the other parameterization for the bottom part of the contour and we would arrive at the same conclusion but when we multiplied by 1 in the form $\E^{-\pi (N + 1/2)} /\E^{-\pi (N + 1/2)}$ we would instead need to multiply by $ \E^{\pi (N + 1/2)} / \E^{\pi (N + 1/2)}$ to arrive at $\coth \big( \pi (N + 1/2) \big)$ again. \\
+
+\noindent
+Let's now do the section of the contour along the two sides of the box.
+Using a basic parameterization $z = x + \I y$ knowing that $x$ is a constant and $y$ is varying
+\begin{align*}
+|\cot \pi z| = \left| \frac { \cos \pi z}{\sin \pi z} \right| = \left| \frac { \cos \big(\pi (x + \I y)\big)}{\sin \big(\pi (x + \I y)\big)} \right|
+	&= \left| \frac { \cos (\pi x + \pi \I y)}{\sin (\pi x + \pi \I y)} \right| \\
+	&= \left| \frac { \cos (\pi x)\cos(\pi \I y) - \sin(\pi x)\sin(\pi \I y)}{\sin (\pi x)\cos(\pi \I y) + \cos(\pi x)\sin(\pi \I y)} \right| \\
+	&= \left| \frac { \cos (\pi x)\cosh(\pi y) - \sin(\pi x)\I \sinh(\pi y)}{\sin (\pi x)\cosh(\pi y) + \cos(\pi x)\I \sinh(\pi y)} \right|.
+\end{align*}
+Notice, $x = \pm (N + 1/2) = \pm \frac {2N + 1}{2}$, where the plus or minus depends on which contour you are on.
+Therefore, $\cos\left(\pi \frac {2N + 1}{2}\right) = 0 $ for any $N$.
+Then we have
+\begin{align*}
+\left| \frac { \cos (\pi x)\cosh(\pi y) - \sin(\pi x)\I \sinh(\pi y)}{\sin (\pi x)\cosh(\pi y) + \cos(\pi x)\I \sinh(\pi y)} \right|
+	&= \left| \frac {- \sin(\pi x)\I \sinh(\pi y)}{\sin (\pi x)\cosh(\pi y)} \right| \\
+	&= \left| \frac {- \I \sinh(\pi y)}{\cosh(\pi y)} \right| \\
+	&\leq \left| \frac { \sinh(\pi y)}{\cosh(\pi y)} \right| \\
+	&= \left| \tanh (\pi y) \right| < 1 < 2.
+\end{align*}
+where $y \in [-(N + 1/2), N + 1/2]$.
+Hence on $\Gamma_N$ we have $| \cot ( \pi z) | \leq 2$. \qed \\
+
+\item Suppose $f(z)=p(z) / q(z)$, where $p(z)$ and $q(z)$ are polynomials, so that the degree of $q(z)$ is at least two more than the degree of $p(z)$. Show that
+$$
+\lim _{N \rightarrow \infty}\left| \oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) d z\right|=0
+$$
+
+\noindent
+\textit{Solution:} \\
+Let's begin by Utilizing the bound we just established for $|\cot \pi z|$
+\begin{align*}
+\lim_{N \rightarrow \infty}\left| \oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) \D z \right|
+	&\leq \lim_{N \rightarrow \infty} \oint_{\Gamma_N} \left|\frac{p(z)}{q(z)}\right| |\cot (\pi z)| |\D z| \\
+	&\leq \lim_{N \rightarrow \infty} 2 \oint_{\Gamma_N} \left|\frac{p(z)}{q(z)}\right| |\D z|.
+\end{align*}
+The largest modulus of any point on the contour is $|w| \leq (N + 1/2) \sqrt 2$ for all $w \in \Gamma_N$ polynomial.
+Additionally we can determine the smallest modulus is $|w| \geq N + 1/2$.
+Therefore we have the bound
+$$
+N + 1/2 \leq |w| \leq (N + 1/2)\sqrt 2 \quad\quad \text{for all} ~~ w \in \Gamma_N.
+$$
+Hence, plugging in the largest term for the numerator and the smallest possible term in the denominator we have
+\begin{align*}
+\lim_{N \rightarrow \infty} 2 \oint_{\Gamma_N} \left|\frac{p(z)}{q(z)}\right| |\D z|
+	&\leq \lim_{N \rightarrow \infty} 2 \oint_{\Gamma_N} \left|\frac{p\big( (N + 1/2)\sqrt2 \big)}{q(N + 1/2)}\right| |\D z| \\
+	&\leq \lim_{N \rightarrow \infty} 2 \oint_{\Gamma_N} \left| 
+		\frac{ C_0 \Big( (N + 1/2)\sqrt2 \Big)^ {n - 2}
+			+ \mathcal O \left(\Big( (N + 1/2)\sqrt2 \Big)^ {n - 3} \right)}
+			{C_1 \Big( N + 1/2 \Big)^ n
+			+ \mathcal O \left(\Big( N + 1/2 \Big)^ {n - 1} \right)}
+		\right| |\D z|.
+\end{align*}
+Let $M = N + 1/2$.
+We can also write $|\D z|$ as the arc length of the contour which is $4(2N + 1)$.
+Then we rewrite the last inequality as
+\begin{align*}
+&\lim_{N \rightarrow \infty} 2 \oint_{\Gamma_N} \left| 
+	\frac{ C_0 \Big( (N + 1/2)\sqrt2 \Big)^ {n - 2}
+	+ \mathcal O \left(\Big( (N + 1/2)\sqrt2 \Big)^ {n - 3} \right)}
+	{C_1 \Big( N + 1/2 \Big)^ n
+	+ \mathcal O \left(\Big( N + 1/2 \Big)^ {n - 1} \right)}
+	\right| |\D z| \\
+&\leq \lim_{M \rightarrow \infty} 2 \left| 
+	\frac{ C_0 M^{n - 2} \sqrt{2}^{n - 2}
+	+ \mathcal O \left( M^{n - 3} \sqrt{2}^{n - 3} \right)}
+	{C_1 M^n
+	+ \mathcal O \left( M^{n-1} \right)}
+	\right| 4(2N + 1) \\
+&\leq \lim_{M \rightarrow \infty} 2 \left| 
+	\frac{ C_0 M^{n - 2} \sqrt{2}^{n - 2}
+	+ \mathcal O \left( M^{n - 3} \sqrt{2}^{n - 3} \right)}
+	{C_1 M^n
+	+ \mathcal O \left( M^{n-1} \right)}
+	\right| 8M.
+\end{align*}
+Multiplying through by the $8M$ and dropping the coefficients in the $\mathcal O$ terms, we finally have
+\begin{align*}
+\lim_{N \rightarrow \infty}\left| \oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) \D z \right| 
+&\leq \lim_{M \rightarrow \infty} 2 
+	\frac{ \left| C_2 M^{n - 1} \right| + \left|\mathcal O \left( M^{n - 2} \right) \right|}
+	{\left| C_1 M^n + \mathcal O \left( M^{n-1} \right) \right|}
+\end{align*}
+where $C_2 = C_0 8 \sqrt{2}^{n - 2}$.
+Notice, this limit is 0 since there is a higher power of $M$ in the denominator.
+Repeating L'Hôpital's rule $n - 1$ times would leave us with $1/M$ multiplied by some constant perhaps, which goes to 0 as $M$ goes to infinity.
+Therefore, since
+\begin{align*}
+\lim_{M \rightarrow \infty} 2 
+	\frac{ \left| C_2 M^{n - 1} \right| + \left|\mathcal O \left( M^{n - 2} \right) \right|}
+	{\left| C_1 M^n + \mathcal O \left( M^{n-1} \right) \right|} = 0,
+\end{align*}
+then 
+\begin{align*}
+\lim_{N \rightarrow \infty}\left| \oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) \D z \right| \leq 0.
+\end{align*}
+Notice, the modulus is a nonnegative function so the only thing less than or equal to 0 is 0, therefore,
+$$
+\lim_{N \rightarrow \infty}\left| \oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) \D z \right| = 0.
+$$
+\qed \\
+
+\item Suppose, in addition, that $q(z)$ has no roots at the integers. Show that
+$$
+\sum_{k=-\infty}^{\infty} \frac{p(k)}{q(k)} = -\pi \sum_j \operatorname{Res}_{z=z_j} f(z) \cot (\pi z)
+$$
+where the $z_j$'s are the roots of $q(z)$. Notice that the sum on the
+right-hand side has a finite number of terms. \\
+ 
+\noindent
+\textit{Solution:} \\
+Fix $N$ and let $S = \{ w : |w| \leq N \text{ and } w \in \mathbb Z \}$ then by the residue theorem we have
+$$
+\oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) d z = \sum_{k \in S} \underset{z=k}{ \rm Res} \left( \frac{p(z)}{q(z)} \cot (\pi z) \right)
+		+ \sum_j \underset{z=z_j}{ \rm Res} \left( \frac{p(z)}{q(z)} \cot (\pi z) \right).
+$$
+Furthermore, taking the limit as $N \rightarrow \infty$, $S$ becomes $\mathbb Z$, then
+\begin{align*}
+\cancelto{0}{\oint_{\Gamma_N} \frac{p(z)}{q(z)} \cot (\pi z) d z}
+	&= \sum_{k \in \mathbb Z} \underset{z=k}{ \rm Res} \left( \frac{p(z)}{q(z)} \cot (\pi z) \right)
+		+ \sum_j \underset{z=z_j}{ \rm Res} \left( \frac{p(z)}{q(z)} \cot (\pi z) \right) \\
+0 &= \frac 1 \pi \sum_{k=-\infty}^{\infty} \frac{p(k)}{q(k)}
+		+ \sum_j \underset{z=z_j}{ \rm Res} f(z) \cot (\pi z) \\
+- \frac 1 \pi \sum_{k=-\infty}^{\infty} \frac{p(k)}{q(k)}
+	&= \sum_j \underset{z=z_j}{ \rm Res} f(z) \cot (\pi z) \\
+\sum_{k=-\infty}^{\infty} \frac{p(k)}{q(k)}
+	&= - \pi \sum_j \underset{z=z_j}{ \rm Res} f(z) \cot (\pi z)
+\end{align*}
+as required. \\
+\qed
+
+\newpage
+
+\item Use the result of the previous problem to evaluate the following sums:
+\begin{enumerate}
+\item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{k^2+1}$ \\
+ 
+\noindent
+\textit{Solution:} \\
+Directly applying the conclusion from part (d)
+\begin{align*}
+\sum_{k=-\infty}^{\infty} \frac{1}{k^2 + 1}
+	&= - \pi \sum_j \underset{z=z_j}{ \rm Res} \left( \frac{1}{z^2 + 1} \cot (\pi z) \right) \\
+	&= - \pi \left[
+		\underset{z=\I}{ \rm Res} \left( \frac{1}{(z - \I)(z + \I))} \cot (\pi z) \right)
+		+ \underset{z=-\I}{ \rm Res} \left( \frac{1}{(z - \I)(z + \I)} \cot (\pi z) \right)
+		\right] \\
+	&= - \pi \left( \frac{1}{2\I} \cot (\pi \I) - \frac{1}{2\I} \cot (- \pi \I) \right) \\
+	&= - \frac{\pi} {2\I} \left( \frac {\I \left( \E^{\I \pi \I} + \E^{-\I \pi \I} \right) } {\E^{\I \pi \I} - \E^{-\I \pi \I} } - \frac {\I \left( \E^{- \I \pi \I} + \E^{\I \pi \I} \right) } {\E^{- \I \pi \I} - \E^{\I \pi \I} } \right) \\
+	&= - \frac \pi 2 \left( \frac { \E^{-\pi} + \E^{\pi} } {\E^{- \pi } - \E^{ \pi } } - \frac { \E^{ \pi } + \E^{- \pi } } {\E^{ \pi } - \E^{- \pi } } \right) \\
+	&= - \frac \pi 2 \left( - \frac { \E^{\pi} + \E^{-\pi} } { \E^{ \pi } - \E^{- \pi } } - \frac { \E^{ \pi } + \E^{- \pi } } {\E^{ \pi } - \E^{- \pi } } \right) \\
+	&= - \frac \pi 2 \left( - 2 \frac { \E^{ \pi } + \E^{- \pi } } {\E^{ \pi } - \E^{- \pi } } \right) \\
+	&= \pi \frac { \E^{ \pi } + \E^{- \pi } } {\E^{ \pi } - \E^{- \pi } } \\
+	&= \pi \coth{\pi}.
+\end{align*}
+\qed \\
+
+\item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{k^4+1}$ \\
+ 
+\noindent
+\textit{Solution:} \\
+Before jumping into evaluating this summation using our formula from part (d), let's determine what the singularities of $1/(k^4 + 1)$ are.
+In other words we need to find where $q(z) = 0$ with $q(z) := z^4 + 1$.
+Notice we can factor to arrive at
+\begin{align*}
+z^4 + 1 &= (z^2 + \I)(z^2 - \I) \\
+	&= (z - \I \sqrt{\I})(z + \I \sqrt{\I})(z - \sqrt{\I})(z + \sqrt{\I}).
+\end{align*}
+Thus, $S$, the set of values $w \in \mathbb C$ such that $q(z) = 0$, is  $S = \{ \I \sqrt{\I}, - \I \sqrt{\I}, \sqrt{\I}, - \sqrt{\I} \}$.
+Now we can evaluate the sum
+\begin{align*}
+\sum_{k=-\infty}^{\infty} \frac{1}{k^4 + 1}
+	&= - \pi \sum_{w \in S} \underset{z=w}{ \rm Res} \left( \frac{1}{z^4 + 1} \cot (\pi z) \right) \\
+	&= - \pi \left[ \frac 1 {(\I \sqrt \I + \I \sqrt{\I})(\I \sqrt \I - \sqrt{\I})(\I \sqrt \I + \sqrt{\I})} \cot (\pi \I \sqrt{\I}) + \frac 1 {(- \I \sqrt{\I} - \I \sqrt{\I})(- \I \sqrt{\I} - \sqrt{\I})(- \I \sqrt{\I} + \sqrt{\I})} \cot (- \pi \I \sqrt{\I}) \right. \\
+		&\quad\quad\quad + \frac 1 {(\sqrt \I - \I \sqrt{\I})(\sqrt \I + \I \sqrt{\I})(\sqrt \I + \sqrt{\I})} \cot (\pi \sqrt{\I}) \\
+		&\quad\quad\quad \left. + \frac 1 {(- \sqrt \I - \I \sqrt{\I})(- \sqrt \I + \I \sqrt{\I})(- \sqrt \I - \sqrt{\I})} \cot (- \pi \sqrt{\I}) \right] \\
+	&= - \pi \left[ \frac 1 {(2 \I \sqrt \I)\sqrt \I(\I  - 1)\sqrt \I (\I + 1)} \cot (\pi \I \sqrt{\I}) + \frac 1 {(- 2\I \sqrt{\I})(- \sqrt \I)(\I + 1)(- \sqrt \I)(\I - 1)} \cot (- \pi \I \sqrt{\I}) \right. \\
+		&  \left. \quad\quad\quad + \frac 1 {\sqrt \I(1 - \I )\sqrt \I(1 + \I )(2 \sqrt \I )} \cot (\pi \sqrt{\I}) + \frac 1 {(- \sqrt \I)(1 + \I )(- \sqrt \I)(1 - \I )(- 2\sqrt \I)} \cot (- \pi \sqrt{\I}) \right] \\
+	&= - \pi \left[ \frac 1 {4\sqrt \I} \cot (\pi \I \sqrt{\I}) - \frac 1 {4\sqrt{\I}} \cot (- \pi \I \sqrt{\I}) + \frac 1 {4 \I \sqrt \I } \cot (\pi \sqrt{\I}) - \frac 1 {4 \I\sqrt \I} \cot (- \pi \sqrt{\I}) \right] \\
+	&= - \pi \left[ \frac 1 {2 \sqrt \I} \cot (\pi \I \sqrt{\I}) + \frac 1 {2 \I \sqrt \I } \cot (\pi \sqrt{\I}) \right] \\
+	&= - \pi \left[ \frac 1 {2 \sqrt \I} \cot (\pi \I \sqrt{\I}) - \frac \I {2 \sqrt \I } \cot (\pi \sqrt{\I}) \right] \\
+	&= \frac \pi {2\sqrt \I} \left( \I \cot (\pi \sqrt{\I}) - \cot (\pi \I \sqrt{\I}) \right)
+\end{align*} \qed \\
+
+
+\item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{k^2-1/4}$ \\
+ 
+\noindent
+\textit{Solution:} \\
+The zeros of the denominator (or the singularities of the overall function) are found at $w \in S = \{ \pm 1/2 \}$.
+Then applying the formula from part (d) we have
+\begin{align*}
+\sum_{k=-\infty}^{\infty} \frac{1}{k^2-1/4}
+	&= - \pi \sum_{w \in S} \underset{z=w}{ \rm Res} \left( \frac{1}{z^2-1/4} \cot (\pi z) \right) \\
+	&= - \pi \left( \underset{z=1/2}{ \rm Res} \left( \frac{1}{(z - 1/2)( z + 1/2)} \cot (\pi z) \right) \right. \\
+		& \quad \quad +\left. \underset{z=-1/2}{ \rm Res} \left( \frac{1}{(z - 1/2)( z + 1/2)} \cot (\pi z) \right)\right) \\
+	&= - \pi \left( \frac{1}{( 1/2 + 1/2)} \cot (\pi / 2) + \frac{1}{(-1/2 - 1/2)} \cot (-\pi /2) \right) \\
+	&= - \pi \big( \cot (\pi / 2) -\cot (-\pi /2) \big) \\
+	&= - 2 \pi \cot (\pi / 2) = 0
+\end{align*}
+\qed \\
+\newpage
+
+\item  $\displaystyle \sum_{k=-\infty}^{\infty} \frac{1}{16k^4 - 1}$ \\
+ 
+\noindent
+\textit{Solution:} \\
+Let $q(z) = 16z^4 - 1$.
+We can factor the $q(z)$ to $$16z^4 - 1 = (2z - 1)(2z + 1)(2z - \I)(2z + \I).$$
+Therefore, the zeros of this function are found at $w \in S = \{ \pm 1/2, \pm \I/2 \}.$
+\begin{align*}
+\sum_{k=-\infty}^{\infty} \frac{1}{16k^4 - 1}
+	&= - \pi \sum_{w \in S} \underset{z=w}{ \rm Res} \left( \frac{1}{16z^4 -1} \cot (\pi z) \right) \\
+	&= - \pi \sum_{w \in S} \underset{z=w}{ \rm Res} \left( \frac{1}{2^4(z - 1/2)(z + 1/2)(z - \I/2)(z + \I/2)} \cot (\pi z) \right) \\
+	&= - \pi \left[
+		\left( \frac{1}{16(1/2 + 1/2)(1/2 - \I/2)(1/2 + \I/2)} \cot (\pi /2) \right) \right. \\
+		&+ \left( \frac{1}{16(-1/2 - 1/2)(-1/2 - \I/2)(-1/2 + \I/2)} \cot (- \pi / 2) \right) \\
+		&+ \left( \frac{1}{16(\I/2 - 1/2)(\I/2 + 1/2)(\I/2 + \I/2)} \cot (\pi \I /2) \right) \\
+		&+ \left. \left( \frac{1}{16(- \I/2 - 1/2)(- \I/2 + 1/2)(- \I/2 - \I/2)} \cot (- \pi \I/2) \right)
+	\right] \\
+	&= - \pi \left[
+		\frac 1 8 \cot (\pi /2) - \frac 1 8 \cot (- \pi / 2) - \frac 1 {8\I} \cot (\pi \I /2) + \frac 1 {8 \I} \cot (- \pi \I/2)
+	\right] \\
+	&= - \pi \left[
+		\frac 1 8 \cot (\pi /2) - \frac 1 8 \cot (- \pi / 2) + \frac \I 8 \cot (\pi \I /2) - \frac \I 8 \cot (- \pi \I/2)
+	\right] \\
+	&= - \pi \left( \frac 1 4 \cot (\pi /2) + \frac \I 4 \cot (\pi \I /2) \right) \\
+	&= - \frac{ \pi \I } 4 \cot (\pi \I /2) \\
+	&= - \frac{ \pi \I } 4 \left ( - \I \coth (\pi / 2)  \right ) \\
+	&= \frac{ \pi \I^2 } 4 \coth (\pi / 2) \\
+	&= - \frac{ \pi } 4 \coth (\pi / 2)
+\end{align*}
+\qed \\
+
+
+\end{enumerate}
+\end{enumerate}
+
+\end{enumerate}
+  
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
