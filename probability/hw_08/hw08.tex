@@ -221,7 +221,7 @@ $$
 \frac {\partial}{\partial t} G
 	= (s - 1) \lambda G + (1 - s)\mu \frac {\partial }{\partial s}G.
 $$
-Using mathematica to solve this pde I ended up with
+Using mathematica to solve this PDE I ended up with
 $$
 G_{X_t}(s) = \exp\left( \frac {\E^{-t \mu} (-1 + \E^{t \mu}) (-1 + s) \lambda } {\mu}  \right) \left( 1 + \E^{-t \mu} (-1 + s)) \right)^j.
 $$
@@ -307,7 +307,7 @@ Multiplying through by $s^n$ and summing over all $n$ we have
 \frac {\D }{\D t} G_{N_t}(s)
 	&= (s  - 1) \lambda(t) G_{N_t}(s).
 \end{align*}
-Now we have the pde (again suppressing extra notation) $G_{N_0}(s) = s^0 = 1$
+Now we have the pde (again suppressing extra notation) and the initial condition $G_{N_0}(s) = s^0 = 1$
 $$
 \frac {\D }{\D t} G = (s  - 1) \lambda(t) G.
 $$
@@ -319,7 +319,39 @@ Let's solve this directly
 \log \left( G \right) &= \int (s  - 1) \lambda(t) \D t \\
 G &= \E^{\int (s  - 1) \lambda(t) \D t}.
 \end{align*}
-\textbf{TODO: You need to solve this!! Use the initial condition $N_0 = 0$ and the function given for $\lambda(t)$.}
+Notice we are trying to determine the distribution from one time $s$ to another time $t$ so I add these bounds of integration as well as the particular $\lambda(t)$ given.
+\begin{align*}
+G &= \exp\left(\int (s  - 1) \lambda(t) \D t \right) \\
+G &= \exp\left(\int (s  - 1) \frac c {1 + t} \D t \right) \\
+G &= \exp\left(\int_s^t (s  - 1) \frac c {1 + w} \D w\right) \\
+G &= \exp\bigg( (s  - 1) c \Big( \log(1 + t) - \log(1 - s) \Big) \bigg) \\
+G &= \exp\bigg( c (s  - 1) \log\left(\frac {1 + t}{1 - s}\right) \bigg)
+\end{align*}
+Alternatively, without the integration bounds we have
+\begin{align*}
+G &= \exp\left(\int (s  - 1) \lambda(t) \D t \right) \\
+G &= \exp\left(\int (s  - 1) \frac c {1 + t} \D t \right) \\
+G &= \exp\Big((s  - 1) c (\log (1 + t) + C_0) \Big) \\
+G &= \exp\Big( c (s  - 1) \log (1 + t) + C_1\Big) \\
+G &= \E^{ c (s  - 1) \log (1 + t)} \E^{C_1}.
+\end{align*}
+Hence, 
+$$
+G_{N_t}(s) = \E^{ c (s  - 1) \log (1 + t)} \E^{C_1}
+$$
+Where $C_0$ is an integration constant and $C_1 = c (s - 1)C_0$.
+Incorporating our boundary condition we have
+\begin{align*}
+G_{N_0}(s) &= \E^{ c (s  - 1) \log (1 + 0)} \E^{C_1} \\
+	&= \E^{0} \E^{C_1} \\
+	&= \E^{C_1}
+\end{align*}
+Which we need to be equal to $1$ so $C_1 = 0$.
+Hence,
+$$
+G_{N_t}(s) = \E^{ c (s  - 1) \log (1 + t)}.
+$$
+\textbf{TODO: Honestly I am not really sure which method of solving this PDE is correct.}
 For the backward Kolmogorov equation we have
 $$ \frac \D {\D t} \bm P_t = \bm G \bm P_t $$
 which more explicitly is
@@ -358,14 +390,14 @@ p^\prime_t(1,2) &= - \lambda(t) p_t(1,2) + \lambda(t) p_t(2,2) \\
 p^\prime_t(1,n) &= - \lambda(t) p_t(1,n) + \lambda(t) p_t(1,n).
 \end{align*}
 I'm not totally sure how to combine these, however...
-Multiplying through by $s^n$ and summing over all $n$ for the set of pde's where $N_0 = 0$
+Multiplying through by $s^n$ and summing over all $n$ for the set of PDE's where $N_0 = 0$
 \begin{align*}
 \sum_{n=0}^\infty s^n p^\prime_t(0,n)
 	&= - \lambda(t) \sum_{n=0}^\infty s^n p_t(0,n) + \lambda(t)  \sum_{n=0}^\infty s^n p_t(1,n) \\
 \frac {\partial}{\partial t} G_{N_t}(s)
 	&= - \lambda(t) G_{N_t}(s) + \lambda(t)  \sum_{n=0}^\infty s^n p_t(1,n)
 \end{align*}
-How do I handle this thing with the incrementing in the first index not the second?
+\textbf{TODO: How do I handle this thing with the incrementing in the first index not the second? I think the solution for the backward should be about the same as the forward except maybe a change of sign or something.}
 \newpage
 
 \noindent {\bf 4.} Exercise 5.5.
@@ -377,7 +409,48 @@ What is the mean and variance of $N_t$? \\
 \textit{Solution:} \\
 \textbf{TODO:} \\
 \begin{align*}
-Here you
+p_n(t, t+ \Delta t)
+	&= p\lambda_1 p_{n - 1}(t)\Delta t + (1 - p)\lambda_2 p_{n - 1}(t)\Delta t + p ( 1 - \lambda_1 \Delta t) p_{n}(t) + (1 - p)( 1 - \lambda_2 \Delta t) p_{n}(t) \\
+p_n(t, t+ \Delta t)
+	&= p\lambda_1 p_{n - 1}(t)\Delta t + (1 - p)\lambda_2 p_{n - 1}(t)\Delta t + p p_{n}(t) \\
+	&\quad - p \lambda_1 \Delta t p_{n}(t) + (1 - p)p_{n}(t) - (1 - p)\lambda_2 \Delta t p_{n}(t) \\
+p_n(t, t+ \Delta t)
+	&= p\lambda_1 p_{n - 1}(t)\Delta t + (1 - p)\lambda_2 p_{n - 1}(t)\Delta t + \big( p  + (1 - p) \big)p_{n}(t) \\
+	&\quad - p \lambda_1 \Delta t p_{n}(t) - (1 - p)\lambda_2 \Delta t p_{n}(t) \\
+p_n(t, t+ \Delta t) - p_{n}(t)
+	&= p\lambda_1 p_{n - 1}(t)\Delta t + (1 - p)\lambda_2 p_{n - 1}(t)\Delta t -  p \lambda_1 \Delta t p_{n}(t) - (1 - p)\lambda_2 \Delta t p_{n}(t) \\
+\frac {p_n(t, t+ \Delta t) - p_{n}(t)}{\Delta t}
+	&= p\lambda_1 p_{n - 1}(t) + (1 - p)\lambda_2 p_{n - 1}(t) - p \lambda_1 p_{n}(t) - (1 - p)\lambda_2 p_{n}(t) \\
+\frac {\D }{\D t} p_{n}(t)
+	&= p\lambda_1 p_{n - 1}(t) + (1 - p)\lambda_2 p_{n - 1}(t) - p \lambda_1 p_{n}(t) - (1 - p)\lambda_2 p_{n}(t) \\
+\frac {\D }{\D t} p_{n}(t)
+	&= \Big( p\lambda_1 + (1 - p)\lambda_2 \Big) p_{n - 1}(t) - \Big( p \lambda_1 + (1 - p)\lambda_2 \Big) p_{n}(t).
 \end{align*}
+Let's multiply by $s^n$ and sum over all $n$
+\begin{align*}
+\sum_{n=0}^\infty s^n \frac {\D }{\D t} p_{n}(t)
+	&= \sum_{n=0}^\infty s^n \Big( p\lambda_1 + (1 - p)\lambda_2 \Big) p_{n - 1}(t) - \sum_{n=0}^\infty s^n\Big( p \lambda_1 + (1 - p)\lambda_2 \Big) p_{n}(t) \\
+\sum_{n=0}^\infty s^n \frac {\D }{\D t} p_{n}(t)
+	&= \Big( p\lambda_1 + (1 - p)\lambda_2 \Big) s \sum_{n=0}^\infty s^{n - 1}  p_{n - 1}(t) -  \Big( p \lambda_1 + (1 - p)\lambda_2 \Big) \sum_{n=0}^\infty s^n p_{n}(t) \\
+\frac {\D }{\D t} G_{N_t}(s)
+	&= \Big( p\lambda_1 + (1 - p)\lambda_2 \Big) s G_{N_t}(s) -  \Big( p \lambda_1 + (1 - p)\lambda_2 \Big) G_{N_t}(s).
+\end{align*}
+Hence the resulting PDE is 
+$$
+\frac {\D }{\D t} G_{N_t}(s) = \Bigg( \Big( p\lambda_1 + (1 - p)\lambda_2 \Big) s -  \Big( p \lambda_1 + (1 - p)\lambda_2 \Big) \Bigg) G_{N_t}(s)
+$$
+Resulting in
+$$
+G_{N_t}(s) = \exp \Bigg( \int \Big( p\lambda_1 + (1 - p)\lambda_2 \Big) s -  \Big( p \lambda_1 + (1 - p)\lambda_2 \Big) \D t \Bigg).
+$$
+\textbf{TODO: Now if I could have time to finish solving this I would calculate the mean and variance by}
+$$
+G_{N_t}^\prime(1) = E \frac {X!}{(X - 1)!} = E X
+$$
+and
+$$
+{\rm Var}(X) = G_{N_t}^{\prime\prime}(1) + G_{N_t}^\prime(1) - \big( G_{N_t}^\prime(1)\big)^2,
+$$
+respectively.
 
 \end{document}  
