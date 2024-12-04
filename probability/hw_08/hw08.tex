@@ -23,6 +23,7 @@
 \usepackage[shortlabels]{enumitem}
 \usepackage{amssymb}
 \usepackage{bbm}
+\usepackage{bm}
 \usepackage{cancel}
 \usepackage{graphicx,subfig}
 
@@ -50,8 +51,8 @@ Patients arrive at an emergency room as a Poisson process with intensity $\lambd
 The time to treat each patient is an independent exponential random variable with parameter $\mu$.
 Let $X = (X_t)_{t \geq 0}$ be the number of patients in the system (either being treated or waiting).
 Write down the generator of $X$.
-Show that $X$ has an invariant distribution $\pi$ if and only if $\lambda < \mu$.
-Find $\mu$.
+Show that $X$ has an invariant distribution $\bm \pi $ if and only if $\lambda < \mu$.
+Find $\bm \pi $.
 What is the total expected time (waiting + treatment) a patient waits when the system is in its invariant distribution? \\
 
 \noindent
@@ -59,16 +60,78 @@ Hint: You can use Little's law, which states that the expected number of people 
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:} \\
+The generator for $X$ is
 \begin{align*}
-Here you
+\bm G = 
+\begin{bmatrix}
+- \lambda & \lambda & 0 & 0 & 0 & \dots \\
+\mu & - (\mu + \lambda) & \lambda & 0 & 0 & \dots \\
+0 & \mu & - (\mu + \lambda) & \lambda & 0 & \dots \\
+0 & 0 & \mu & - (\mu + \lambda) & \lambda & \ddots \\
+0 & 0 & 0 & \mu & - (\mu + \lambda) & \ddots \\
+\vdots & \vdots & \vdots & \ddots & \ddots & \ddots \\
+\end{bmatrix}.
 \end{align*}
+Now if the invariant distribution $\bm \pi$ exists then $ \bm \pi \bm G = \bm 0$.
+Let's look at what conditions would need to hold for this $\bm \pi$ to exist.
+First, looking at $\bm \pi \bm G$ we have
+\begin{align*}
+0 &= - \lambda \pi(0) + \mu \pi(1) \\
+0 &= \lambda \pi(0) - (\mu + \lambda) \pi(1) + \mu \pi(2) \\
+0 &= \lambda \pi(1) - (\mu + \lambda) \pi(2) + \mu \pi(3) \\
+& \vdots \\
+0 &= \lambda \pi(n - 1) - (\mu + \lambda) \pi(n) + \mu \pi(n + 1).
+\end{align*}
+Then we can say
+\begin{align*}
+\pi(1) = \frac {\lambda}{\mu }\pi(0), \quad
+\pi(2) = \frac {\lambda^2}{\mu^2 }\pi(0), \quad \dots, \quad
+\pi(n) = \frac {\lambda^n}{\mu^n }\pi(0).
+\end{align*}
+If $\bm \pi$ is a stationary distribution then the row vector needs to sum to one so we have the condition
+$$
+\sum_{n=0}^{\infty} \pi(0) \left(\frac {\lambda}{\mu}\right)^n = 1.
+$$
+This sum is finite if and only if
+$$
+\left| \frac \lambda \mu \right| < 1 \implies \lambda < \mu.
+$$
+Furthermore, we have
+\begin{align*}
+\sum_{n=0}^{\infty} \pi(0) \left(\frac {\lambda}{\mu}\right)^n &= 1 \\
+\pi(0) \frac 1 {1 - \frac \lambda \mu} &= 1 \\
+\pi(0) &= 1 - \frac \lambda \mu.
+\end{align*}
+Hence,
+$$
+\pi(n) = \left( 1 - \frac \lambda \mu \right) \left(\frac {\lambda}{\mu}\right)^n.
+$$
+Therefore, we have found the stationary distribution $\bm \pi$ which only exists if and only if the condition that $\lambda < \mu$ since the sum of the entries of the vector $\bm \pi$ is only finite in this scenario. \\
+
+\noindent
+Now I need to find the total expected time (waiting + treatment) a patient waits when the system is in its invariant distribution using Little's law which gives
+$$
+E \left( X_t \right) = \lambda E \left( \tau \right).
+$$
+Then we have
+\begin{align*}
+E \left( \tau \right) &= \frac 1 \lambda E \left( X_t \right) \\
+	&= \frac 1 \lambda \sum_{n = 0}^\infty n \pi(n) \\
+	&= \frac 1 \lambda \sum_{n = 0}^\infty n \left( 1 - \frac \lambda \mu \right) \left( \frac \lambda \mu \right)^n \\
+	&= \frac 1 \lambda \left( 1 - \frac \lambda \mu \right) \sum_{n = 0}^\infty n \left( \frac \lambda \mu \right)^n \\
+	&= \frac 1 \lambda \left( 1 - \frac \lambda \mu \right) \frac {\frac \lambda \mu}{\left( 1 - \frac \lambda \mu \right)^2} \\
+	&= \frac 1 \lambda \frac {\frac \lambda \mu}{1 - \frac \lambda \mu} \\
+	&= \frac {\frac 1 \mu}{1 - \frac \lambda \mu} \\
+	&= \frac 1 {\mu - \lambda}.
+\end{align*}
+Therefore, the expected time (waiting + treatment) a patient waits when the system is in its invariant distribution is $1/(\mu - \lambda)$. \\
+\qed \\
 
 \newpage
 
 
 \noindent {\bf 2.} Exercise 5.3.
-Let $X = (X_t)_{t \geq 0}$ be a Markov chain with state space $S = {0, 1, 2, \dots}$ and with a generator ${ \bf G} $ whose $i$th row has entries
+Let $X = (X_t)_{t \geq 0}$ be a Markov chain with state space $S = \{0, 1, 2, \dots\}$ and with a generator ${ \bf G} $ whose $i$th row has entries
 $$
 g_{i, i-1} = i\mu, \quad g_{i, i} = -i \mu - \lambda, \quad g_{i, i+1} = \lambda,
 $$
@@ -79,10 +142,86 @@ What is the distribution of $X_t$ as $t \rightarrow \infty$? \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:} \\
+For my sake I am going to write down the generator $\bm G$
 \begin{align*}
-Here you
+\bm G = 
+\begin{bmatrix}
+- \lambda & \lambda & 0 & 0 & \dots \\
+\mu & - (\mu + \lambda) & \lambda & 0 & \dots \\
+0 & 2\mu & - (2\mu + \lambda) & \lambda & \ddots \\
+0 & 0 & 3\mu & - (3\mu + \lambda) & \ddots \\
+\vdots & \vdots & \ddots & \ddots & \ddots
+\end{bmatrix}.
 \end{align*}
+Then we want to calculate $ G_{X_T}(s) := E(s^{X_t}) $.
+This takes the form
+\begin{align*}
+E(s^{X_t}) = \sum_{n=0}^\infty s^{n} P(X_t = n),
+\end{align*}
+but we need to use the Kolmogorov forward equation to find these $P(X_t = n)$ terms.
+The forward equation is
+$$ \frac \D {\D t} \bm P_t = \bm P_t \bm G $$
+which more explicitly is
+\begin{align*}
+\begin{bmatrix}
+p^\prime_t(0,0) & p^\prime_t(0,1) & p^\prime_t(0,2) & \dots \\
+p^\prime_t(1,0) & p^\prime_t(1,1) & p^\prime_t(1,2) & \dots \\
+p^\prime_t(2,0) & p^\prime_t(2,1) & p^\prime_t(2,2) & \dots \\
+\vdots & \vdots & \vdots & \ddots
+\end{bmatrix}
+=
+\begin{bmatrix}
+p_t(0,0) & p_t(0,1) & p_t(0,2) & \dots \\
+p_t(1,0) & p_t(1,1) & p_t(1,2) & \dots \\
+p_t(2,0) & p_t(2,1) & p_t(2,2) & \dots \\
+\vdots & \vdots & \vdots & \ddots
+\end{bmatrix}
+\begin{bmatrix}
+- \lambda & \lambda & 0 & \dots \\
+\mu & - (\mu + \lambda) & \lambda & \ddots \\
+0 & 2\mu & - (2\mu + \lambda) & \ddots \\
+\vdots & \ddots & \ddots & \ddots
+\end{bmatrix}.
+\end{align*}
+This results in the following system of differential equations
+\begin{align*}
+p^\prime_t(0,0) &= -\lambda p_t(0,0) + \mu p_t(0,1) \\
+p^\prime_t(0,1) &= \lambda p_t(0,0) - (\mu + \lambda) p_t(0,1) + 2\mu p_t(0,2) \\
+p^\prime_t(0,2) &= \lambda p_t(0,1) - (2\mu + \lambda) p_t(0,2) + 3\mu p_t(0,3) \\
+& \vdots \\
+p^\prime_t(0,n) &= \lambda p_t(0,n-1) - (n\mu + \lambda) p_t(0,n) + (n + 1)\mu p_t(0,n+1).
+\end{align*}
+As it turns out this is true for any starting point instead of just 0, therefore, we have
+\begin{align*}
+p^\prime_t(j,0) &= -\lambda p_t(j,0) + \mu p_t(j,1) \\
+p^\prime_t(j,1) &= \lambda p_t(j,0) - (\mu + \lambda) p_t(j,1) + 2\mu p_t(j,2) \\
+p^\prime_t(j,2) &= \lambda p_t(j,1) - (2\mu + \lambda) p_t(j,2) + 3\mu p_t(j,3) \\
+& \vdots \\
+p^\prime_t(j,n) &= \lambda p_t(j,n-1) - (n\mu + \lambda) p_t(j,n) + (n + 1)\mu p_t(j,n+1).
+\end{align*}
+Multiplying through by $s^n$ and summing over all $n$ we have
+\begin{align*}
+\sum_{n=0}^\infty s^n p^\prime_t(j,n)
+	&= \lambda \sum_{n=0}^\infty s^n p_t(j,n-1) - \sum_{n=0}^\infty s^n  (n\mu + \lambda) p_t(j,n) + \sum_{n=0}^\infty s^n (n + 1)\mu p_t(j,n+1) \\
+\frac {\partial G_{X_T}(s)}{\partial t}
+	&= \lambda s \sum_{n=0}^\infty s^{n - 1} p_t(j,n-1) - \sum_{n=0}^\infty s^n  (n\mu + \lambda) p_t(j,n) + \mu \frac {\partial G_{X_T}(s)}{\partial s} \\
+\frac {\partial G_{X_T}(s)}{\partial t}
+	&= \lambda s G_{X_T}(s) - \sum_{n=0}^\infty s^n  (n\mu + \lambda) p_t(j,n) + \mu \frac {\partial G_{X_T}(s)}{\partial s} \\
+\frac {\partial G_{X_T}(s)}{\partial t}
+	&= \lambda s G_{X_T}(s) - \sum_{n=0}^\infty s^n n\mu p_t(j,n) - \sum_{n=0}^\infty s^n \lambda p_t(j,n) + \mu \frac {\partial G_{X_T}(s)}{\partial s} \\
+\frac {\partial G_{X_T}(s)}{\partial t}
+	&= \lambda s G_{X_T}(s) - \mu s \sum_{n=0}^\infty ns^{n-1} p_t(j,n) - \lambda G_{X_T}(s) + \mu \frac {\partial G_{X_T}(s)}{\partial s} \\
+\frac {\partial G_{X_T}(s)}{\partial t}
+	&= \lambda s G_{X_T}(s) - \mu s \frac {\partial G_{X_T}(s)}{\partial s} - \lambda G_{X_T}(s) + \mu \frac {\partial G_{X_T}(s)}{\partial s} \\
+\frac {\partial G_{X_T}(s)}{\partial t}
+	&= (s - 1) \lambda G_{X_T}(s) + (1 - s)\mu \frac {\partial }{\partial s}G_{X_T}(s).
+\end{align*}
+Suppressing some notation for convenience, we now need to solve the following differential equation with initial condition of $G_{X_0}(s) = s^j$
+$$
+\frac {\partial}{\partial t} G
+	= (s - 1) \lambda G + (1 - s)\mu \frac {\partial }{\partial s}G
+$$
+\textbf{TODO:} \\
 
 \newpage
 
@@ -91,11 +230,11 @@ Let $N$ be a time-inhomogeneous Poisson process with intensity function $\lambda
 That is, the probability of a jump of size one in the time interval $(t, t + \D t$) is $\lambda(t) \D t$ and the probability of two jumps in that interval of time is $\mathcal O(\D t^2)$.
 Write down the Kolmogorov forward and backward equations of $N$ and solve them.
 Let $N_0 = 0$ and let $\tau_1$ be the time of the first jump of $N$.
-If $\lambda(t) = c/(1 + t)$ show that $E(\tau) < \infty$ if and only if $c > 1$. \\
+If $\lambda(t) = c/(1 + t)$ show that $E(\tau_1) < \infty$ if and only if $c > 1$. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:} \\
+\textbf{TODO: maybe solve for some eigenvalues... also perhaps leave things in terms of the generating function...} \\
 \begin{align*}
 Here you
 \end{align*}
