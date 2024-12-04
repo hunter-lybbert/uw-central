@@ -219,9 +219,34 @@ Multiplying through by $s^n$ and summing over all $n$ we have
 Suppressing some notation for convenience, we now need to solve the following differential equation with initial condition of $G_{X_0}(s) = s^j$
 $$
 \frac {\partial}{\partial t} G
-	= (s - 1) \lambda G + (1 - s)\mu \frac {\partial }{\partial s}G
+	= (s - 1) \lambda G + (1 - s)\mu \frac {\partial }{\partial s}G.
 $$
-\textbf{TODO:} \\
+Using mathematica to solve this pde I ended up with
+$$
+G_{X_t}(s) = \exp\left( \frac {\E^{-t \mu} (-1 + \E^{t \mu}) (-1 + s) \lambda } {\mu}  \right) \left( 1 + \E^{-t \mu} (-1 + s)) \right)^j.
+$$
+Simplifying a little we have
+$$
+G_{X_t}(s) = \exp\left( \frac {(1 - \E^{-t \mu}) (s - 1) \lambda } {\mu}  \right) \left( 1 + \E^{-t \mu} (s - 1) \right)^j.
+$$
+The generating function as 
+\begin{align*}
+\lim_{t \rightarrow \infty} G_{X_t}(s)
+	&= \lim_{t \rightarrow \infty} \exp \left( \frac {(1 - \E^{-t \mu}) (s - 1) \lambda } {\mu}  \right) \left( 1 + \E^{-t \mu} (s - 1) \right)^j \\
+	&= \exp\left( \frac {(1 - 0) (s - 1) \lambda } {\mu}  \right) \left( 1 + 0 (s - 1) \right)^j \\
+	&= \exp\left( \frac {(s - 1) \lambda } {\mu}  \right).
+\end{align*}
+Let $G_X(s) = \exp\left( \frac {(s - 1) \lambda } {\mu}  \right)$ denote the generating function after taking the limit as $t$ goes to infinity.
+We can compute the distribution from the generating function as
+\begin{align*}
+p_n(t) &= \left. \frac 1 {n!} \frac {\partial^n} {\partial s^n}G_X(s) \right|_{s=0}\\
+	&= \left. \frac 1 {n!} \frac {\partial^n} {\partial s^n} \exp\left( \frac {(s - 1) \lambda } {\mu}  \right) \right|_{s=0} \\
+	&= \left. \frac 1 {n!} \left( \frac \lambda \mu \right)^n \exp\left( \frac {(s - 1) \lambda } {\mu}  \right) \right|_{s=0} \\
+	&= \frac 1 {n!} \left( \frac \lambda \mu \right)^n \exp\left( - \frac \lambda \mu \right) \\
+	&= \frac 1 {n!} \left( \frac \lambda \mu \right)^n \E^{- \frac \lambda \mu}.
+\end{align*}
+Which is a poisson distribution with rate $\lambda / \mu$. \\
+\qed \\
 
 \newpage
 
@@ -234,11 +259,112 @@ If $\lambda(t) = c/(1 + t)$ show that $E(\tau_1) < \infty$ if and only if $c > 1
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO: maybe solve for some eigenvalues... also perhaps leave things in terms of the generating function...} \\
+Once again I think it is very helpful to write down the generator $\bm G$ for this scenario
 \begin{align*}
-Here you
+\bm G = 
+\begin{bmatrix}
+- \lambda(t) & \lambda(t) & 0 & \dots \\
+0 & - \lambda(t) & \lambda(t) & \ddots \\
+\vdots & \ddots & \ddots & \ddots
+\end{bmatrix}
 \end{align*}
-
+For the forward Kolmogorov equation we have
+$$ \frac \D {\D t} \bm P_t = \bm P_t \bm G $$
+which more explicitly is
+\begin{align*}
+\begin{bmatrix}
+p^\prime_t(0,0) & p^\prime_t(0,1) & \dots \\
+p^\prime_t(1,0) & p^\prime_t(1,1) & \dots \\
+\vdots & \vdots & \ddots
+\end{bmatrix}
+=
+\begin{bmatrix}
+p_t(0,0) & p_t(0,1) & \dots \\
+p_t(1,0) & p_t(1,1) & \dots \\
+\vdots & \vdots & \ddots
+\end{bmatrix}
+\begin{bmatrix}
+- \lambda(t) & \lambda(t) & 0 & \dots \\
+0 & - \lambda(t) & \lambda(t) & \ddots \\
+\vdots & \ddots & \ddots & \ddots
+\end{bmatrix}.
+\end{align*}
+This results in the following system of differential equations
+\begin{align*}
+p^\prime_t(0,0) &= - \lambda(t) p_t(0,0) \\
+p^\prime_t(0,1) &= \lambda(t) p_t(0,0) - \lambda(t) p_t(0,1) \\
+	&\vdots \\
+p^\prime_t(0,n) &= \lambda(t) p_t(0,n-1) - \lambda(t) p_t(0,n)
+\end{align*}
+Multiplying through by $s^n$ and summing over all $n$ we have
+\begin{align*}
+\sum_{n=0}^\infty s^n p^\prime_t(0,n)
+	&= \lambda(t) \sum_{n=0}^\infty s^n p_t(0,n-1) - \lambda(t) \sum_{n=0}^\infty s^n p_t(0,n) \\
+\frac {\D }{\D t} G_{N_t}(s)
+	&= \lambda(t) s \sum_{n=0}^\infty s^{n - 1} p_t(0,n-1) - \lambda(t) G_{N_t}(s) \\
+\frac {\D }{\D t} G_{N_t}(s)
+	&= \lambda(t) s G_{N_t}(s) - \lambda(t) G_{N_t}(s) \\
+\frac {\D }{\D t} G_{N_t}(s)
+	&= (s  - 1) \lambda(t) G_{N_t}(s).
+\end{align*}
+Now we have the pde (again suppressing extra notation) $G_{N_0}(s) = s^0 = 1$
+$$
+\frac {\D }{\D t} G = (s  - 1) \lambda(t) G.
+$$
+Let's solve this directly
+\begin{align*}
+\frac {\D }{\D t} G &= (s  - 1) \lambda(t) G \\
+\frac {\frac {\D }{\D t} G}{G} &= (s  - 1) \lambda(t) \\
+\int \frac {\frac {\D }{\D t} G}{G} \D t &= \int (s  - 1) \lambda(t) \D t \\
+\log \left( G \right) &= \int (s  - 1) \lambda(t) \D t \\
+G &= \E^{\int (s  - 1) \lambda(t) \D t}
+\end{align*}
+For the backward Kolmogorov equation we have
+$$ \frac \D {\D t} \bm P_t = \bm G \bm P_t $$
+which more explicitly is
+\begin{align*}
+\begin{bmatrix}
+p^\prime_t(0,0) & p^\prime_t(0,1) & \dots \\
+p^\prime_t(1,0) & p^\prime_t(1,1) & \dots \\
+\vdots & \vdots & \ddots
+\end{bmatrix}
+=
+\begin{bmatrix}
+- \lambda(t) & \lambda(t) & 0 & \dots \\
+0 & - \lambda(t) & \lambda(t) & \ddots \\
+\vdots & \ddots & \ddots & \ddots
+\end{bmatrix}
+\begin{bmatrix}
+p_t(0,0) & p_t(0,1) & \dots \\
+p_t(1,0) & p_t(1,1) & \dots \\
+\vdots & \vdots & \ddots
+\end{bmatrix}.
+\end{align*}
+This results in the following system of differential equations
+\begin{align*}
+p^\prime_t(0,0) &= - \lambda(t) p_t(0,0) + \lambda(t) p_t(1,0) \\
+p^\prime_t(0,1) &= - \lambda(t) p_t(0,1) + \lambda(t) p_t(1,1) \\
+p^\prime_t(0,2) &= - \lambda(t) p_t(0,2) + \lambda(t) p_t(1,2) \\
+	& \vdots \\
+p^\prime_t(0,n) &= - \lambda(t) p_t(0,n) + \lambda(t) p_t(1,n).
+\end{align*}
+We also have
+\begin{align*}
+p^\prime_t(1,0) &= - \lambda(t) p_t(1,0) + \lambda(t) p_t(2,0) \\
+p^\prime_t(1,1) &= - \lambda(t) p_t(1,1) + \lambda(t) p_t(2,1) \\
+p^\prime_t(1,2) &= - \lambda(t) p_t(1,2) + \lambda(t) p_t(2,2) \\
+	& \vdots \\
+p^\prime_t(1,n) &= - \lambda(t) p_t(1,n) + \lambda(t) p_t(1,n).
+\end{align*}
+I'm not totally sure how to combine these, however...
+Multiplying through by $s^n$ and summing over all $n$ for the set of pde's where $N_0 = 0$
+\begin{align*}
+\sum_{n=0}^\infty s^n p^\prime_t(0,n)
+	&= - \lambda(t) \sum_{n=0}^\infty s^n p_t(0,n) + \lambda(t)  \sum_{n=0}^\infty s^n p_t(1,n) \\
+\frac {\partial}{\partial t} G_{N_t}(s)
+	&= - \lambda(t) G_{N_t}(s) + \lambda(t)  \sum_{n=0}^\infty s^n p_t(1,n)
+\end{align*}
+How do I handle this thing with the incrementing in the first index not the second?
 \newpage
 
 \noindent {\bf 4.} Exercise 5.5.
