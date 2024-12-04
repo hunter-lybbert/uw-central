@@ -1,0 +1,140 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor} %load first
+
+\usepackage{amssymb,amsmath,enumitem,url}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=5pt]{lemma}{Lemma}
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+\definecolor{MichiganBlue}{HTML}{00274C}
+\definecolor{MichiganYellow}{HTML}{FFCB05}  
+\definecolor{NicePurple}{RGB}{75,56,76} %PrincePurple
+\definecolor{NiceRed}{RGB}{230,37,52}
+\definecolor{MidnightBlue}{rgb}{0.1, 0.1, 0.44}
+\usepackage[colorlinks=true, linkcolor=MidnightBlue, citecolor=MidnightBlue, urlcolor=MidnightBlue]{hyperref}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+\renewcommand{\vec}{\mathbf}
+
+
+\title{\bf { AMATH 567 Fall 2024 \\ Homework 11 ---
+    Due December 6 on Gradescope by 1:30pm} }
+
+
+\maketitle
+
+\begin{center}
+  All solutions must include significant justification to receive full credit.  If you handwrite your assignment you must either do so digitally or if it is written on paper you must \emph{scan} your work.  A standard photo is not sufficient.  \vskip 4pt
+
+  If you work with others on the homework, you must name your collaborators.
+\end{center}
+
+
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+
+\item
+  \begin{enumerate}
+    \item Let $f: z \rightarrow w=f(z)$ be an analytic function on the closed disk $D\left(z_0, R\right)$ of radius $R$ centered at $z_0$. Denote the boundary of $D\left(z_0, R\right)$ by $C\left(z_0, R\right)$. Assume that $f: D\left(z_0, R\right) \rightarrow f\left(D\left(z_0, R\right)\right)$ is one-to-one and onto. Show that the inverse function to $f$ is
+
+$$
+g(w)=\frac{1}{2 \pi i} \oint_{C\left(z_0, R\right)} \frac{t f^{\prime}(t)}{f(t)-w} d t,
+$$
+
+for $w \in f\left(D\left(z_0, R\right)\right)$, not including the
+boundary.
+\item Use this result to calculate the Taylor series of the inverse
+  function of $w=z e^z$ around $\left(z_0, w_0\right)=(0,0)$. What is
+  the radius of convergence of this series? Does this radius of
+  convergence correspond with what you expect from real analysis?\\
+
+  \end{enumerate}
+\item Suppose that $A \in \mathbb C^{n \times n}$ and $\vec u$ is an
+  eigenvector with eigenvalue $\lambda$.  Show that if no eigenvalue
+  of $A$ is on a simple contour $\Gamma$ and that $\lambda$ is in the
+  interior of $\Gamma$ then
+  \begin{align*}
+    \vec u = \frac{1}{2 \pi \I} \oint_{\Gamma} ( z I - A)^{-1} \vec u \D z.
+  \end{align*}
+  Hint: Use $I = (z I - A)^{-1} (w I - A)  + (z I - A)^{-1} (z -
+  w)$.\\
+
+\item Suppose that the eigenvalues $\lambda_1,\ldots,\lambda_n$ of $A \in \mathbb C^{n \times n}$
+  are real.  Show that for any $c > \lambda_n$ that
+  \begin{align*}
+    \E^{-c t} \E^{A t} \to 0, \quad t \to \infty.
+  \end{align*}
+
+\item  Laplace transform for systems of differential equations.  For
+  this problem, recall the Laplace transform
+  \begin{align*}
+    \mathcal L[f](z) = \int_0^\infty f(t) \E^{-t z} \D t.
+  \end{align*}
+  For vector-valued functions, we consider it applied component wise.
+  \begin{enumerate}
+  \item Show that
+    \begin{align*}
+     \mathcal L[y'](z) =  z \mathcal L[y](z) - y(0).
+    \end{align*}
+    You assume as much as you want for $y$.
+  \item If $\vec y'(t) = A \vec y(t) + \vec b(t)$, show that
+    \begin{align*}
+      \mathcal L [\vec y](z) = (z I - A)^{-1} (\mathcal L[\vec b](z) -
+      \vec y(0)),
+    \end{align*}
+    whenever $z$ is not an eigenvalue of $A$.
+  \item Write an integral formula for $\vec y(t)$.\\
+  \end{enumerate}
+
+\item Define $w(z) = \sqrt{z -1} \sqrt{z + 1}$.   Suppose $\rho :
+  [-1,1] \to \mathbb R$ is smooth and $\rho(x) > 0$.  Consider
+  \begin{align*}
+    G(z) = \exp \left(  -\frac{w(z)}{2 \pi} \int_{-1}^1  \frac{\log
+    \rho(x)}{x - z} \frac{\D
+   x}{\sqrt{1 - x^2}}\right), \quad z \not\in (-1,1).
+  \end{align*}
+  Define $G_\pm (x) = \lim_{\epsilon \to 0^+} G(x \pm \I \epsilon)$.
+  Show
+  \begin{align*}
+    G_+(x) G_-(x)= \rho(x), \quad x \in (-1,1).
+  \end{align*}
+
+\vspace{1in}
+
+  
+  On a historal note, the function $G$ is an example of a Szeg\H{o} function, named
+  after G\'abor Szeg\H{o}, and
+  is critical in describing the large-degree behavior of orthogonal
+  polynomials.  Specifically, if $p_n$ is the degree $n$ orthonormal
+  polynomial for a weight function $\rho(x)$ supported on $[-1,1]$ then
+  \begin{align*}
+    \lim_{n \to \infty} \frac{p_n(z)}{\varphi(z)^n} = \frac{
+    \varphi(z)^{1/2}}{\sqrt{2 \pi} (z^2 - 1)^{1/4} G(z)}, \quad z \in
+    \mathbb C \setminus [-1,1].
+  \end{align*}
+    
+\end{enumerate}
+
+  
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
