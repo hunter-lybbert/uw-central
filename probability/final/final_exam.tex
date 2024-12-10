@@ -1,0 +1,213 @@
+\documentclass[10pt]{amsart}
+%\include{amsmath}
+\usepackage[margin=1.5in]{geometry}
+\usepackage{mathtools}
+\usepackage{bbm}
+\usepackage{amsmath}  
+\usepackage{amssymb}  % gives you \mathbb{} font
+\usepackage{dsfont}	% gives you \mathds{} font
+\usepackage{bm} %gives bold font in equations
+
+%                   Math Blackboard Bold Symbols
+
+\newcommand\Cb{\mathds{C}}
+\newcommand\Eb{\mathds{E}}
+\newcommand\Fb{\mathds{F}}
+\newcommand\Gb{\mathds{G}}
+\newcommand\Ib{\mathds{I}}
+\newcommand\Pb{\mathds{P}}
+\newcommand\Qb{\mathds{Q}}
+\newcommand\Rb{\mathds{R}}
+%\newcommand\Zb{\mathds{Z}}
+\newcommand\Nb{\mathds{N}}
+\newcommand\Vb{\mathds{V}}
+\newcommand\Ub{\mathds{U}}
+
+\usepackage[shortlabels]{enumitem}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{cancel}
+\usepackage{graphicx,subfig}
+
+\graphicspath{ {./images/} }
+
+\newcommand{\D}{\mathrm{d}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\I}{i}
+
+
+\begin{document}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{12-13-24} \\
+\text{AMATH 561}
+\title{Final Exam}
+\maketitle
+
+{\it Note: Submit electronically to Canvas.}
+\\
+
+\noindent {\bf Directions:} You are to work alone on this exam. You may use everything that is on the course website (lectures, homework solutions) and Lorig lecture notes. You may {\it not} use the internet, or discuss the exam with others. You may use Mathematica, or any other computational tool you find helpful. Good luck! 
+\\
+
+\noindent {\bf 1.} Consider two continuous time Markov chains $X=(X_t)_{t\geq0}$ and $Y=(Y_t)_{t\geq0}$ that evolve independently on the same state space $S=\{1,2,...,N+1\}$. After $X$ arrives in any state, it remains there for a random amount of time, which is exponentially distributed with parameter $\mu$. When $X$ leaves a state, it jumps to any other state with equal probability (i.e. the probability that $X$ jumps from $i$ to $j$ is $1/N$ for $j \neq i$). After $Y$ arrives in a state, it remains there for a random amount of time, which is exponentially distributed with parameter $\lambda$. When $Y$ leaves a state, it can jump to any other state with equal probability. 
+\\
+
+\noindent {\bf (a)} Write the generator $G$ of $X$. \\
+
+\noindent
+\textit{Solution:} \\
+As the Markov Chain $X$ is described, given a small amount of time $\Delta t$ we can say 
+$$
+p_{\Delta t}(i,j) = P(X_{t + \Delta t} = j | X_t = i) = \frac 1 N, \quad \text{ for } i \neq j.
+$$
+Recall that we have
+\begin{align*}
+p_{\Delta t}(i, j) &= g(i, j) \Delta t + \mathcal O(\Delta t)
+\end{align*}
+and
+\begin{align*}
+p_{\Delta t}(i, i) &= 1 + g(i, i) \Delta t + \mathcal O(\Delta t) \\
+- 1 + p_{\Delta t}(i, i) &= g(i, i) \Delta t + \mathcal O(\Delta t) \\
+p_{\Delta t}(i, i) - 1 &= - g(i, i) \Delta t - \mathcal O(\Delta t).
+\end{align*}
+Furthermore, with the state space $S = \{1, 2, ..., N + 1\}$, the generator can be denoted as
+\begin{align*}
+\bm G_X = 
+\begin{bmatrix}
+- \mu & 1/N & 1/N & \dots & 1/N \\
+1/N & - \mu & 1/N & \dots & 1/N \\
+1/N & 1/N & - \mu & \dots & 1/N \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1/N & 1/N & 1/N & \dots & - \mu \\
+\end{bmatrix}.
+\end{align*}
+\textbf{TODO:}
+Moreover, I am speculating that $\mu = 1 - \frac 1 N$, but my only hesitation is that we don't necessarily know that $p_{\Delta t}(i,i) = 1/N$ as well.
+\\
+
+
+\noindent {\bf (b)} Now, consider a Markov chain $Z=(Z_t)_{t\geq0}$, defined as follows:
+$$Z_t=\mathbbm{1}_{\{X_t=Y_t\}}+2 \mathbbm{1}_{\{X_t\neq Y_t\}}.$$
+Write the generator $H$ of $Z$. \\
+\textit{Solution: } \\
+Notice that there are only two states for the Markov chain $Z$ and they are $S = \{1, 2\}$.
+The nature of defining it by these indicator functions is equivalent to saying
+$$
+Z_t = \begin{cases}
+1 \quad \text{ if } X_t = Y_t\\
+2 \quad \text{ if } X_t \neq Y_t\\
+\end{cases}
+$$
+We now need to think through the possible ways this occurs.
+Suppose at time $s$ (which could be $0$) we have $Z_s = 2$ meaning $X_s \neq Y_s$.
+For notational assistance suppose $X_s = i$ and $Y_s = j$ where $i \neq j$.
+The means by which $Z_{s + t} = 1$ are the following scenarios ( I recognize the short coming of my notation in this interim section while I am still thinking through the way these probabilities will work together)
+\begin{enumerate}
+\item $X$ does not change states but $Y$ changes to state $i$.
+That is $X_{s + t} = i$ and $Y_{s + t} = i$.
+This can occur w.p. (using the fact that $X$ and $Y$ are independent Markov chains)
+\begin{align*}
+P(Z_{s + t} = 1 | Z_s = 2)
+	&= P(X_{s + t} = i,Y_{s + t} = i | X_s = i,Y_s = j) \\
+	&= P(X_{s + t} = i| X_s = i)P(Y_{s + t} = i | Y_s = j) \\
+	&= p_X(t,i;s,i) \frac 1 N.
+\end{align*}
+\item The opposite outcome where $Y$ does not change states but $X$ changes to state $j$.
+That is $X_{s + t} = j$ and $Y_{s + t} = j$.
+This can occur w.p. (using the fact that $X$ and $Y$ are independent Markov chains)
+\begin{align*}
+P(Z_{s + t} = 1 | Z_s = 2)
+	&= P(X_{s + t} = j,Y_{s + t} = j | X_s = i,Y_s = j) \\
+	&= P(X_{s + t} = j| X_s = i)P(Y_{s + t} = j | Y_s = j) \\
+	&= p_X(t,j;s,i)p_Y(t,j;s,j) \\
+	&= \frac 1 N p_Y(t,j;s,j).
+\end{align*}
+\item Lastly, it is possible that $X$ and $Y$ both change to the same new state $k$.
+That is $X_{s + t} = k$ and $Y_{s + t} = k$.
+This can occur w.p. (using the fact that $X$ and $Y$ are independent Markov chains)
+\begin{align*}
+P(Z_{s + t} = 1 | Z_s = 2)
+	&= P(X_{s + t} = k,Y_{s + t} = k | X_s = i,Y_s = j) \\
+	&= P(X_{s + t} = k| X_s = i)P(Y_{s + t} = k | Y_s = j) \\
+	&= p_X(t,k;s,i)p_Y(t,k;s,j) \\
+	&= \frac 1 N \frac 1 N \\
+	&= \frac 1 {N^2}.
+\end{align*}
+\end{enumerate}
+\begin{align*}
+\bm H_Z = 
+\begin{bmatrix}
+- \mu & 1/N & 1/N & \dots & 1/N \\
+1/N & - \mu & 1/N & \dots & 1/N \\
+1/N & 1/N & - \mu & \dots & 1/N \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1/N & 1/N & 1/N & \dots & - \mu \\
+\end{bmatrix}.
+\end{align*}
+
+
+\noindent {\bf  (c)} Let ${\bm \mu}_t$ be the distribution of $Z_t$. Compute  ${\bm \mu}_t$ assuming $X_0=i$ and $Y_0=j$ where $i\neq j$.
+\\
+
+\noindent {\bf  (d)} Let ${\bm \pi}$ be the stationary distribution of the process $Z$. Compute ${\bm \pi}$  and show that $\lim_{t\to\infty}{\bm \mu}_t={\bm \pi}$. 
+\\
+
+\newpage
+
+\noindent {\bf 2.} Consider a discrete-time Markov chain with the $N+1$ states $0,1,...,N$ and one-step transition probabilities
+$$p_{ij}={N \choose j} \pi_i^j (1-\pi_i)^{N-j},  \,\,\,\,\, 0\leq i, j\leq N,$$ 
+$$\pi_i=\frac{1-e^{-2ai/N}}{1-e^{-2a}}, \,\,\,\,\, a>0.$$
+Note that $0$ and $N$ are absorbing states. 
+\\
+
+\noindent {\bf (a)}  Verify that $\exp(-2aX_n)$ is a martingale.
+\\
+
+\noindent {\bf (b)}  Using the martingale property from (a), show that the probability $P_N(k)$ of absorbing into state $N$ starting at state $k$ (i.e. given $X_0=k$) is given by
+$$P_N(k)=\frac{1-e^{-2ak}}{1-e^{-2aN}}.$$
+\\
+
+\newpage
+
+\noindent {\bf 3.} Let ${\bm Y}_0, {\bm Y}_1, {\bm Y}_2$,,, be a sequence of i.i.d.\,unsigned 32 bit integers (i.e. ${\bm Y}_i=(y_{i,1},y_{i,2},...,y_{i,31},y_{i,32})$, $y_{i,k}=0$ or 1, every value of ${\bm Y}_i$ equally likely).
+\\
+
+\noindent For the sequence ${\bm X}_i$ the following recursion is given:
+$${\bm X}_0={\bm 0}, \,\,\,\,\, {\bm 0}\equiv(0,0,...0,0),$$
+$${\bm X}_i={\bm X}_{i-1} \oplus {\bm Y}_{i-1},$$
+where $\oplus$ is the operator defined by $x_{i-1,k} \oplus y_{i-1,k}={\rm min}(1,x_{i-1,k}+y_{i-1,k})$.
+\\
+
+\noindent It can be seen that eventually there will be an index $N$ such that ${\bm X}_i={\bm 1}$, ${\bm 1}\equiv(1,1,...,1,1)$ ( a bit-pattern of all ones), for all $i\geq N$. Find the expected value of $N$. Please leave your answer in the form $EN=\sum_{k=0}^{\infty} a_k$ (i.e. give an explicit expression for $a_k$).
+\\ 
+
+\newpage
+
+
+\noindent {\bf 4.} We are considering a model of bacterial evolution in which the process starts with $N_0$ sensitive and 0 resistant cells. Sensitive cells grow exponentially with rate 1 and their growth is deterministic. In other words, the number of sensitive cells at time $t$ will be $N_t=N_0 e^t$. Resistant cells are produced in two ways:  by mutation from sensitive cells or from division (birth) of currently present resistant cells. Resistant cells are produced by sensitive cells with mutation rate $a$. This means that in a small time interval $(t,t+\Delta t$), the chance that a new resistant cell is produced by sensitive cells is $a N_t \Delta t$. In addition, resistant cells will follow a pure birth process with rate 1 (i.e. if there are currently $n$ resistant cells, the chance that they will produce an extra resistant cell in a short time interval $\Delta t$ is $n\Delta t$). 
+\\
+
+\noindent
+{\bf (a)} Derive the partial differential equation for the probability generating function (PGF) of the process describing the number of resistant cells at time $t$, $X(t)$.\\
+
+\noindent
+{\bf (b)} Solve the PDE from part a) to obtain the PGF for the number of resistant cells at time $t$.
+\\
+
+\noindent
+{\bf (c)} Find the mean and variance of the process, $E[X(t)]$ and ${\rm Var}(X(t))$.
+\\
+
+\noindent
+{\bf (d)} How do the mean and variance of the process compare? Which one will be larger for large time $t$?
+\\
+
+Note: if you need to evaluate a function $f(y)$ at a value $y=y_0$ where it is not defined, you can instead evaluate $\lim_{y\to y_0} f(y)$.
+
+
+
+\end{document}  
