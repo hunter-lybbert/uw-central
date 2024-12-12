@@ -423,7 +423,29 @@ Therefore we can conclude that $\E^{-2 a X_n}$ is a martingale. \\
 
 \noindent {\bf (b)}  Using the martingale property from (a), show that the probability $P_N(k)$ of absorbing into state $N$ starting at state $k$ (i.e. given $X_0=k$) is given by
 $$P_N(k)=\frac{1-e^{-2ak}}{1-e^{-2aN}}.$$ \\
-\textbf{TODO: Honestly not a clue how to start yet}
+
+\noindent
+\textit{Solution:} \\
+Consider the scenario where $k = N - 1$, then we have
+\begin{align*}
+\pi_{N - 1}=\frac{1-e^{-2a\frac{N - 1}{N}}}{1-e^{-2a}}
+\end{align*}
+which is very nearly 1 which would mean
+\begin{align*}
+p_{N-1,N} &= {N \choose N} \pi_{N - 1}^N (1-\pi_{N - 1})^{N-N} \\
+	&= \left(\frac{1-e^{-2a\frac{N - 1}{N}}}{1-e^{-2a}}\right)^N.
+\end{align*}
+As some poeple like to say, at this point I can ``squint" and see that 
+\begin{align*}
+\left(\frac{1-e^{-2a\frac{N - 1}{N}}}{1-e^{-2a}}\right)^N
+	&= \frac{\left(1-e^{-2a\frac{N - 1}{N}}\right)^N}{\left(1-e^{-2a}\right)^N} \\
+	&\approx \frac{1-e^{-2a(N - 1)}}{1-e^{-2aN}}.
+\end{align*}
+Which relies on being able to verify whether or not
+$\left(1-e^{-2a}\right)^N$ actually is similar or (preferably) equal to $1-e^{-2aN}$.
+If I were going to stick with this problem and this exam any longer I would probably attempt this with the binomial theorem.
+Perhaps I could even try a reverse triangle inequality? No, that wouldn't do me any good since I am not trying to make an upper bound but rather I am trying to develop the probability of being absorbed by $N$ when starting at $k$.
+\textbf{TODO: Honestly not a clue how to show this rigorously yet. Come back if time and brain capacity allows.}
 
 \newpage
 
@@ -492,20 +514,105 @@ $$
 {\bf (a)} Derive the partial differential equation for the probability generating function (PGF) of the process describing the number of resistant cells at time $t$, $X(t)$.\\
 
 \noindent
-{\bf (b)} Solve the PDE from part a) to obtain the PGF for the number of resistant cells at time $t$.
+\textit{Solution:} \\
+We denote the probability that there are $n + 1$ resistant cells at time $t + \Delta t$ as the sum of the following
+\begin{align*}
+P(X_{t + \Delta t} = n + 1) &= (aN_0 \E^t\Delta t)(1 - n\Delta t)P(X_t = n) \\
+	&\quad + n\Delta t(1 - aN_0 \E^t\Delta t)P(X_t = n) \\
+	&\quad + (1 - (n + 1)\Delta t)(1 - aN_0 \E^t\Delta t)P(X_t = n + 1)
+\end{align*}
+each representing the probability of getting a resistant cell spontaneously and not from sensitive cells, vice versa, or neither due to already being at state $n + 1$ at time $t$.
+We can further manipulate things as follows
+\begin{align*}
+P(X_{t + \Delta t} = n + 1)
+	&= aN_0 \E^tP(X_t = n)\Delta t - naN_0 \E^tP(X_t = n)(\Delta t)^2 \\
+	&\quad + nP(X_t = n)\Delta t - naN_0 \E^tP(X_t = n)(\Delta t)^2 \\
+	&\quad + \big(1 - (n + 1)\Delta t - a N_0 \E^t\Delta t + (n + 1)a N_0 \E^t(\Delta t)^2\big)P(X_t = n + 1) \\
+\frac {P(X_{t + \Delta t} = n + 1) - P(X_{t} = n + 1)}{\Delta t}
+	&= aN_0 \E^tP(X_t = n) - naN_0 \E^tP(X_t = n)\Delta t \\
+	&\quad + nP(X_t = n) - naN_0 \E^tP(X_t = n)\Delta t \\
+	&\quad + \big( - (n + 1) - a N_0 \E^t + (n + 1)a N_0 \E^t\Delta t\big)P(X_t = n + 1).
+\end{align*}
+Now, taking a limit as $\Delta t \rightarrow 0$ we have the following differential equation, then multiplying through by $s^n$ and summing up each expression with respect to $n$ we have
+\begin{align*}
+\frac {\D }{\D t} \sum_{n = 0}^\infty s^n P(X_{t} = n + 1)
+	&= \sum_{n = 0}^\infty s^naN_0 \E^tP(X_t = n) + \sum_{n = 0}^\infty s^nnP(X_t = n) \\
+		&\quad - \sum_{n = 0}^\infty s^n\big( (n + 1) + a N_0 \E^t \big)P(X_t = n + 1) \\
+\frac {\partial }{\partial t} G_{X_t}(s,t)
+	&= aN_0 \E^tG_{X_t}(s,t) + s\frac {\partial }{\partial s} G_{X_t}(s,t) \\
+		&\quad - \sum_{n = 0}^\infty s^n(n + 1) P(X_t = n + 1) - \sum_{n = 0}^\infty s^n a N_0 \E^t P(X_t = n + 1) \\
+\frac {\partial }{\partial t} G_{X_t}(s,t)
+	&= aN_0 \E^tG_{X_t}(s,t) + s\frac {\partial }{\partial s} G_{X_t}(s,t) \\
+		&\quad - \frac {\partial }{\partial s} G_{X_t}(s,t) - aN_0 \E^tG_{X_t}(s,t) \\
+\frac {\partial }{\partial t} G_{X_t}(s,t) &= (s - 1)\frac {\partial }{\partial s} G_{X_t}(s,t). 
+\end{align*} \qed
 \\
 
 \noindent
-{\bf (c)} Find the mean and variance of the process, $E[X(t)]$ and ${\rm Var}(X(t))$.
-\\
+{\bf (b)} Solve the PDE from part a) to obtain the PGF for the number of resistant cells at time $t$. \\
 
 \noindent
-{\bf (d)} How do the mean and variance of the process compare? Which one will be larger for large time $t$?
-\\
+\textit{Solution:} \\
+I tried to use Mathematica to solve this PDE but I'm a little Mathematica challenged and have not been able to figure it out on the fly during this final exam.
+I arrived at the following solution from Mathematica,
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.25]{mathematica.png}
+	\caption{
+		A screen shot of me trying to use mathematica.
+	}\label{fig:f1}
+\end{figure}
+However, with a quick check by hand I think this is off by a sign or something so I am going to move forward with the following
+$$
+G_{X_t}(s,t) = C(t + \log(s - 1)).
+$$
+\qed \\
+
+\noindent
+{\bf (c)} Find the mean and variance of the process, $E[X(t)]$ and ${\rm Var}(X(t))$. \\
+
+\noindent
+\textit{Solution:}
+I am not confident in the solution to the PDE that I arrived at, however I am confident that the next steps I take are the correct steps and would provide me the right solutions if the previous part was completed correctly.
+I will calculate the mean and variance as follows
+$$
+E[X(t)] = \frac {\partial}{\partial s}G_{X_t}(1, t) \quad \text{ and } \quad {\rm Var}(X(t)) = \frac {\partial^2}{\partial s^2}G_{X_t}(1, t) + \frac {\partial}{\partial s}G_{X_t}(1, t) - \Big(\frac {\partial}{\partial s}G_{X_t}(1, t)\Big)^2.
+$$
+Finally let's actually calculate them
+\begin{align*}
+E[X(t)] &= \frac {\partial}{\partial s}G_{X_t}(1, t) \\
+	&= \frac {\partial}{\partial s} C(t + \log(s - 1)) \Big|_{s=1} \\
+	&= C\frac 1 {s -1} \Big|_{s=1} \\
+	&= C\frac 1 {0}.
+\end{align*}
+Well obviously this is impossible so I have more evidence that my PDE solution was wrong but I am just done at this point, sorry.
+Next to calculate the variance we have
+\begin{align*}
+{\rm Var}(X(t)) &= \frac {\partial^2}{\partial s^2}G_{X_t}(1, t) + \frac {\partial}{\partial s}G_{X_t}(1, t) - \Big(\frac {\partial}{\partial s}G_{X_t}(1, t)\Big)^2 \\
+	&= \frac {\partial^2}{\partial s^2}C(t + \log(s - 1)) \Big|_{s=1} + C\frac 1 {0} + \Big(C\frac 1 {0}\Big)^2 \\
+	&= \frac {\partial}{\partial s}C\frac 1 {s - 1} \Big|_{s=1} + C\frac 1 {0} + \Big(C\frac 1 {0}\Big)^2 \\
+	&= - C \frac 1 {(s - 1)^2} \Big|_{s=1} + C\frac 1 {0} + \Big(C\frac 1 {0}\Big)^2 \\
+	&= - C \frac 1 {0^2} + C\frac 1 {0} + \Big(C\frac 1 {0}\Big)^2.
+\end{align*}
+Surprise, surprise, I had to divide by zero again multiple times, this is obviously very wrong and I'm still feeling pretty dumb.
+\qed \\
+
+\noindent
+{\bf (d)} How do the mean and variance of the process compare? Which one will be larger for large time $t$? \\
+
+\noindent
+\textit{Solution:} \\
+It's virtually impossible for me to comment on this seeing that I have been unsuccessful in every attempt to calculate the mean and variance of this process.
+Speculatively speaking I think that the mean would blow up for large $t$ since the rate at which new resistant bacteria show up is proportional to the number of resistant bacteria currently present.
+However, further speculation tells me that the variance would be large generally but be overtaken (meaning eventually the mean will be larger than the variance) by the mean due to the previous observation.
+\qed \\
+
+\noindent
+There is a concluding note for the grader on the next page.
 
 Note: if you need to evaluate a function $f(y)$ at a value $y=y_0$ where it is not defined, you can instead evaluate $\lim_{y\to y_0} f(y)$. \\
 
 \noindent
-\textbf{Hi Ruibo, thanks for an excellent course. It was definitely challenging. This exam especially was in a format that made me quite uncomfortable. I realized I realized heavily on my classmates throughout the quarter and am now exposed to how poorly I understand some of the material. \\ \\ \noindent Or perhaps this is my mind fried at the end of finals week. Nevertheless I know I haven't done very well on this exam. My only hope at the moment is to receive something in the ball park of a 50\%. I also have no idea if this class is scaled in any abnormal manner but I have spent a lot of time stressing out about this as I try to complete this exam. \\ \\ \noindent Thanks again for all you do and all the help you offered over the course of the quarter. I suppose this is my plea to just at least get passing credit in this class. I know I won't be in the average let alone the top grades, but I don't need that I just want to pass. Thanks for reading my plea or at least letting me get my stresses and thoughts out on paper (LaTeX). Have a great break!}
+\textbf{Hi Ruibo, thanks for an excellent course. It was definitely challenging. This exam especially was in a format that made me quite uncomfortable. I realized how heavily I relied on my classmates throughout the quarter and am now exposed to how poorly I understand some of the material. \\ \\ \noindent Or perhaps this is my mind fried at the end of finals week. Nevertheless I know I haven't done very well on this exam. My only hope at the moment is to receive something in the ball park of a 50\%. I also have no idea if this class is scaled in any abnormal manner but I have spent a lot of time stressing out about this as I try to complete this exam. All I want to do is get passing credit for the course to count towards my degree, it doesn't have to be pretty. \\ \\ \noindent Thanks again for all you do and all the help you offered over the course of the quarter. I suppose this is my plea to just at least get passing credit in this class. I know I won't be in the average let alone the top grades, but I don't need that I just want to pass. Thanks for reading my plea or at least letting me get my stresses and thoughts out on paper (LaTeX). Have a great break!}
 
 \end{document}  
