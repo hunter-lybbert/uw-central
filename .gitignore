@@ -8,6 +8,7 @@ __pycache__/
 
 # lecture slides and notes
 **/lecture_slides/
+probability/final/
 
 # latex
 *.aux
