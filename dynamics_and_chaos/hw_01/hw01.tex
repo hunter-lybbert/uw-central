@@ -27,7 +27,7 @@
 \noindent
 \text{Hunter Lybbert} \\
 \text{Student ID: 2426454} \\
-\text{01-06-25} \\
+\text{01-16-25} \\
 \text{AMATH 502} \\
 % header containing your name, student number, due date, course, and the homework number as a title.
 
@@ -56,8 +56,80 @@ Exercises come from \textit{Nonlinear Dynamics and Chaos by Steven H. Strogatz}
 \textbf{TODO} \\
 
 \item 2.2.13 (a,b,c,d) \\
+\begin{enumerate}
+\item $m \dot v = mg - kv^2$ with initial condition $v(0) = 0$ \\
+
+\noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+Let's begin by dividing by $m$ and factoring out a $g$ term.
+\begin{align*}
+m \dot v &= mg - kv^2 \\
+\dot v &= g - \frac{kv^2}{m} \\
+\dot v &= g\left( 1 - \frac{kv^2}{gm}\right).
+\end{align*}
+Now rewriting $\dot v$ as the derivative of $v$ with respect to $t$ we have
+\begin{align*}
+\frac{\D v}{\D t} &= g\left( 1 - \frac{kv^2}{gm}\right) \\
+\frac{1}{\left( 1 - \frac{kv^2}{gm}\right)}\D v &= g \D t \\
+\int \frac{1}{\left( 1 - \sqrt{\frac{k}{gm}}v\right)\left( 1 + \sqrt{\frac{k}{gm}}v\right)}\D v &= \int g \D t.
+\end{align*}
+Now, we can do partial fractions on the left and integrate both sides
+\begin{align*}
+\int \frac{1}{\left( 1 - \sqrt{\frac{k}{gm}}v\right)\left( 1 + \sqrt{\frac{k}{gm}}v\right)}\D v &= \int g \D t \\
+\int \frac{1/2}{\left( 1 - \sqrt{\frac{k}{gm}}v\right)}\D v
+	+ \int \frac{1/2}{\left( 1 + \sqrt{\frac{k}{gm}}v\right)}\D v
+	 &= g t + C \\
+- \frac 1 2 \sqrt{\frac {gm}{k}}\log\left( 1 - \sqrt{\frac{k}{gm}}v\right)
+	+ \frac 1 2 \sqrt{\frac {gm}{k}}\log\left( 1 + \sqrt{\frac{k}{gm}}v\right)
+	 &= g t + C \\
+\frac 1 2 \sqrt{\frac {gm}{k}}\Bigg( \log \left( 1 + \sqrt{k/(gm)} \: v\right) 
+	- \log \left( 1 - \sqrt{k/(gm)} \: v\right) \Bigg)
+	 &= g t + C
+\end{align*}
+Interesting ... now I need to input the initial condition \\
+\begin{align*}
+\frac 1 2 \sqrt{\frac {gm}{k}}\Bigg( \log \left( 1 + \sqrt{k/(gm)} \: 0\right) 
+	- \log \left( 1 - \sqrt{k/(gm)} \: 0\right) \Bigg)
+	 &= g 0 + C \\
+\frac 1 2 \sqrt{\frac {gm}{k}}\Bigg( \log \left( 1 \right) 
+	- \log \left( 1 \right) \Bigg) &= C \\
+	0 &= C.
+\end{align*}
+Plugging this in and simplifying we have
+\begin{align*}
+\frac 1 2 \sqrt{\frac {gm}{k}}\Bigg( \log \left( 1 + \sqrt{k/(gm)} \: v\right) 
+	- \log \left( 1 - \sqrt{k/(gm)} \: v\right) \Bigg)
+	 &= g t \\
+\log \left( \frac {1 + \sqrt{k/(gm)} \: v}{1 - \sqrt{k/(gm)} \: v}\right) 
+	 &= 2 g t \sqrt{k/(gm)}.
+\end{align*}
+Now we can exponentiate and solve for $v$
+\begin{align*}
+\frac {1 + \sqrt{k/(gm)} \: v}{1 - \sqrt{k/(gm)} \: v}
+	 &= \E^{2 g t \sqrt{k/(gm)}} \\
+1 + \sqrt{k/(gm)} \: v
+	 &= \E^{2 g t \sqrt{k/(gm)}}(1 - \sqrt{k/(gm)} \: v) \\
+1 + \sqrt{k/(gm)} \: v 
+	 &= \E^{2 g t \sqrt{k/(gm)}} - \sqrt{k/(gm)} \: v \E^{2 g t \sqrt{k/(gm)}} \\
+\sqrt{k/(gm)} \: v +  \sqrt{k/(gm)} \: v \E^{2 g t \sqrt{k/(gm)}}
+	 &= \E^{2 g t \sqrt{k/(gm)}} - 1 \\
+v &= \frac {\E^{2 g t \sqrt{k/(gm)}} - 1}{\sqrt{k/(gm)} +  \sqrt{k/(gm)} \E^{2 g t \sqrt{k/(gm)}}}.
+\end{align*}
+Some final simplifications gives us
+\begin{align*}
+v &= \frac 1 {\sqrt{k/(gm)}}\frac {\E^{2 g t \sqrt{k/(gm)}} - 1}{1 +  \E^{2 g t \sqrt{k/(gm)}}} \\
+v &= \sqrt{\frac {gm}{k}} \left( \frac {\E^{2 g t \sqrt{k/(gm)}} - 1}{\E^{2 g t \sqrt{k/(gm)}}+ 1} \right).
+\end{align*}
+Therefore our final analytical solution is 
+$$
+v = \sqrt{\frac {gm}{k}} \left( \frac {\E^{2 g t \sqrt{k/(gm)}} - 1}{\E^{2 g t \sqrt{k/(gm)}}+ 1} \right).
+$$
+\qed \\
+
+\item 
+\item
+\item 
+\end{enumerate}
 
 \item 2.3.2 \\
 \textit{Solution:} \\
