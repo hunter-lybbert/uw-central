@@ -126,8 +126,18 @@ v = \sqrt{\frac {gm}{k}} \left( \frac {\E^{2 g t \sqrt{k/(gm)}} - 1}{\E^{2 g t \
 $$
 \qed \\
 
-\item 
-\item
+\item Determine the limit of $v(t)$ as $t\rightarrow \infty$.
+We will need to utilize L'Hôpital's rule since the numerator and the denominator go to infinity.
+\begin{align*}
+\lim_{t\rightarrow \infty} \sqrt{\frac {gm}{k}} \left( \frac {\E^{2 g t \sqrt{k/(gm)}} - 1}{\E^{2 g t \sqrt{k/(gm)}}+ 1} \right)
+	&= \lim_{t\rightarrow \infty} \sqrt{\frac {gm}{k}} \left( \frac {2 g t \sqrt{k/(gm)}\E^{2 g t \sqrt{k/(gm)}}}{2 g t \sqrt{k/(gm)}\E^{2 g t \sqrt{k/(gm)}}} \right) \\
+	&= \lim_{t\rightarrow \infty} \sqrt{\frac {gm}{k}} \\
+	&= \sqrt{\frac {gm}{k}}.
+\end{align*}
+Therefore, the terminal velocity is $\sqrt{\frac {gm}{k}}$. \\
+\qed \\
+
+\item \textbf{TODO:} insert pictures.
 \item 
 \end{enumerate}
 
