@@ -28,7 +28,8 @@
 \text{Hunter Lybbert} \\
 \text{Student ID: 2426454} \\
 \text{01-16-25} \\
-\text{AMATH 502} \\
+\text{AMATH 502:} \\
+\text{Dynamical Systems and Chaos} \\
 % header containing your name, student number, due date, course, and the homework number as a title.
 
 \title{\bf {Homework 1} }
@@ -54,7 +55,7 @@ Now we can look at the plots in Figure \ref{fig:f1}, to identify that $x^* = -1,
 \newpage
 
 \item 2.2.7 \\
-\textit{Solution:} Looking at the DS $\dot x = \E^x - \cos x$ is tricky so let's plot in Figure \ref{fig:fig2} each of $\E^x$ and $\cos x$ on the same plot to determine where the fixed points are and what their stability is.
+\textit{Solution:} Looking at the DS $\dot x = \E^x - \cos x$ is tricky so let's plot in Figure \ref{fig:f2} each of $\E^x$ and $\cos x$ on the same plot to determine where the fixed points are and what their stability is.
 Notice, the two functions intersect at $x = 0$ and infinitely more points as $x \rightarrow - \infty$.
 Since $\E^x$ is decaying to 0 as $x \rightarrow - \infty$ the points at which the two functions intersect approach odd multiples of $\pi/2$ such that the fixed points can be written as $x^* = 0$ and $x^* \approx - \frac {2k + 1}{2}$ for the integer $k$ which is sufficiently less than 0, denoted as $k << 0$. \\
 
@@ -65,7 +66,7 @@ So $x^* = 0$ is an unstable fixed point, and each fixed point alternates stabili
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\textwidth]{2_2_7.png}
- 	\caption{We have sketched the vector field on the real line, identified the approximate location of all the fixed points, and classified their stability (which is alternating stable and unstable) sketched the $x(t)$ for different initial conditions.}\label{fig:f2}
+ 	\caption{We have sketched the vector field on the real line, identified the approximate location of all the fixed points, and classified their stability (which is alternating stable and unstable). I am not actually going to come back and fill in the sketch of $x(t)$ for different initial conditions since there are an unending number of fixed points and each has two concavities due to the alternating stability and oscillating nature of the $\cos$ function.}\label{fig:f2}
 \end{figure}
 
 \qed \\
@@ -74,7 +75,9 @@ So $x^* = 0$ is an unstable fixed point, and each fixed point alternates stabili
 
 \item 2.2.8 \\
 \textit{Solution:} \\
-Based on the given flow diagram $\dot x = x(x + 1)^2(x - 2)$. Now to verify that this satisfies the criteria we are given I will plug in values in the ranges given and verify they match the expected flow direction.
+Based on the given flow diagram $\dot x = x(x + 1)^2(x - 2)$.
+Now to verify that this satisfies the criteria we are given I will plug in values in the ranges given and verify they match the expected flow direction.
+We also have depicted this in Figure \ref{fig:f3}
 
 \begin{align*}
 \dot x &= \left. x(x + 1)^2(x - 2) \right|_{x = -2} \\
@@ -95,7 +98,7 @@ Based on the given flow diagram $\dot x = x(x + 1)^2(x - 2)$. Now to verify that
 \begin{figure}[h]
 	\centering
 	\includegraphics[height=2in]{2_2_8.png}
- 	\caption{We have sketched the vector field on the real line, identified the approximate location of all the fixed points, and classified their stability (which is alternating stable and unstable) sketched the $x(t)$ for different initial conditions.}\label{fig:f2}
+ 	\caption{On the $x$-axis I have written the provided phase diagram and plotted over it one possible polynomial which satisfies the required flows.}\label{fig:f3}
 \end{figure}
 
 \qed \\
@@ -256,11 +259,11 @@ Notice $\dot x$ has fixed points at $x^* = 0, \frac {k_1 a}{k_{-1}}$, since
 \end{align*}
 Then $\dot x = x (k_1 a - k_{-1} x) = 0$ implies the above fixed points.
 We will analyze this graphically.
-Looking at Figure \ref{fig:f5} makes it obvious that $x^* = 0$ is unstable and $x^* = \frac {k_1 a}{k_{-1}}$ is stable. \textbf{TODO:} Insert actual image. \\
+Looking at Figure \ref{fig:f5} makes it obvious that $x^* = 0$ is unstable and $x^* = \frac {k_1 a}{k_{-1}}$ is stable.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[height=2in]{2_2_13_c.png}
+	\includegraphics[height=2in]{2_3_2.png}
  	\caption{We have sketched the vector field on the real line, identified the location of all the fixed points, classified their stability, and sketched the $x(t)$ for different initial conditions.}\label{fig:f5}
 \end{figure}
 
@@ -284,44 +287,122 @@ Looking at Figure \ref{fig:f5} makes it obvious that $x^* = 0$ is unstable and $
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+We fist begin by factoring the expression on the rhs first to get
+$$
+\dot x  = x(1 - x)\big(sx^{a-1} - (1 - s)(1 - x)^{a - 1}\big).
+$$
+Now we know the fixed points occur at $x^* = 0, 1$ and when the third factor is equal to 0.
+Let's algebraically solve for this third fixed point, by setting it equal to zero and solving for $x$.
+\begin{align*}
+sx^{a-1} - (1 - s)(1 - x)^{a - 1} &= 0 \\
+sx^{a-1} - (1 - x)^{a - 1} + s(1 - x)^{a - 1} &= 0 \\
+s \big( x^{a-1} + (1 - x)^{a - 1}\big) &= (1 - x)^{a - 1} \\
+s \frac {\big( x^{a-1} + (1 - x)^{a - 1}\big)}{x^{a - 1}} &= \frac {(1 - x)^{a - 1}}{x^{a - 1}} \\
+s \left( 1 +  \left(\frac {1 - x}{x} \right)^{a - 1} \right) &= \left(\frac {1 - x}{x} \right)^{a - 1} \\
+s &= \left(\frac {1 - x}{x} \right)^{a - 1} - s \left(\frac {1 - x}{x} \right)^{a - 1} \\
+s &= (1 - s)\left(\frac {1 - x}{x} \right)^{a - 1} \\
+\left( \frac s {1 - s} \right)^{\frac 1 {a - 1}} &= \frac {1 - x}{x} \\
+x + x \left( \frac s {1 - s} \right)^{\frac 1 {a - 1}} &= 1 \\
+x\left( 1 + \left( \frac s {1 - s} \right)^{\frac 1 {a - 1}}\right) &= 1 \\
+x &= \frac 1 { 1 + \left( \frac s {1 - s} \right)^{\frac 1 {a - 1}}}.
+\end{align*}
+Therefore we have there are 3 distinct fixed points. \\
+\qed \\
+
+\newpage
+ 
 
 \item Show that for all $a > 1$, the fixed points at $x = 0$ and $x = 1$ are both stable. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+Let's do so by LSA.
+So we first need to take the derivative of $f$ with respect to $x$ from
+$$
+\dot x = f(x)  = s(1 - x) x^a - (1 - s)x(1 - x)^a.
+$$
+Then,
+\begin{align*}
+f^\prime(x) &= \frac {d f}{d x} \big( s(1 - x) x^a - (1 - s)x(1 - x)^a \big) \\
+	&= \frac {d f}{d x} s(1 - x) x^a - \frac {d f}{d x} (1 - s)x(1 - x)^a \\
+	&= - s x^a + sa (1 - x) x^{a - 1} - (1 - s)(1 - x)^a + (1 - s)x(1 - x)^{a - 1}.
+\end{align*}
+Now we can evaluate this at $x^* = 0$ and $x^* = 1$ as follows,
+\begin{align*}
+f^\prime(x^* = 0) &= \left. - s x^a + sa (1 - x) x^{a - 1} - (1 - s)(1 - x)^a + (1 - s)x(1 - x)^{a - 1} \right|_0 \\
+	&= - s 0^a + sa (1 - 0) 0^{a - 1} - (1 - s)(1 - 0)^a + (1 - s)0(1 - 0)^{a - 1} \\
+	&= - (1 - s)1^a \\
+	&= s - 1 \leq 0.
+\end{align*}
+
+Therefore, $f^\prime(x^* = 0) \leq 0$ since $s$ could be equal to 1.
+Assuming $s < 1$ we have that the fixed point $x^* = 0$ is stable by LSA.
+
+\begin{align*}
+f^\prime(x^* = 1) &= \left. - s x^a + sa (1 - x) x^{a - 1} - (1 - s)(1 - x)^a + (1 - s)x(1 - x)^{a - 1} \right|_0 \\
+	&= - s 1^a + sa (1 - 1) 1^{a - 1} - (1 - s)(1 - 1)^a + (1 - s)1(1 - 1)^{a - 1} \\
+	&= - s \leq 0.
+\end{align*}
+Therefore, $f^\prime(x^* = 1) \leq 0$ since $s$ could be equal to 0.
+Assuming $s > 0$ we have that the fixed point $x^* = 1$ is stable by LSA. \\
+\qed \\
 
 \item Show that the third fixed point, $0 < x^* < 1$, is unstable. \\
 
 \noindent
-\textit{Solution:} \\
-\textbf{TODO} \\
+\textit{Solution:} We know there are three fixed points by part a), by 2.2.10 we established that a DS with precisely three fixed points can't all be stable, finally by part b) we know that $x^* = 0 \; {\rm and} \; 1$ are stable then the fixed point which lies within the interval $0 < x^* < 1$ must be unstable. \\
+\qed \\
 
 \end{enumerate}
 
 \newpage
 
-\item 2.4.7 Use LSA to classify the fixed points of the following systems. If linear stability analysis fails because $f^\prime (x^*) = 0$, use a graphical argument to decide the stability. \\
+\item 2.4.7 Use LSA to classify the fixed points of the system, $\dot x = ax - x^3$. If linear stability analysis fails because $f^\prime (x^*) = 0$, use a graphical argument to decide the stability. \\
+
+
 \begin{enumerate}
 
 \item Where $a > 0$ \\
 
 \noindent
-\textit{Solution:} \\
-\textbf{TODO} \\
+\textit{Solution:} The fixed points are going to be given by $x^* = 0, \pm \sqrt{a}$ which are all real valued fixed points since $a > 0$.
+Now to use LSA we need to calculate the derivative of $f$ with respect to $x$, therefore we have
+$$
+f^\prime (x) = a - 3x^2.
+$$
+Then 
+$$f^\prime (x^* = 0) = a > 0$$
+thus $x^* = 0$ is unstable.
+Lastly
+$$f^\prime (x^* = \pm \sqrt a) = a - 3a = -2a < 0$$
+thus both $\pm \sqrt a $ are stable.
+
+\qed \\
 
 \item Where $a = 0$ \\
 
 \noindent
-\textit{Solution:} \\
-\textbf{TODO} \\
+\textit{Solution:} In this case the system reduces to $\dot x = -x^3$ which only has one fixed point at $x^* = 0$. 
+The derivative becomes $f^\prime(x) = -3x^2$ which evidently gives us $f^\prime(x^*= 0) = 0$ therefore LSA is inconclusive and we will analyze graphically.
+By the analysis in Figure \ref{fig:f6} we can see that $x^* = 0$ is a stable fixed point.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=1.5in]{2_4_7.png}
+ 	\caption{We have sketched the vector field on the real line, identified the location of all the fixed points, and classified their stability.}\label{fig:f6}
+\end{figure}
 
 \item Where $a < 0$ \\
 
 \noindent
-\textit{Solution:} \\
-\textbf{TODO} \\
+\textit{Solution:} Again the fixed points are at $x^* = 0, \pm \sqrt a$. However, since $a < 0$ and we are not currently handling non-real fixed points, we conclude there is just one fixed point at $x^* = 0$. \\
+
+\noindent
+Furthermore, performing LSA using the $f^\prime(x) = a - 3x^2$, gives us
+$$f^\prime (x^* = 0) = a < 0, $$
+thus $x^* = 0$ is a stable fixed point in this scenario.
+
+\qed \\
 
 \end{enumerate}
 
