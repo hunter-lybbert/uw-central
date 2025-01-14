@@ -54,11 +54,18 @@ Now we can look at the plots in Figure \ref{fig:f1}, to identify that $x^* = -1,
 \newpage
 
 \item 2.2.7 \\
-\textit{Solution:} Looking at the DS $\dot x = \E^x - \cos x$ is tricky so let's plot each of $\E^x$ and $\cos x$ on the same plot to determine where the fixed points are and what their stability is.
+\textit{Solution:} Looking at the DS $\dot x = \E^x - \cos x$ is tricky so let's plot in Figure \ref{fig:fig2} each of $\E^x$ and $\cos x$ on the same plot to determine where the fixed points are and what their stability is.
+Notice, the two functions intersect at $x = 0$ and infinitely more points as $x \rightarrow - \infty$.
+Since $\E^x$ is decaying to 0 as $x \rightarrow - \infty$ the points at which the two functions intersect approach odd multiples of $\pi/2$ such that the fixed points can be written as $x^* = 0$ and $x^* \approx - \frac {2k + 1}{2}$ for the integer $k$ which is sufficiently less than 0, denoted as $k << 0$. \\
+
+\noindent
+Furthermore, note that to the right of the fixed point $x^* = 0$ we have that $\E^x > \cos x$, therefore $\E^x - \cos x < 0$ and the flow is to the right in this interval. 
+Finally, note as depicted in the graph in Figure \ref{fig:f2}, that the oscillating nature of the $\cos$ function we end up with alternating flow directions and thus with alternating stability for the fixed points.
+So $x^* = 0$ is an unstable fixed point, and each fixed point alternates stability as $x \rightarrow - \infty$ .
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\textwidth]{2_2_7.png}
- 	\caption{We have sketched the vector field on the real line, identified the approximate location of all the fixed points,  and classified their stability (which is alternating stable and unstable) sketched the $x(t)$ for different initial conditions.}\label{fig:f2}
+ 	\caption{We have sketched the vector field on the real line, identified the approximate location of all the fixed points, and classified their stability (which is alternating stable and unstable) sketched the $x(t)$ for different initial conditions.}\label{fig:f2}
 \end{figure}
 
 \qed \\
@@ -67,11 +74,60 @@ Now we can look at the plots in Figure \ref{fig:f1}, to identify that $x^* = -1,
 
 \item 2.2.8 \\
 \textit{Solution:} \\
-\textbf{TODO} \\
+Based on the given flow diagram $\dot x = x(x + 1)^2(x - 2)$. Now to verify that this satisfies the criteria we are given I will plug in values in the ranges given and verify they match the expected flow direction.
+
+\begin{align*}
+\dot x &= \left. x(x + 1)^2(x - 2) \right|_{x = -2} \\
+\dot x &= -2(-2 + 1)^2(-2 - 2) \\
+\dot x &= -2(-1)^2(-4) \\
+\dot x &= 8 > 0 \\ \\
+\dot x &= \left. x(x + 1)^2(x - 2) \right|_{x = -.5} \\
+\dot x &= -.5(-.5 + 1)^2(-.5 - 2) \\
+\dot x &= -.5(.5)^2( -2.5) > 0 \\ \\
+\dot x &= \left. x(x + 1)^2(x - 2) \right|_{x = 1} \\
+\dot x &= 1(1 + 1)^2(1 - 2) \\
+\dot x &= 1(1 + 1)^2(-1) < 0 \\ \\
+\dot x &= \left. x(x + 1)^2(x - 2) \right|_{x = 3} \\
+\dot x &= 3(3 + 1)^2(3 - 2) \\
+\dot x &= 3(3 + 1)^2(1) > 0
+\end{align*}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=2in]{2_2_8.png}
+ 	\caption{We have sketched the vector field on the real line, identified the approximate location of all the fixed points, and classified their stability (which is alternating stable and unstable) sketched the $x(t)$ for different initial conditions.}\label{fig:f2}
+\end{figure}
+
+\qed \\
+
+\newpage
 
 \item 2.2.10 \\
-\textit{Solution:} \\
-\textbf{TODO} \\
+Find an equation $\dot x = f(x)$ with the stated properties, or if there are no examples, explain why not. \\
+
+\noindent
+\begin{enumerate}
+\item Every real number is a fixed point. \\
+\textit{Solution:} Let $\dot x = f(x) = 0$ be a constant function. \\
+
+\item Every integer is a fixed point and there are no others. \\
+\textit{Solution:} Let $\dot x = f(x) = \sin(\pi x)$. \\
+
+\item Precisely three fixed points, and all three are stable. \\
+\textit{Solution:} This is not possible since a fixed point has to have a negative slope at that point and you can't cross the $x$-axis from the upper left to the lower right 3 times without having crossed the $x$-axis once in between to return above the $x$-axis.
+This would force there to be an additional fixed point or for one of the 3 fixed points to be unstable (namely the one in between). \\
+
+\item There are no fixed points. \\
+\textit{Solution:} Let $\dot x = f(x) = \E^x$. \\
+
+\item There are precisely 100 fixed points. \\
+\textit{Solution:} Let $x_i \in \mathbb R$ for $i = 1, 2, ..., 100$ and $x_i \neq x_j$ for $i \neq j$.
+Therefore we can say 
+$$\dot x = f(x) = \prod_{i=1}^{100} (x - x_i).$$
+\end{enumerate}
+
+\qed \\
+\newpage
 
 \item 2.2.13 (a,b,c,d) \\
 \begin{enumerate}
@@ -155,21 +211,119 @@ We will need to utilize L'Hôpital's rule since the numerator and the denominato
 Therefore, the terminal velocity is $\sqrt{\frac {gm}{k}}$. \\
 \qed \\
 
-\item \textbf{TODO:} insert pictures.
-\item 
+\newpage
+
+\item Graphical argument. \\
+
+\textit{Solution:}
+Beginning with $m \dot v = mg - kv^2$ we have
+
+$$\dot v = g - \frac k  m v^2.$$
+
+By inspection we can see that $\dot v = g - \frac k  m v^2 = (\sqrt{\frac {gm}{k}} - v)(\sqrt{\frac {gm}{k}} + v) = 0$.
+Therefore, the fixed points are $v = \pm \sqrt{\frac {gm}{k}}$.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=2in]{2_2_13_c.png}
+ 	\caption{We have sketched the vector field on the real line, identified the location of all the fixed points, classified their stability, and sketched the $x(t)$ for different initial conditions (ignore the typo in the photograph this is for 2.2.13 c) not 2.2.10 c) as it is written)}\label{fig:f4}
+\end{figure}
+
+\qed \\
+
+\item Calculate the average velocity. \\
+
+\noindent
+\textit{Solution:}
+$$\frac{31,400 - 2,100 {\rm ft}}{116 {\rm s}} = \frac{29,300 {\rm ft} }{116 {\rm s}} \approx 253 {\rm ft}/{\rm s} = 172 {\rm mph}.$$
+\qed \\
+
 \end{enumerate}
 
-\item 2.3.2 \\
+\newpage
+
+\item 2.3.2 Analyze the DS governed by $\dot x = k_1 a x - k_{-1} x^2$ \\
+
+\begin{enumerate}
+\item Find all the fixed points and classify their stability \\
+\textit{Solution:} \\
+
+\noindent
+Notice $\dot x$ has fixed points at $x^* = 0, \frac {k_1 a}{k_{-1}}$, since
+\begin{align*}
+\dot x &= k_1 a x - k_{-1} x^2 \\
+\dot x &= x (k_1 a - k_{-1} x).
+\end{align*}
+Then $\dot x = x (k_1 a - k_{-1} x) = 0$ implies the above fixed points.
+We will analyze this graphically.
+Looking at Figure \ref{fig:f5} makes it obvious that $x^* = 0$ is unstable and $x^* = \frac {k_1 a}{k_{-1}}$ is stable. \textbf{TODO:} Insert actual image. \\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=2in]{2_2_13_c.png}
+ 	\caption{We have sketched the vector field on the real line, identified the location of all the fixed points, classified their stability, and sketched the $x(t)$ for different initial conditions.}\label{fig:f5}
+\end{figure}
+
+\qed \\
+
+\item Sketch the graph of $x(t)$ for various initial values of $x_0$. \\
+
+\noindent
+\textit{Solution:} See Figure \ref{fig:f5} \\
+\qed \\
+
+\end{enumerate}
+
+\newpage
+
+\item 2.3.6  We are looking at the model governed by $\dot x  = s(1 - x) x^a - (1 - s)x(1 - x)^a$ \\
+
+\begin{enumerate}
+
+\item Show that this equation for $\dot x$ has three fixed points. \\
+
+\noindent
 \textit{Solution:} \\
 \textbf{TODO} \\
 
-\item 2.3.6 \\
+\item Show that for all $a > 1$, the fixed points at $x = 0$ and $x = 1$ are both stable. \\
+
+\noindent
 \textit{Solution:} \\
 \textbf{TODO} \\
 
-\item 2.4.7 \\
+\item Show that the third fixed point, $0 < x^* < 1$, is unstable. \\
+
+\noindent
 \textit{Solution:} \\
 \textbf{TODO} \\
+
+\end{enumerate}
+
+\newpage
+
+\item 2.4.7 Use LSA to classify the fixed points of the following systems. If linear stability analysis fails because $f^\prime (x^*) = 0$, use a graphical argument to decide the stability. \\
+\begin{enumerate}
+
+\item Where $a > 0$ \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Where $a = 0$ \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Where $a < 0$ \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\end{enumerate}
 
 \end{enumerate}
 
