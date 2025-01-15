@@ -8,22 +8,26 @@
 \usepackage{enumerate, subcaption, graphicx, hyperref}
 
 
-\title{AMATH 482/582: Home Work 1}
-\author{Future Scientist} % first and last name
+\title{AMATH 582: Homework 1}
+\author{Hunter Lybbert} % first and last name
 
-\address{Amazing Department, University of Washington, Seattle, WA 
-\\ \texttt{youremail@uw.edu}}
+\address{Applied Mathematics Department, University of Washington, Seattle, WA 
+\\ \texttt{hlybbert@uw.edu}}
 
 \date{\today} % you can also just type the date instead of "\today"
 
 \begin{document}
 
-\maketitle 
+\maketitle
 
 \begin{abstract}
     Your report should contain a brief, 100 word abstract describing what is contained in 
     the document and what you did. {\bf Don't forget 6 pages max}.
 \end{abstract}
+
+\section{Misc Notes}\label{sec:Notes}
+I am currently trying to visualize the data more on my own with the packages provided by matplotlib and plotly.
+It is confusing to me a bit since we are really visualizing something that has 4 dimensions. There are signals or values which are occurring in a 3 dimensional space.
 
 
 \section{Introduction and Overview}\label{sec:Introduction}
@@ -94,39 +98,39 @@ anything.
 
 Figures are very similar to tables. Here's an example: 
 
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=0.4\textwidth]{./Figs/fig1.pdf}
-    \caption{Include a descriptive caption for your figure. Also make sure all 
-    legends, axis labels, and titles are large enough to be readable. You might have 
-    to reproduce the plots from Python or MATLAB with larger fonts for this purpose. It 
-    can be annoying the first time you do it but it is crucial.}
-    \label{fig:meaningful-label}
-\end{figure}
+%\begin{figure}[htp]
+%    \centering
+%    \includegraphics[width=0.4\textwidth]{./Figs/fig1.pdf}
+%    \caption{Include a descriptive caption for your figure. Also make sure all 
+%    legends, axis labels, and titles are large enough to be readable. You might have 
+%    to reproduce the plots from Python or MATLAB with larger fonts for this purpose. It 
+%    can be annoying the first time you do it but it is crucial.}
+%    \label{fig:meaningful-label}
+%\end{figure}
 
 You may also need to include multiple figures: 
 
-\begin{figure}
-    \centering
-    \begin{subfigure}[b]{.3\textwidth}
-    \includegraphics[width=\textwidth]{./Figs/fig1.pdf}
-    \caption{First subfigure}
-    \label{subfig:first}
-    \end{subfigure}
-    \begin{subfigure}[b]{.3\textwidth}
-    \includegraphics[width=\textwidth]{./Figs/fig2.pdf}
-    \caption{First subfigure}
-    \label{subfig:second}
-    \end{subfigure}
-    \begin{subfigure}[b]{.3\textwidth}
-    \includegraphics[width=\textwidth]{./Figs/fig3.pdf}
-    \caption{First subfigure}
-    \label{subfig:third}
-    \end{subfigure}
-    \caption{Caption for entire figure. You don't need to use captions for subfigs so 
-    feel free to eliminate the subcaption texts to just have the A, B, C labels.}
-    \label{fig:meaningful-label-2}
-\end{figure}
+%\begin{figure}
+%    \centering
+%    \begin{subfigure}[b]{.3\textwidth}
+%    \includegraphics[width=\textwidth]{./Figs/fig1.pdf}
+%    \caption{First subfigure}
+%    \label{subfig:first}
+%    \end{subfigure}
+%    \begin{subfigure}[b]{.3\textwidth}
+%    \includegraphics[width=\textwidth]{./Figs/fig2.pdf}
+%    \caption{First subfigure}
+%    \label{subfig:second}
+%    \end{subfigure}
+%    \begin{subfigure}[b]{.3\textwidth}
+%    \includegraphics[width=\textwidth]{./Figs/fig3.pdf}
+%    \caption{First subfigure}
+%    \label{subfig:third}
+%    \end{subfigure}
+%    \caption{Caption for entire figure. You don't need to use captions for subfigs so 
+%    feel free to eliminate the subcaption texts to just have the A, B, C labels.}
+%    \label{fig:meaningful-label-2}
+%\end{figure}
 
 Once again, make sure all your figures are referenced like Figure~\ref{fig:meaningful-label}
 or Figure~\ref{subfig:first} in the text body of the report and discussed 
