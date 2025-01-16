@@ -50,6 +50,34 @@ Now we can look at the plots in Figure \ref{fig:f1}, to identify that $x^* = -1,
  	\caption{We have sketched the vector field on the real line, identified all three fixed points, classified their stability and sketched the $x(t)$ for different initial conditions.}\label{fig:f1}
 \end{figure}
 
+\noindent
+Attempting an analytic solution now by separation of variables
+\begin{align*}
+\dot x &= x - x^3 \\
+\frac {dx}{dt} &= x - x^3 \\
+\int \frac {dx} {x - x^3} &= \int dt \\
+\int - \frac 1 {x^3} \frac {dx} {1 - \frac 1 {x^2}} &= t + C.
+\end{align*}
+Let's now use a substitution $u = 1 - \frac 1 {x^2}$ and $du = \frac 2 {x^3} dx$ on the left hand side, this gives us.
+Note, I am lazy with my notation for the constants which show up and just let $C$ continue to absorb them.
+Furthermore,
+\begin{align*}
+\int - \frac 1 2 \frac {du} {u} &= t + C \\
+- \frac 1 2 \log u &= t + C \\
+- \frac 1 2 \log \left( 1 - \frac 1 {x^2} \right) &= t + C.
+\end{align*}
+Further solving for $x$ in terms of $t$ we have
+\begin{align*}
+\log \left( 1 - \frac 1 {x^2} \right) &= -2 t + C \\
+\frac 1 {x^2}&= - \E^{-2 t}C + 1 \\
+x^2 &= \frac 1 {1 - \E^{-2 t}C } \\
+x(t) &= \frac 1 {\pm \sqrt {1 - \E^{-2 t}C }} \\
+x(t) &= \pm \frac 1 { \sqrt {1 - \E^{-2 t}C }}.
+\end{align*}
+
+\noindent
+Which aligns with our analysis at least in terms of as $t \rightarrow \infty$ we see $x(t)$ converges to either $1$ or $-1$.
+
 \qed \\
 
 \newpage
