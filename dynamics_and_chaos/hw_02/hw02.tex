@@ -67,20 +67,45 @@ Finally sketch the bifurcation diagram of fixed points $x^*$ vs. $r$. \\
 \textit{Solution:} \\
 Well we know that we have fixed points at
 $$x = \frac {-r \pm \sqrt {r^2 - 4}}{2}$$
-\textbf{TODO} \\
+which implies there are no fixed points when $|r| < 2$, a single fixed point when $r = \pm 2$, and two fixed points when $|r| > 2$.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=.5\textwidth]{3_1_1.png}
+ 	\caption{We have sketched the vector field of $x$ for various values of $r$. Additionally we have sketched the bifurcation diagram.}\label{fig:f1}
+\end{figure}
+\qed \\
+
+\newpage
 
 \item 3.1.5 (Unusual bifurcations) In discussing the normal form of the saddle-node bifurcation, we mentioned the assumption that $a = \left. \partial f / \partial r \right|_{(x^*, r_c)} \neq 0.$
 To see what can happen if $a = \left. \partial f / \partial r \right|_{(x^*, r_c)} = 0$, sketch the vector fields for the following examples, and then plot the fixed points as a function of $r$. \\
 
+
 \begin{enumerate}
-\item $\dot x = r^2 - x^2$ \\
+\item $\dot x = r^2 - x^2$ 
 \textit{Solution:} \\
-\textbf{TODO} \\
+We know that the rhs is equal to 0 when $x^* = \pm r$. So we plot a series of the vector fields for various values of $r$. See Figure \ref{fig:f2}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=2in]{3_1_5_a.png}
+ 	\caption{We have sketched the vector field of $x$ for various values of $r$. Additionally we have sketched the bifurcation diagram.}\label{fig:f2}
+\end{figure}
 
 \item $\dot x = r^2 + x^2$ \\
-\textit{Solution:} \\
-\textbf{TODO} \\
+\textit{Solution:} In this instance there is only one fixed point when $r = 0$ and no fixed points for any other value of $r$. See Figure \ref{fig:f3}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=2in]{3_1_5_b.png}
+ 	\caption{We have sketched the vector field of $x$ for various values of $r$. Additionally we have sketched the bifurcation diagram.}\label{fig:f3}
+\end{figure}
 \end{enumerate}
+
+\qed \\ 
+
+\newpage
 
 
 \item 3.2.3 $\dot x = x - rx(1 - x)$ \\
@@ -90,7 +115,23 @@ Finally, sketch the bifurcation diagram of fixed points $x^*$ vs. $r$. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+Notice we have
+\begin{align*}
+\dot x &= x - rx(1 - x) \\
+\dot x &= (1 - r)x(1 - x)
+\end{align*}
+Therefore we have fixed points at $x^* = 0, 1$ independent of values of $r$.
+However, if $r = 1$, then $\dot x = 0$ trivially
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=2in]{3_2_3.png}
+ 	\caption{We have sketched the vector field of $x$ for various values of $r$. Additionally we have sketched the bifurcation diagram.}\label{fig:f4}
+\end{figure}
+
+\qed \\ 
+
+\newpage
 
 \item 3.4.11 (An interesting bifurcation diagram) Consider $\dot x = rx - \sin x$ \\
 \begin{enumerate}
@@ -133,6 +174,10 @@ What kind of fixed point is it? \\
 \textbf{TODO} \\
 
 \end{enumerate}
+
+\qed \\
+
+\newpage
 
 \item 3.5.8 (Nondimensionalizing the subcritical pitchfork) The first-order system $\dot u = au + bu^3 - c u^5$, where $b, c > 0$, has a subcritical pitchfork bifurcation at $a = 0$.
 Show that this equation can be rewritten as
