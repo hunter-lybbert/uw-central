@@ -43,7 +43,20 @@ Exercises come from \textit{Nonlinear Dynamics and Chaos by Steven H. Strogatz}
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+Not a formal method of finding a solution but I can see that if $x = \sin \left(  \frac k m t \right)$ then
+\begin{align*}
+\dot x &= \frac k m \cos \left(  \frac k m t \right) \\
+\ddot x &= - \frac {k^2} {m^2} \sin \left(  \frac k m t \right) \\
+\ddot x &= - \frac {k^2} {m^2} x \\
+m^2\ddot x &= - k^2 x
+\end{align*}
+Therefore to adjust the constants $k$ and $m$ so they agree with the original solution we need to actually have $x = \sin \big(  \sqrt {k/m} \: t \big)$.
+Furthermore, we could similarly have arrived at a similar solution with $x = \cos \big(  \sqrt {k/m} \: t \big)$.
+Therefore, we have $x = c_1 \sin \big(  \sqrt {k/m} \: t \big) + c_2 \cos \big(  \sqrt {k/m} \: t \big)$. 
+Now as for how this helps me determine that this is not a contradiction I have no idea. \\
+\textbf{TODO: Finish. Perhaps it's because ... nah idk. } \\
+
+\newpage
 
 \item 3.1.1 $\dot x = 1 + rx + x^2$ \\
 Sketch all the qualitatively different vector fields that occur as $r$ is varied.
@@ -52,6 +65,8 @@ Finally sketch the bifurcation diagram of fixed points $x^*$ vs. $r$. \\
 
 \noindent
 \textit{Solution:} \\
+Well we know that we have fixed points at
+$$x = \frac {-r \pm \sqrt {r^2 - 4}}{2}$$
 \textbf{TODO} \\
 
 \item 3.1.5 (Unusual bifurcations) In discussing the normal form of the saddle-node bifurcation, we mentioned the assumption that $a = \left. \partial f / \partial r \right|_{(x^*, r_c)} \neq 0.$
