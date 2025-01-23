@@ -213,7 +213,46 @@ where $x = u/U$, $\tau = t/T$, and $U$, $T$, and $r$ are to be determined in ter
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+We are using the substitutions provided so we can also note that they result in $U dx = du$ and $T d\tau = d t$.
+Then we have 
+\begin{align}
+\dot u &= au + bu^3 - c u^5 \nonumber \\
+\frac {du}{dt} &= au + bu^3 - c u^5 \nonumber \\
+\frac {Udx}{Td\tau} &= a(Ux) + b(Ux)^3 - c (Ux)^5 \nonumber \\
+\frac {dx}{d\tau} &= Tax + TbU^2x^3 - TcU^4x^5.
+\label{eq:eq1}
+\end{align}
+In order for this to give us the final equation we are looking for we need the following to all hold
+\begin{align*}
+Ta = r, \quad
+TbU^2 = 1, \quad
+TcU^4 = 1.
+\end{align*}
+Let's solve these so we have $U$, $T$, and $r$ in terms of $a$, $b$, and $c$.
+Beginning with the second equation we have $T = 1/bU^2$ and plugging that into the third equation we get
+$\frac 1 {bU^2} cU^4 = 1$ then simplifying gives us 
+\begin{align*}
+\frac c b U^2 &= 1 \\
+U^2 &= \frac b c \\
+U &= \sqrt{\frac b c}.
+\end{align*}
+Thus we also have
+\begin{align*}
+T &= \frac 1 {bU^2} = \frac 1 {b \frac b c} = \frac c {b^2}.
+\end{align*}
+Hence
+$$
+T = \frac c {b^2}, \quad
+U = \sqrt{\frac b c}, \quad
+r = \frac {ac} {b^2}.
+$$
+Finally we can combine this with \eqref{eq:eq1} to see
+\begin{align*}
+\dot u &= au + bu^3 - c u^5 \\
+\frac {dx}{d\tau} &= Tax + TbU^2x^3 - TcU^4x^5 \\
+\frac {dx}{d\tau} &= \frac {ac} {b^2}ax + \frac{cb} {b^2} \sqrt{\frac b c}^2x^3 - \frac {c^2} {b^2} \sqrt{\frac b c}^4x^5 \\
+\frac {dx}{d\tau} &= r x + x^3 - x^5.
+\end{align*} \qed \\
 
 \newpage
 
@@ -234,26 +273,59 @@ for suitably defined dimensionless quantities $x$, $\tau$, and $h$ \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+Let's use the substitutions  $Mx = N$ and $T\tau = t$ and their derivative forms $Mdx = dN$ and $Td\tau = dt$.
+Now we can use these as follows
+\begin{align*}
+\dot N &= rN\left( 1 - \frac N K \right) - H \\
+\frac {dN}{dt} &= rN\left( 1 - \frac N K \right) - H \\
+\frac {Mdx}{Td\tau} &= rMx\left( 1 - \frac {Mx} K \right) - H \\
+\frac {dx}{d\tau} &= T rx\left( 1 - \frac {Mx} K \right) - \frac{TH}M.
+\end{align*}
+Then we need the following to hold
+$$Tr = 1, \quad \frac M K = 1, \quad \frac {TH} M = h.$$
+This implies we have to choose $M = K$, $T = \frac 1 r$, and $h = \frac H {Kr}$.
+Therefore,
+\begin{align*}
+\frac {dx}{d\tau} &= T rx\left( 1 - \frac {Mx} K \right) - \frac{TH}M \\
+\frac {dx}{d\tau} &= \frac 1 r rx\left( 1 - \frac {Kx} K \right) - \frac H {Kr} \\
+\frac {dx}{d\tau} &= x\left( 1 - x \right) - h
+\end{align*}
+\qed \\
+
+\newpage
 
 \item Plot the vector field for different values of $h$ \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+Notice in this form we have fixed points at
+$$x^* = \frac {-1 \pm \sqrt{1 - 4h}}{-2} = \frac {1 \mp \sqrt{1 - 4h}}{2}.$$
+In Figure \ref{fig:f6} we can see the different vector fields for various values of $h$
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=2in]{3_7_3.png}
+ 	\caption{We have sketched the vector field of $x$ for various values of $r$. Additionally we have sketched the bifurcation diagram.}\label{fig:f6}
+\end{figure}
+
+\qed \\
 
 \item Show that a bifurcation occurs at a certain value of $h_c$, and classify this bifurcation. \\
 
 \noindent
-\textit{Solution:} \\
-\textbf{TODO} \\
+\textit{Solution:} The bifurcation occurs at $h_c = \frac 1 4$.
+And it is a saddle node bifurcation.
+For further evidence, please refer to Figure \ref{fig:f6}.
+\qed \\
 
 \item Discuss the long-term behavior of the fish population for $h < h_c$ and $h > h_c$. 
 Give the biological interpretation in each case. \\
 
 \noindent
-\textit{Solution:} \\
-\textbf{TODO} \\
+\textit{Solution:} 
+For $h > h_c$ we would have overfishing or fishing at a rate faster than they can be born or replenished and thus would result in an extinction.
+Furthermore, if $h < h_c$ the fishing rate and birth rates would arrive to an equilibrium of sorts and reach a steady state solution at $x^* = \frac {1 + \sqrt{1 - 4h}}{2}$. \\
+\qed \\
 
 \end{enumerate}
 
