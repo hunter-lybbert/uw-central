@@ -143,38 +143,62 @@ However, if $r = 1$, then $\dot x = 0$ trivially
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+When $r = 0$, then we have $\dot x = - \sin x$.
+Therefore we have fixed points at $x^* = k\pi$ for $k \in \mathbb Z$.
+See Figure \ref{fig:f5} below. \\
+\qed \\
 
 \item Show that when $r > 1$, there is only one fixed point.
 What kind of fixed point is it? \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+There is only one fixed point at $x^* = 0$ and it is unstable.
+See Figure \ref{fig:f5} below. \\
+\qed \\
 
 \item As $r$ decreases from $\infty$ to $0$, classify \textit{all} the bifurcations that occur. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+As $r$ decreases from $\infty$ to $0$ there is only one fixed point until $r < 1$ then rapidly more fixed points and bifurcations occur.
+Additionally when $r < 1$ the stability of the fixed point at 0 changes and becomes stable.
+They are added in pairs on both sides of 0 each pair alternating from stable and unstable. \\
+\qed \\
 
 \item For $0 < r << 1$, find an approximate formula for values of $r$ at which bifurcations occur. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+We begin by looking at when $rx - \sin x = 0$ as well as when $r - \cos x = 0$.
+These in turn give us $r = \cos x$ and $r = \frac {\sin x}{x}$.
+Furthermore, if $r$ is really small and nearly 0, then we basically have fixed points when $\cos x = 0$ in other words at $x^* = \frac {\pi}{2} + 2 \pi k$ for $k \in \mathbb Z$.
+Combining this with the information we have from before we then have
+$$
+r = \frac {\sin \left( \frac {\pi}{2} + 2 \pi k\right)}{\frac {\pi}{2} + 2 \pi k}
+= \frac{1}{\frac {\pi}{2} + 2 \pi k}.
+$$
+\qed \\
 
 \item Now classify all the bifurcations that occur as $r$ decreases from 0 to $-\infty$. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+Similar to going from $\infty$ to $0$ we have only one stable fixed point at $x^* = 0$ as $r$ goes from $-\infty$ to some small negative value approximately close to $r \approx -.224$ then as $r$ get's closer and closer to $0$ additional fixed points are added to the system.
+They are added in a similar manner as in part c) in pairs and alternating stability as you go out to negative and positive infinity. \\
+\qed \\
 
 \item Plot the Bifurcation diagram for $-\infty < r < \infty$, and indicate the stability of the various branches of fixed points. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+See Figure \ref{fig:f5}, note the dotted and solid lines indicating the stability of the branches of fixed points.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=2in]{3_4_11.png}
+ 	\caption{We have sketched the vector field of $x$ for various values of $r$. Additionally we have sketched the bifurcation diagram.}\label{fig:f5}
+\end{figure}
 
 \end{enumerate}
 
