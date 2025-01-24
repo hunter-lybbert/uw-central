@@ -18,6 +18,8 @@ data_analysis/**/data/
 *.log
 *.gz
 *.out
+*.bbl
+*.blg
 
 # random maac stuff
 .DS_Store
