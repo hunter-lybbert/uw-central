@@ -53,7 +53,7 @@ Therefore we need
 \cos \theta &= -\frac 1 2.
 \end{align*}
 Which if we are assuming $\theta \in [0, 2 \pi)$ then we have fixed points at $\theta^* = \frac {2 \pi} 3, \frac {4 \pi} 3$.
-See Figure \ref{fig:f1} for the phase portrait on the circle. \textbf{TODO: Add picture} \\
+See Figure \ref{fig:f1} for the phase portrait on the circle. \\
 \qed \\
 
 \item $\dot \theta = \sin \theta + \cos \theta$ \\
@@ -65,7 +65,7 @@ Therefore we are looking for $\theta$ s.t.
 \cos \theta &= -\sin \theta.
 \end{align*}
 Assuming $\theta \in [0, 2 \pi)$ then this only holds for the following values of $\theta$ and thus we have fixed points at $\theta^* = \frac {3 \pi} 4, \frac {7 \pi} 4$.
-See Figure \ref{fig:f2} for the phase portrait on the circle. \textbf{TODO: Add picture} \\
+See Figure \ref{fig:f1} for the phase portrait on the circle. \\
 \qed \\
 
 \item $\dot \theta = \sin 4 \theta$ \\
@@ -76,8 +76,14 @@ Therefore we are looking for $\theta$ s.t.
 \sin 4 \theta &= 0.
 \end{align*}
 Assuming $\theta \in [0, 2 \pi)$ then this only holds for the following values of $\theta$ and thus we have fixed points at $\theta^* = \frac {k \pi} 8$ for $k \in \{0, 1, 2, ..., 7\}$.
-See Figure \ref{fig:f3} for the phase portrait on the circle. \textbf{TODO: Add picture} \\
+See Figure \ref{fig:f1} for the phase portrait on the circle. \\
 \qed \\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=.4\textwidth]{1_a_c.png}
+ 	\caption{We have sketched the phase portrait on the circle for problem 1a through 1c.}\label{fig:f1}
+\end{figure}
 
 \end{enumerate}
 
@@ -97,8 +103,13 @@ f(\phi) = \begin{cases}
 \end{align*}
 
 \textit{Solution:} \\
-See Figure \ref{fig:f4} for the graphs drawn by hand of the function $f(\phi)$.
-\textbf{TODO: Add picture} \\
+See Figure \ref{fig:f2} for the graphs drawn by hand of the function $f(\phi)$. \\
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=.4\textwidth]{2_a.png}
+ 	\caption{We have sketched the function $f(\phi)$ as well as it's phase portrait on a circle.}\label{fig:f2}
+\end{figure}
+
 \qed \\
 
 \item rite the dynamical system for the phase difference $\phi = \theta_s - \theta_f$ in terms of the dimensionless time $\tau = At$ and the dimensionless parameter $\mu = \frac {\Omega - \omega} A$. \\
@@ -165,13 +176,46 @@ The bifurcation that occurs is a saddle node bifurcation, but it is not in the u
 For one, we typically see it as more of a sideways parabolic shape which we don't have here.
 Secondly, we typically see the fixed points arise and continue to exist along their respective branches going off to infinity one way or the other.
 However, this time we have the case where the two fixed points or branches arise and then eventually return to one another and finally disappearing again.
-See Figure \ref{fig:f8} for further details on this odd saddle node bifurcation example.
-\textbf{TODO: add picture of bifurcation} \\
+See Figure \ref{fig:f3} for further details on this odd saddle node bifurcation example. \\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=.4\textwidth]{2_e.png}
+ 	\caption{The bifurcation diagram of $f(\phi)$ with respect to the parameter $\mu$.}\label{fig:f3}
+\end{figure}
 
 \item Assuming the firefly is phase-locked to the stimulus, find a formula for the
 phase difference $\phi*$ (i.e. the stable fixed point). \\
 \textit{Solution:} \\
-\textbf{TODO} \\
+When it is phase locked so we want $d\phi/d\tau = 0$ therefore we need $\mu - f(\phi^*) = 0$.
+The first case to consider is if $|\phi^*| \leq \pi/2$ then we have
+\begin{align*}
+\mu - f(\phi^*) &= 0 \\
+\mu &= f(\phi^*) \\
+\mu &= 2\phi^* \\
+\mu/2 &= \phi^*.
+\end{align*}
+The other case is slightly more complicated which is when $|\phi^*| > \pi/2$
+\begin{align*}
+\mu - f(\phi^*) &= 0 \\
+\mu &= f(\phi^*) \\
+\mu &= 2{\rm sign}(\phi^*)\pi - 2\phi^*.
+\end{align*}
+Again let's go with two more subcases where ${\rm sign}(\phi^*) = -1$ and ${\rm sign}(\phi^*) = 1$.
+Starting with the negative case
+\begin{align*}
+\mu &= 2{\rm sign}(\phi^*)\pi - 2\phi^* \\
+\mu &= 2\pi - 2\phi^* \\
+- \mu/2 + \pi &= \phi^*.
+\end{align*}
+Now the positive case
+\begin{align*}
+\mu &= 2{\rm sign}(\phi^*)\pi - 2\phi^* \\
+\mu &= - 2\pi - 2\phi^* \\
+-\mu/2 - \pi &= \phi^*.
+\end{align*}
+
+\qed \\
 
 \end{enumerate}
 
@@ -231,9 +275,32 @@ First for $\lambda = -1$
 \begin{align*}
 \begin{bmatrix} 1 & 1 \\ -2 & -2 \end{bmatrix}
 \begin{bmatrix} x \\ y \end{bmatrix}
-	&= \bm { 0 } \\
+	&= \bm { 0 }.
 \end{align*}
-\textbf{TODO: calculate eigenvalues and eigenvectors} \\
+This gives us $x + y = 0$ and $-2x -2y = 0$ therefore $x = -y$ and $y = y$ thus the eigenvector is
+\begin{align*}
+\begin{bmatrix} -1 \\ 1 \end{bmatrix}.
+\end{align*}
+Now for $\lambda = -2$ we have
+\begin{align*}
+\begin{bmatrix} 2 & 1 \\ -2 & -1 \end{bmatrix}
+\begin{bmatrix} x \\ y \end{bmatrix}
+	&= \bm { 0 }.
+\end{align*}
+This gives us $2x + y = 0$ and $-2x -y = 0$.
+Therefore, $y = -2x$ and $x = x$ then the eigenvector is
+\begin{align*}
+\begin{bmatrix} 1 \\ -2 \end{bmatrix}.
+\end{align*}
+Now we can draw the qualitative phase portrait, see Figure \ref{fig:f4}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=.4\textwidth]{2_a.png}
+ 	\caption{We have sketched the function $f(\phi)$ as well as it's phase portrait on a circle.}
+	\label{fig:f4}
+\end{figure}
+\qed \\
 
 \item $\dot x = 3x - 4y, \quad \dot y = x - y$ \\
 \textit{Solution:} \\
@@ -249,7 +316,15 @@ x \\ y
 x \\ y
 \end{bmatrix}
 \end{align*}
-Implying
+We need to calculate eigenvalues using the characteristic equation which is 
+$$(3 - \lambda)(-1 -\lambda) + 4.$$
+Then
+\begin{align*}
+-3 + \lambda -3\lambda + \lambda^2 + 4 &= 0 \\
+\lambda^2 -2\lambda + 1 &= 0 \\
+(\lambda - 1)^2 &= 0.
+\end{align*}
+Then we have $\lambda = 1$ with algebraic multiplicity of 2.
 \textbf{TODO: calculate eigenvalues and eigenvectors} \\
 
 \item $\ddot x + 2\dot x - x = 0$ \\
@@ -294,7 +369,7 @@ I_1 \\ I_2
 I_1 \\ I_2
 \end{bmatrix}
 \end{align*}
-\textbf{TODO} \\
+\qed \\
 
 \item Show that the origin is asymptotically stable if $R > 0$ and neutrally stable if $R = 0$. \\
 \textit{Solution:} \\
@@ -310,8 +385,8 @@ This gives us
 \label{eq:eq2}
 \end{equation}
 Now if $R > 0$, then the origin is asymptotically stable since the real part of the eigenvalues will be negative.
-However, if the real part of the eigenvalues is $0$ or rather the eigenvalues are purely imaginary, then the origin will be neutrally stable.
-\textbf{TODO: Check logic with someone else.} \\
+However, if $R = 0$ then the real part of the eigenvalues is $0$ or rather the eigenvalues are purely imaginary, then the origin will be neutrally stable. \\
+\qed \\
 
 \item Classify the fixed point at the origin depending on whether $R^2C - 4L$ is positive, negative, or zero. \\
 \textit{Solution:} \\
@@ -324,7 +399,14 @@ See the following minor rewriting of equation (\ref{eq:eq2})
 \end{align*}
 Since we are given in the problem statement that $C > 0$ and $L > 0$, then $L^2C > 0$.
 Therefore, the sign of the discriminant and therefore it's real or imaginaryness is determined purely by the value of $R^2C - 4L$.
-\textbf{TODO: Finish analyzing how this impacts the stability of fixed points.} \\
+Now if $R^2C - 4L > 0$ then the eigenvalues will be entirely real but their sign depends on the sign of $R$.
+If $R > 0$ then we have negative real valued eigenvalues which implies that the system is a sink/attractor.
+Now if $R^2C - 4L = 0$ then the eigenvalues will be entirely real but their sign depends on the sign of $R$ again.
+If $R > 0$ then we have negative real valued eigenvalues which implies that the system is a sink/attractor.
+Now if $R^2C - 4L < 0$ then the eigenvalues will have an imaginary component.
+This means there will be some oscillatory effects in the solutions but yet again still depends on the value of $R$.
+It could be neutrally stable if $R = 0$ it could also be either a sink or a source depending on the sign of $R$. \\
+\qed \\
 
 \end{enumerate}
 
@@ -350,7 +432,11 @@ where $a > 0$ is a constant. \\
 What role does the parameter $a$ play?
 This should be a text-response, not calculations. \\
 \textit{Solution:} \\
-\textbf{TODO} \\
+Romeo ($R$) amplifies his own feelings and Juliet's ($J$) as well.
+So his feelings change positively if his own and Juliet's are positive and the opposite holds true as well if their feelings are negative.
+On the other hand Juliet's feelings change in the opposite direction of the current feelings, so if she feels positively and or Romeo feels positively then her feelings will decrease.
+\\
+\qed
 
 \item Do the following for $a > 1$ and $ a < 1$ \\
 
@@ -360,20 +446,47 @@ This should be a text-response, not calculations. \\
 Also classify the origin as a saddle point, node, center, or spiral.
 If the origin is a saddle point, identify (either by highlighting or explaining with words/formulae) the stable and unstable manifolds. \\
 \textit{Solution:} \\
-\textbf{TODO} \\
+First turning this into a system of first orders in matrix form we have
+\begin{align*}
+\begin{bmatrix}
+R \\ J
+\end{bmatrix}^\prime
+&= \begin{bmatrix}
+a & 1 \\
+-1 & -a
+\end{bmatrix} \begin{bmatrix}
+R \\ J
+\end{bmatrix}.
+\end{align*}
+Then the characteristic equation to calculate eigenvalues is the following
+\begin{align*}
+(a - \lambda)(-a - \lambda) + 1 &= 0 \\
+-a^2 + \lambda^2 + 1 &= 0 \\
+\lambda^2 - a^2 + 1 &= 0 \\
+\lambda^2 &= a^2 - 1 \\
+\lambda &= \sqrt{a^2 - 1}.
+\end{align*}
+Now if $a < 1$ then the eigenvalue, $\lambda$, is purely imaginary and thus the origin is a neutrally stable fixed point also known as a center.
+However, if $a > 1$ then the eigenvalues are purely real and of opposite sign.
+Therefore the origin is a saddle node and is unstable and attracting. \\
+\qed \\
 
 \item Verify what you found in part (i) with a plot of the phase portrait (using pplane).
-You may choose a particular value of a for plotting.
+You may choose a particular value of $a$ for plotting.
 Interpret the long-time behavior of the system in terms of $R$ and $J$’s relationship. \\
 \textit{Solution:} \\
-\textbf{TODO} \\
+In the scenario where $a > 1$ then the couple will attract one another feeling greater and greater affection until they reach a maximum and shoot off to infinity away from one another and then they will not like one another ever again.
+Interestingly enough in the $a < 1$ case they will always orbit around affection for each other but will never settle in to a single particular value of affection just oscillating or orbiting in a particular tier. \\
+\qed \\
 
 \end{enumerate}
 
 \item Summarize and interpret what you found in part (b).
 How does the size of $a$ play out in $J$ and $R$’s relationship? \\
 \textit{Solution:} \\
-\textbf{TODO} \\
+I would say that the size of $a$ would result in how rapidly they achiev the end state (at least for $a > 1$).
+When $a < 1$ then they just orbit around the same state's all the time. \\
+\qed \\
 
 \end{enumerate}
 
