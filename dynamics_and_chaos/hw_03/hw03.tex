@@ -325,7 +325,20 @@ Then
 (\lambda - 1)^2 &= 0.
 \end{align*}
 Then we have $\lambda = 1$ with algebraic multiplicity of 2.
-\textbf{TODO: calculate eigenvalues and eigenvectors} \\
+Now for the eigenvectors!
+\begin{align*}
+\begin{bmatrix}
+2 & -4 \\
+1 & -2
+\end{bmatrix} \begin{bmatrix}
+x \\ y
+\end{bmatrix} = \bm 0.
+\end{align*}
+Therefore we have $2x -4y = 0$ then $x = 2y$ and $y = y$ therefore the eigenvector is
+\begin{align*}
+\begin{bmatrix} 2 \\ 1 \end{bmatrix}.
+\end{align*} 
+Now we can draw the qualitative phase portrait, see Figure \ref{fig:f4} \\
 
 \item $\ddot x + 2\dot x - x = 0$ \\
 \textit{Solution:} \\
@@ -340,9 +353,19 @@ x_1 \\ x_2
 1 & -2
 \end{bmatrix} \begin{bmatrix}
 x_1 \\ x_2
-\end{bmatrix}
+\end{bmatrix}.
 \end{align*}
-\textbf{TODO: calculate eigenvalues and eigenvectors} \\
+Therefore,
+\begin{align*}
+-\lambda(-2 -\lambda) - 1 &= 0 \\
+2\lambda + \lambda^2 - 1 &= 0.
+\end{align*}
+Then we have
+$$
+\lambda = \frac{-2 \pm \sqrt{4 +4}} 2 = -1 \pm \sqrt 2.
+$$
+We have an unstable attractor or a saddle node fixed point since the eigenvalues are both positive and negative real.
+I am not going to calculate the eigenvectors for this one \textbf{TODO: Actually put the right picture in}
 
 \end{enumerate}
 
