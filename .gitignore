@@ -12,6 +12,7 @@ probability/final/
 
 # data_analysis data
 data_analysis/**/data/
+data_analysis/**/anim/
 
 # latex
 *.aux
