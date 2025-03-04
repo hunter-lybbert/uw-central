@@ -1,0 +1,156 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage{amssymb,amsmath,enumitem,url}
+\usepackage{graphicx,subfig}
+\graphicspath{ {./images/} }
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{03-04-25} \\
+\text{AMATH 502} \\
+% header containing your name, student number, due date, course, and the homework number as a title.
+
+\title{\bf {Homework 7} }
+
+
+\maketitle
+\noindent
+Exercises come from the assignment sheet provided by the professor on canvas.
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item A powerful tool for numerically finding the roots of an equation $g(x) = 0$ is \textit{Newton's Method}.
+Newton's method says to construct a map $x_{n + 1} = f(x_n)$, where 
+$$
+f(x_n) = x_n - \frac{g(x_n)}{g^\prime(x_n)}
+$$. 
+\begin{enumerate}
+
+\item A simple root of the function $g(x)$ is defined as a value $x$ for which $g(x) = 0$ and $g^\prime(x) \neq 0$.
+Show that the simple roots of $g(x)$ are fixed points of the Newton Map. \\
+
+\textit{Solution:} \\
+Let's first assume $x^*$ is a simple root.
+Therefore, $g(x^*) = 0$ and $g^\prime(x^*) \neq 0$, for notation let $g^\prime(x^*) = a$ where $a \neq 0$.
+This also implies that 
+\begin{align}
+f(x^*) &= x^* - \frac{g(x^*)}{g^\prime(x^*)} \nonumber \\
+f(x^*) &= x^* - \frac 0 a \nonumber \\
+f(x^*) &= x^*.
+\label{eq:eq1}
+\end{align}
+Notice, the definition of a fixed point in a discrete time system is $f(x_n) = x_n$ which is exactly what we are left with in \eqref{eq:eq1}.
+Therefore, $x^*$ is a fixed point. \\
+\qed \\
+
+\item Show that these fixed points are \textit{superstable}, which means that the linear stability analysis shows \textit{zero} growth for perturbations $(f^\prime(x^*) = 0).$
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\end{enumerate}
+
+\item Consider the map $x_{n + 1} = 3x_n - x_n^3$.
+This well-studied map is an example of a cubic map and is known to exhibit chaos.
+\begin{enumerate}
+
+\item Find all the fixed points and classify their stability. \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item In Figure 1, you are given the cobweb diagrams for $x_0 = 1.9$ and $x_0 = 2.1$.
+Show analytically that if $|x| \leq 2$, then $|f(x)| \leq 2$, where $f(x) = 3x - x^3$.
+Then show that if $|x| > 2$, $|f(x)| > |x|$.
+Use this to explain the behavior in cobweb diagrams for $x_0 = 1.9$ and $x_0 = 2.1$.  \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Show that (2, -2) (repeating) is a 2 cycle.
+This 2 cycle is analogous to a boundary that we defined when we were doing phase-plane analysis.
+What would you call this 2-cycle? (Not a limit cycle or a periodic orbit). \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\end{enumerate}
+
+\item Consider a 1D ODE
+\begin{equation}
+\dot x = f(x), \quad x \in \mathbb R.
+\label{eq:eq2}
+\end{equation}
+The most basic method for solving this ODE numerically is to use the Forward Euler method,
+\begin{equation}
+x_{n + 1} = x_n + hf(x_n),
+\label{eq:eq3}
+\end{equation}
+where $h > 0$ is a chosen step size.
+This method comes from discretizing the derivative, as discussed in class. \\
+
+\begin{enumerate}
+\item Show that fixed points of the ODE \eqref{eq:eq2} correspond to fixed points of the Forward Euler map \eqref{eq:eq3}. \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Show that stability of the fixed points of the ODE \eqref{eq:eq2} do not necessarily agree with the stability of the fixed points of the Forward Euler map \eqref{eq:eq3}. \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Give a condition which guarantees stability of fixed points of the Forward Euler map \eqref{eq:eq2}. 
+Comment on this condition: how must we generally choose the step size $h$ in order to find equilibrium solutions of the ODE \eqref{eq:eq3} using the Forward Euler method? \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item It is common to see the Forward Euler solution oscillating about the true solution when solving numerically.
+Give a condition involving $f^\prime(x)$ and $h$ for which the numerical solution oscillates about a fixed point of the ODE \eqref{eq:eq2} (hint: when did we have oscillations for the linear discrete-time dynamical systems?).
+Given this condition, why is it common to see oscillations in the Forward-Euler solution (hint: see above problem)? \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Consider a linear ODE, 
+\begin{equation}
+\dot x = kx, \quad k \in \mathbb R.
+\label{eq:eq4}
+\end{equation}
+Give a condition on $h$ and $k$ for which 2-cycles (the non-fixed point 2 cycles) exist for the Forward-Eualer map when solving this ODE.
+Show that these 2 cycles are neutrally stable.
+Comment on your results (in particular, when $h$ and $k$ match your condition, what happens to the numerical solution for any initial condition you use?). \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
