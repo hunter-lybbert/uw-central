@@ -27,7 +27,7 @@
 \noindent
 \text{Hunter Lybbert} \\
 \text{Student ID: 2426454} \\
-\text{03-04-25} \\
+\text{03-05-25} \\
 \text{AMATH 502} \\
 % header containing your name, student number, due date, course, and the homework number as a title.
 
@@ -97,8 +97,15 @@ x_n &= 3x_n - x_n^3 \\
 0 &= 2x_n - x_n^3 \\
 0 &= x_n (2 - x_n^2).
 \end{align*}
-Therefore, $x_n = 0, \pm \sqrt{2}$ are the fixed points of the map.
-\textbf{TODO: Determine the stabilities of the fixed points}\\
+Therefore, $x_n^* = 0, \pm \sqrt{2}$ are the fixed points of the map.
+Now we need to classify their stabilities, for notational convenience let's allow $f(x_n) = 3x_n - x_n^3$ and thus $f^\prime(x_n) = 3 -3x_n^2$.
+If $|f^\prime(x_n^*)| < 1$, then the $x_n^*$ is stable.
+\begin{align*}
+x_n^* &= 0:& |f^\prime(0)| = |3 -3(0)^2| = 3 \not < 1 \implies {\rm unstable} \\
+x_n^* &= -\sqrt 2:& |f^\prime(-\sqrt 2)| = |3 -3(-\sqrt 2)^2| = |3 -6| = 3 \not < 1 \implies {\rm unstable} \\
+x_n^* &= \sqrt 2:& |f^\prime(\sqrt 2)| = |3 -3(\sqrt 2)^2| = |3 -6| = 3 \not < 1 \implies {\rm unstable}.
+\end{align*}
+Thus, each of the fixed points are unstable. \\
 \qed \\
 
 \item In Figure 1, you are given the cobweb diagrams for $x_0 = 1.9$ and $x_0 = 2.1$.
@@ -185,12 +192,26 @@ This method comes from discretizing the derivative, as discussed in class. \\
 \item Show that fixed points of the ODE \eqref{eq:eq2} correspond to fixed points of the Forward Euler map \eqref{eq:eq3}. \\
 
 \textit{Solution:} \\
-\textbf{TODO} \\
+Consider the fixed points $X^*$ of the ODE \eqref{eq:eq2}, these occur where $\dot x = 0$ implying $f(x^*) = 0$.
+Thus we have
+$$
+x_{n + 1} = x_n^* + hf(x_n^*) = x_n^* + h 0 = x_n^*
+$$
+which shows that $x^*$ is also a fixed point of the Forward Euler map, since applying the map to $x^*$ simply returns $x^*$ back. \\
+\qed \\
 
 \item Show that stability of the fixed points of the ODE \eqref{eq:eq2} do not necessarily agree with the stability of the fixed points of the Forward Euler map \eqref{eq:eq3}. \\
 
 \textit{Solution:} \\
-\textbf{TODO} \\
+Using Linear Stability Analysis, in order for the fixed point $x^*$ to be stable for the ODE \eqref{eq:eq2} we need $f^\prime(x^*) < 0$.
+We don't currently have enough information to conclude the stability of the fixed point $x^*$ for the ODE \eqref{eq:eq2}.
+Now for the stability of the fixed point of the Forward Euler map we need
+\begin{align*}
+\left|\frac d{dx_n} \left[x_n + hf(x_n)\right]\right| &< 1 \\
+\Big|1 + hf^\prime(x_n) \Big| &< 1 \\
+-1 < 1 + hf^\prime(x_n) &< 1 \\
+-2 < hf^\prime(x_n) &< 0.
+\end{align*}
 
 \item Give a condition which guarantees stability of fixed points of the Forward Euler map \eqref{eq:eq2}. 
 Comment on this condition: how must we generally choose the step size $h$ in order to find equilibrium solutions of the ODE \eqref{eq:eq3} using the Forward Euler method? \\
