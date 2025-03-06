@@ -204,27 +204,43 @@ which shows that $x^*$ is also a fixed point of the Forward Euler map, since app
 
 \textit{Solution:} \\
 Using Linear Stability Analysis, in order for the fixed point $x^*$ to be stable for the ODE \eqref{eq:eq2} we need $f^\prime(x^*) < 0$.
-We don't currently have enough information to conclude the stability of the fixed point $x^*$ for the ODE \eqref{eq:eq2}.
+We don't currently have enough information to conclude the stability of the fixed point $x^*$ for the ODE \eqref{eq:eq2}, however we can say it is stable if $f^\prime(x^*) < 0$.
 Now for the stability of the fixed point of the Forward Euler map we need
 \begin{align*}
-\left|\frac d{dx_n} \left[x_n + hf(x_n)\right]\right| &< 1 \\
-\Big|1 + hf^\prime(x_n) \Big| &< 1 \\
--1 < 1 + hf^\prime(x_n) &< 1 \\
--2 < hf^\prime(x_n) &< 0.
+\left|\frac d{dx_n} \left[x_n + hf(x_n)\right]\Big|_{x_n^*}\right| &< 1 \\
+\Big|1 + hf^\prime(x_n^*) \Big| &< 1 \\
+-1 < 1 + hf^\prime(x_n^*) &< 1 \\
+-2 < hf^\prime(x_n^*) &< 0.
 \end{align*}
+Therefore, given this condition the Forward Euler map would be stable depending on the value of $h$. \\
+\qed \\
 
 \item Give a condition which guarantees stability of fixed points of the Forward Euler map \eqref{eq:eq2}. 
 Comment on this condition: how must we generally choose the step size $h$ in order to find equilibrium solutions of the ODE \eqref{eq:eq3} using the Forward Euler method? \\
 
 \textit{Solution:} \\
-\textbf{TODO} \\
+From part (b) we assume $ f^\prime(x_n^*) < 0$ for the fixed point to be stable for the ODE and we need $-2 < hf^\prime(x_n^*) < 0$.
+Which assuming $h > 0$ and $f^\prime(x_n^*) < 0$ ensures the right hand side $hf^\prime(x_n^*) < 0$, but we need to solve for $h$ in order to guarantee the left inequality holds $-2 < hf^\prime(x_n^*)$.
+Solving for $h$ we get $- \frac 2 {f^\prime(x_n^*)} > h$ (note the inequality flips because we divided by a negative number, $f^\prime(x_n^*)$) \\
+\qed \\
 
 \item It is common to see the Forward Euler solution oscillating about the true solution when solving numerically.
 Give a condition involving $f^\prime(x)$ and $h$ for which the numerical solution oscillates about a fixed point of the ODE \eqref{eq:eq2} (hint: when did we have oscillations for the linear discrete-time dynamical systems?).
 Given this condition, why is it common to see oscillations in the Forward-Euler solution (hint: see above problem)? \\
 
 \textit{Solution:} \\
-\textbf{TODO} \\
+A condition for which we would see such oscillations would be if $f^\prime(x_n^*) = -\frac{2}{h}x_n$.
+This would imply that $f(x_n) \sim -\frac 2 h x_n$ and the Forward Euler map would be
+\begin{align*}
+x_{n + 1} &= x_n + hf(x_n) \\
+x_{n + 1} &= x_n - h\frac{2}{h}x_n \\
+x_{n + 1} &= x_n - 2x_n \\
+x_{n + 1} &= - x_n.
+\end{align*}
+Which is analogous to oscillations that we are looking for.
+I would say it is common to see oscillations with Forward Euler because we are using it to look for a fixed point, but the $h$ that we are choosing depends on the value of the derivative evaluated at that fixed point so it's kind of a chicken or the egg thing.
+We can't find the precise value of $h$ we should use to guarantee the stability of the fixed point because we don't know where the fixed point is yet. \\
+\qed \\
 
 \item Consider a linear ODE, 
 \begin{equation}
