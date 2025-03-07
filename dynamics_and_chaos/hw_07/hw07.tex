@@ -1,0 +1,265 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage{amssymb,amsmath,enumitem,url}
+\usepackage{graphicx,subfig}
+\graphicspath{ {./images/} }
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{03-05-25} \\
+\text{AMATH 502} \\
+% header containing your name, student number, due date, course, and the homework number as a title.
+
+\title{\bf {Homework 7} }
+
+
+\maketitle
+\noindent
+Exercises come from the assignment sheet provided by the professor on canvas.
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item A powerful tool for numerically finding the roots of an equation $g(x) = 0$ is \textit{Newton's Method}.
+Newton's method says to construct a map $x_{n + 1} = f(x_n)$, where 
+$$
+f(x_n) = x_n - \frac{g(x_n)}{g^\prime(x_n)}
+$$. 
+\begin{enumerate}
+
+\item A simple root of the function $g(x)$ is defined as a value $x$ for which $g(x) = 0$ and $g^\prime(x) \neq 0$.
+Show that the simple roots of $g(x)$ are fixed points of the Newton Map. \\
+
+\textit{Solution:} \\
+Let's first assume $x^*$ is a simple root.
+Therefore, $g(x^*) = 0$ and $g^\prime(x^*) \neq 0$, for notation let $g^\prime(x^*) = a$ where $a \neq 0$.
+This also implies that 
+\begin{align}
+f(x^*) &= x^* - \frac{g(x^*)}{g^\prime(x^*)} \nonumber \\
+f(x^*) &= x^* - \frac 0 a \nonumber \\
+f(x^*) &= x^*.
+\label{eq:eq1}
+\end{align}
+Notice, the definition of a fixed point in a discrete time system is $f(x_n) = x_n$ which is exactly what we are left with in \eqref{eq:eq1}.
+Therefore, $x^*$ is a fixed point. \\
+\qed \\
+
+\item Show that these fixed points are \textit{superstable}, which means that the linear stability analysis shows \textit{zero} growth for perturbations $(f^\prime(x^*) = 0).$ \\
+
+\textit{Solution:} \\
+Let's begin by calculating $f^\prime(x^*)$ we have
+\begin{align*}
+\frac {d}{d x_n} f(x_n) &= \frac {d}{d x_n} \left( x_n - \frac{g(x_n)}{g^\prime(x_n)} \right) \\
+f^\prime(x_n) &= 1 - \frac{g^\prime(x_n)g^\prime(x_n) - g(x_n)g^{\prime\prime}(x_n)}{g^\prime(x_n)^2} \\
+f^\prime(x_n) &= 1 - \frac{g^\prime(x_n)^2 - g(x_n)g^{\prime\prime}(x_n)}{g^\prime(x_n)^2}.
+\end{align*}
+Plugging in $x^*$ we have
+\begin{align*}
+f^\prime(x^*) &= 1 - \frac{g^\prime(x^*)^2 - g(x^*)g^{\prime\prime}(x^*)}{g^\prime(x^*)^2} \\
+f^\prime(x^*) &= 1 - \frac{a^2 - 0}{a^2} \\
+f^\prime(x^*) &= 1 - 1 = 0.
+\end{align*}
+Therefore, the fixed point $x^*$ is superstable. \\
+\qed \\
+\newpage
+
+\end{enumerate}
+
+\item Consider the map $x_{n + 1} = 3x_n - x_n^3$.
+This well-studied map is an example of a cubic map and is known to exhibit chaos. \\
+\begin{enumerate}
+
+\item Find all the fixed points and classify their stability. \\
+
+\textit{Solution:} \\
+To find the fixed points let's consider finding $x_n$ where
+\begin{align*}
+x_n &= 3x_n - x_n^3 \\
+0 &= 2x_n - x_n^3 \\
+0 &= x_n (2 - x_n^2).
+\end{align*}
+Therefore, $x_n^* = 0, \pm \sqrt{2}$ are the fixed points of the map.
+Now we need to classify their stabilities, for notational convenience let's allow $f(x_n) = 3x_n - x_n^3$ and thus $f^\prime(x_n) = 3 -3x_n^2$.
+If $|f^\prime(x_n^*)| < 1$, then the $x_n^*$ is stable.
+\begin{align*}
+x_n^* &= 0:& |f^\prime(0)| = |3 -3(0)^2| = 3 \not < 1 \implies {\rm unstable} \\
+x_n^* &= -\sqrt 2:& |f^\prime(-\sqrt 2)| = |3 -3(-\sqrt 2)^2| = |3 -6| = 3 \not < 1 \implies {\rm unstable} \\
+x_n^* &= \sqrt 2:& |f^\prime(\sqrt 2)| = |3 -3(\sqrt 2)^2| = |3 -6| = 3 \not < 1 \implies {\rm unstable}.
+\end{align*}
+Thus, each of the fixed points are unstable. \\
+\qed \\
+
+\item In Figure 1, you are given the cobweb diagrams for $x_0 = 1.9$ and $x_0 = 2.1$.
+Show analytically that if $|x| \leq 2$, then $|f(x)| \leq 2$, where $f(x) = 3x - x^3$.
+Then show that if $|x| > 2$, $|f(x)| > |x|$.
+Use this to explain the behavior in cobweb diagrams for $x_0 = 1.9$ and $x_0 = 2.1$.  \\
+
+\textit{Solution:} \\
+Let's begin by calculating where the extrema occur for $f(x) = 3x - x^3$.
+They occur where $f^\prime(x) = 3 -3x^2 = 0$ which is at $x = \pm 1$ and possibly at the boundaries of our interval thus we need to check if $|f(x)| \leq 2$ holds for $x = \pm 1, \pm 2$.
+Notice,
+\begin{align*}
+f(-2) &= 3(-2) - (-2)^3 = -6 + 8 = 2 \\
+f(-1) &= 3(-1) - (-1)^3 = -3 + 1 = - 2 \\
+f(1) &= 3(1) - (1)^3 = 3 - 1 = 2 \\
+f(2) &= 3(2) - (2)^3 = 6 - 8 = -2.
+\end{align*}
+Therefore, since these values represent the min and max of the function $f(x) = 3x - x^3$ over the interval $|x| \leq 2$, then we can conclude $|f(x)| \leq 2$ over this same interval. \\
+
+Next, we need to verify that when $|x| > 2$ we have that $|f(x)| > |x|$.
+Let's do this one at a time, beginning with $x > 2$.
+We want to determine if
+\begin{align*}
+|3x - x^3| &\overset{?}> |x| \\
+|3x - x^3| - |x| &\overset{?}> 0 \\
+\end{align*}
+Plugging in x = 2 as a lower bound we have
+\begin{align*}
+|3(2) - (2)^3| - |2| &\overset{?}> 0 \\
+|6 - 8| - 2 &\overset{?}> 0 \\
+|-2| - 2 &\overset{?}> 0 \\
+2 - 2 &\overset{?}> 0 \\
+0 &\overset{?}> 0.
+\end{align*}
+Therefore a lower bound for $|3x - x^3| - |x| > 0$ and thus $|3x - x^3| > |x|$.
+Now for when $x < -2$ we have
+\begin{align*}
+|3x - x^3| &\overset{?}> |x| \\
+|3x - x^3| - |x| &\overset{?}> 0 \\
+\end{align*}
+Plugging in x = -2 as an upper bound we have
+\begin{align*}
+|3(-2) - (-2)^3| - |-2| &\overset{?}> 0 \\
+|-6 + 8| - 2 &\overset{?}> 0 \\
+|2| - 2 &\overset{?}> 0 \\
+2 - 2 &\overset{?}> 0 \\
+0 &\overset{?}> 0.
+\end{align*}
+Therefore a lower bound for $|3x - x^3| - |x| > 0$ and thus $|3x - x^3| > |x|$ in any case within the constraint $|x| > 2$.
+We can use this to explain the behavior in the cobweb diagrams for $x_0 = 1.9$ and $x_0 = 2.1$ because...
+\qed \\
+
+
+\item Show that (2, -2) (repeating) is a 2 cycle.
+This 2 cycle is analogous to a boundary that we defined when we were doing phase-plane analysis.
+What would you call this 2-cycle? (Not a limit cycle or a periodic orbit). \\
+
+\textit{Solution:} \\
+Since
+$$f\Big(f(-2)\Big) = f\Big(3(-2) - (-2)^3\Big) = f(-6 + 8) = f(2) = 3(2) - 2^3 = -2$$
+and
+$$f\Big(f(2)\Big) = f\Big(3(2) - (2)^3\Big) = f(6 - 8) = f(-2) = 3(-2) - (-2)^3 = 2$$
+(2, -2) is a 2-cycle.
+This 2-cycle is analogous to a separatrice, dividing the basins of attraction. \\
+\qed \\
+\newpage
+
+\end{enumerate}
+
+\item Consider a 1D ODE
+\begin{equation}
+\dot x = f(x), \quad x \in \mathbb R.
+\label{eq:eq2}
+\end{equation}
+The most basic method for solving this ODE numerically is to use the Forward Euler method,
+\begin{equation}
+x_{n + 1} = x_n + hf(x_n),
+\label{eq:eq3}
+\end{equation}
+where $h > 0$ is a chosen step size.
+This method comes from discretizing the derivative, as discussed in class. \\
+
+\begin{enumerate}
+\item Show that fixed points of the ODE \eqref{eq:eq2} correspond to fixed points of the Forward Euler map \eqref{eq:eq3}. \\
+
+\textit{Solution:} \\
+Consider the fixed points $X^*$ of the ODE \eqref{eq:eq2}, these occur where $\dot x = 0$ implying $f(x^*) = 0$.
+Thus we have
+$$
+x_{n + 1} = x_n^* + hf(x_n^*) = x_n^* + h 0 = x_n^*
+$$
+which shows that $x^*$ is also a fixed point of the Forward Euler map, since applying the map to $x^*$ simply returns $x^*$ back. \\
+\qed \\
+
+\item Show that stability of the fixed points of the ODE \eqref{eq:eq2} do not necessarily agree with the stability of the fixed points of the Forward Euler map \eqref{eq:eq3}. \\
+
+\textit{Solution:} \\
+Using Linear Stability Analysis, in order for the fixed point $x^*$ to be stable for the ODE \eqref{eq:eq2} we need $f^\prime(x^*) < 0$.
+We don't currently have enough information to conclude the stability of the fixed point $x^*$ for the ODE \eqref{eq:eq2}, however we can say it is stable if $f^\prime(x^*) < 0$.
+Now for the stability of the fixed point of the Forward Euler map we need
+\begin{align*}
+\left|\frac d{dx_n} \left[x_n + hf(x_n)\right]\Big|_{x_n^*}\right| &< 1 \\
+\Big|1 + hf^\prime(x_n^*) \Big| &< 1 \\
+-1 < 1 + hf^\prime(x_n^*) &< 1 \\
+-2 < hf^\prime(x_n^*) &< 0.
+\end{align*}
+Therefore, given this condition the Forward Euler map would be stable depending on the value of $h$. \\
+\qed \\
+
+\item Give a condition which guarantees stability of fixed points of the Forward Euler map \eqref{eq:eq2}. 
+Comment on this condition: how must we generally choose the step size $h$ in order to find equilibrium solutions of the ODE \eqref{eq:eq3} using the Forward Euler method? \\
+
+\textit{Solution:} \\
+From part (b) we assume $ f^\prime(x_n^*) < 0$ for the fixed point to be stable for the ODE and we need $-2 < hf^\prime(x_n^*) < 0$.
+Which assuming $h > 0$ and $f^\prime(x_n^*) < 0$ ensures the right hand side $hf^\prime(x_n^*) < 0$, but we need to solve for $h$ in order to guarantee the left inequality holds $-2 < hf^\prime(x_n^*)$.
+Solving for $h$ we get $- \frac 2 {f^\prime(x_n^*)} > h$ (note the inequality flips because we divided by a negative number, $f^\prime(x_n^*)$) \\
+\qed \\
+
+\item It is common to see the Forward Euler solution oscillating about the true solution when solving numerically.
+Give a condition involving $f^\prime(x)$ and $h$ for which the numerical solution oscillates about a fixed point of the ODE \eqref{eq:eq2} (hint: when did we have oscillations for the linear discrete-time dynamical systems?).
+Given this condition, why is it common to see oscillations in the Forward-Euler solution (hint: see above problem)? \\
+
+\textit{Solution:} \\
+A condition for which we would see such oscillations would be if $f^\prime(x_n^*) = -\frac{2}{h}x_n$.
+This would imply that $f(x_n) \sim -\frac 2 h x_n$ and the Forward Euler map would be
+\begin{align*}
+x_{n + 1} &= x_n + hf(x_n) \\
+x_{n + 1} &= x_n - h\frac{2}{h}x_n \\
+x_{n + 1} &= x_n - 2x_n \\
+x_{n + 1} &= - x_n.
+\end{align*}
+Which is analogous to oscillations that we are looking for.
+I would say it is common to see oscillations with Forward Euler because we are using it to look for a fixed point, but the $h$ that we are choosing depends on the value of the derivative evaluated at that fixed point so it's kind of a chicken or the egg thing.
+We can't find the precise value of $h$ we should use to guarantee the stability of the fixed point because we don't know where the fixed point is yet. \\
+\qed \\
+
+\item Consider a linear ODE, 
+\begin{equation}
+\dot x = kx, \quad k \in \mathbb R.
+\label{eq:eq4}
+\end{equation}
+Give a condition on $h$ and $k$ for which 2-cycles (the non-fixed point 2 cycles) exist for the Forward-Eualer map when solving this ODE.
+Show that these 2 cycles are neutrally stable.
+Comment on your results (in particular, when $h$ and $k$ match your condition, what happens to the numerical solution for any initial condition you use?). \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
