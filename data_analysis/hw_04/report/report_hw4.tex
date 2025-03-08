@@ -30,14 +30,28 @@
 \maketitle
 
 \begin{abstract}
-    We're training fully connected neural networks! \textbf{TODO: Update}
+    In this report we survey fully connected linear neural networks and the most common hyperparameters to consider for tuning.
+    Various methods of optimization are evaluated with a variety of learning rates and momentums.
+    Dropout and batch normalization are discussed and implemented as well.
+    Methods of hyperparameter tuning, comparing models and results are presented.
+    The task we are applying this to is the well known 10 class classification problem with the FashionMNIST dataset.
 \end{abstract}
 
 \section{Introduction and Overview}\label{sec:Introduction}
-\textbf{TODO: Update}
+In this report we further our understanding of machine learning concepts focusing on deep learning, the study of neural network based model architecture.
 
-I would like to acknowledge the critical use of the following packages in our analysis.
+Again, our setup is a common supervised learning problem, given a collection of $N$ data points with labels in classification or target values in a regression setting $$\big\{(\bm{x_0}, y_0), (\bm{x_1}, y_1), ..., (\bm{x_{N-1}}, y_{N-1})\big\}.$$
+The data is denoted as a matrix $X$ and a vector of target values or class labels $\bm y$.
+We then are looking for a function $f$ which takes in the training data and most accurately predicts the target values or class labels, written in optimization form we are looking for the following
+$$f_{MLE} = \underset{f}{\rm argmin } \frac 1 {2 \sigma^2}|| f(X) - \bm y ||_2^2$$
+where $\sigma^2$ is the variance of the normally distributed error terms $\epsilon \sim \mathcal N (0, \sigma^2)$ defined by $\epsilon_i = y_i - f(x_i)$.
+So said another way we are trying to minimize our errors in the classification task.
+The specific class of functions $f$ to be considered to solve the problem is a Fully Connected Neural Network (FCN).
+We will treat the theoretical background of these methods in the next section.
+
+Before proceeding, we would like to acknowledge the critical use of the following packages in our analysis.
 Namely, Matplotlib was used to create all plots and animations \cite{Hunter:2007}.
+\textbf{TODO: Add ray tune and pytorch...!}
 Additionally, Scikit-learn was the primary source of using the PCA algorithm and other classification methods \cite{scikit-learn}.
 
 %\begin{figure}[h]
@@ -48,7 +62,7 @@ Additionally, Scikit-learn was the primary source of using the PCA algorithm and
 %\end{figure}
 
 \section{Theoretical Background}\label{sec:theory}
-\textbf{TODO: Update}
+\textbf{TODO: General background about the idea of neural networks}
 
 \subsection{Architecture}
 \textbf{TODO: Update}
@@ -63,6 +77,9 @@ Additionally, Scikit-learn was the primary source of using the PCA algorithm and
 \textbf{TODO: Update}
 
 \subsection{Dropout}
+\textbf{TODO: Update}
+
+\subsection{Batch Normalization}
 \textbf{TODO: Update}
 
 \section{Algorithm Implementation and Development}\label{sec:algorithms}
