@@ -7612,5 +7612,463 @@
         },
         "batch_normalization": false,
         "weight_init": "kaiming_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.893750011920929,
+        "std_test_accuracy": 0.018429884687066078,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.3,
+            0.2
+        ],
+        "activation_function": "relu",
+        "optimizer": "SGD",
+        "learning_rate": 0.1,
+        "optimizer_hyperparams": {
+            "momentum": 0.95
+        },
+        "batch_normalization": true,
+        "weight_init": "xavier_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.889843761920929,
+        "std_test_accuracy": 0.02366749197244644,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.5,
+            0.5
+        ],
+        "activation_function": "relu",
+        "optimizer": "Adam",
+        "learning_rate": 0.1,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.95,
+                0.99
+            ]
+        },
+        "batch_normalization": true,
+        "weight_init": "xavier_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.876757800579071,
+        "std_test_accuracy": 0.025208935141563416,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.2,
+            0.3
+        ],
+        "activation_function": "relu",
+        "optimizer": "RMSprop",
+        "learning_rate": 0.1,
+        "optimizer_hyperparams": {
+            "alpha": 0.99
+        },
+        "batch_normalization": true,
+        "weight_init": "xavier_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.8951171636581421,
+        "std_test_accuracy": 0.026153648272156715,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.3,
+            0.2
+        ],
+        "activation_function": "relu",
+        "optimizer": "SGD",
+        "learning_rate": 0.01,
+        "optimizer_hyperparams": {
+            "momentum": 0.9
+        },
+        "batch_normalization": true,
+        "weight_init": "xavier_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.896289050579071,
+        "std_test_accuracy": 0.023824121803045273,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.2,
+            0.2
+        ],
+        "activation_function": "relu",
+        "optimizer": "Adam",
+        "learning_rate": 0.01,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.99,
+                0.99
+            ]
+        },
+        "batch_normalization": true,
+        "weight_init": "xavier_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.89208984375,
+        "std_test_accuracy": 0.019680824130773544,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.2,
+            0.5
+        ],
+        "activation_function": "relu",
+        "optimizer": "RMSprop",
+        "learning_rate": 0.01,
+        "optimizer_hyperparams": {
+            "alpha": 0.95
+        },
+        "batch_normalization": true,
+        "weight_init": "xavier_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.895800769329071,
+        "std_test_accuracy": 0.02037976123392582,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.1,
+            0.2
+        ],
+        "activation_function": "relu",
+        "optimizer": "SGD",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "momentum": 0.99
+        },
+        "batch_normalization": true,
+        "weight_init": "xavier_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.896777331829071,
+        "std_test_accuracy": 0.02033291384577751,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.5,
+            0.3
+        ],
+        "activation_function": "relu",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.99,
+                0.9
+            ]
+        },
+        "batch_normalization": true,
+        "weight_init": "xavier_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.894335925579071,
+        "std_test_accuracy": 0.018237419426441193,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.3,
+            0.5
+        ],
+        "activation_function": "relu",
+        "optimizer": "RMSprop",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "alpha": 0.95
+        },
+        "batch_normalization": true,
+        "weight_init": "xavier_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.9012695550918579,
+        "std_test_accuracy": 0.02160808816552162,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.5,
+            0.2
+        ],
+        "activation_function": "relu",
+        "optimizer": "SGD",
+        "learning_rate": 0.1,
+        "optimizer_hyperparams": {
+            "momentum": 0.9
+        },
+        "batch_normalization": true,
+        "weight_init": "kaiming_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.891406238079071,
+        "std_test_accuracy": 0.020055463537573814,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.5,
+            0.2
+        ],
+        "activation_function": "relu",
+        "optimizer": "Adam",
+        "learning_rate": 0.1,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.99
+            ]
+        },
+        "batch_normalization": true,
+        "weight_init": "kaiming_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.884765625,
+        "std_test_accuracy": 0.02376079186797142,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.5,
+            0.3
+        ],
+        "activation_function": "relu",
+        "optimizer": "RMSprop",
+        "learning_rate": 0.1,
+        "optimizer_hyperparams": {
+            "alpha": 0.9
+        },
+        "batch_normalization": true,
+        "weight_init": "kaiming_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.8980468511581421,
+        "std_test_accuracy": 0.027396712452173233,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.2,
+            0.1
+        ],
+        "activation_function": "relu",
+        "optimizer": "SGD",
+        "learning_rate": 0.01,
+        "optimizer_hyperparams": {
+            "momentum": 0.99
+        },
+        "batch_normalization": true,
+        "weight_init": "kaiming_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.8984375,
+        "std_test_accuracy": 0.02233746647834778,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.3,
+            0.5
+        ],
+        "activation_function": "relu",
+        "optimizer": "Adam",
+        "learning_rate": 0.01,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.9
+            ]
+        },
+        "batch_normalization": true,
+        "weight_init": "kaiming_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.8990234136581421,
+        "std_test_accuracy": 0.019047725945711136,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.5,
+            0.2
+        ],
+        "activation_function": "relu",
+        "optimizer": "RMSprop",
+        "learning_rate": 0.01,
+        "optimizer_hyperparams": {
+            "alpha": 0.95
+        },
+        "batch_normalization": true,
+        "weight_init": "kaiming_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.881542980670929,
+        "std_test_accuracy": 0.016923295333981514,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.1,
+            0.1
+        ],
+        "activation_function": "relu",
+        "optimizer": "SGD",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "momentum": 0.95
+        },
+        "batch_normalization": true,
+        "weight_init": "kaiming_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.8974609375,
+        "std_test_accuracy": 0.019091734662652016,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.1,
+            0.3
+        ],
+        "activation_function": "relu",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.99
+            ]
+        },
+        "batch_normalization": true,
+        "weight_init": "kaiming_uniform"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.8978515863418579,
+        "std_test_accuracy": 0.020326578989624977,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.3,
+            0.5
+        ],
+        "activation_function": "relu",
+        "optimizer": "RMSprop",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "alpha": 0.95
+        },
+        "batch_normalization": true,
+        "weight_init": "kaiming_uniform"
+    },
+    {
+        "num_epochs": 2,
+        "mean_test_accuracy": 0.719921886920929,
+        "std_test_accuracy": 0.03927869722247124,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.5,
+            0.5
+        ],
+        "activation_function": "relu",
+        "optimizer": "SGD",
+        "learning_rate": 0.01,
+        "optimizer_hyperparams": {
+            "momentum": 0.9
+        },
+        "batch_normalization": true,
+        "weight_init": "random_normal"
+    },
+    {
+        "num_epochs": 40,
+        "mean_test_accuracy": 0.899218738079071,
+        "std_test_accuracy": 0.024256523698568344,
+        "model_architecture": [
+            1024,
+            256,
+            10
+        ],
+        "dropout_rate": [
+            0.3,
+            0.3
+        ],
+        "activation_function": "relu",
+        "optimizer": "SGD",
+        "learning_rate": 0.1,
+        "optimizer_hyperparams": {
+            "momentum": 0.9
+        },
+        "batch_normalization": true,
+        "weight_init": "xavier_uniform"
     }
 ]
