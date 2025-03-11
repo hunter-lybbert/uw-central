@@ -1,0 +1,147 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage{amssymb,amsmath,enumitem,url}
+\usepackage{graphicx,subfig}
+\graphicspath{ {./images/} }
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{03-13-25} \\
+\text{AMATH 502} \\
+% header containing your name, student number, due date, course, and the homework number as a title.
+
+\title{\bf {Homework 8} }
+
+
+\maketitle
+\noindent
+Exercises come from the assignment sheet provided by the professor on canvas.
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item See assignment document for background on the \textit{Sierpinski Carpet}.
+\begin{enumerate}
+
+\item Show that the (Lebesgue) measure of the resulting fractal is 0.
+Justify your work. \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Find the similarity dimension of the limiting fractal. Show and explain your work. \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Show that the box-counting dimension of this fractal is the same as the similarity dimension. (You may not be able to complete this until box-counting dimension is defined in class). \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Show that there are uncountably many points on the interior of the limiting fractal (i.e. infinitely many points without x = 0, x = 1, y = 0, or y = 1).
+Hint: Try showing this in just one dimension, e.g., show that there are uncountably many points (x, y) with a fixed value of y, perhaps y = 0.5 is a good choice. \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\newpage
+
+\end{enumerate}
+
+\item In this problem we construct what is called a middle-halves Cantor set.
+Consider the following Cantor set construction. Start with the interval [0, 1], then remove the middle half. Continue this process for each sub-interval. \\
+\begin{enumerate}
+
+\item Draw $S_1$ and $S_2$. \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Find the similarity dimension of the set. \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Find the measure of the set. \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\end{enumerate}
+
+\newpage
+
+\item See assignment sheet for details of the \textit{fat fractal}. \\
+
+\begin{enumerate}
+\item Find the (Lebesgue) measure of this cantor set. Show your work. \\
+
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Is the fractal self similar?
+Justify your answer. \\
+\textbf{Hint:} Can you find the similarity dimension of this set?
+What happens when you try?) \\
+\textbf{Note:} You may find this part to be difficult.
+If you are struggling with it, you may want to skip it for now and come back to it later. 
+\\
+\end{enumerate}
+ 
+ \newpage
+ 
+\item The tent map on the interval [0, 1] is defined by $x_{n + 1} = f(x_n)$, where 
+$$
+f(x) = \begin{cases}
+rx,  &0 \leq x \leq \frac 1 2 \\
+r(1 - x), &\frac 1 2 < x \leq 1
+\end{cases}.
+$$
+Assume that $r > 2$.
+Then some points get mapped outside of the interval [0, 1].
+If $f(x_0) > 1$ then we say that $x_0$ has ``escaped" after one iteration.
+Similarly, if $f^n(x_0) > 1$ for some finite $n$ and $n$ is the smallest integer for which this is true, then we say $x_0$ has escaped after $n$ iterations.
+
+\begin{enumerate}
+\item Find the set of initial conditions x0 that escape after one iteration. \\
+\item Find the set of initial conditions x0 that escape after two iterations. \\
+\item Describe the set of x0 that never escape. This is called the invariant set. 
+Hint: First look at what happens for r = 3. Does this look like a set you 
+recognize? \\
+\item Find the box dimension of the invariant set (for general r, not r = 3). \\
+\item This is just a note, you don’t need to answer anything here. After completing
+this problem, you will have shown that the invariant set of this chaotic map
+forms a fractal. Cool! This invariant set is called a strange repeller because it
+is a fractal set that repels all nearby points that are not in the set and points
+in the set are part of a chaotic orbit.
+
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
