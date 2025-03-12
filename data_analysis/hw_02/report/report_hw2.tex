@@ -27,46 +27,20 @@
 \maketitle
 
 \begin{abstract}
-    In this analysis of the joint movement data of OptimuS-VD we experiment with Principal Component Analysis (PCA) as a means of dimensionality reduction.
-    Our goal was to build a projection of the recordings to a lower dimension than the number of coordinates, visualize the movements in this new lower dimension.
+    In this analysis of the joint movement data of OptimuS-VD we use Principal Component Analysis (PCA) for dimensionality reduction.
+    We visualize the movements in this new lower dimension.
     Using the lower dimensional projection we design an algorithm that recognizes which movement OptimuS-VD is performing.
-    Furthermore, we first implemented a clustering-esque classifier and evaluate it's accuracy using the training set as well as the held out test set.
-    Considerations of further work are given.
+    Furthermore, we first implemented a clustering-esque classifier and evaluate it's accuracy using the training and test sets.
 \end{abstract}
 
 \section{Introduction and Overview}\label{sec:Introduction}
 There are many computationally intensive computer vision models (primarily using convolutional neural-networks) that perform well on object and movement recognition.
 This was all kickstarted by a paper published in \textit{Advances in Neural Information Processing Systems} by Krizhevsky et. al.  \cite{NIPS2012_c399862d}.
 In our analysis we do not make use of neural networks or deep learning, we will primarily use the Singular Value Decomposition (SVD) via PCA.
-In order to understand the data and attempt to classify the movements of the robot we aimed to complete the following 5 tasks: \\
-\begin{enumerate}
-
-\item Perform PCA on our robot movement data such that PCA modes are spatial modes and coefficients are time-dependent coefficients.
-Investigate how many PCA spatial modes you need to keep to approximate $X_{\rm Train}$ up to 70\%, 80\% , 90\% , 95\% in Frobenius norm (i.e., energy) and plot results. \\
-
-\item Truncate the PCA modes set to 2 and 3 modes and plot the projected $X_{\rm Train}$ in the truncated PCA space as low dimensional 2D (PC1,PC2 coordinates) and 3D (PC1,PC2,PC3 coordinates) trajectories discuss visualization and your findings. \\
-
-\item In order to classify each sample with type of movement establish a ground truth label for each frame from each movement sample.
-Then for each movement compute its centroid (mean) in $k$-modes PCA space. \\
-
-\item Having the ground truth, create a classifier which predicts labels each sample based on the which movement type centroid it is closest to.
-Compute these predicted labels for various $k$ values of $k$-PCA truncation and report the accuracy of the trained classifier (the percentage of samples for which the ground truth and the trained labels match).
-Discuss your results in terms of optimal $k$ for the classifier accuracy. \\
-
-\item Apply this classifier to the test samples.
-Report the accuracy of the classifier on the test samples.
-Discuss and compare it with trained accuracy.
-Try various $k$ values. \\
-
-\item Bonus (+2 points): Implement an alternative classifier based on $k$-PCA space and compare with your
-results above. \\
-
-\end{enumerate}
-
-In the endeavor to reduce the dimensionality of the robot movement data, classify the movements, and complete the requisite tasks, we made extensive use of several important Python packages.
+In order to understand the data and attempt to classify the movements of the robot we aimed to complete the 5 tasks outlined in the assignment document.
+We made extensive use of several important Python packages.
 Namely, Matplotlib was used to create all plots and animations \cite{Hunter:2007}.
 Additionally, Scikit-learn was the primary source of using the PCA algorithm and other classification methods \cite{scikit-learn}. 
-Finally, NumPy was once again a crucial tool \cite{harris2020array}.
 Moreover there are important theoretical underpinnings behind the algorithm we implemented which will be cited and expounded upon in the following section.
 
 \section{Theoretical Background}\label{sec:theory}
@@ -85,6 +59,12 @@ The matrix, $\Sigma$, represents the scaling that $A$ would do on the vector $\b
 The diagonal entries of $\Sigma$ are ordered singular values $\sigma_1 \geq \sigma_2 \geq \sigma_3 ... \geq 0$.
 In class we discussed the relationship between these singular values and the covariance matrix of $A$ if $A$ were our data of interest.
 This connection leads to PCA where we use the SVD to project our data to a lower dimensional space but we preserve the dimensions with the greatest variance.
+Specifically, as discussed in class, retain the $k$-vectors from $U$ that correspond to the $k$ largest $\sigma_i$'s
+\begin{equation}
+U^T_{k}X = \tilde X_{pc_k}.
+\label{eq:eq_ammended}
+\end{equation}
+Using this equation we can project our original data into $k$ pc modes space.
 We make use of \textbf{ scikit-learn}'s PCA class, which under the hood uses \textbf{scipy}'s SVD solver.
 Let's get into the actual implementation now.
 
@@ -100,7 +80,13 @@ Initially I felt it made sense to reshape each of our 15 samples from $(114,100)
 After some experimentation and consulting with classmates, the decision was made to retain the spatial dimension of 114 and to horizontally stack each of the 15 samples along the second dimension giving us a data matrix of shape $(114, 1500)$.
 With this shape we can simply transpose the data and we are ready to utilize sklearn's PCA class.
 
-As more of an exploratory step we performed an analysis of how much information or energy is retained in our data matrix given a certain number of components are retained in the PCA transformation, see Figure \ref{fig:f0} for a visualization of the percent of energy preserved by a given number of PCA components.
+As more of an exploratory step we performed an analysis of how much information or energy is retained in our data matrix given a certain number of components are retained in the PCA transformation.
+To measure the energy or information of the data we used the following energy metric
+$$E = ||A||_F^2 = \sum_{j=0}^{ {\rm min}(m,n)} \sigma_j^2$$
+where $\sigma_j$ are the singular values of the $(m,n)$ matrix $A$.
+This is the total energy of the matrix $A$.
+So when trying to calculate pc modes needed to preserve a given percentage (\%) of total energy we calculate the partial cumulative sum over the singular values and normalize by dividing by the total energy $E$.
+See Figure \ref{fig:f0} for a visualization of the percent of energy preserved by a given number of PCA components.
 
 \begin{figure}[h]
 	\centering
@@ -113,6 +99,7 @@ We applied PCA to our compiled training data matrix twice first preserving 2 pri
 We visualize the points projected into these lower dimensions
 The projected data points (frames from the movement samples) are colored according to movement types.
 See Figure \ref{fig:f1} for the visuals described.
+Notice, even in this low dimensional representation of our data the classes are well separated with minimal overlap between walking and jumping.
 
 \begin{figure}[h]
     \centering
@@ -127,19 +114,19 @@ See Figure \ref{fig:f1} for the visuals described.
         \includegraphics[width=\textwidth]{../visualizations/pca_3_components_plot.png}
         \label{fig:image2}
     \end{subfigure}
-    \caption{We have visualized the lower dimensional projection of the robot movement data in both 2 and 3 dimensions.
-    The projected data points (frames from the movement samples) are colored according to movement types.}
+    \caption{We have visualized the lower dimensional projection of the robot movement data (colored by movement) in both 2 and 3 dimensions.
+    Notice, in this low dimensional representation the movements are well separated. }
     \label{fig:f1}
 \end{figure}
 
 In order to plot according to color or to perform the next step in our algorithm, we made sure to carefully construct a ground truth array of labels which contained the corresponding movement type for each of our 1500 frames in the training data matrix of shape $(1500, 114)$ (after transposing for sklearn use).
 The next step was to calculate the centroid or sample mean of the collection of frames for each movement type.
-Using NumPy's builtin functionality made these centroid calculations trivial.
 After calculating these centroids for each cluster of movement type, we implemented a basic classifier which classifies each point as the movement type based on which movement type's centroid it is closest to.
 This was easy to implement by writing a child class inheriting from sklearn's \textbf{ClassifierMixin} and \textbf{BaseEstimator} classes.
 See code for further details.
 This classifier was applied to the training dataset itself as well as freshly applied to the held out test dataset to evaluate the performance of this classifier algorithm.
-The findings of these evaluations will be discussed in computational results.
+Additionally, we have included an implimentation of the $k$-nearest neighbors classifier.
+It's performance is compared to that of the mean centroid based classifier in the next section.
 
 \section{Computational Results}\label{sec:results}
 This section is only going to be a brief discussion of the results of this naive classifier based on training data centroids being calculated after PCA projections have been applied.
@@ -149,9 +136,9 @@ In both of these cases you can see immediately the walking and jumping clusters 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.75\textwidth]{../visualizations/pca_distance_from_mean_classifier_2d.png}
- 	\caption{On the left we are looking at the result of projecting the training set into 2 dimensions.
+ 	\caption{On the left is the training set projected into 2 dimensions.
 	The centroids we calculated have also been plotted as stars.
-	Finally, on the right we have recolored each projected point by which movement type it is classified as using our centroid based classification model.}\label{fig:f2}
+	On the right we have recolored each projected point by the predicted label from the mean centroid based classifier.}\label{fig:f2}
 \end{figure}
 
 \begin{figure}[h]
@@ -168,8 +155,8 @@ So with that consideration we would choose an optimal $k$ of 11.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.75\textwidth]{../visualizations/train_and_test_accuracy_by_num_components.png}
- 	\caption{We performed this projection and classification for each possible number of components to keep using PCA and for both training and test sets.
-	For both train and test sets we saw the level of accuracy has leveled off well before keeping only 24 components so we thought it unnecessary to plot the accuracy through all possible 114 components. }\label{fig:f4}
+ 	\caption{We performed this projection and classification for each possible number of PCA components for both training and test sets.
+	In both cases, level of accuracy levels off well before keeping only 24 components (hence truncating the plot).}\label{fig:f4}
 \end{figure}
 
 Furthermore, we tested this method of classification on the held out test set with interesting results.
@@ -182,8 +169,9 @@ This could easily be an artifact of just having a small sample and perhaps getti
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.75\textwidth]{../visualizations/pca_distance_from_mean_classifier_2d_test_set.png}
- 	\caption{On the left we are looking at the result of projecting the test set into 2 dimensions using the trained PCA projection. Additionally we have plotted the locations of the centroids as determined with the training set.
-	Finally, on the right we have recolored each projected point by which movement type it is classified as using our centroid based classification model.}\label{fig:f5}
+ 	\caption{On the left is the test set projected into 2 dimensions.
+	The centroids calculated from the training set are once again stars.
+	On the right we have recolored each point by the predicted label from the mean centroid based classifier.}\label{fig:f5}
 \end{figure}
 
 \begin{figure}[h]
@@ -198,6 +186,24 @@ Once again, I suspect that this is an artifact of only training on 15 samples an
 This is a small training set and test set.
 If we could gather more data and perform these same experiments again, we would have a better idea of what the models accuracy is like.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.75\textwidth]{../visualizations/train_and_test_accuracy_by_num_components_knn.png}
+ 	\caption{This plot should be compared with Figure \ref{fig:f4}. The only difference is this classification is based on sklearn's $K$-Nearest Neighbors classifier.}\label{fig:f7}
+\end{figure}
+
+Lastly, we discuss the results of using $K$-nearest neighbors as the classification method.
+As you can see in Figures \ref{fig:f7} and \ref{fig:f9} this algorithm proved to be very effective.
+This makes sense because we can visually see how separable these different movements are in the lower dimensional pc space.
+Therefore, $K$-nearest neighbors is well suited for the problem. Due to space constraints we have omitted the plot for the train set, but in Figure \ref{fig:f9}, we can see that it indeed performed very well on the test set even in 3d pc space.
+More plots and visuals are available on the author's GitHub page \href{https://github.com/hunter-lybbert/uw-central/tree/main/data_analysis/hw_02/visualizations}{here}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.75\textwidth]{../visualizations/pca_distance_from_knn_3d_test_set.png}
+ 	\caption{This plot should be compared with Figure \ref{fig:f6}. The only difference is this classification is based on sklearn's $K$-Nearest Neighbors classifier.}\label{fig:f9}
+\end{figure}
+
 \section{Summary and Conclusions}\label{sec:conclusions}
 Through our analysis we were able to see that some interesting structures in the data can be preserved even when reducing from 114 dimensions to 2 or 3.
 We saw the reasonable results of a naive classification method and have ideas for further work.
@@ -206,9 +212,8 @@ We would also like to try applying these methods to a larger number of samples t
 
 \section*{Acknowledgements} 
 
-The author is thankful to Jaxon Tuggle for useful discussions about the process to find the correct dimensions to use when interpreting the training data samples we were given.
-We would also like to thank Professor Eli Shlizerman for carefully instructing us in class.
-Finally, it is necessary to thank the following students Nate Ward, Sophie Kamien, Anja Vogt, John Murphy, and Hailey Sparks whose questions helped clarify understanding of the algorithm we implemented by giving chances to explain ideas and debug code together.
+The author is thankful to Professor Eli Shlizerman for carefully instructing us in class.
+Finally, we thank Jaxon Tuggle, Nate Ward, Sophie Kamien, Anja Vogt, John Murphy, and Hailey Sparks who were available to share and discuss ideas throughout.
 
 \bibliographystyle{abbrv}
 \bibliography{references_hw2} % make sure this matches the .bib file for your corresponding document. You also have to maintain your references in the .bib file 
