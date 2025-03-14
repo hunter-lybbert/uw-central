@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 import torch
 from torch import nn
 from tqdm import tqdm
-from torch.utils.data import DataLoader, Subset
+from torch.utils.data import DataLoader, Subset, Dataset
 import torchvision
 
 from fashion_mnist_model import ACAIGFCN, FASHION_MNIST_INPUT_DIM, FASHION_MNIST_OUTPUT_DIM
@@ -17,6 +17,8 @@ from fashion_mnist_model import ACAIGFCN, FASHION_MNIST_INPUT_DIM, FASHION_MNIST
 DATA_DIR = 'data/'
 FASHION_MNIST_MEAN = 0.286
 FASHION_MNIST_STD = 0.353
+MNIST_DIGITS_MEAN = 0.1307
+MNIST_DIGITS_STD = 0.3081
 
 
 def custom_accuracy_metric(y_hat, y_truth):
@@ -33,15 +35,16 @@ def get_device_helper():
     return device
 
 
-def get_data_ready():
-    """"""
+def get_fashion_mnist_data_sets() -> tuple[Dataset, Dataset]:
+    """
+    Load the FashionMNIST dataset from torchvision.datasets.FashionMNIST and apply the necessary transformations.
+
+    :return: tuple[Dataset, Dataset]
+    """
     transform_for_data = torchvision.transforms.Compose(
         [
             torchvision.transforms.ToTensor(),
-            torchvision.transforms.Normalize(
-                (FASHION_MNIST_MEAN,),
-                (FASHION_MNIST_STD,)
-            )
+            torchvision.transforms.Normalize((FASHION_MNIST_MEAN,), (FASHION_MNIST_STD,))
         ]
     )
 
@@ -59,6 +62,65 @@ def get_data_ready():
         transform=transform_for_data,
     )
 
+    return train_dataset, test_dataset
+
+
+def get_mnist_digits_data_sets():
+    """
+    Load the MNIST digits dataset from torchvision.datasets.MNIST and apply the necessary transformations.
+    """
+    transform_for_data = torchvision.transforms.Compose(
+        [
+            torchvision.transforms.ToTensor(),
+            torchvision.transforms.Normalize((MNIST_DIGITS_MEAN,), (MNIST_DIGITS_STD,))
+        ]
+    )
+
+    train_dataset = torchvision.datasets.MNIST(
+        DATA_DIR,
+        train=True,
+        download=True,
+        transform=transform_for_data,
+    )
+
+    test_dataset = torchvision.datasets.MNIST(
+        DATA_DIR,
+        train=False,
+        download=True,
+        transform=transform_for_data,
+    )
+
+    return train_dataset, test_dataset
+
+
+def get_data_sets(dataset_name: str = "fashion") -> tuple[Dataset, Dataset]:
+    """
+    Logically determine which dataset to load.
+
+    :param dataset_name: The name of the dataset to load. Either 'fashion' or 'digits'.
+
+    :return: tuple[Dataset, Dataset]
+    """
+    if dataset_name.lower() == "fashion":
+        return get_fashion_mnist_data_sets()
+    elif dataset_name.lower() == "digits":
+        return get_mnist_digits_data_sets()
+    else:
+        raise ValueError(f"Invalid dataset name: {dataset_name} expected one of ['fashion', 'digits']")
+
+
+def get_data_loaders(
+    train_dataset: Dataset,
+    test_dataset: Dataset,
+) -> tuple[DataLoader, DataLoader, DataLoader]:
+    """
+    Prepare the training, validation and testing data loaders for the FashionMNIST dataset.
+
+    :param train_dataset: The training dataset
+    :param test_dataset: The testing dataset
+    
+    :return: tuple[DataLoader, DataLoader, DataLoader]
+    """
     split_size = 0.1
 
     train_indices, val_indices, _, _ = train_test_split(
@@ -98,8 +160,25 @@ class ModelTrainingArtifact():
         activation_function: callable,
         optimizer_hyperparams: dict[str, Any],
         accuracy_metric: callable = custom_accuracy_metric,
+        dataset_name: str = "fashion",
     ):
-        """"""
+        """
+        Initialize the ModelTrainingArtifact object with the necessary hyperparameters and model architecture.
+
+        :param optimizer: The optimizer to use for training the model
+        :param objective: The loss function to use for training the model
+        :param num_epochs: The number of epochs to train the model
+        :param hidden_layer_dims: The dimensions of the hidden layers in the model
+        :param dropout_rate_layers: The dropout rates for each layer in the model
+        :param weight_init_method: The weight initialization method to use for the model
+        :param batch_norm: Whether to use batch normalization in the model
+        :param activation_function: The activation function to use in the model
+        :param optimizer_hyperparams: The hyperparameters to use for the optimizer
+        :param accuracy_metric: The accuracy metric to use for evaluating the model
+        :param dataset_name: The name of the dataset to use for training the model
+
+        :return: ModelTrainingArtifact
+        """
         self.model = ACAIGFCN(
             input_dim=FASHION_MNIST_INPUT_DIM,
             output_dim=FASHION_MNIST_OUTPUT_DIM,
@@ -121,13 +200,21 @@ class ModelTrainingArtifact():
         self.accuracy_metric: callable = accuracy_metric
         self.device = get_device_helper()
 
-        train_batches, val_batches, test_batches = get_data_ready()
+        train_dataset, test_dataset = get_data_sets(dataset_name=dataset_name)
+
+        train_batches, val_batches, test_batches = get_data_loaders(train_dataset=train_dataset, test_dataset=test_dataset)
         self.train_batches: DataLoader = train_batches
         self.val_batches: DataLoader = val_batches
         self.test_batches: DataLoader = test_batches
 
     def init_weights(self, layer: nn.Linear):
-        """"""
+        """
+        initialize the weights of the model using the specified weight initialization method
+
+        :param layer: The layer to initialize the weights for
+
+        :return: None
+        """
         if isinstance(layer, nn.Linear):
             if self.weight_init_method == "xavier_uniform":
                 nn.init.xavier_uniform_(layer.weight)
@@ -141,7 +228,11 @@ class ModelTrainingArtifact():
                 nn.init.constant_(layer.bias, 0)
 
     def train(self):
-        """"""
+        """
+        Train the ACAIGFCN model using the training and validation data loaders.
+
+        :return: None
+        """
         self.train_loss = []
         self.validation_loss = []
         self.train_accuracy = []
@@ -217,7 +308,13 @@ class ModelTrainingArtifact():
         loop.close()
 
     def test(self, record_experiment: bool = False):
-        """"""
+        """
+        Test the ACAIGFCN model using the test data loader.
+        
+        :param record_experiment: Whether to record the experiment in the experiments.json file
+
+        :return: None
+        """
         test_acc = []
         # Telling PyTorch we aren't passing inputs to network for training purpose
         with torch.no_grad():
@@ -257,6 +354,11 @@ class ModelTrainingArtifact():
         - Test Accuracy (mean and standard deviation)
         - In the future, record the batch normalization setup and weight initialization information
 
+        
+        :param path: The path to the experiments.json file
+        :param filename: The name of the experiments.json file
+
+        :return: None
         """
         extra_opt_params = self.optimizer_hyperparams.copy()
         extra_opt_params.pop('lr', None)
@@ -293,6 +395,10 @@ class ModelTrainingArtifact():
         """
         Saves the PyTorch model, training and validation losses and accuracies, 
         test accuracy and standard deviation to a .pth file with a name that uniquely identifies the experiment.
+
+        :param filepath: The path to save the experiment model
+
+        :return: None
         """
         experiment_data = {
             'model_state_dict': self.model.state_dict(),
