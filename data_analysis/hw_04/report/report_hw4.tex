@@ -97,24 +97,52 @@ We are referring to variables as represented here in this more graphical represe
 \boxed{\bm w^T \bm x + b = z} \rightarrow \boxed{\sigma(z) = \hat y} \rightarrow \boxed{L(\hat y , y)} \\
 \boxed{\nabla_{\bm w} z} \leftarrow \boxed{\frac {\partial \hat y}{\partial z} (z)} \leftarrow \boxed{\frac {\partial L}{\partial \hat y}(\hat y , y)}.
 \end{align*}
-For completion and yet in favor of being concise, we include the following expression for gradient descent which is how we update the weights is
-\begin{align*}
+For completion and yet in favor of being concise, we include the following expression for gradient descent (GD) which is how we update the weights is
+\begin{equation}
+\begin{split}
 \bm w_{k + 1} &= \bm w_{k} - \alpha \nabla_{\bm w} J(\bm w_{k}; b) \\
-b_{k + 1} &= b_{k} - \alpha \frac \partial {\partial b}J(\bm w; b_k).
+b_{k + 1} &= b_{k} - \alpha \frac \partial {\partial b}J(\bm w; b_k)
 \label{eq:gd}
-\end{align*}
+\end{split}
+\end{equation}
+where $\alpha$ is known as the learning rate controlling the size of the step in the direction of the gradient.
 There is, of course, more to say about exactly how back propogation works or how autograd works in pytorch but for the sake of this report we will leave it here and begin our discussion of the optimizers and hyperparameters.
 
 \subsection{Architecture}
-The first decision one needs to make when considering a neural network to solve the problem at hand
+Deciding the architecture of the model can have large influence on the computational performance and accuracy of your model.
+The only considerations after one has decided to use a fully connected network is the number of hidden layers and the size or number of neurons in each hidden layer.
+A deeper network can be necessary for some problems but should not be considered the best practice.
+One reason to hesitate to use a very deep network is the potential to have vanishing or exploding gradients.
+The back propagation across a deep network can begin to get very small causing the optimization to stall and no longer progress.
+A wide network can't learn as complex a structure in the data, however, it will train faster and can still do well on small tasks.
+A developer needs to make the best decision given their priorities.
 
 \subsection{Optimizer}
-\textbf{TODO: Update}
-Talk about, learning rates, and momentum
+There are several variations of gradient descent \eqref{eq:gd} which we are going to describe here.
+They each attempt to overcome a few of the challenges with basic gradient descent.
 \begin{enumerate}
-\item SGD
-\item Adam
-\item RMSProp
+\item Stochastic Gradient Descent (SGD): \\
+Unlike basic GD which makes updates based on every datapoint in the training set, SGD makes updates more frequently after a batch of data, mini-batch, or even every single datapoint.
+The expression for it does not vary enough from the basic one to warrant adding again here.
+\item Adam: \\
+This adds the ability to vary the learning rate throughout the training process as well as adds a \textit{momentum} term which conveys a sense of certainty that the direction we're moving in is the right one based on where we moved in the previous iteration.
+Mathematically this alters equation \eqref{eq:gd} only slightly (for just the weights) we have
+\begin{equation}
+\begin{split}
+\bm v_k &= \eta \bm v_{k-1}  + \alpha \nabla_{\bm w} J(\bm w_{k}; b) \\
+\bm w_{k + 1} &= \bm w_{k} - \bm v_k
+\end{split}
+\end{equation}
+where $\eta$ is our momentum parameter which takes on values between 0 and 1 but is commonly close to $0.9$.
+Furthermore, our physical intuition for momentum does not lead us astray here.
+Imagine, a ball descending down hill, if it has a lot of momentum when it meats a small basin it will likely roll into it and continue out of it if the other side of the basin is not too steep.
+If the ball escapes the small basin it will likely continue to descent to an even lower basin and so on until it reaches perhaps the lowest point in the greater region.
+Similarly, momentum helps the optimization algorithm avoid local minimums that can trap our methods from arriving at a more globally optimal solution.
+We only claim ``more" because it is extremely hard to locate the true global minimum in such a high dimensional nonlinear optimization problem.
+
+\item RMSProp:
+We only mention that this optimizer method exists and was used in our hyperparameter tuning to be discussed later.
+As far as the finer details of the method, for our purposes here it suffices to say it is an extended version of AdaGrad which itself introduces an adaptive learning rate. For further details, \textbf{TODO: Add reference for further reading.}
 \end{enumerate}
 
 \subsection{Dropout}
