@@ -43,47 +43,106 @@ In this report we further our understanding of machine learning concepts focusin
 Again, our setup is a common supervised learning problem, given a collection of $N$ data points with labels in classification or target values in a regression setting $$\big\{(\bm{x_0}, y_0), (\bm{x_1}, y_1), ..., (\bm{x_{N-1}}, y_{N-1})\big\}.$$
 The data is denoted as a matrix $X$ and a vector of target values or class labels $\bm y$.
 We then are looking for a function $f$ which takes in the training data and most accurately predicts the target values or class labels, written in optimization form we are looking for the following
-$$f_{MLE} = \underset{f}{\rm argmin } \frac 1 {2 \sigma^2}|| f(X) - \bm y ||_2^2$$
-where $\sigma^2$ is the variance of the normally distributed error terms $\epsilon \sim \mathcal N (0, \sigma^2)$ defined by $\epsilon_i = y_i - f(x_i)$.
+\begin{equation}
+f_{MLE} = \underset{f}{\rm argmin } \frac 1 {2 \sigma^2}|| f(X) - \bm y ||_2^2
+\label{eq:basic_ml_setup}
+\end{equation}
+where $\sigma^2$ is the variance of the normally distributed error terms $\epsilon \sim \mathcal N (0, \sigma^2)$ defined by $\epsilon_i = y_i - f(x_i)$
 So said another way we are trying to minimize our errors in the classification task.
 The specific class of functions $f$ to be considered to solve the problem is a Fully Connected Neural Network (FCN).
-We will treat the theoretical background of these methods in the next section.
+We will treat the theoretical background of these methods in the next section \ref{sec:theory}.
 
 Before proceeding, we would like to acknowledge the critical use of the following packages in our analysis.
 Namely, Matplotlib was used to create all plots and animations \cite{Hunter:2007}.
-\textbf{TODO: Add ray tune and pytorch...!}
-Additionally, Scikit-learn was the primary source of using the PCA algorithm and other classification methods \cite{scikit-learn}.
-
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[width=.5\textwidth]{../visualizations/first_64_training_images.png}
-% 	\caption{ As an insight to the problem at hand I have visualized the first 64 training images.
-%	Not included in this report but available on my GitHub are animated visualizations of all training samples for a given digit. Something interesting that this revealed is that many of the training samples for the digit 2, us the curly circular style in the lower left hand corner of the symbol. This is notable because that makes a starker difference between 2 and 7 than we would expect. This could explain why 2 and 7 are easier to diliminate than we assumed. }\label{fig:f3}
-%\end{figure}
+Addiitonally, PyTorch \cite{Ansel_PyTorch_2_Faster_2024} was crucial for easily implementing the desired architecture while Ray Tune \cite{liaw2018tune} was used to help with hyper parameter tuning.
 
 \section{Theoretical Background}\label{sec:theory}
-\textbf{TODO: General background about the idea of neural networks}
+For the purpose of this report we will be concise and straight to the point about the methods, architectures, and hyperparameters used in our study.
+The motivation for constructing a neural network is quite literally the network structure of the neurons in our very own brains (see Figure \ref{fig:neuron}).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.3\textwidth]{../visualizations/perceptron-with-neuron.png}
+ 	\caption{Neural networks are truly motivated by the biological behavior of neurons in our brains. (Image from \cite{mriquestionsDeepLearning})}\label{fig:neuron}
+\end{figure}
+
+Key components of a biological neuron which are reflected in the artificial neuron in our models are the Dendrites which receive the signals into the neuron, this is like the weights receiving input from the previous layer.
+The Cell body combines these signals like our neuron which calculates a weighted sum of the inputs plus a bias (like in regression).
+Depending on the signal a neuron received it may fire and pass along the signal through the axon to the neurons down stream from it, artificially our nonlinear activation functions act as this thresholding decision maker determining when to pass on the signal and at what strength to the next layer.
+The power of a neural network is creating a large network that is comprised of very wide layers (many neurons) and or is many layers deep.
+However, the basic building block is this artificial neuron we have just described.
+
+Another fundamental piece of information to describe, before we get into the architecture and hyperparameters, is what a forward and backward pass through the network are.
+Firstly, a forward pass is simply taking the data we are using to try and make predictions of some sort and passing it into the network.
+More mathematically we have the following expression for each neuron
+\begin{equation}
+y = f\left( \sum_{i=1}^n x_i w_i + b \right)
+\label{eq:neuron_calc}
+\end{equation}
+where $x_i$ are the elements of our input vector $\bm x$  or the results of a previous layers output (past $y$'s).
+The $w_i$'s are the weights of the connections between these previous layers outputs or original inputs.
+We also add a bias term $b$.
+Next, the weighted sum is passed through the nonlinear activation function $f$ to produce either a final prediction if this is the final layer in the network or creating the input for the next hidden (not first or last) layer in the network.
+Secondly, a backward pass is when we grade how well the network predicted the target output and we propagate the information about how wrong we were back through the network to improve our prediction a little for the next forward pass.
+Once again, we have a more concise mathematical expression for this, which we will get to momentarily.
+Recall the expression \eqref{eq:basic_ml_setup} which we are trying to argmin, this metric or measure of error we are trying to minimize is called a loss function.
+We can choose different loss functions, let's denote our arbitrary choice of loss function as $L(\hat y, y)$ where $\hat y$ is the predicted label or value from the network and $y$ is the target value or label.
+Now we can precisely define backward pass
+\begin{equation}
+\nabla_{\bm w} L(\hat y, y) = \frac {\partial L}{\partial \hat y} \frac {\partial \hat y}{\partial z} \nabla_{\bm w} z.
+\label{eq:back_prop}
+\end{equation}
+We are referring to variables as represented here in this more graphical representation of forward and backward passes
+\begin{align*}
+\boxed{\bm w^T \bm x + b = z} \rightarrow \boxed{\sigma(z) = \hat y} \rightarrow \boxed{L(\hat y , y)} \\
+\boxed{\nabla_{\bm w} z} \leftarrow \boxed{\frac {\partial \hat y}{\partial z} (z)} \leftarrow \boxed{\frac {\partial L}{\partial \hat y}(\hat y , y)}.
+\end{align*}
+For completion and yet in favor of being concise, we include the following expression for gradient descent which is how we update the weights is
+\begin{align*}
+\bm w_{k + 1} &= \bm w_{k} - \alpha \nabla_{\bm w} J(\bm w_{k}; b) \\
+b_{k + 1} &= b_{k} - \alpha \frac \partial {\partial b}J(\bm w; b_k).
+\label{eq:gd}
+\end{align*}
+There is, of course, more to say about exactly how back propogation works or how autograd works in pytorch but for the sake of this report we will leave it here and begin our discussion of the optimizers and hyperparameters.
 
 \subsection{Architecture}
-\textbf{TODO: Update}
+The first decision one needs to make when considering a neural network to solve the problem at hand
 
 \subsection{Optimizer}
 \textbf{TODO: Update}
-
-\subsection{Learning Rate}
-\textbf{TODO: Update}
-
-\subsection{Momentum}
-\textbf{TODO: Update}
+Talk about, learning rates, and momentum
+\begin{enumerate}
+\item SGD
+\item Adam
+\item RMSProp
+\end{enumerate}
 
 \subsection{Dropout}
 \textbf{TODO: Update}
+Describe briefly why we do this to avoid overfitting
 
 \subsection{Batch Normalization}
 \textbf{TODO: Update}
+Describe how this helps things be a little more stable
+
+\subsection{Weight Initialization}
+\textbf{TODO: Update}
+Describe how the starting point matters a lot on such a complicated loss surface
 
 \section{Algorithm Implementation and Development}\label{sec:algorithms}
 \textbf{TODO: Update}
+\begin{enumerate}
+\item discuss how you implemented the model architecture with variable layers and sizes
+\item discuss how you tried to implement Ray Tune
+\item Describe your ModelTrainingArtifact Class
+\item Describe how you chose to hyperparameter tune across all hps instead of doing it incrementally (for the sake of thoroughness).
+\item Describe how you logged the experiment results and the short comings of that.
+\end{enumerate}
+
+\section{Computational Results}\label{sec:results}
+
+\textbf{TODO: Update}
+
 
 \begin{figure}[h]
 	\centering
@@ -109,71 +168,30 @@ Additionally, Scikit-learn was the primary source of using the PCA algorithm and
  	\caption{\textbf{TODO: Update caption}}\label{fig:f3}
 \end{figure}
 
-%\begin{figure}[h]
-%    \centering
-%    \begin{subfigure}{0.4\textwidth}
-%        \centering
-%        \includegraphics[width=\textwidth]{../visualizations/energy_by_components.png}
-%        \label{fig:image1}
-%    \end{subfigure}
-%    \caption{ This is the percentage of Total Energy which is preserved by projecting our digit images into a given number of pc modes. 
-%    We were tasked to calculate the minimum number of pc modes needed to be kept in order to retain 85\% of the total energy or information from the original image.
-%    As displayed with the orange star overlayed on the plot, the minimum number of pc components needed are 59.}
-%    \label{fig:f1}
-%\end{figure}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
+        \hline
+        \textbf{Classifier} & \textbf{Digits Used} & \textbf{Train Accuracy} & \textbf{Test Accuracy} & \textbf{CV Score} \\ 
+        \hline
+        Ridge Classifier & 1 and 8 & 0.965  & 0.980 & 0.963 $\pm$ 0.00281 \\
+        \hline
+        Ridge Classifier & 3 and 8 & 0.961  & 0.964 & 0.959 $\pm$ 0.00590 \\
+        \hline
+        Ridge Classifier & 2 and 7 & 0.981  & 0.973 & 0.981 $\pm$ 0.00226 \\  
+        \hline
+    \end{tabular}
+    \caption{\textbf{TODO: update me}}
+    \label{tab:tab0}
+\end{table}
 
-\section{Computational Results}\label{sec:results}
-
-\textbf{TODO: Update}
-
-%\begin{table}[h]
-%    \centering
-%    \begin{tabular}{|l|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
-%        \hline
-%        \textbf{Classifier} & \textbf{Digits Used} & \textbf{Train Accuracy} & \textbf{Test Accuracy} & \textbf{CV Score} \\ 
-%        \hline
-%        Ridge Classifier & 1 and 8 & 0.965  & 0.980 & 0.963 $\pm$ 0.00281 \\
-%        \hline
-%        Ridge Classifier & 3 and 8 & 0.961  & 0.964 & 0.959 $\pm$ 0.00590 \\
-%        \hline
-%        Ridge Classifier & 2 and 7 & 0.981  & 0.973 & 0.981 $\pm$ 0.00226 \\  
-%        \hline
-%    \end{tabular}
-%    \caption{The performance of RidgeClassifier on different binary digit classification problems. First evaluated on the task of distinguishing between 1 and 8, followed by 3 and 8, then finally 2 and 7.}
-%    \label{tab:tab0}
-%\end{table}
-
-%\begin{table}[h]
-%    \centering
-%    \begin{tabular}{|l|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
-%        \hline
-%        \textbf{Classifier} & \textbf{Train Accuracy} & \textbf{Test Accuracy} & \textbf{CV Score} \\ 
-%        \hline
-%        Ridge Classifier & 0.845  & 0.856 & 0.844 $\pm$ 0.00997 \\  
-%        \hline
-%        K-nearest Neighbors & 0.986 & 0.976 \textcolor{red}{\ding{72}} & 0.975 $\pm$ 0.00109 \\
-%        \hline
-%        Linear Discriminant Analysis & 0.866 & 0.875 & 0.865 $\pm$ 0.00870 \\  
-%        \hline
-%        Random Forest Classifier & 0.998 & 0.947 & 0.942 $\pm$ 0.00407 \\  
-%        \hline
-%        Gradient Boosting Classifier & 0.939 & 0.928 & 0.918 $\pm$ 0.00554 \\  
-%        \hline
-%    \end{tabular}
-%    \caption{The performance of each model on the full digit recognition task, aka multi-class classification of digits.
-%    Using the performance on the test set as our selection metric, I would conclude that K-nearest Neighbors performed best on this classification task.}
-%    \label{tab:tab1}
-%\end{table}
-
-
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[width=.5\textwidth]{../visualizations/first_16_pincipal_components.png}
-% 	\caption{ Here we have visualized the first 16 pc modes. These represent a basis for the 16 pc mode space where you can represent the image data as a linear combination of these modes.}\label{fig:f2}
-%\end{figure}
 
 \section{Summary and Conclusions}\label{sec:conclusions} 
 \textbf{TODO: Update}
+\begin{enumerate}
+\item further work is going to include finding a better way to share and convey the configuration in the visuals
+\item screw ray tune
+\end{enumerate}
 
 \section*{Acknowledgements}
 \textbf{TODO: Update}
