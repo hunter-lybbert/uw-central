@@ -30,6 +30,7 @@
 \maketitle
 
 \begin{abstract}
+\vspace*{-1cm}
     In this report we survey fully connected linear neural networks and the most common hyperparameters to consider for tuning.
     Various methods of optimization are evaluated with a variety of learning rates and momentums.
     Dropout and batch normalization are discussed and implemented as well.
@@ -62,8 +63,9 @@ The motivation for constructing a neural network is quite literally the network 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.3\textwidth]{../visualizations/perceptron-with-neuron.png}
- 	\caption{Neural networks are truly motivated by the biological behavior of neurons in our brains. (Image from \cite{mriquestionsDeepLearning})}\label{fig:neuron}
+	\includegraphics[width=.2\textwidth]{../visualizations/perceptron-with-neuron.png}
+ 	\caption{Neural networks are inspired by the biological neurons in our brains \cite{mriquestionsDeepLearning}.}\label{fig:neuron}
+\vspace*{-2mm}
 \end{figure}
 
 Key components of a biological neuron which are reflected in the artificial neuron in our models are the Dendrites which receive the signals into the neuron, this is like the weights receiving input from the previous layer.
@@ -118,11 +120,12 @@ A developer needs to make the best decision given their priorities.
 \subsection{Optimizer}
 There are several variations of gradient descent \eqref{eq:gd} which we are going to describe here.
 They each attempt to overcome a few of the challenges with basic gradient descent.
-\begin{enumerate}
-\item Stochastic Gradient Descent (SGD): \\
+
+Stochastic Gradient Descent (SGD):
 Unlike basic GD which makes updates based on every datapoint in the training set, SGD makes updates more frequently after a batch of data, mini-batch, or even every single datapoint.
 The expression for it does not vary enough from the basic one to warrant adding again here.
-\item Adam: \\
+
+Adam: 
 This adds the ability to vary the learning rate throughout the training process as well as adds a \textit{momentum} term which conveys a sense of certainty that the direction we're moving in is the right one based on where we moved in the previous iteration.
 Mathematically this alters equation \eqref{eq:gd} only slightly (for just the weights) we have
 \begin{equation}
@@ -138,10 +141,9 @@ If the ball escapes the small basin it will likely continue to descent to an eve
 Similarly, momentum helps the optimization algorithm avoid local minimums that can trap our methods from arriving at a more globally optimal solution.
 We only claim ``more" because it is extremely hard to locate the true global minimum in such a high dimensional nonlinear optimization problem.
 
-\item RMSProp:
+RMSProp:
 We only mention that this optimizer method exists and was used in our hyperparameter tuning to be discussed later.
-As far as the finer details of the method, for our purposes here it suffices to say it is an extended version of AdaGrad which itself introduces an adaptive learning rate. For further details, \textbf{TODO: Add reference for further reading.}
-\end{enumerate}
+As far as the finer details of the method, for our purposes here it suffices to say it is an extended version of AdaGrad which itself introduces an adaptive learning rate.
 
 \subsection{Dropout}
 When we train a neural network iteratively on the same training set for many epochs, there is a tendency to overfit.
@@ -204,6 +206,8 @@ optimizers &: [SGD, Adam, RMSprop] \\
 learning \; rates &: [0.01, 0.001, 0.0001] \\
 momentums &: [0.9, 0.95, 0.99].
 \end{align*}
+One special note to be made is that we \textit{randomly} selected a pair of values from the dropout rate options for each trial.
+In the future, we could perhaps control for this parameter more carefully instead of randomly.
 Each experiment was carefully logged and recorded with an experiment number.
 Due to the large number of hyper parameters it is an overwhelming amount of information to specify in each plot for each loss or accuracy curve.
 Therefore, I have labeled plots with experiment numbers and mean accuracy across test set.
@@ -211,25 +215,59 @@ For select models I will detail their exact configuration in the next section \r
 
 \section{Computational Results}\label{sec:results}
 We will primarily let the loss, accuracy curves, and hyperparameter configuration tables speak for themselves.
+We have included a small sample of the results of our parameter tuning.
+Please, see Figures \ref{fig:f0} and \ref{fig:f1} for visualizations of how batch normalization, weight initialization, optimizer choice, and learning rates effected the loss and accuracy curves throughout the training process.
+After training our 300 plus models and inspecting which configurations produced a model with above $90\%$ test accuracy, we picked the configuration in \ref{tab:best_model}. We trained a model with this configuration for 5 repeated trials and report the test accuracy mean and standard deviation across trials.
+We also repeated this process for the MNIST Digit classification problem from homework 3.
+Our best model configuration aligns well with our theoretical background expectations for the optimizer, learning rate, dropout rates, batch normalization, and weight initialization.
+A dropout rate around 0.5 was best.
+Adam with a low learning rate barely edged out SGD with a larger of a learning rate.
+We don't report on RMSprop here (due to space), however, it performed similar to Adam.
+
+We also applied sklearn's $K$-nearest neighbors to this dataset and had a test accuracy of 0.8554 (with number of neighbors set to 5).
+Varying the number of neighbors degraded the model slightly.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
+        \hline
+        \textbf{Ep.}
+        & \textbf{Arch} & \textbf{W. Init}
+        & \textbf{B. Norm} & \textbf{Drop}
+        & \textbf{Optim} & \textbf{lr}
+	& \textbf{$\bm \mu$ (Test Acc)}
+        & \textbf{$\bm \sigma$ (Test Acc)} 
+        & \textbf{Clasif Prob} \\ 
+        \hline
+        50 & [1024, 256]  & Kaiming & True & [0.5, 0.5] & Adam & 0.001 & 0.9030 \textcolor{red}{\ding{72}} & 0.0021 & Fashion \\
+        \hline
+        50 & [1024, 256]  & Kaiming & True & [0.5, 0.5] & Adam & 0.001 & 0.9831 \textcolor{red}{\ding{72}} & 0.0010 & Digits \\
+        \hline
+    \end{tabular}
+    \caption{This is the best configuration that we found. The mean and standard deviation being reported here are with respect to the 5 repeated trials that this configuration was trained for.
+    We have included this model configurations performance on the MNIST digits dataset as well.}
+    \label{tab:best_model}
+\end{table}
 
 \begin{figure}[h]
+\vspace*{-6mm}
     \centering
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_10.png}
+        \includegraphics[width=.6\textwidth]{../visualizations/model_training_results_vis_10.png}
         \label{fig:image1}
     \end{subfigure}
     %\hspace{1mm}
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_11.png}
+        \includegraphics[width=.6\textwidth]{../visualizations/model_training_results_vis_11.png}
         \label{fig:image2}
     \end{subfigure}
     \caption{On the left we have the 3 experiments which are all the same except different weight initializations, compare to Table \ref{tab:tab0}.
-    On the right are these same parameter settings with one change which is that none of them are using batch normalization, compare to Table \ref{tab:tab1}}
+    On the right are these same parameter settings with one change which is that none of them are using batch normalization, compare to Table \ref{tab:tab1}.}
     \label{fig:f0}
+\vspace*{-7mm}
 \end{figure}
-
 
 \begin{table}[h]
     \centering
@@ -249,11 +287,14 @@ We will primarily let the loss, accuracy curves, and hyperparameter configuratio
         135 & 30 & [1024, 256]  & Kaiming 		& True & [0.1, 0.1] & Adam & 0.001 & 0.8912 & 0.0175 \\  
         \hline
     \end{tabular}
-    \caption{This is a set of 3 experiments where all things are constant except the weight initializations differ.}
+    \caption{This is a set of 3 experiments where all things are constant except the weight initializations differ.
+    See the left hand side of Figure \ref{fig:f0} for a visual of the training and validation loss and accuracy curves.}
     \label{tab:tab0}
+\vspace*{-1mm}
 \end{table}
 
 \begin{table}[h]
+\vspace*{-1mm}
     \centering
     \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
         \hline
@@ -272,33 +313,79 @@ We will primarily let the loss, accuracy curves, and hyperparameter configuratio
         \hline
     \end{tabular}
     \caption{This is a set of 3 experiments where all things are constant except the weight initializations differ.
-    Additionally it can be compared to \ref{tab:tab0} since these are the same as those experiments just without Batch Normalization.}
+    Additionally it can be compared to \ref{tab:tab0} since these are the same as those experiments just without Batch Normalization.
+    See the right hand side of Figure \ref{fig:f0} for a visual of the training and validation loss and accuracy curves.}
     \label{tab:tab1}
 \end{table}
 
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis.png}
- 	\caption{\textbf{TODO: Update caption}}\label{fig:f1}
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=.6\textwidth]{../visualizations/model_training_results_vis_13.png}
+        \label{fig:image1}
+    \end{subfigure}
+    %\hspace{1mm}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=.6\textwidth]{../visualizations/model_training_results_vis_14.png}
+        \label{fig:image2}
+    \end{subfigure}
+    \caption{Here we visualize another set of parameter configurations.
+    On the left we are using the Adam optimizer, while on the right we are using SGD, each with 3 different learning rates.
+    See Table \ref{tab:tab2} for the configurations of the left visual and Table \ref{tab:tab3} for the configurations of the right visual.}
+    \label{fig:f1}
 \end{figure}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_0.png}
- 	\caption{\textbf{TODO: Update caption}}\label{fig:f2}
-\end{figure}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
+        \hline
+        \textbf{ID} & \textbf{Ep.}
+        & \textbf{Arch} & \textbf{W. Init}
+        & \textbf{B. Norm} & \textbf{Drop}
+        & \textbf{Optim} & \textbf{lr}
+	& \textbf{$\bm \mu$ (Test Acc)}
+        & \textbf{$\bm \sigma$ (Test Acc)} \\ 
+        \hline
+        109 & 30 & [1024, 256]  & Xavier & True & [0.1, 0.1] & Adam & 0.01 & 0.8906 & 0.0214 \\
+        \hline
+        111 & 30 & [1024, 256]  & Xavier & True & [0.3, 0.5] & Adam & 0.001 & 0.8967 & 0.0222 \\
+        \hline
+        113 & 30 & [1024, 256]  & Xavier & True & [0.5, 0.2] & Adam & 0.0001 & 0.8933 & 0.0189 \\  
+        \hline
+    \end{tabular}
+    \caption{Here all things are constant, including the Adam optimizer, we only vary the learning rate.
+    See the left hand side of Figure \ref{fig:f1} for the visualization of this.
+    Compare this to Table \ref{tab:tab3} as well to see the same learning rates and config but with SGD.}
+    \label{tab:tab2}
+\end{table}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_1.png}
- 	\caption{\textbf{TODO: Update caption}}\label{fig:f3}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_2.png}
- 	\caption{\textbf{TODO: Update caption}}\label{fig:f4}
-\end{figure}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
+        \hline
+        \textbf{ID} & \textbf{Ep.}
+        & \textbf{Arch} & \textbf{W. Init}
+        & \textbf{B. Norm} & \textbf{Drop}
+        & \textbf{Optim} & \textbf{lr}
+	& \textbf{$\bm \mu$ (Test Acc)}
+        & \textbf{$\bm \sigma$ (Test Acc)} \\ 
+        \hline
+        108 & 30 & [1024, 256]  & Xavier & True & [0.3, 0.1] & SGD & 0.01 & 0.8958 & 0.0196 \\
+        \hline
+        110 & 30 & [1024, 256]  & Xavier & True & [0.2, 0.1] & SGD & 0.001 & 0.8956 & 0.0239 \\
+        \hline
+        112 & 30 & [1024, 256]  & Xavier & True & [0.5, 0.1] & SGD & 0.0001 & 0.8191 & 0.0293 \\  
+        \hline
+    \end{tabular}
+    \caption{
+    Again all things are constant, including the SGD optimizer, we only vary the learning rate.
+    See the right hand side of Figure \ref{fig:f1} for the visualization of this.
+    Compare this to Table \ref{tab:tab2} as well to see the same learning rates and config but with Adam.
+    }
+    \label{tab:tab3}
+\end{table}
 
 
 \section{Summary and Conclusions}\label{sec:conclusions} 
