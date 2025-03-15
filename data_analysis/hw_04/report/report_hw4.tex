@@ -211,7 +211,7 @@ In the future, we could perhaps control for this parameter more carefully instea
 Each experiment was carefully logged and recorded with an experiment number.
 Due to the large number of hyper parameters it is an overwhelming amount of information to specify in each plot for each loss or accuracy curve.
 Therefore, I have labeled plots with experiment numbers and mean accuracy across test set.
-For select models I will detail their exact configuration in the next section \ref{sec:results}, while others can be looked up in the repo directly \textbf{TODO: link to location of the json experiments file on github}.
+For select models I will detail their exact configuration in the next section \ref{sec:results}, while others can be looked up in the repo directly on \href{https://github.com/hunter-lybbert/uw-central/blob/main/data_analysis/hw_04/experiments/experiments.json}{GitHub}.
 
 \section{Computational Results}\label{sec:results}
 We will primarily let the loss, accuracy curves, and hyperparameter configuration tables speak for themselves.
@@ -394,7 +394,7 @@ Picking the right optimizer with an appropriate learning rate was crucial to imp
 Furthermore, weight initialization was perhaps the most volatile parameter, in that choosing random normal initialization dramatically hurt the model's performance, while xavier and kaiming were better if not at least the same as no weight initialization.
 We cannot overstate how much time we spent trying to work with ray tune to record experiment results and the challenges that brought on.
 In the future, we would like to improve the way we performed our gridsearch and recorded the information.
-The method we settled on limited how we could convey the results here in the report, though it recorded thorough information for later reference on GitHub \textbf{TODO: add link to github experiments again.}
+The method we settled on limited how we could convey the results here in the report, though it recorded thorough information for later reference on \href{https://github.com/hunter-lybbert/uw-central/blob/main/data_analysis/hw_04/experiments/experiments.json}{GitHub}
 This was an excellent introductory experience into building, training, and evaluating a neural network.
 
 \section*{Acknowledgements}
