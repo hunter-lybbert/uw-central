@@ -1,4 +1,4 @@
-\documentclass[11pt]{amsart}
+\documentclass[10pt]{amsart}
 
 % Standard letter size paper with 1inch margins
 \usepackage[letterpaper, margin=1in]{geometry}
@@ -99,11 +99,9 @@ We are referring to variables as represented here in this more graphical represe
 \end{align*}
 For completion and yet in favor of being concise, we include the following expression for gradient descent (GD) which is how we update the weights is
 \begin{equation}
-\begin{split}
-\bm w_{k + 1} &= \bm w_{k} - \alpha \nabla_{\bm w} J(\bm w_{k}; b) \\
-b_{k + 1} &= b_{k} - \alpha \frac \partial {\partial b}J(\bm w; b_k)
+\bm w_{k + 1} = \bm w_{k} - \alpha \nabla_{\bm w} J(\bm w_{k}; b) \quad
+b_{k + 1} = b_{k} - \alpha \frac \partial {\partial b}J(\bm w; b_k)
 \label{eq:gd}
-\end{split}
 \end{equation}
 where $\alpha$ is known as the learning rate controlling the size of the step in the direction of the gradient.
 There is, of course, more to say about exactly how back propogation works or how autograd works in pytorch but for the sake of this report we will leave it here and begin our discussion of the optimizers and hyperparameters.
@@ -160,11 +158,9 @@ Different layers can have different probabilities for dropout.
 This normalizes the output from each layer to be mean 0 and unit variance.
 It is calculated as follows:
 \begin{equation}
-\begin{split}
-\mu &= \frac 1 m \sum_{i = 1}^m z^{(i)} \\
-\sigma^2 &= \frac 1 m \sum_{i = 1}^m \left( z^{(i)} - \mu \right)^2 \\
-z_{norm}^{(i)} &= \frac {z^{(i)} - \mu}{\sqrt{\sigma^2 + \epsilon}}
-\end{split}
+\mu = \frac 1 m \sum_{i = 1}^m z^{(i)}, \quad
+\sigma^2 = \frac 1 m \sum_{i = 1}^m \left( z^{(i)} - \mu \right)^2, \quad
+z_{norm}^{(i)} = \frac {z^{(i)} - \mu}{\sqrt{\sigma^2 + \epsilon}}
 \label{eq:bn}
 \end{equation}
 Where $\epsilon$ is a parameter used to avoid dividing by 0 and this is calculated over each of the outputs for each batch.
@@ -177,10 +173,8 @@ An initial guess in optimization can make or break if you will ever find a ``mor
 In our class discussion we described that all zeros is a problematic initialization as well as random normal is a poor choice.
 A recommended choice from our lectures was Xavier (tanh) which takes the form
 \begin{equation}
-\begin{split}
-&{\rm Var} ( w^{[l]}): \frac 1 {n^{[l - 1]}} \\
-&w^{[l]} = N(0, 1) \cdot \sqrt{ \frac 1 {n^{[l - 1]}} }
-\end{split}
+{\rm Var} ( w^{[l]}): \frac 1 {n^{[l - 1]}}, \quad 
+w^{[l]} = N(0, 1) \cdot \sqrt{ \frac 1 {n^{[l - 1]}} }
 \label{eq:weight_init}
 \end{equation}
 We will discuss what our own experiments revealed about weight initialization in our computational results section \ref{sec:results}.
@@ -197,70 +191,127 @@ Therefore, I turned to my own ideas and created an additional python class which
 This allowed me to train over 300 models over night and analyze the results the next day and refer back to them in the future as well.
 It is all easy to use and very reproducible.
 
-
-\textbf{TODO: Update}
-\begin{enumerate}
-\item Describe how you chose to hyperparameter tune across all hps instead of doing it incrementally (for the sake of thoroughness).
-\item Describe how you logged the experiment results and the short comings of that.
-\end{enumerate}
+The assignment outline describes iteratively choosing the best setting for each different hyperparameter, but to be more thorough we setup a grid search investigating all combinations of our set of parameters.
+The parameters and their eligible values that we used in this grid search is the following:
+\begin{align*}
+epochs &: [20, 30, 40] \\
+hidden \; layer \; dimensions &: [[1024, 256], [1024, 512], [1024, 128]] \\
+weight \; initialization &: [\text{xavier\_uniform}, \text{random\_normal}, \text{kaiming\_uniform}] \\
+batch \; normalization &: [True, False] \\
+activation \; function &: [F.relu] \\
+dropout \; rates &: [0.5, 0.3, 0.2, 0.1] \\
+optimizers &: [SGD, Adam, RMSprop] \\
+learning \; rates &: [0.01, 0.001, 0.0001] \\
+momentums &: [0.9, 0.95, 0.99].
+\end{align*}
+Each experiment was carefully logged and recorded with an experiment number.
+Due to the large number of hyper parameters it is an overwhelming amount of information to specify in each plot for each loss or accuracy curve.
+Therefore, I have labeled plots with experiment numbers and mean accuracy across test set.
+For select models I will detail their exact configuration in the next section \ref{sec:results}, while others can be looked up in the repo directly \textbf{TODO: link to location of the json experiments file on github}.
 
 \section{Computational Results}\label{sec:results}
+We will primarily let the loss, accuracy curves, and hyperparameter configuration tables speak for themselves.
 
-\textbf{TODO: Update}
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_10.png}
+        \label{fig:image1}
+    \end{subfigure}
+    %\hspace{1mm}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_11.png}
+        \label{fig:image2}
+    \end{subfigure}
+    \caption{On the left we have the 3 experiments which are all the same except different weight initializations, compare to Table \ref{tab:tab0}.
+    On the right are these same parameter settings with one change which is that none of them are using batch normalization, compare to Table \ref{tab:tab1}}
+    \label{fig:f0}
+\end{figure}
 
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
+        \hline
+        \textbf{ID} & \textbf{Ep.}
+        & \textbf{Arch} & \textbf{W. Init}
+        & \textbf{B. Norm} & \textbf{Drop}
+        & \textbf{Optim} & \textbf{lr}
+	& \textbf{$\bm \mu$ (Test Acc)}
+        & \textbf{$\bm \sigma$ (Test Acc)} \\ 
+        \hline
+        111 & 30 & [1024, 256]  & Xavier 		& True & [0.3, 0.5] & Adam & 0.001 & 0.8967 & 0.0222 \\
+        \hline
+        123 & 30 & [1024, 256]  & Random N. 	& True & [0.3, 0.2] & Adam & 0.001 & 0.8807 & 0.0202 \\
+        \hline
+        135 & 30 & [1024, 256]  & Kaiming 		& True & [0.1, 0.1] & Adam & 0.001 & 0.8912 & 0.0175 \\  
+        \hline
+    \end{tabular}
+    \caption{This is a set of 3 experiments where all things are constant except the weight initializations differ.}
+    \label{tab:tab0}
+\end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
+        \hline
+        \textbf{ID} & \textbf{Ep.}
+        & \textbf{Arch} & \textbf{W. Init}
+        & \textbf{B. Norm} & \textbf{Drop}
+        & \textbf{Optim} & \textbf{lr}
+	& \textbf{$\bm \mu$ (Test Acc)}
+        & \textbf{$\bm \sigma$ (Test Acc)} \\ 
+        \hline
+        117 & 30 & [1024, 256]  & Xavier 		& False & [0.1, 0.1] & Adam & 0.001 & 0.8976 & 0.0175 \\
+        \hline
+        129 & 30 & [1024, 256]  & Random N. 	& False & [0.5, 0.3] & Adam & 0.001 & 0.7372 & 0.0335 \\
+        \hline
+        141 & 30 & [1024, 256]  & Kaiming 		& False & [0.2, 0.5] & Adam & 0.001 & 0.8978 & 0.0251 \\  
+        \hline
+    \end{tabular}
+    \caption{This is a set of 3 experiments where all things are constant except the weight initializations differ.
+    Additionally it can be compared to \ref{tab:tab0} since these are the same as those experiments just without Batch Normalization.}
+    \label{tab:tab1}
+\end{table}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis.png}
- 	\caption{\textbf{TODO: Update caption}}\label{fig:f0}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_0.png}
  	\caption{\textbf{TODO: Update caption}}\label{fig:f1}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_1.png}
+	\includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_0.png}
  	\caption{\textbf{TODO: Update caption}}\label{fig:f2}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_2.png}
+	\includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_1.png}
  	\caption{\textbf{TODO: Update caption}}\label{fig:f3}
 \end{figure}
 
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|l|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
-        \hline
-        \textbf{Classifier} & \textbf{Digits Used} & \textbf{Train Accuracy} & \textbf{Test Accuracy} & \textbf{CV Score} \\ 
-        \hline
-        Ridge Classifier & 1 and 8 & 0.965  & 0.980 & 0.963 $\pm$ 0.00281 \\
-        \hline
-        Ridge Classifier & 3 and 8 & 0.961  & 0.964 & 0.959 $\pm$ 0.00590 \\
-        \hline
-        Ridge Classifier & 2 and 7 & 0.981  & 0.973 & 0.981 $\pm$ 0.00226 \\  
-        \hline
-    \end{tabular}
-    \caption{\textbf{TODO: update me}}
-    \label{tab:tab0}
-\end{table}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.9\textwidth]{../visualizations/model_training_results_vis_2.png}
+ 	\caption{\textbf{TODO: Update caption}}\label{fig:f4}
+\end{figure}
 
 
 \section{Summary and Conclusions}\label{sec:conclusions} 
-\textbf{TODO: Update}
-\begin{enumerate}
-\item further work is going to include finding a better way to share and convey the configuration in the visuals
-\item screw ray tune
-\end{enumerate}
+In summary, our cully connected network was able to perform pretty well on the FashionMNIST classification task.
+Picking the right optimizer with an appropriate learning rate was crucial to improving test accuracy.
+Furthermore, weight initialization was perhaps the most volatile parameter, in that choosing random normal initialization dramatically hurt the model's performance, while xavier and kaiming were better if not at least the same as no weight initialization.
+We cannot overstate how much time we spent trying to work with ray tune to record experiment results and the challenges that brought on.
+In the future, we would like to improve the way we performed our gridsearch and recorded the information.
+The method we settled on limited how we could convey the results here in the report, though it recorded thorough information for later reference on GitHub \textbf{TODO: add link to github experiments again.}
+This was an excellent introductory experience into building, training, and evaluating a neural network.
 
 \section*{Acknowledgements}
-\textbf{TODO: Update}
-The author is thankful to Jaxon Tuggle, Hailey Sparks, Anja Vogt, Jade Glaister, and Nate Ward for offering regular feedback and counsel when interpreting results and clarifying the implications and merits of different classifiers.
+The author is thankful to Jaxon Tuggle, Hailey Sparks, Anja Vogt, Jade Glaister, and Nate Ward for offering regular feedback and counsel when interpreting results and clarifying the implications and merits throughout the hyperparameter tuning process.
 We would also like to thank Professor Eli Shlizerman for carefully instructing us in class.
 
 \bibliographystyle{abbrv}
