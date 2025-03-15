@@ -146,23 +146,60 @@ As far as the finer details of the method, for our purposes here it suffices to 
 \end{enumerate}
 
 \subsection{Dropout}
-\textbf{TODO: Update}
-Describe briefly why we do this to avoid overfitting
+When we train a neural network iteratively on the same training set for many epochs, there is a tendency to overfit.
+With regression, we mitigated overfitting with different forms of regularization.
+Adding dropout to the model is a neural network form of regularization.
+It comes in the form of having some neurons in a particular layer being zeroed out for a particular forward pass.
+This forces the model to try and make an accurate prediction without using all of the neurons at once.
+The way that this regularizes things a little is that essentially at any one time you are only updating a small portion of the weights essentially creating many sub neural networks within your one network.
+These work together to balance one another out and avoid being overfitted to the training data.
+Dropout has a parameter in the form of a probability that any one neuron is dropped out for a particular pass.
+Different layers can have different probabilities for dropout.
 
 \subsection{Batch Normalization}
-\textbf{TODO: Update}
-Describe how this helps things be a little more stable
+This normalizes the output from each layer to be mean 0 and unit variance.
+It is calculated as follows:
+\begin{equation}
+\begin{split}
+\mu &= \frac 1 m \sum_{i = 1}^m z^{(i)} \\
+\sigma^2 &= \frac 1 m \sum_{i = 1}^m \left( z^{(i)} - \mu \right)^2 \\
+z_{norm}^{(i)} &= \frac {z^{(i)} - \mu}{\sqrt{\sigma^2 + \epsilon}}
+\end{split}
+\label{eq:bn}
+\end{equation}
+Where $\epsilon$ is a parameter used to avoid dividing by 0 and this is calculated over each of the outputs for each batch.
+This helps things not explode and get out of hand but it is not a silver bullet.
+Really none of these features or parameters are an end all be all, but the combination of them and tweaking them slightly can help improve performance all together.
 
 \subsection{Weight Initialization}
-\textbf{TODO: Update}
-Describe how the starting point matters a lot on such a complicated loss surface
+Finally weight initialization is the initial guess to kick off the training process and iterative updates with a form of gradient descent.
+An initial guess in optimization can make or break if you will ever find a ``more" globally optimal solution or if you get caught in a local minimum of some kind.
+In our class discussion we described that all zeros is a problematic initialization as well as random normal is a poor choice.
+A recommended choice from our lectures was Xavier (tanh) which takes the form
+\begin{equation}
+\begin{split}
+&{\rm Var} ( w^{[l]}): \frac 1 {n^{[l - 1]}} \\
+&w^{[l]} = N(0, 1) \cdot \sqrt{ \frac 1 {n^{[l - 1]}} }
+\end{split}
+\label{eq:weight_init}
+\end{equation}
+We will discuss what our own experiments revealed about weight initialization in our computational results section \ref{sec:results}.
 
 \section{Algorithm Implementation and Development}\label{sec:algorithms}
+In order to train a neural network we began by creating a model class using PyTorch's \cite{Ansel_PyTorch_2_Faster_2024} many built in methods and class.
+One tricky thing we did was making all kinds of features of our model optional so it required some careful logic to instantiate the model correctly given the architecture and the set of parameters that were specified for the model that iteration.
+We wrote a for loop to create any number of hidden layers each of any size of the caller's choice.
+
+Now a crucial part of training the model was managing all of the hyperparameter tuning experiments and recording the statistics for the loss and accuracy across the train, validation, and test sets throughout.
+I tried for several days to implement an industry standard tool called Ray Tune \cite{liaw2018tune}.
+This proved very challenging to save the model artifact and record the information we needed for each experiment in some logs of sorts.
+Therefore, I turned to my own ideas and created an additional python class which managed the experiments for me and recorded results, architecture, and parameter settings to a \textit{json} file which I could inspect later to compare the results of the parameter grid search.
+This allowed me to train over 300 models over night and analyze the results the next day and refer back to them in the future as well.
+It is all easy to use and very reproducible.
+
+
 \textbf{TODO: Update}
 \begin{enumerate}
-\item discuss how you implemented the model architecture with variable layers and sizes
-\item discuss how you tried to implement Ray Tune
-\item Describe your ModelTrainingArtifact Class
 \item Describe how you chose to hyperparameter tune across all hps instead of doing it incrementally (for the sake of thoroughness).
 \item Describe how you logged the experiment results and the short comings of that.
 \end{enumerate}
