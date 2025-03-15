@@ -13,6 +13,8 @@ probability/final/
 # data_analysis data
 data_analysis/**/data/
 data_analysis/**/anim/
+data_analysis/**/models/
+data_analysis/**/ray_hyper_param_results/
 
 # latex
 *.aux
