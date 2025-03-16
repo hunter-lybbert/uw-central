@@ -2,9 +2,6 @@
 from torch import nn
 from torch.nn import functional as F
 
-FASHION_MNIST_INPUT_DIM = 784
-FASHION_MNIST_OUTPUT_DIM = 10
-
 
 #Define your (As Cool As It Gets) Fully Connected Neural Network 
 class ACAIGFCN(nn.Module):
