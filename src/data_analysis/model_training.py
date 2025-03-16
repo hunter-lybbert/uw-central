@@ -3,6 +3,8 @@ import os
 import json
 from pathlib import Path
 from typing import Any
+from datetime import datetime
+
 import numpy as np
 from sklearn.model_selection import train_test_split
 
@@ -211,6 +213,7 @@ class ModelTrainingArtifactBase():
 
         # Iterate over epochs, batches with progress bar and train+ validate the ACAIGFCN
         # Track the loss and validation accuracy
+        train_start_time = datetime.now()
         for epoch in range(self.num_epochs):
 
             # ACAIGFCN Training 
@@ -274,6 +277,8 @@ class ModelTrainingArtifactBase():
 
             self.validation_accuracy.append((len(self.train_accuracy), np.mean(current_val_acc)))
             self.validation_loss.append((len(self.train_loss), np.mean(current_val_loss)))
+
+        self.training_time = datetime.now() - train_start_time
         loop.close()
 
     def test(self):
@@ -311,7 +316,7 @@ class ModelTrainingArtifactBase():
     def save_experiment_model(self) -> None:
         pass
 
-    def runner(self, record_experiment: bool = True):
+    def runner(self, record_experiment: bool = True, record_experiment_kwargs: dict[str, Any] = None) -> None:
         """
         Run the entire training, testing, recording and saving process for the ACAIGFCN model.
 
@@ -320,7 +325,10 @@ class ModelTrainingArtifactBase():
         self.train()
         self.test()
         if record_experiment:
-            self.record_experiment()
+            if record_experiment_kwargs:
+                self.record_experiment(**record_experiment_kwargs)
+            else:
+                self.record_experiment()
             self.save_experiment_model()
 
 
@@ -401,7 +409,7 @@ class FCNArtifact(ModelTrainingArtifactBase):
             if layer.bias is not None:
                 nn.init.constant_(layer.bias, 0)
 
-    def record_experiment(self, filename: str = 'experiments.json'):
+    def record_experiment(self, to_compare_with_cnn: bool = False, filename: str = 'experiments.json'):
         """
         Record the critical information about the model in the experiments.json file
 
@@ -417,6 +425,7 @@ class FCNArtifact(ModelTrainingArtifactBase):
 
         
         :param path: The path to the experiments.json file
+        :param to_compare_with_cnn: Whether to compare the model with the CNN model
         :param filename: The name of the experiments.json file
 
         :return: None
@@ -428,20 +437,35 @@ class FCNArtifact(ModelTrainingArtifactBase):
 
         extra_opt_params = self.optimizer_hyperparams.copy()
         extra_opt_params.pop('lr', None)
-        
-        experiment_info = {
-            "num_epochs": self.num_epochs,
-            "mean_test_accuracy": self.mean_test_accuracy.astype(float),
-            "std_test_accuracy": self.std_test_accuracy.astype(float),
-            "model_architecture": [layer.out_features for layer in self.model.layers],
-            "dropout_rate": self.model.dropout_rates,
-            "activation_function": self.model.activation_function.__name__,
-            "optimizer": self.optimizer.__class__.__name__,
-            "learning_rate": self.optimizer.param_groups[0]['lr'],
-            "optimizer_hyperparams": extra_opt_params,
-            "batch_normalization": self.model.do_batch_norm,
-            "weight_init": self.weight_init_method,
-        }
+
+        if to_compare_with_cnn:
+            experiment_info = {
+                "model_type": "CNN",
+                "num_epochs": self.num_epochs,
+                # TODO Verify this is how we want to calculate weights
+                "total_num_weights": np.sum(p.numel() for p in self.model.parameters()),
+                "training_time": str(self.training_time).split(".")[0],
+                "optimizer": self.optimizer.__class__.__name__,
+                "learning_rate": self.optimizer.param_groups[0]['lr'],
+                "optimizer_hyperparams": extra_opt_params,
+                "weight_init": self.weight_init_method,
+                "mean_test_accuracy": self.mean_test_accuracy.astype(float),
+                "std_test_accuracy": self.std_test_accuracy.astype(float),
+            }
+        else:
+            experiment_info = {
+                "num_epochs": self.num_epochs,
+                "mean_test_accuracy": self.mean_test_accuracy.astype(float),
+                "std_test_accuracy": self.std_test_accuracy.astype(float),
+                "model_architecture": [layer.out_features for layer in self.model.layers],
+                "dropout_rate": self.model.dropout_rates,
+                "activation_function": self.model.activation_function.__name__,
+                "optimizer": self.optimizer.__class__.__name__,
+                "learning_rate": self.optimizer.param_groups[0]['lr'],
+                "optimizer_hyperparams": extra_opt_params,
+                "batch_normalization": self.model.do_batch_norm,
+                "weight_init": self.weight_init_method,
+            }
         try:
             json.dumps(experiment_info)
         except (TypeError, OverflowError) as e:
@@ -499,7 +523,6 @@ class FCNArtifact(ModelTrainingArtifactBase):
         torch.save(experiment_data, os.path.join(model_filepath, experiment_name))
 
 
-# TODO: Update this so it inherits from ModelTrainingArtifactBase
 class CNNArtifact(ModelTrainingArtifactBase):
     def __init__(
         self,
@@ -589,15 +612,19 @@ class CNNArtifact(ModelTrainingArtifactBase):
 
         extra_opt_params = self.optimizer_hyperparams.copy()
         extra_opt_params.pop('lr', None)
-        
+
         experiment_info = {
+            "model_type": "CNN",
             "num_epochs": self.num_epochs,
-            "mean_test_accuracy": self.mean_test_accuracy.astype(float),
-            "std_test_accuracy": self.std_test_accuracy.astype(float),
+            # TODO Verify this is how we want to calculate weights
+            "total_num_weights": np.sum(p.numel() for p in self.model.parameters()),
+            "training_time": self.training_time,
             "optimizer": self.optimizer.__class__.__name__,
             "learning_rate": self.optimizer.param_groups[0]['lr'],
             "optimizer_hyperparams": extra_opt_params,
             "weight_init": self.weight_init_method,
+            "mean_test_accuracy": self.mean_test_accuracy.astype(float),
+            "std_test_accuracy": self.std_test_accuracy.astype(float),
         }
         try:
             json.dumps(experiment_info)
