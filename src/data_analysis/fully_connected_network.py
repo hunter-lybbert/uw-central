@@ -55,6 +55,8 @@ class ACAIGFCN(nn.Module):
  
     def forward(self, x):
         #Define how your model propagates the input through the network
+        x = x.reshape(-1, 28*28)
+
         num_droput_layers = len(self.dropout_rates)
         for j, layer in enumerate(self.layers[:-1]):
             # Apply layer

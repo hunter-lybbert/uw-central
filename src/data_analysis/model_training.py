@@ -221,9 +221,6 @@ class ModelTrainingArtifactBase():
                 # Set model into training mode
                 self.model = self.model.to(self.device)
                 self.model.train()
-                
-                # Reshape images into a vector
-                train_features = train_features.reshape(-1, 28*28)
 
                 train_features = train_features.to(self.device)
                 train_labels = train_labels.to(self.device)
@@ -259,9 +256,6 @@ class ModelTrainingArtifactBase():
                 # Telling PyTorch we aren't passing inputs to network for training purpose
                 with torch.no_grad(): 
                     self.model.eval()
-                    
-                    # Reshape validation images into a vector
-                    val_features = val_features.reshape(-1, 28*28)
 
                     val_features = val_features.to(self.device)
                     val_labels = val_labels.to(self.device)
@@ -299,8 +293,6 @@ class ModelTrainingArtifactBase():
                 test_labels = test_labels.to(self.device)
 
                 self.model.eval()
-                # Reshape test images into a vector
-                test_features = test_features.reshape(-1, 28*28)
 
                 # Compute validation outputs (targets) 
                 y_hat = self.model(test_features)
@@ -440,7 +432,7 @@ class FCNArtifact(ModelTrainingArtifactBase):
 
         if to_compare_with_cnn:
             experiment_info = {
-                "model_type": "CNN",
+                "model_type": "FCN",
                 "num_epochs": self.num_epochs,
                 # TODO Verify this is how we want to calculate weights
                 "total_num_weights": np.sum(p.numel() for p in self.model.parameters()),
@@ -618,7 +610,7 @@ class CNNArtifact(ModelTrainingArtifactBase):
             "num_epochs": self.num_epochs,
             # TODO Verify this is how we want to calculate weights
             "total_num_weights": np.sum(p.numel() for p in self.model.parameters()),
-            "training_time": self.training_time,
+            "training_time": str(self.training_time).split(".")[0],
             "optimizer": self.optimizer.__class__.__name__,
             "learning_rate": self.optimizer.param_groups[0]['lr'],
             "optimizer_hyperparams": extra_opt_params,

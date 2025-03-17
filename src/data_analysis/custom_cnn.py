@@ -10,8 +10,55 @@ class MyFirstCNN(nn.Module):
         super(MyFirstCNN, self).__init__()
 
         #Define the network layer(s) and activation function(s)
-        pass
+        self.conv1 = nn.Conv2d(
+            in_channels=1,
+            out_channels=16,
+            kernel_size=3,
+            stride=1,
+            padding=1,
+        )
+        self.batch_norm1 = nn.BatchNorm2d(16)
+        self.pool = nn.MaxPool2d(
+            kernel_size=2,
+            stride=2,
+        )
+        self.conv2 = nn.Conv2d(
+            in_channels=16,
+            out_channels=32,
+            kernel_size=3,
+            stride=1,
+            padding=1,
+        )
+        self.batch_norm2 = nn.BatchNorm2d(32)
+        self.conv3 = nn.Conv2d(
+            in_channels=32,
+            out_channels=64,
+            kernel_size=3,
+            stride=1,
+            padding=1,
+        )
+        self.batch_norm3 = nn.BatchNorm2d(64)
+        self.dropoout = nn.Dropout2d(0.5)
+        self.final_layer = nn.Linear(64*7*7, 10)
+        self.net = nn.Sequential(
+            self.conv1,
+            self.batch_norm1,
+            nn.ReLU(),
+            self.pool,
+            self.conv2,
+            self.batch_norm2,
+            nn.ReLU(),
+            self.pool,
+            self.conv3,
+            self.batch_norm3,
+            nn.ReLU(),
+            # self.pool,
+            self.dropoout,
+            nn.Flatten(),
+            self.final_layer,
+        )
+        
  
     def forward(self, x):
         #Define how your model propagates the input through the network
-        pass
+        return self.net(x)
