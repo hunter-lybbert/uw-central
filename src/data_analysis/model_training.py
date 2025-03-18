@@ -615,6 +615,7 @@ class CNNArtifact(ModelTrainingArtifactBase):
             "learning_rate": self.optimizer.param_groups[0]['lr'],
             "optimizer_hyperparams": extra_opt_params,
             "weight_init": self.weight_init_method,
+            "model_architecture": "MySecondCNN",
             "mean_test_accuracy": self.mean_test_accuracy.astype(float),
             "std_test_accuracy": self.std_test_accuracy.astype(float),
         }
