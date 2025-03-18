@@ -657,5 +657,39 @@
         "weight_init": "xavier_uniform",
         "mean_test_accuracy": 0.8290039300918579,
         "std_test_accuracy": 0.019869867712259293
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 40,
+        "total_num_weights": 54890,
+        "training_time": "0:03:40",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "kaiming_uniform",
+        "mean_test_accuracy": 0.917285144329071,
+        "std_test_accuracy": 0.01686684787273407
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 40,
+        "total_num_weights": 54890,
+        "training_time": "0:03:39",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "kaiming_uniform",
+        "mean_test_accuracy": 0.9169921875,
+        "std_test_accuracy": 0.016147276386618614
     }
 ]

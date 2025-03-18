@@ -56,8 +56,66 @@ class MyFirstCNN(nn.Module):
             self.dropoout,
             nn.Flatten(),
             self.final_layer,
+        )  
+ 
+    def forward(self, x):
+        #Define how your model propagates the input through the network
+        return self.net(x)
+    
+
+class MySecondCNN(nn.Module):
+    #Initialize model layers, add additional arguments to adjust
+    def __init__(self): 
+        super(MySecondCNN, self).__init__()
+
+        #Define the network layer(s) and activation function(s)
+        conv1 = nn.Conv2d(
+            in_channels=1,
+            out_channels=16,
+            kernel_size=3,
+            stride=1,
+            padding=1,
         )
-        
+        batch_norm1 = nn.BatchNorm2d(16)
+        pool = nn.MaxPool2d(
+            kernel_size=2,
+            stride=2,
+        )
+        conv2 = nn.Conv2d(
+            in_channels=16,
+            out_channels=32,
+            kernel_size=3,
+            stride=1,
+            padding=1,
+        )
+        batch_norm2 = nn.BatchNorm2d(32)
+        conv3 = nn.Conv2d(
+            in_channels=32,
+            out_channels=64,
+            kernel_size=3,
+            stride=1,
+            padding=1,
+        )
+        batch_norm3 = nn.BatchNorm2d(64)
+        dropoout = nn.Dropout2d(0.5)
+        final_layer = nn.Linear(64*7*7, 10)
+        self.net = nn.Sequential(
+            conv1,
+            batch_norm1,
+            nn.ReLU(),
+            pool,
+            conv2,
+            batch_norm2,
+            nn.ReLU(),
+            pool,
+            conv3,
+            batch_norm3,
+            nn.ReLU(),
+            # self.pool,
+            dropoout,
+            nn.Flatten(),
+            final_layer,
+        )
  
     def forward(self, x):
         #Define how your model propagates the input through the network

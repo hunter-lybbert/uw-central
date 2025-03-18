@@ -23,7 +23,7 @@ from src.data_analysis.mnist_constants import (
     MNIST_DIGITS_STD,
 )
 from src.data_analysis.fully_connected_network import ACAIGFCN
-from src.data_analysis.custom_cnn import MyFirstCNN
+from src.data_analysis.custom_cnn import MySecondCNN
 
 DATA_DIR = '../data/'
 
@@ -543,7 +543,7 @@ class CNNArtifact(ModelTrainingArtifactBase):
         :return: ModelTrainingArtifact
         """
         # Fill out this section...
-        model = MyFirstCNN()
+        model = MySecondCNN()
         self.weight_init_method = weight_init_method
 
         super().__init__(
