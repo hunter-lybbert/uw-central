@@ -71,34 +71,34 @@ class MySecondCNN(nn.Module):
         #Define the network layer(s) and activation function(s)
         conv1 = nn.Conv2d(
             in_channels=1,
-            out_channels=16,
-            kernel_size=3,
-            stride=1,
-            padding=1,
-        )
-        batch_norm1 = nn.BatchNorm2d(16)
-        pool = nn.MaxPool2d(
-            kernel_size=2,
-            stride=2,
-        )
-        conv2 = nn.Conv2d(
-            in_channels=16,
             out_channels=32,
             kernel_size=3,
             stride=1,
             padding=1,
         )
-        batch_norm2 = nn.BatchNorm2d(32)
-        conv3 = nn.Conv2d(
+        batch_norm1 = nn.BatchNorm2d(32)
+        pool = nn.MaxPool2d(
+            kernel_size=2,
+            stride=2,
+        )
+        conv2 = nn.Conv2d(
             in_channels=32,
             out_channels=64,
             kernel_size=3,
             stride=1,
             padding=1,
         )
-        batch_norm3 = nn.BatchNorm2d(64)
+        batch_norm2 = nn.BatchNorm2d(64)
+        conv3 = nn.Conv2d(
+            in_channels=64,
+            out_channels=84,
+            kernel_size=3,
+            stride=1,
+            padding=1,
+        )
+        batch_norm3 = nn.BatchNorm2d(84)
         dropoout = nn.Dropout2d(0.5)
-        final_layer = nn.Linear(64*7*7, 10)
+        final_layer = nn.Linear(84*7*7, 10)
         self.net = nn.Sequential(
             conv1,
             batch_norm1,

@@ -691,5 +691,185 @@
         "weight_init": "kaiming_uniform",
         "mean_test_accuracy": 0.9169921875,
         "std_test_accuracy": 0.016147276386618614
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 50,
+        "total_num_weights": 108814,
+        "training_time": "0:06:39",
+        "optimizer": "Adam",
+        "learning_rate": 0.0001,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "mean_test_accuracy": 0.9175781011581421,
+        "std_test_accuracy": 0.022179797291755676
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 50,
+        "total_num_weights": 108814,
+        "training_time": "0:06:39",
+        "optimizer": "Adam",
+        "learning_rate": 0.0003,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "mean_test_accuracy": 0.918261706829071,
+        "std_test_accuracy": 0.01716945692896843
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 50,
+        "total_num_weights": 108814,
+        "training_time": "0:06:56",
+        "optimizer": "Adam",
+        "learning_rate": 0.0005,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "mean_test_accuracy": 0.9217773675918579,
+        "std_test_accuracy": 0.018017247319221497
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 50,
+        "total_num_weights": 108814,
+        "training_time": "0:06:28",
+        "optimizer": "Adam",
+        "learning_rate": 0.0009,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "mean_test_accuracy": 0.9228515625,
+        "std_test_accuracy": 0.02101312018930912
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 50,
+        "total_num_weights": 108814,
+        "training_time": "0:06:15",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "mean_test_accuracy": 0.923632800579071,
+        "std_test_accuracy": 0.016663488000631332
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 75,
+        "total_num_weights": 108814,
+        "training_time": "0:09:13",
+        "optimizer": "Adam",
+        "learning_rate": 0.0001,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "mean_test_accuracy": 0.9200195074081421,
+        "std_test_accuracy": 0.016710065305233
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 75,
+        "total_num_weights": 108814,
+        "training_time": "0:09:10",
+        "optimizer": "Adam",
+        "learning_rate": 0.0003,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "mean_test_accuracy": 0.919628918170929,
+        "std_test_accuracy": 0.01659323088824749
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 75,
+        "total_num_weights": 108814,
+        "training_time": "0:09:06",
+        "optimizer": "Adam",
+        "learning_rate": 0.0005,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "mean_test_accuracy": 0.921875,
+        "std_test_accuracy": 0.01947256736457348
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 75,
+        "total_num_weights": 108814,
+        "training_time": "0:09:08",
+        "optimizer": "Adam",
+        "learning_rate": 0.0009,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "mean_test_accuracy": 0.920214831829071,
+        "std_test_accuracy": 0.019213974475860596
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 75,
+        "total_num_weights": 108814,
+        "training_time": "0:09:07",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "mean_test_accuracy": 0.923828125,
+        "std_test_accuracy": 0.01964808814227581
     }
 ]
