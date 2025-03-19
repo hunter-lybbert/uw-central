@@ -522,8 +522,8 @@ class CNNArtifact(ModelTrainingArtifactBase):
         objective: nn.Module,
         num_epochs: int,
         weight_init_method: str,
-        batch_norm: bool,
         optimizer_hyperparams: dict[str, Any],
+        conv_out_channels_list: list[int] = None,
         accuracy_metric: callable = class_prediction_acc,
         dataset_name: str = "fashion",
         experiments_directory: str = "experiments",
@@ -542,8 +542,9 @@ class CNNArtifact(ModelTrainingArtifactBase):
 
         :return: ModelTrainingArtifact
         """
-        # Fill out this section...
-        model = MySecondCNN()
+        self.conv_out_channels_list = conv_out_channels_list
+        model = MySecondCNN(out_channels_list=self.conv_out_channels_list)
+
         self.weight_init_method = weight_init_method
 
         super().__init__(
@@ -616,6 +617,7 @@ class CNNArtifact(ModelTrainingArtifactBase):
             "optimizer_hyperparams": extra_opt_params,
             "weight_init": self.weight_init_method,
             "model_architecture": "MySecondCNN",
+            "conv_out_channels_list": self.conv_out_channels_list,
             "mean_test_accuracy": self.mean_test_accuracy.astype(float),
             "std_test_accuracy": self.std_test_accuracy.astype(float),
         }

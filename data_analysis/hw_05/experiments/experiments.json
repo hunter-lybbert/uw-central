@@ -871,5 +871,97 @@
         "model_architecture": "MySecondCNN",
         "mean_test_accuracy": 0.923828125,
         "std_test_accuracy": 0.01964808814227581
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 3,
+        "total_num_weights": 9980,
+        "training_time": "0:00:15",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "kaiming_uniform",
+        "model_architecture": "MySecondCNN",
+        "conv_out_channels_list": [
+            6,
+            10,
+            16
+        ],
+        "mean_test_accuracy": 0.877148449420929,
+        "std_test_accuracy": 0.02048361673951149
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 50,
+        "total_num_weights": 9980,
+        "training_time": "0:04:02",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "conv_out_channels_list": [
+            6,
+            10,
+            16
+        ],
+        "mean_test_accuracy": 0.900195300579071,
+        "std_test_accuracy": 0.022876588627696037
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 50,
+        "total_num_weights": 20071,
+        "training_time": "0:04:15",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "conv_out_channels_list": [
+            8,
+            15,
+            30
+        ],
+        "mean_test_accuracy": 0.9090820550918579,
+        "std_test_accuracy": 0.015103289857506752
+    },
+    {
+        "model_type": "CNN",
+        "num_epochs": 50,
+        "total_num_weights": 50392,
+        "training_time": "0:05:19",
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "optimizer_hyperparams": {
+            "betas": [
+                0.9,
+                0.999
+            ]
+        },
+        "weight_init": "xavier_uniform",
+        "model_architecture": "MySecondCNN",
+        "conv_out_channels_list": [
+            16,
+            30,
+            60
+        ],
+        "mean_test_accuracy": 0.915234386920929,
+        "std_test_accuracy": 0.018819047138094902
     }
 ]
