@@ -234,18 +234,39 @@ Varying the number of neighbors degraded the model slightly.
         & \textbf{B. Norm} & \textbf{Drop}
         & \textbf{Optim} & \textbf{lr}
 	& \textbf{$\bm \mu$ (Test Acc)}
-        & \textbf{$\bm \sigma$ (Test Acc)} 
-        & \textbf{Clasif Prob} \\ 
+        & \textbf{$\bm \sigma$ (Test Acc)} \\ 
         \hline
-        50 & [1024, 256]  & Kaiming & True & [0.5, 0.5] & Adam & 0.001 & 0.9030 \textcolor{red}{\ding{72}} & 0.0021 & Fashion \\
-        \hline
-        50 & [1024, 256]  & Kaiming & True & [0.5, 0.5] & Adam & 0.001 & 0.9831 \textcolor{red}{\ding{72}} & 0.0010 & Digits \\
+        50 & diff  & Kaiming & True & [0.5, 0.5] & Adam & 0.001 & 0.9030 \textcolor{red}{\ding{72}} & 0.0021 \\
         \hline
     \end{tabular}
-    \caption{This is the best configuration that we found. The mean and standard deviation being reported here are with respect to the 5 repeated trials that this configuration was trained for.
-    We have included this model configurations performance on the MNIST digits dataset as well.}
+    \caption{This was the configuration that was best from the last report in hw 04.
+    Therefore it was the base setup for the FCN's trained in this hw 05, however, with the necessary adjustments due to weight count constraints.}
     \label{tab:best_model}
 \end{table}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
+        \hline
+        \textbf{Model} & \textbf{Weights}
+        & \textbf{Time} & \textbf{Ep.}
+        & \textbf{Optim}
+        & \textbf{lr} & \textbf{W. Init}  & \textbf{$\bm \mu$ (Test Acc)}
+        & \textbf{$\bm \sigma$ (Test Acc)} \\ 
+        \hline
+        FCN & 202,974 & 0:02:01 & 40  & Adam & 0.001 & Kaiming & 0.8955 & 0.0200 \\
+        \hline
+        FCN & 52,842 & 0:02:02 & 40  & Adam & 0.001 & Kaiming & 0.8741 & 0.0240 \\
+        \hline
+        FCN & 109,770 & 0:02:04	 & 40  & Adam & 0.001 & Kaiming & 0.8849 & 0.0162 \\
+        \hline
+    \end{tabular}
+    \caption{Using the configuration from Table \ref{tab:best_model} we trained 3 FCN's each with 200k, 100k, and 50k weights in each model.}
+    \label{tab:best_model}
+\end{table}
+
+\textbf{TODO: Talk about hyperparameter tuning for the CNN}
+\textbf{TODO: Talk about the need for regularization and mitigating overfitting!}
 
 %\begin{figure}[h]
 %    \centering
