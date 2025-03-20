@@ -38,9 +38,10 @@
 \end{abstract}
 
 \section{Introduction and Overview}\label{sec:Introduction}
-In this report we continue our study of deep learning, the field of neural network based model architecture.
+Continuing our study of deep learning, the field of neural network based model architecture, we turn our attention to Convolutional Neural Networks (CNNs).
+But first, let's review our basic setup.
 
-Again, our setup is a common supervised learning problem, given a collection of $N$ data points with labels in classification or target values in a regression setting $$\big\{(\bm{x_0}, y_0), (\bm{x_1}, y_1), ..., (\bm{x_{N-1}}, y_{N-1})\big\}.$$
+Again, we are concerned with a supervised learning problem, given a collection of $N$ data points with labels in classification or target values in a regression setting $$\big\{(\bm{x_0}, y_0), (\bm{x_1}, y_1), ..., (\bm{x_{N-1}}, y_{N-1})\big\}.$$
 The data is denoted as a matrix $X$ and a vector of target values or class labels $\bm y$.
 We then are looking for a function $f$ which takes in the training data and most accurately predicts the target values or class labels, written in optimization form we are looking for the following
 \begin{equation}
@@ -53,7 +54,7 @@ The specific class of functions $f$ to be considered to solve the problem is a n
 We will treat the theoretical background of these methods in the next section \ref{sec:theory}.
 
 Before proceeding, we would like to acknowledge the critical use of the following packages in our analysis.
-Namely, Matplotlib was used to create all plots and animations \cite{Hunter:2007}.
+Namely, NumPy for many computational tools \cite{harris2020array} and Matplotlib was used to create all plots and animations \cite{Hunter:2007}.
 Addiitonally, PyTorch \cite{Ansel_PyTorch_2_Faster_2024} was crucial for easily implementing the desired architecture while Ray Tune \cite{liaw2018tune} was used to help with hyper parameter tuning.
 
 \section{Theoretical Background}\label{sec:theory}
@@ -61,16 +62,72 @@ For a general theoretical background on neural networks and basic hyperparameter
 We presented our theoretical background clearly there.
 Instead of repeating the information about gradient descent, back propogation, optimizers, learning rates, and dropout etc. in this report again, we will focus on the unique architectural considerations of a convolutional neural network.
 
-\textbf{TODO: What is a convolution?}
+Traditionally in mathematics a convolution is denoted by the two functions $f * g$ which usually means:
+$$(f*g)(t) = \int_{-\infty}^\infty f(\tau) g(t - \tau) d \tau.$$
+Another form of convolution that many are familiar with (perhaps just not by that name) is multiplying out two polynomials (where each term in one polynomial is multiplied by each term in the other polynomial)
+\begin{align*}
+& (a_0 + a_1x + a_2x^2) (b_0 + b_1x b_2x^2 + b_3x^3 + ...) \\
+&= a_0b_0 + (a_1b_0 + a_0b_1)x + (a_2b_0 + a_1b_1 + a_0b_2)x^2 + (a_3b_0 + a_2b_1 + a_1b_2)x^3 + ...
+\end{align*}
+For more details about the connection between the polynomial multiplication type of convolution and our convolution of interest in CNNs see this lovely video \cite{youtube_video}
+The convolution we care about in particular is a method of sliding a filter of a specified dimension across our matrix or tensor of data and multiplying the values of the filter with the values of our data and producing new outputs based on this calculation.
 
-\textbf{TODO: Present a visual representation of a convolutional layer}
+In particular, our fully connected neural network created a weighted sum by multiplying each node from the previous layer by a weight and summing it up to pass that value along to the next layer.
+This convolution allows us to pass in images or other data which has some spatial orientation and applying these weights to just a small subset of the previous layers data at a time to generate the next layer of data.
+CNNs perform exceptionally well on image data because they preserve and can account for this spatial relationship between data in different pixels.
 
-\textbf{TODO: Present an example architecture, perhaps the one you used for your best CNN}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.6\textwidth]{../visualizations/convolution_visualization.png}
+\caption{This is a visualization of how a filter is applied to a previous layer to produce the next layer in a CNN, it is borrowed from this resource \cite{vitalfluxRealWorldApplications}.}
+    \label{fig:conv_viz}
+\end{figure}
 
-\subsection{Architecture}
-\textbf{TODO: maybe reuse this section}
+In Figure \ref{fig:conv_viz}, we demonstrate how the 3x3 filter is applied to the upper left hand corner of the input layer.
+This convolutional filter is the basic component of a CNN.
+It introduces a new set of architectural parameters and considerations including
+\begin{itemize}
+\item The number of convolutional layers (depth of the network)
+\item The dimension of each convolutional filter (usually odd 3, 5 or 7)
+\item The number of output channels (aka the number of filters applied to each input channel) at each layer
+\item Stride length
+\item Padding
+\end{itemize}
+We haven't discussed stride or padding yet, but we will describe their role presently.
 
-We will discuss what our own experiments revealed about weight initialization in our computational results section \ref{sec:results}.
+As demonstrated in Figure \ref{fig:conv_viz}, applying the filter to the top left part of our input produces the top left pixel or value of the output channel.
+Now the next set of values we apply the filter to depends on the parameter stride.
+Stride is the length of the steps taken in both the sidewise and vertical directions.
+A stride of one would move the filter over just one column to produce the next output value, while a stride of two would move the filter over two columns to produce the next output value.
+Next, padding is a method to help avoid having the image or data continue to shrink after each convolutional filter is applied.
+Once again, as seen in Figure \ref{fig:conv_viz}, our setup as is reduced the data from 5x5 to 3x3.
+Using a padding value of 1 would add a buffer of 0's around the edge of our data.
+The input data would artificially be 7x7 and applying our 3x3 filter with a stride of one would give us an output image or data of shape 5x5 effectively preserving the original image or data dimension through the convolution.
+The dimension of the output layer after applying a given filter with it's set of parameters is given by:
+$$
+n^{[\ell]} = (n^{[\ell - 1]} +2p - f)/s +1
+$$
+where the dimension of the data in layer $\ell$ is ($n^{[\ell]}$, $n^{[\ell]}$), the padding value used is $p$, the dimension of the filter is $f$, and the value of stride is $s$.
+Note in our examples, we have mentioned before we have an input layer of 5x5, without padding ($p = 0$) applying a 3x3 filter to the layer with a stride of 1 would give us
+\begin{align*}
+n^{[\ell]} &= (n^{[\ell - 1]} +2p - f)/s +1 \\
+n^{[\ell]} &= (5 +2(0) - 3)/1 +1 \\
+n^{[\ell]} &= (5 - 3)/1 +1 = 3.
+\end{align*}
+However, with padding of one we would end up with $n^{[\ell]} = (5 +2(1) - 3)/1 +1 = (7 - 3)/1 + 1 = 5$, effectively preserving the dimension of the input through to the output.
+The values of the entries of the various convolutional filters are the weights which are getting updated throughout the training process using Gradient Descent and back propagation.
+
+Additionally, there are some static layers which are not updated with back propagation such as pooling layers.
+A pooling layer, similar to a convolutional layer is a filter of some sort being passed over the data reducing its dimension or compressing the data in some manner.
+A couple of common ones to mention are average pooling and max pooling.
+These are commonly 2x2 filters which produce a single value output based on the type of pooling.
+Max pooling would pass along the max value from the 2x2 pixels it is passing over, while average pooling would pass along the average of the 4 values being considered at that moment.
+
+
+Finally, as mentioned in the list of considerations for CNNs, we also can decide how to increase the number of channels in each layers.
+A regular RGB image has three input channels, so a 3 dimensional filter will be applied to the collection of data with the extra dimension corresponding to the input channel dimension.
+If the desire is to have the output channels to be the same size then there will only be one of these filters.
+However, commonly we want to increase the number of channels to capture more complex information as the data moves through the CNN.
 
 \section{Algorithm Implementation and Development}\label{sec:algorithms}
 In order to train a CNN we began by creating a model class using PyTorch's \cite{Ansel_PyTorch_2_Faster_2024} many built in methods and classes.
@@ -82,25 +139,19 @@ This generalized class still managed the experiments for me and recorded results
 This allowed me to train many models over night and analyze the results the next day and refer back to them in the future as well.
 It is all easy to use and very reproducible.
 
-\textbf{TODO: Describe the architecture you ended up settling on (generally)}
+After some manual experimentation with different model architectures I found the following
 
 Due to the large number of hyper parameters it is an overwhelming amount of information to specify in each plot for each loss or accuracy curve.
 Therefore, I have labeled plots with experiment numbers and mean accuracy across test set.
 For select models I will detail their exact configuration in the next section \ref{sec:results}, while others can be looked up in the repo directly on \href{https://github.com/hunter-lybbert/uw-central/blob/main/data_analysis/hw_05/experiments/experiments.json}{GitHub}.
 
 \section{Computational Results}\label{sec:results}
-We will primarily let the loss, accuracy curves, and hyperparameter configuration tables speak for themselves.
-We have included a small sample of the results of our parameter tuning.
-Please, see Figures \ref{fig:f0} and \ref{fig:f1} for visualizations of how batch normalization, weight initialization, optimizer choice, and learning rates effected the loss and accuracy curves throughout the training process.
-After training our 300 plus models and inspecting which configurations produced a model with above $90\%$ test accuracy, we picked the configuration in \ref{tab:best_model}. We trained a model with this configuration for 5 repeated trials and report the test accuracy mean and standard deviation across trials.
-We also repeated this process for the MNIST Digit classification problem from homework 3.
-Our best model configuration aligns well with our theoretical background expectations for the optimizer, learning rate, dropout rates, batch normalization, and weight initialization.
-A dropout rate around 0.5 was best.
-Adam with a low learning rate barely edged out SGD with a larger of a learning rate.
-We don't report on RMSprop here (due to space), however, it performed similar to Adam.
-
-We also applied sklearn's $K$-nearest neighbors to this dataset and had a test accuracy of 0.8554 (with number of neighbors set to 5).
-Varying the number of neighbors degraded the model slightly.
+Our carefully crafted tables and figures can largely speak for themselves, but I will highlight several key results and findings from the actual training process.
+The first big result from training the CNN was that the model quickly overfit with just convolutional and pooling layers.
+This was clear because in the training accuracy achieved 100\% for the last several epochs.
+Additionally, for the models that hit this, their test accuracy was lower like 88\% or so which we knew the CNN could do better than that.
+However, after implementing batch normalization between convolutional layers and adding dropout to the single fully connected layer at the end of the model, we were able to mitigate the overfitting as best we could, soon achieving model accuracies closer to 92\%.
+For further analysis of the results, hyperparameter tuning, and comparisons, please peruse the remaining figures and tables.
 
 \begin{table}[h]
     \centering
@@ -154,9 +205,6 @@ Varying the number of neighbors degraded the model slightly.
     \label{tab:diff_weights}
 \end{table}
 
-\textbf{TODO: Talk about hyperparameter tuning for the CNN}
-\textbf{TODO: Talk about the need for regularization and mitigating overfitting!}
-
 \begin{figure}[h]
     \centering
     \begin{subfigure}{0.49\textwidth}
@@ -175,52 +223,6 @@ Varying the number of neighbors degraded the model slightly.
     \label{fig:f0}
 \end{figure}
 
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
-        \hline
-        \textbf{ID} & \textbf{Ep.}
-        & \textbf{Arch} & \textbf{W. Init}
-        & \textbf{B. Norm} & \textbf{Drop}
-        & \textbf{Optim} & \textbf{lr}
-	& \textbf{$\bm \mu$ (Test Acc)}
-        & \textbf{$\bm \sigma$ (Test Acc)} \\ 
-        \hline
-        111 & 30 & [1024, 256]  & Xavier 	& True & [0.3, 0.5] & Adam & 0.001 & 0.8967 & 0.0222 \\
-        \hline
-        123 & 30 & [1024, 256]  & Random N. & True & [0.3, 0.2] & Adam & 0.001 & 0.8807 & 0.0202 \\
-        \hline
-        135 & 30 & [1024, 256]  & Kaiming 	& True & [0.1, 0.1] & Adam & 0.001 & 0.8912 & 0.0175 \\  
-        \hline
-    \end{tabular}
-    \caption{\textbf{TODO: Convert this into something to talk about the hyper-parameter tuning of the CNNs}}
-    \label{tab:tab0}
-\end{table}
-
-%\begin{table}[h]
-%    \centering
-%    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
-%        \hline
-%        \textbf{ID} & \textbf{Ep.}
-%        & \textbf{Arch} & \textbf{W. Init}
-%        & \textbf{B. Norm} & \textbf{Drop}
-%        & \textbf{Optim} & \textbf{lr}
-%	& \textbf{$\bm \mu$ (Test Acc)}
-%        & \textbf{$\bm \sigma$ (Test Acc)} \\ 
-%        \hline
-%        117 & 30 & [1024, 256]  & Xavier 		& False & [0.1, 0.1] & Adam & 0.001 & 0.8976 & 0.0175 \\
-%        \hline
-%        129 & 30 & [1024, 256]  & Random N. 	& False & [0.5, 0.3] & Adam & 0.001 & 0.7372 & 0.0335 \\
-%        \hline
-%        141 & 30 & [1024, 256]  & Kaiming 		& False & [0.2, 0.5] & Adam & 0.001 & 0.8978 & 0.0251 \\  
-%        \hline
-%    \end{tabular}
-%    \caption{This is a set of 3 experiments where all things are constant except the weight initializations differ.
-%    Additionally it can be compared to \ref{tab:tab0} since these are the same as those experiments just without Batch Normalization.
-%    See the right hand side of Figure \ref{fig:f0} for a visual of the training and validation loss and accuracy curves.}
-%    \label{tab:tab1}
-%\end{table}
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.6\textwidth]{../visualizations/model_training_results_vis_1.png}
@@ -229,61 +231,42 @@ Varying the number of neighbors degraded the model slightly.
     \label{fig:f1}
 \end{figure}
 
-%\begin{table}[h]
-%    \centering
-%    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
-%        \hline
-%        \textbf{ID} & \textbf{Ep.}
-%        & \textbf{Arch} & \textbf{W. Init}
-%        & \textbf{B. Norm} & \textbf{Drop}
-%        & \textbf{Optim} & \textbf{lr}
-%	& \textbf{$\bm \mu$ (Test Acc)}
-%        & \textbf{$\bm \sigma$ (Test Acc)} \\ 
-%        \hline
-%        109 & 30 & [1024, 256]  & Xavier & True & [0.1, 0.1] & Adam & 0.01 & 0.8906 & 0.0214 \\
-%        \hline
-%        111 & 30 & [1024, 256]  & Xavier & True & [0.3, 0.5] & Adam & 0.001 & 0.8967 & 0.0222 \\
-%        \hline
-%        113 & 30 & [1024, 256]  & Xavier & True & [0.5, 0.2] & Adam & 0.0001 & 0.8933 & 0.0189 \\  
-%        \hline
-%    \end{tabular}
-%    \caption{Here all things are constant, including the Adam optimizer, we only vary the learning rate.
-%    See the left hand side of Figure \ref{fig:f1} for the visualization of this.
-%    Compare this to Table \ref{tab:tab3} as well to see the same learning rates and config but with SGD.}
-%    \label{tab:tab2}
-%\end{table}
+The last piece to discuss in our computational results is the visualization of the feature maps in our model.
+In Figure \ref{fig:feat_maps}, we can see the feature maps for each of the 3 convolutional layers in one of our CNNs we trained.
+Not only are these fun and interesting to look at, but it conveys some assurance that indeed the model is cluing into some key features or parts of the input image to help it make an accurate prediction.
+While some channels appear to be cluing into the edges of the sweatshirt image others are focused on the contrast between the backdrop and the item.
+I can see how in a more complex problem with more diversity in the input images, we might see a wider variety of shapes and features highlighted in the feature maps.
+Overall, this was a really cool part of the project and we are proud to share it in our report.
 
-%\begin{table}[h]
-%    \centering
-%    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|} % 'l' for left-aligned, 'c' for center-aligned columns
-%        \hline
-%        \textbf{ID} & \textbf{Ep.}
-%        & \textbf{Arch} & \textbf{W. Init}
-%        & \textbf{B. Norm} & \textbf{Drop}
-%        & \textbf{Optim} & \textbf{lr}
-%	& \textbf{$\bm \mu$ (Test Acc)}
-%        & \textbf{$\bm \sigma$ (Test Acc)} \\ 
-%        \hline
-%        108 & 30 & [1024, 256]  & Xavier & True & [0.3, 0.1] & SGD & 0.01 & 0.8958 & 0.0196 \\
-%        \hline
-%        110 & 30 & [1024, 256]  & Xavier & True & [0.2, 0.1] & SGD & 0.001 & 0.8956 & 0.0239 \\
-%        \hline
-%        112 & 30 & [1024, 256]  & Xavier & True & [0.5, 0.1] & SGD & 0.0001 & 0.8191 & 0.0293 \\  
-%        \hline
-%    \end{tabular}
-%    \caption{
-%    Again all things are constant, including the SGD optimizer, we only vary the learning rate.
-%    See the right hand side of Figure \ref{fig:f1} for the visualization of this.
-%    Compare this to Table \ref{tab:tab2} as well to see the same learning rates and config but with Adam.
-%    }
-%    \label{tab:tab3}
-%\end{table}
+\begin{figure}[h]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+    		\begin{subfigure}{\textwidth}
+        			\centering
+			\includegraphics[width=.9\textwidth]{../visualizations/feature_maps_conv_layer_0.png}
+	    	\end{subfigure}
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[width=.9\textwidth]{../visualizations/feature_maps_conv_layer_1.png}
+		\end{subfigure}
+	\end{subfigure}
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+        		\includegraphics[width=.9\textwidth]{../visualizations/feature_maps_conv_layer_2.png}
+	\end{subfigure}
+\caption{Feature maps from each of the 3 layers of our model.}
+\label{fig:feat_maps}
+\end{figure}
 
 
 \section{Summary and Conclusions}\label{sec:conclusions} 
-\textbf{TODO: Conclude which model you would use when based on needing it to train quickly, visual data, etc. }
-The method we settled on limited how we could convey the results here in the report, though it recorded thorough information for later reference on \href{https://github.com/hunter-lybbert/uw-central/blob/main/data_analysis/hw_04/experiments/experiments.json}{GitHub}
-This was an excellent introductory experience into building, training, and evaluating a neural network.
+From our analysis we determined that in terms of accuracy on the test set the CNN is the preferred model architecture. However, the CNNs training time dramatically increased compared to the fully connected networks.
+Despite this draw back, the CNN is still likely the preferred model for this problem especially considering the models performance even when only using 10k weights.
+When using 5\% of the weights of the biggest FCN (200k) we tested, the 10k CNN still outperformed it on the test set.
+These accuracy gains with respect to minimal number of parameters required is why we would choose a CNN.
+However, if we needed to perform a task with a larger dataset, larger model architecture, etc. the temporal complexity of the CNN would start to be a bigger consideration.
+Again, if one is curious to look through more of the results mentioned in the report and those not included here, it is recorded here on \href{https://github.com/hunter-lybbert/uw-central/blob/main/data_analysis/hw_05/experiments/experiments.json}{GitHub}
+This was an excellent introductory experience into building, training, and evaluating a CNN versus traditional FCN.
 
 \section*{Acknowledgements}
 The author is thankful to Jaxon Tuggle for offering regular feedback and counsel when interpreting results and clarifying the implications and merits throughout the hyperparameter tuning process.
