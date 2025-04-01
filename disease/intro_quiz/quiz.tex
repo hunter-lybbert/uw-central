@@ -86,8 +86,89 @@ I might have been able to guess that the second quantity is smaller since the ma
 
 \end{enumerate}
 \qed \\
+\newpage
 
 \item (ODE Question): \\
+\begin{enumerate}
+\item Solve the following differential equation:
+$$\frac{dy}{dx} = ry, \quad \text{ with } y(0) = y_0.$$
+
+\textit{Solution:}\\
+We begin by using separation of variables 
+\begin{align*}
+\frac{dy}{dx} &= ry \\
+\frac 1 y dy &= rdx \\
+\int \frac 1 y dy &= \int rdx \\
+\log y &= rx + C \\
+y(x) &= \E^{rx}\E^{C}.
+\end{align*}
+Now let's utilize our initial condition $y(0) = y_0$ to determine the constant $\E^C$.
+\begin{align*}
+y(0) &= \E^{r0}\E^C \\
+y_0 &= \E^{0}\E^C \\
+y_0 &= \E^C.
+\end{align*}
+Therefore our solution given this initial condition is
+$$
+y(x) = y_0\E^{rx}.
+$$
+
+\item Solve the following differential equation:
+$$
+\frac{dy}{dx} = ry\left(1 - \frac y K\right) \quad \text{ with } y(0) = y_0
+$$
+
+\textit{Solution:} \\
+Similarly let's use separation of variables
+\begin{align*}
+\frac{dy}{dx} &= ry\left(1 - \frac y K\right) \\
+\frac 1 {y - \frac{y^2} K}dy &= rdx \\
+\int \frac 1 {y - \frac{y^2} K}dy &= \int rdx \\
+\int - \frac 1 {y^2} \frac 1 {\frac 1 K - \frac 1 y}dy &= \int rdx
+\end{align*}
+Consider using a $u$ sub at this point.
+Perhaps let $u = \frac 1 K - \frac 1 y$ then $du = \frac 1 {y^2}$.
+plugging this in we now have
+\begin{align*}
+\int - \frac 1 {u}du &= \int rdx \\
+- \log u &= rx + C \\
+\log \left( \frac 1 K - \frac 1 y \right) &= - rx + C \\
+\frac 1 K - \frac 1 y &= \E^{- rx}C \\
+- \frac 1 y &= \E^{- rx}C + \frac 1K \\
+y(x) &= \frac 1 {- \E^{- rx}C - \frac 1K}.
+\end{align*}
+Our initial condition gives us
+\begin{align*}
+y(0) &= \frac 1 {- \E^{- r0}C - \frac 1K} \\
+y_0 &= \frac 1 {-C - \frac 1K} \\
+- \frac 1 {y_0} - \frac 1 K &= C.
+\end{align*}
+Finally, we have
+$$
+y(x) = \frac 1 {- \E^{- rx}\left( - \frac 1 {y_0} - \frac 1 K \right) - \frac 1K}.
+$$
+
+\item For the second equation, assuming $r > 0$ and $K > 0$, identify all the equilibrium and assess their stability. \\
+
+\textit{Solution:} \\
+Let $\dot y = \frac {dy}{dx}$, the equilibrium occur where $\dot y = 0$ that is
+\begin{align*}
+\frac {dy}{dx} &= ry\left(1 - \frac y K\right) \\
+\dot y &= ry\left(1 - \frac y K\right) \\
+0 &= ry\left(1 - \frac y K\right)
+\end{align*}
+Which occurs when $y^* = 0, K$.
+I will use Linear Stability Analysis (LSA) to determine the stability of these fixed points (or equilibrium).
+Let's additionally let $f(y) = ry\left(1 - y/K\right)$.
+Then using LSA we want to determine if $f^\prime(y^*)$ is greater than or less than 0 for each fixed point, $y^*$.
+Since we have $f^\prime(y) = r - 2ry/K$, then
+\begin{align*}
+f^\prime(0) &= r > 0 \implies \text{the fixed point at 0 is unstable} \\
+f^\prime(K) &= -r < 0 \implies \text{the fixed point at K is stable}
+\end{align*}
+\end{enumerate}
+\qed \\
+\newpage
 
 \item (Coding Question...with probability): \\
 
