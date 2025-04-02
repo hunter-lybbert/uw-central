@@ -2,7 +2,7 @@
 \usepackage[margin=1.4in]{geometry}
 \usepackage{amssymb,amsmath,enumitem,url}
 \usepackage{graphicx,subfig}
-\graphicspath{ {./images/} }
+\graphicspath{ {./visualizations/} }
 
 \newcommand{\D}{\mathrm{d}}
 \newcommand{\I}{\mathrm{i}}
@@ -171,8 +171,73 @@ f^\prime(K) &= -r < 0 \implies \text{the fixed point at K is stable}
 \newpage
 
 \item (Coding Question...with probability): \\
+Suppose you are playing a betting game where you:
+\begin{enumerate}
+\item Start with $\$X$
+\item Each round of the game costs \$1
+\item For each round, you flip a coin whose chance of heads coming up is $p \in (0, 1)$
+\item If the coin lands heads, you win the round and receive \$2 (your original \$1 back and an additional \$1 for winning).
+If the coin lands tails, you lose the round, and receive \$0.
+\item You repeat playing rounds of the game, betting and flipping the coin until you either run out of money (i.e., you lose the game) or you reach $\$Y$ (and then you stop, i.e., you win the game).
+For sanity purposes, also assume you stop the game after 1,000 rounds even if you haven’t lost all your money or hit $\$Y$ :) \\
+\end{enumerate}
+Let us refer to a series of rounds where you start at $\$X$ and either end with \$0 or $\$Y$ as a “game”.
+Write code that will simulate “a game” $n$ times, randomly ‘flipping’ a coin for every round of every game, and store the amount of money you have throughout the rounds for each game (as well as the final outcome).
 
-\item (Epidemiology question): \\
+\begin{enumerate}
+\item Run the game $n = 1,000$ times with $X = 5$, $p = 0.5$, and $Y = 10$. Plot a histogram of the number of rounds needed to finish the game.
+Plot the trajectories of money held by round by game (with round as the x-axis and money held as the $y$-axis.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{balance_by_round_and_histogram.png}
+ 	\caption{These are the histogram and balances over time for 1000 simulations run starting with \$5 and trying to achieve \$10.
+	and where the probability of winning a particular bet, $p = 0.5$.}\label{fig:f1}
+\end{figure}
+
+\item Run the game $n = 100$ times with $X = 10$ and $Y = 20$ for $p = 0.05, 0.1, 0.15, . . . 0.9, 0.95$.
+For each value of $p$ track the fraction of the games that ends with \$0.
+Plot the values of $p$ on the $x$-axis and fraction of games lost.
+\item Repeat (b) for $Y = 30, 40, \text{ and } 50$ and plot the resulting output on the same plot as (b), indicating which output comes from which value of $Y$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{fraction_of_failures_vs_probability.png}
+ 	\caption{The fraction of failed games for each goal winnings value.
+	Notice, that while the probability is low 100\% of the trials failed.
+	However, as the probability of success increases the fraction of failures rapidly disappears.
+	}\label{fig:f2}
+\end{figure}
+\end{enumerate}
+\qed \\
+\newpage
+
+\item (Epidemiology question):
+\begin{enumerate}
+\item Define Incidence and prevalence with respect to Covid-19. \\
+\textit{Solution:}
+Incidence is the rate at which new cases occur over a specific space and time.
+Not sure how to adapt this to be more covid specific, but I will come back to it if I have time.
+
+\item Define Infection and case with respect to Covid-19. \\
+\textit{Solution:}
+Infection refers to people are infected with Covid-19, regardless of whether they show symptoms or have been tested,
+Infections can include both symptomatic and asymptomatic cases.
+Next, cases are confirmed and identified through testing.
+
+\item Define Incidence and prevalence with respect to Covid-19. \\
+\textit{Solution:}
+\textbf{TODO: Come back if time.}
+
+\item Define Incidence and prevalence with respect to Covid-19. \\
+\textit{Solution:}
+\textbf{TODO: Come back if time.}
+
+\item Can the mortality rate ever be larger than 1? Can a case fatality rate ever be larger than 1? \\
+\textit{Solution:}
+\textbf{TODO: Come back if time.}
+\qed \\
+
+\end{enumerate}
 
 \end{enumerate}
 
