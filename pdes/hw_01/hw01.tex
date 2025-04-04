@@ -1,6 +1,6 @@
 \documentclass[10pt]{amsart}
 \usepackage[margin=1.4in]{geometry}
-\usepackage{amssymb,amsmath,enumitem,url}
+\usepackage{amssymb,amsmath,enumitem,url, bm}
 \usepackage{graphicx,subfig}
 \graphicspath{ {./images/} }
 
@@ -40,43 +40,129 @@ Exercises come from \textit{Introduction to Partial Differential Equations by Pe
 \mline
 \begin{enumerate}[label={\bf {\arabic*}:}]
 \item Olver 1.1 \\
-\textit{Solution:} \\
-\textbf{TODO} \\
+\textit{Solution:}
+\begin{enumerate}
+\item $\frac {du}{dx} + xu = 1:$ \quad Ordinary equilibrium differential equation of the first order.
+\item $\frac {\partial u}{\partial t} + u \frac{\partial u }{\partial x} = x:$ \quad Partial dynamic differential equation of the first order.
+\item $u_{tt} = 9u_{xx}:$ \quad Partial dynamic differential equation of the second order.
+\item $\frac {\partial u}{\partial t} = \frac{\partial^2 u }{\partial x^2} + \frac{\partial u }{\partial x}:$ \quad Partial dynamic differential equation of the second order.
+\item $- \frac{\partial^2 u }{\partial x^2} - \frac{\partial^2 u }{\partial y^2} = x^2 + y^2:$ \quad Partial equilibrium differential equation of the second order.
+\item $\frac{\partial^2 u }{\partial t^2} + 3u = \sin t:$ \quad Ordinary equilibrium differential equation of the second order.
+\item $u_{xx} + u_{yy} + u_{zz} + (x^2 + y^2 + z^2)u = 0:$ \quad Partial equilibrium differential equation of the second order.
+\item $u_{xx} = x + u^2:$ \quad Ordinary equilibrium differential equation of the second order.
+\item $\frac{\partial u }{\partial t} + \frac{\partial^3 u }{\partial x^3} + u \frac{\partial u }{\partial x} = 0:$ \quad Partial dynamic differential equation of the third order.
+\item $\frac{\partial^2 u }{\partial x^2} + \frac{\partial^2 u }{\partial y \partial z} = u:$ \quad Partial equilibrium differential equation of the second order.
+\item $u_{tt} = u_{xxxx} + 2u_{xxyy} + u_{yyyy}:$ \quad Partial dynamic differential equation of the fourth order.
+\end{enumerate}
+\qed \\
 
 \item Olver 1.17 \\
-\textit{Solution:} \\
-\textbf{TODO} \\
+\textit{Solution:}
+\begin{enumerate}
+\item $u_t = x^2u_{xx} + 2xu_x:$ \quad homogeneous linear
+\item $-u_{xx} = u_{yy} = \sin u:$ \quad nonlinear
+\item $u_{xx} + 2yu_{yy} = 3:$ \quad inhomogeneous linear
+\item $u_t + uu_x = 3u:$ \quad nonlinear
+\item $\E^yu_x = \E^xu_y:$ \quad homogeneous linear
+\item $u_t = 5u_{xxx} + x^2u + x:$ \quad inhomogeneous linear
+\end{enumerate}
+\qed \\
+\newpage
 
 \item Olver 1.22 \\
-\textit{Solution:} \\
-\textbf{TODO} \\
+\begin{enumerate}
+\item Prove that the Laplacian $\Delta = \partial_x^2 + \partial_y^2$ defines a linear differential operator. \\
+
+\textit{Solution:} We need to show that for some appropriate functions $u$, $v$ and two scalars $a, b \in \mathbb R$
+$$
+\Delta [au + bv] = a\Delta [u] + b \Delta [v].
+$$
+We will do this directly,
+\begin{align*}
+\Delta [au + bv] = (\partial_x^2 + \partial_y^2)(au + bv) &= (\partial_x^2 + \partial_y^2)au + (\partial_x^2 + \partial_y^2)bv \\
+	&= \partial_x^2au + \partial_y^2au + \partial_x^2bv + \partial_y^2bv \\
+	&= a \partial_x^2 u + a \partial_y^2 u + b \partial_x^2 v + b \partial_y^2 v \\
+	&= a u_{xx} + a u_{yy} + b v_{xx} + b v_{yy} \\
+	&= a (u_{xx} + u_{yy}) + b (v_{xx} + v_{yy}) \\
+	&= a (\partial_x^2 u + \partial_y^2 u) + b (\partial_x^2 v + \partial_y^2 v) \\
+	&= a (\partial_x^2 + \partial_y^2) u + b (\partial_x^2 + \partial_y^2) v \\
+	&= a \Delta [u] + b \Delta [v].
+\end{align*}
+\qed \\
+
+\item Write out the Laplace equation $\Delta[u] = 0$ and the Poisson equation $-\Delta[u] = f$. \\
+
+\textit{Solution:} The Laplace equation is
+$$
+\Delta [u] = (\partial_x^2 + \partial_y^2)u = u_{xx} + u_{yy} = 0
+$$
+and the Poisson equation is 
+$$
+- \Delta [u] = - (\partial_x^2 + \partial_y^2)u = - u_{xx} - u_{yy} = f.
+$$
+\qed \\
+
+\end{enumerate}
+\newpage
 
 \item We derive the advection-diffusion equation from the microscopic view.
 Define $u(x, t)$ as the density of the particles at location $x$ and time $t$.
 Define the probability of jumping from the left as $p(x - \Delta x \rightarrow x, t) \approx \frac 1 2 + \Delta x$
 when $\Delta x$ is small, and the probability of jumping from the right as $q(x + \Delta x \rightarrow x, t) \approx \frac 1 2 - \Delta x $) with small $\Delta x$.
 Assume $D := \lim_{\Delta x, \Delta t \rightarrow 0} \frac {\big(\Delta x\big)^2}{\Delta t}$.
-Establish the equation of $u(x, t)$ in the continuum limit.
-\\
+Establish the equation of $u(x, t)$ in the continuum limit. \\
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\newpage
+
+\item 
+\begin{enumerate}
+\item Consider the following boundary value problem (BVP). \\
+$$
+\begin{cases}
+X^{\prime\prime}(x) + \lambda X = 0, \quad x \in (0, L) \\
+X(0)  = X(L) = 0, \\
+\end{cases}
+$$
+where $L > 0$ is a constant.
+Solve the eigenpair:
+$$
+(X_k, \lambda_k) = \left\{ \sin \left( \frac {k \pi x}{L} \right), \left(\frac {k \pi}{L} \right)^2 \right\}_{k=1}^\infty
+$$
 \textit{Solution:} \\
 \textbf{TODO} \\
 
 \item Consider the following boundary value problem (BVP). \\
 $$
 \begin{cases}
-X^\prime\prime(x) + \lambda X = 0 \\
-X(0)  = X(L) = 0 \\
+X^{\prime\prime}(x) + \lambda X = 0, \quad x \in (0, L) \\
+X^\prime(0)  = X^\prime(L) = 0, \\
 \end{cases}
 $$
 where $L > 0$ is a constant.
 Solve the eigenpair:
 $$
-(X_k, Y_k) = \left\{ \sin \left( \frac {k \pi x}{L}, \frac {k \pi}{L} \right)^2 \right\}_{k=0}^\infty
+(X_k, \lambda_k) = \left\{ \cos \left( \frac {k \pi x}{L} \right), \left(\frac {k \pi}{L} \right)^2 \right\}_{k=0}^\infty
 $$
 \textit{Solution:} \\
 \textbf{TODO} \\
 
-\item Finish writing up information for question in class tomorrow. \\
+\end{enumerate}
+
+\newpage
+
+\item Consider the following IBVP in a rectangle: \\
+\begin{align*}
+\begin{cases}
+u_t = \Delta u, &(x, y) \in (0, L_1)x(0, L_2), t > 0 \\
+\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L)x(0, L) \big), t > 0\\
+u(x, y, 0 = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L)x(0, L)
+\end{cases}
+\end{align*}
+where $\bm n$ denotes the unit outer normal derivative and $L_1, L_2 > 0$ are given constants.
+Solve to get the general solution.
+Recall that $\Delta = \partial_{xx} + \partial_{yy}$. \\
 \textit{Solution:} \\
 \textbf{TODO} \\
 
