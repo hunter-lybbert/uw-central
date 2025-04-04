@@ -1,0 +1,90 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage{amssymb,amsmath,enumitem,url}
+\usepackage{graphicx,subfig}
+\graphicspath{ {./images/} }
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{04-03-25} \\
+\text{AMATH 503} \\
+% header containing your name, student number, due date, course, and the homework number as a title.
+
+\title{\bf {Homework 1} }
+
+
+\maketitle
+\noindent
+Exercises come from \textit{Introduction to Partial Differential Equations by Peter J. Olver} as well as supplemented by instructor provided exercises.
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item Olver 1.1 \\
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Olver 1.17 \\
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Olver 1.22 \\
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item We derive the advection-diffusion equation from the microscopic view.
+Define $u(x, t)$ as the density of the particles at location $x$ and time $t$.
+Define the probability of jumping from the left as $p(x - \Delta x \rightarrow x, t) \approx \frac 1 2 + \Delta x$
+when $\Delta x$ is small, and the probability of jumping from the right as $q(x + \Delta x \rightarrow x, t) \approx \frac 1 2 - \Delta x $) with small $\Delta x$.
+Assume $D := \lim_{\Delta x, \Delta t \rightarrow 0} \frac {\big(\Delta x\big)^2}{\Delta t}$.
+Establish the equation of $u(x, t)$ in the continuum limit.
+\\
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Consider the following boundary value problem (BVP). \\
+$$
+\begin{cases}
+X^\prime\prime(x) + \lambda X = 0 \\
+X(0)  = X(L) = 0 \\
+\end{cases}
+$$
+where $L > 0$ is a constant.
+Solve the eigenpair:
+$$
+(X_k, Y_k) = \left\{ \sin \left( \frac {k \pi x}{L}, \frac {k \pi}{L} \right)^2 \right\}_{k=0}^\infty
+$$
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\item Finish writing up information for question in class tomorrow. \\
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
