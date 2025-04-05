@@ -112,7 +112,31 @@ when $\Delta x$ is small, and the probability of jumping from the right as $q(x 
 Assume $D := \lim_{\Delta x, \Delta t \rightarrow 0} \frac {\big(\Delta x\big)^2}{\Delta t}$.
 Establish the equation of $u(x, t)$ in the continuum limit. \\
 \textit{Solution:} \\
-\textbf{TODO} \\
+We begin by taylor expanding $u(x, t + \Delta t), u(x - \Delta x, t), \text{ and } u(x + \Delta x , t)$
+\begin{align*}
+u(x, t + \Delta t) &= u(x, t) + u_t \Delta t + \mathcal O\big((\Delta t)^2\big) \\
+u(x - \Delta x, t) &= u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \\
+u(x + \Delta x , t) &= u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big).
+\end{align*}
+Additionally, we have the following relationship for the evolution of the system in one time step
+\begin{align*}
+u(x, t + \Delta t) &= q(x + \Delta x \rightarrow x, t) u(x + \Delta x, t) + p(x - \Delta x \rightarrow x, t) u (x - \Delta x, t) \\
+u(x, t + \Delta t) &\approx \left( \frac 1 2 - \Delta x \right) u(x + \Delta x, t) + \left( \frac 1 2 + \Delta x \right) u (x - \Delta x, t).
+\end{align*}
+Combining this with the taylor expansions from earlier we have
+\begin{align*}
+u(x, t) + u_t \Delta t &\approx \left( \frac 1 2 - \Delta x \right) \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right) \\
+	& \quad + \left( \frac 1 2 + \Delta x \right) \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) \\
+u(x, t) + u_t \Delta t &\approx \frac 1 2 \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right)  - \Delta x \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right) \\
+	& + \frac 1 2 \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) + \Delta x \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) \\
+u_t \Delta t &\approx \frac 1 2 u_{xx} (\Delta x)^2 - \Delta x \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right) \\
+	& + \Delta x \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) \\
+u_t \Delta t &\approx \frac 1 2 u_{xx} (\Delta x)^2 - u_x (\Delta x)^2 \\
+u_t &\approx \left( \frac 1 2 u_{xx} - u_x \right) \frac {(\Delta x)^2}{\Delta t} \\
+u_t &= D \left( \frac 1 2 u_{xx} - u_x \right).
+\end{align*}
+This is the differential equation for the equation $u(x, t)$ in the continuum limit. \\
+\qed \\
 
 \newpage
 
