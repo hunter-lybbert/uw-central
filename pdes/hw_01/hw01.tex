@@ -47,7 +47,7 @@ Exercises come from \textit{Introduction to Partial Differential Equations by Pe
 \item $u_{tt} = 9u_{xx}:$ \quad Partial dynamic differential equation of the second order.
 \item $\frac {\partial u}{\partial t} = \frac{\partial^2 u }{\partial x^2} + \frac{\partial u }{\partial x}:$ \quad Partial dynamic differential equation of the second order.
 \item $- \frac{\partial^2 u }{\partial x^2} - \frac{\partial^2 u }{\partial y^2} = x^2 + y^2:$ \quad Partial equilibrium differential equation of the second order.
-\item $\frac{\partial^2 u }{\partial t^2} + 3u = \sin t:$ \quad Ordinary equilibrium differential equation of the second order.
+\item $\frac{\partial^2 u }{\partial t^2} + 3u = \sin t:$ \quad Ordinary dynamic differential equation of the second order.
 \item $u_{xx} + u_{yy} + u_{zz} + (x^2 + y^2 + z^2)u = 0:$ \quad Partial equilibrium differential equation of the second order.
 \item $u_{xx} = x + u^2:$ \quad Ordinary equilibrium differential equation of the second order.
 \item $\frac{\partial u }{\partial t} + \frac{\partial^3 u }{\partial x^3} + u \frac{\partial u }{\partial x} = 0:$ \quad Partial dynamic differential equation of the third order.
@@ -120,20 +120,20 @@ u(x + \Delta x , t) &= u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + 
 \end{align*}
 Additionally, we have the following relationship for the evolution of the system in one time step
 \begin{align*}
-u(x, t + \Delta t) &= q(x + \Delta x \rightarrow x, t) u(x + \Delta x, t) + p(x - \Delta x \rightarrow x, t) u (x - \Delta x, t) \\
-u(x, t + \Delta t) &\approx \left( \frac 1 2 - \Delta x \right) u(x + \Delta x, t) + \left( \frac 1 2 + \Delta x \right) u (x - \Delta x, t).
+u(x, t + \Delta t) &= p(x - \Delta x \rightarrow x, t) u(x + \Delta x, t) + q(x + \Delta x \rightarrow x, t) u (x - \Delta x, t) \\
+u(x, t + \Delta t) &\approx \left( \frac 1 2 + \Delta x \right) u(x + \Delta x, t) + \left( \frac 1 2 - \Delta x \right) u (x - \Delta x, t).
 \end{align*}
 Combining this with the taylor expansions from earlier we have
 \begin{align*}
-u(x, t) + u_t \Delta t &\approx \left( \frac 1 2 - \Delta x \right) \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right) \\
-	& \quad + \left( \frac 1 2 + \Delta x \right) \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) \\
-u(x, t) + u_t \Delta t &\approx \frac 1 2 \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right)  - \Delta x \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right) \\
-	& + \frac 1 2 \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) + \Delta x \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) \\
-u_t \Delta t &\approx \frac 1 2 u_{xx} (\Delta x)^2 - \Delta x \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right) \\
-	& + \Delta x \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) \\
-u_t \Delta t &\approx \frac 1 2 u_{xx} (\Delta x)^2 - u_x (\Delta x)^2 \\
-u_t &\approx \left( \frac 1 2 u_{xx} - u_x \right) \frac {(\Delta x)^2}{\Delta t} \\
-u_t &= D \left( \frac 1 2 u_{xx} - u_x \right).
+u(x, t) + u_t \Delta t &\approx \left( \frac 1 2 + \Delta x \right) \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right) \\
+	& \quad + \left( \frac 1 2 - \Delta x \right) \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) \\
+u(x, t) + u_t \Delta t &\approx \frac 1 2 \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right)  + \Delta x \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right) \\
+	& + \frac 1 2 \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) - \Delta x \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) \\
+u_t \Delta t &\approx \frac 1 2 u_{xx} (\Delta x)^2 + \Delta x \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right) \\
+	& - \Delta x \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) \\
+u_t \Delta t &\approx \frac 1 2 u_{xx} (\Delta x)^2 + 2 u_x (\Delta x)^2 \\
+u_t &\approx \left( \frac 1 2 u_{xx} + 2 u_x \right) \frac {(\Delta x)^2}{\Delta t} \\
+u_t &= D \left( \frac 1 2 u_{xx} + 2 u_x \right).
 \end{align*}
 This is the differential equation for the equation $u(x, t)$ in the continuum limit. \\
 \qed \\
@@ -203,6 +203,7 @@ $$
 X_k(x) = \sin \left( \frac{\pi k x} L \right)
 $$
 where $\lambda_k = \left( \frac {\pi k } L \right)^2$. \\
+\textbf{TODO: Do the other cases.}
 \qed \\
 \newpage
 
@@ -255,7 +256,7 @@ where $\lambda = \left ( \frac {\pi k } L \right )^2$.
 \begin{align*}
 \begin{cases}
 u_t = \Delta u, &(x, y) \in (0, L_1) \times (0, L_2), t > 0 \\
-\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L_1) \times (0, L_2) \big), t > 0\\
+\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L_1) \times (0, L_2) \big), t > 0 \\
 u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2)
 \end{cases}
 \end{align*}
@@ -275,7 +276,7 @@ X(x)Y(y)T^\prime(t) &= X^{\prime\prime}(x)Y(y)T(t) + X(x)Y^{\prime\prime}(y)T(t)
 \frac {T^\prime(t)}{T(t)} &= \frac{X^{\prime\prime}(x)}{X(x)} + \frac{Y^{\prime\prime}(y)}{Y(y)} = -\lambda.
 \end{align*}
 Where the $-\lambda$ came from following the example in class. \\
-\textbf{TODO: Come back if time allows}
+\textbf{TODO: use 5 b) to skip the cases}
 
 \end{enumerate}
 
