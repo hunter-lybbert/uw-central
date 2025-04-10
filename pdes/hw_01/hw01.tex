@@ -27,7 +27,7 @@
 \noindent
 \text{Hunter Lybbert} \\
 \text{Student ID: 2426454} \\
-\text{04-03-25} \\
+\text{04-09-25} \\
 \text{AMATH 503} \\
 % header containing your name, student number, due date, course, and the homework number as a title.
 
@@ -155,7 +155,56 @@ $$
 (X_k, \lambda_k) = \left\{ \sin \left( \frac {k \pi x}{L} \right), \left(\frac {k \pi}{L} \right)^2 \right\}_{k=1}^\infty
 $$
 \textit{Solution:} \\
-\textbf{TODO} \\
+I begin by rewriting the second order ODE as a 2D first order ODE.
+Let $X_1 = X$ and $X_2 = X^\prime$ then we have
+$$
+\begin{bmatrix}
+X_1 \\
+X_2
+\end{bmatrix}^\prime =
+\begin{bmatrix}
+X_2 \\
+-\lambda X_1
+\end{bmatrix} =
+\begin{bmatrix}
+0 &1 \\
+-\lambda &0
+\end{bmatrix}
+\begin{bmatrix}
+X_1 \\
+X_2
+\end{bmatrix}.
+$$
+Using this system we can solve for the eigenvalues of this system, that is we want to solve for $\gamma$ (since $\lambda$ is already in use in this function we choose a stand in variable) in the following equation
+$$
+(-\gamma)^2 - (-\lambda \cdot 1) = \gamma^2 + \lambda = 0
+$$
+Therefore the eigenvalues are $\gamma = \pm \I \sqrt{\lambda}$.
+Since the eigenvalues are both imaginary we know that the solution will be of the form
+$$
+X(x) = C_1 \cos(\sqrt \lambda x) + C_2 \sin(\sqrt \lambda x).
+$$
+Now using the boundary values we can determine
+\begin{align*}
+X(0) &= C_1 \cos(\sqrt \lambda 0) + C_2 \sin(\sqrt \lambda 0) \\
+0 &= C_1.
+\end{align*}
+Furthermore, we need
+\begin{align*}
+X(L) &= C_2 \sin(\sqrt \lambda L) \\
+0 &= C_2 \sin(\sqrt \lambda L) \\
+0 &= \sin(\sqrt \lambda L)
+\end{align*}
+assuming $C_2 \neq 0$ to avoid arriving at the uninteresting trivial solution.
+We know $\sin(x) = 0$ where $x = \pi k$ for $k \in \mathbb Z$.
+Thus we need $\sqrt \lambda L = \pi k$ which gives us $\lambda = \left( \frac {\pi k } L \right)^2$.
+Finally, our general solution currently is the following
+$$
+X_k(x) = \sin \left( \frac{\pi k x} L \right)
+$$
+where $\lambda_k = \left( \frac {\pi k } L \right)^2$. \\
+\qed \\
+\newpage
 
 \item Consider the following boundary value problem (BVP). \\
 $$
@@ -170,7 +219,33 @@ $$
 (X_k, \lambda_k) = \left\{ \cos \left( \frac {k \pi x}{L} \right), \left(\frac {k \pi}{L} \right)^2 \right\}_{k=0}^\infty
 $$
 \textit{Solution:} \\
-\textbf{TODO} \\
+We reuse much of the work for $X(x)$ from part (a), however the final steps using the boundary values will vary slightly.
+Beginning from the solution following the form
+$$
+X(x) = C_1 \cos(\sqrt \lambda x) + C_2 \sin(\sqrt \lambda x),
+$$
+we now apply boundary conditions.
+We first need this time to calculate
+$$
+X^\prime(x) = - C_1 \sqrt \lambda \sin(\sqrt \lambda x) + C_2 \sqrt \lambda \cos(\sqrt \lambda x)
+$$
+Plugging in our boundary conditions we have
+\begin{align*}
+X^\prime(0) &= - C_1 \sqrt \lambda \sin(\sqrt \lambda 0) + C_2 \sqrt \lambda \cos(\sqrt \lambda 0) \\
+0 &= C_2.
+\end{align*}
+Once more, we have
+\begin{align*}
+X^\prime(L) &= - C_1 \sqrt \lambda \sin(\sqrt \lambda L) \\
+0 &= - C_1 \sqrt \lambda \sin(\sqrt \lambda L)
+\end{align*}
+which only holds when $\sqrt \lambda = \frac {\pi k} L $ for $k \in \mathbb Z$.
+This in total gives the solution
+$$
+X(x) = C_1 \cos \left(\frac {\pi k x} L \right)
+$$
+where $\lambda = \left ( \frac {\pi k } L \right )^2$.
+\qed \\
 
 \end{enumerate}
 
@@ -179,16 +254,28 @@ $$
 \item Consider the following IBVP in a rectangle: \\
 \begin{align*}
 \begin{cases}
-u_t = \Delta u, &(x, y) \in (0, L_1)x(0, L_2), t > 0 \\
-\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L)x(0, L) \big), t > 0\\
-u(x, y, 0 = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L)x(0, L)
+u_t = \Delta u, &(x, y) \in (0, L_1) \times (0, L_2), t > 0 \\
+\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L_1) \times (0, L_2) \big), t > 0\\
+u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2)
 \end{cases}
 \end{align*}
 where $\bm n$ denotes the unit outer normal derivative and $L_1, L_2 > 0$ are given constants.
 Solve to get the general solution.
 Recall that $\Delta = \partial_{xx} + \partial_{yy}$. \\
 \textit{Solution:} \\
-\textbf{TODO} \\
+We have
+$$
+u_t = u_{xx} + u_{yy},
+$$
+assuming we have the ability to use separation of variables we let $u(x, y, t)$ take the form
+$u(x, y, t) = X(x)Y(y)T(t)$.
+Then plugging this in we have:
+\begin{align*}
+X(x)Y(y)T^\prime(t) &= X^{\prime\prime}(x)Y(y)T(t) + X(x)Y^{\prime\prime}(y)T(t) \\
+\frac {T^\prime(t)}{T(t)} &= \frac{X^{\prime\prime}(x)}{X(x)} + \frac{Y^{\prime\prime}(y)}{Y(y)} = -\lambda.
+\end{align*}
+Where the $-\lambda$ came from following the example in class. \\
+\textbf{TODO: Come back if time allows}
 
 \end{enumerate}
 
