@@ -1,0 +1,288 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage{amssymb,amsmath,enumitem,url, bm}
+\usepackage{graphicx,subfig}
+\graphicspath{ {./images/} }
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{04-09-25} \\
+\text{AMATH 503} \\
+% header containing your name, student number, due date, course, and the homework number as a title.
+
+\title{\bf {Homework 1} }
+
+
+\maketitle
+\noindent
+Exercises come from \textit{Introduction to Partial Differential Equations by Peter J. Olver} as well as supplemented by instructor provided exercises.
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item Olver 1.1 \\
+\textit{Solution:}
+\begin{enumerate}
+\item $\frac {du}{dx} + xu = 1:$ \quad Ordinary equilibrium differential equation of the first order.
+\item $\frac {\partial u}{\partial t} + u \frac{\partial u }{\partial x} = x:$ \quad Partial dynamic differential equation of the first order.
+\item $u_{tt} = 9u_{xx}:$ \quad Partial dynamic differential equation of the second order.
+\item $\frac {\partial u}{\partial t} = \frac{\partial^2 u }{\partial x^2} + \frac{\partial u }{\partial x}:$ \quad Partial dynamic differential equation of the second order.
+\item $- \frac{\partial^2 u }{\partial x^2} - \frac{\partial^2 u }{\partial y^2} = x^2 + y^2:$ \quad Partial equilibrium differential equation of the second order.
+\item $\frac{\partial^2 u }{\partial t^2} + 3u = \sin t:$ \quad Ordinary dynamic differential equation of the second order.
+\item $u_{xx} + u_{yy} + u_{zz} + (x^2 + y^2 + z^2)u = 0:$ \quad Partial equilibrium differential equation of the second order.
+\item $u_{xx} = x + u^2:$ \quad Ordinary equilibrium differential equation of the second order.
+\item $\frac{\partial u }{\partial t} + \frac{\partial^3 u }{\partial x^3} + u \frac{\partial u }{\partial x} = 0:$ \quad Partial dynamic differential equation of the third order.
+\item $\frac{\partial^2 u }{\partial x^2} + \frac{\partial^2 u }{\partial y \partial z} = u:$ \quad Partial equilibrium differential equation of the second order.
+\item $u_{tt} = u_{xxxx} + 2u_{xxyy} + u_{yyyy}:$ \quad Partial dynamic differential equation of the fourth order.
+\end{enumerate}
+\qed \\
+
+\item Olver 1.17 \\
+\textit{Solution:}
+\begin{enumerate}
+\item $u_t = x^2u_{xx} + 2xu_x:$ \quad homogeneous linear
+\item $-u_{xx} = u_{yy} = \sin u:$ \quad nonlinear
+\item $u_{xx} + 2yu_{yy} = 3:$ \quad inhomogeneous linear
+\item $u_t + uu_x = 3u:$ \quad nonlinear
+\item $\E^yu_x = \E^xu_y:$ \quad homogeneous linear
+\item $u_t = 5u_{xxx} + x^2u + x:$ \quad inhomogeneous linear
+\end{enumerate}
+\qed \\
+\newpage
+
+\item Olver 1.22 \\
+\begin{enumerate}
+\item Prove that the Laplacian $\Delta = \partial_x^2 + \partial_y^2$ defines a linear differential operator. \\
+
+\textit{Solution:} We need to show that for some appropriate functions $u$, $v$ and two scalars $a, b \in \mathbb R$
+$$
+\Delta [au + bv] = a\Delta [u] + b \Delta [v].
+$$
+We will do this directly,
+\begin{align*}
+\Delta [au + bv] = (\partial_x^2 + \partial_y^2)(au + bv) &= (\partial_x^2 + \partial_y^2)au + (\partial_x^2 + \partial_y^2)bv \\
+	&= \partial_x^2au + \partial_y^2au + \partial_x^2bv + \partial_y^2bv \\
+	&= a \partial_x^2 u + a \partial_y^2 u + b \partial_x^2 v + b \partial_y^2 v \\
+	&= a u_{xx} + a u_{yy} + b v_{xx} + b v_{yy} \\
+	&= a (u_{xx} + u_{yy}) + b (v_{xx} + v_{yy}) \\
+	&= a (\partial_x^2 u + \partial_y^2 u) + b (\partial_x^2 v + \partial_y^2 v) \\
+	&= a (\partial_x^2 + \partial_y^2) u + b (\partial_x^2 + \partial_y^2) v \\
+	&= a \Delta [u] + b \Delta [v].
+\end{align*}
+\qed \\
+
+\item Write out the Laplace equation $\Delta[u] = 0$ and the Poisson equation $-\Delta[u] = f$. \\
+
+\textit{Solution:} The Laplace equation is
+$$
+\Delta [u] = (\partial_x^2 + \partial_y^2)u = u_{xx} + u_{yy} = 0
+$$
+and the Poisson equation is 
+$$
+- \Delta [u] = - (\partial_x^2 + \partial_y^2)u = - u_{xx} - u_{yy} = f.
+$$
+\qed \\
+
+\end{enumerate}
+\newpage
+
+\item We derive the advection-diffusion equation from the microscopic view.
+Define $u(x, t)$ as the density of the particles at location $x$ and time $t$.
+Define the probability of jumping from the left as $p(x - \Delta x \rightarrow x, t) \approx \frac 1 2 + \Delta x$
+when $\Delta x$ is small, and the probability of jumping from the right as $q(x + \Delta x \rightarrow x, t) \approx \frac 1 2 - \Delta x $) with small $\Delta x$.
+Assume $D := \lim_{\Delta x, \Delta t \rightarrow 0} \frac {\big(\Delta x\big)^2}{\Delta t}$.
+Establish the equation of $u(x, t)$ in the continuum limit. \\
+\textit{Solution:} \\
+We begin by taylor expanding $u(x, t + \Delta t), u(x - \Delta x, t), \text{ and } u(x + \Delta x , t)$
+\begin{align*}
+u(x, t + \Delta t) &= u(x, t) + u_t \Delta t + \mathcal O\big((\Delta t)^2\big) \\
+u(x - \Delta x, t) &= u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \\
+u(x + \Delta x , t) &= u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big).
+\end{align*}
+Additionally, we have the following relationship for the evolution of the system in one time step
+\begin{align*}
+u(x, t + \Delta t) &= p(x - \Delta x \rightarrow x, t) u(x + \Delta x, t) + q(x + \Delta x \rightarrow x, t) u (x - \Delta x, t) \\
+u(x, t + \Delta t) &\approx \left( \frac 1 2 + \Delta x \right) u(x + \Delta x, t) + \left( \frac 1 2 - \Delta x \right) u (x - \Delta x, t).
+\end{align*}
+Combining this with the taylor expansions from earlier we have
+\begin{align*}
+u(x, t) + u_t \Delta t &\approx \left( \frac 1 2 + \Delta x \right) \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right) \\
+	& \quad + \left( \frac 1 2 - \Delta x \right) \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) \\
+u(x, t) + u_t \Delta t &\approx \frac 1 2 \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right)  + \Delta x \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right) \\
+	& + \frac 1 2 \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) - \Delta x \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) \\
+u_t \Delta t &\approx \frac 1 2 u_{xx} (\Delta x)^2 + \Delta x \left( u(x, t) + u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big)\right) \\
+	& - \Delta x \left( u(x, t) - u_x \Delta x + \frac 1 2 u_{xx} (\Delta x)^2 + \mathcal O\big((\Delta x)^3\big) \right) \\
+u_t \Delta t &\approx \frac 1 2 u_{xx} (\Delta x)^2 + 2 u_x (\Delta x)^2 \\
+u_t &\approx \left( \frac 1 2 u_{xx} + 2 u_x \right) \frac {(\Delta x)^2}{\Delta t} \\
+u_t &= D \left( \frac 1 2 u_{xx} + 2 u_x \right).
+\end{align*}
+This is the differential equation for the equation $u(x, t)$ in the continuum limit. \\
+\qed \\
+
+\newpage
+
+\item 
+\begin{enumerate}
+\item Consider the following boundary value problem (BVP). \\
+$$
+\begin{cases}
+X^{\prime\prime}(x) + \lambda X = 0, \quad x \in (0, L) \\
+X(0)  = X(L) = 0, \\
+\end{cases}
+$$
+where $L > 0$ is a constant.
+Solve the eigenpair:
+$$
+(X_k, \lambda_k) = \left\{ \sin \left( \frac {k \pi x}{L} \right), \left(\frac {k \pi}{L} \right)^2 \right\}_{k=1}^\infty
+$$
+\textit{Solution:} \\
+I begin by rewriting the second order ODE as a 2D first order ODE.
+Let $X_1 = X$ and $X_2 = X^\prime$ then we have
+$$
+\begin{bmatrix}
+X_1 \\
+X_2
+\end{bmatrix}^\prime =
+\begin{bmatrix}
+X_2 \\
+-\lambda X_1
+\end{bmatrix} =
+\begin{bmatrix}
+0 &1 \\
+-\lambda &0
+\end{bmatrix}
+\begin{bmatrix}
+X_1 \\
+X_2
+\end{bmatrix}.
+$$
+Using this system we can solve for the eigenvalues of this system, that is we want to solve for $\gamma$ (since $\lambda$ is already in use in this function we choose a stand in variable) in the following equation
+$$
+(-\gamma)^2 - (-\lambda \cdot 1) = \gamma^2 + \lambda = 0
+$$
+Therefore the eigenvalues are $\gamma = \pm \I \sqrt{\lambda}$.
+Since the eigenvalues are both imaginary we know that the solution will be of the form
+$$
+X(x) = C_1 \cos(\sqrt \lambda x) + C_2 \sin(\sqrt \lambda x).
+$$
+Now using the boundary values we can determine
+\begin{align*}
+X(0) &= C_1 \cos(\sqrt \lambda 0) + C_2 \sin(\sqrt \lambda 0) \\
+0 &= C_1.
+\end{align*}
+Furthermore, we need
+\begin{align*}
+X(L) &= C_2 \sin(\sqrt \lambda L) \\
+0 &= C_2 \sin(\sqrt \lambda L) \\
+0 &= \sin(\sqrt \lambda L)
+\end{align*}
+assuming $C_2 \neq 0$ to avoid arriving at the uninteresting trivial solution.
+We know $\sin(x) = 0$ where $x = \pi k$ for $k \in \mathbb Z$.
+Thus we need $\sqrt \lambda L = \pi k$ which gives us $\lambda = \left( \frac {\pi k } L \right)^2$.
+Finally, our general solution currently is the following
+$$
+X_k(x) = \sin \left( \frac{\pi k x} L \right)
+$$
+where $\lambda_k = \left( \frac {\pi k } L \right)^2$. \\
+\textbf{TODO: Do the other cases.}
+\qed \\
+\newpage
+
+\item Consider the following boundary value problem (BVP). \\
+$$
+\begin{cases}
+X^{\prime\prime}(x) + \lambda X = 0, \quad x \in (0, L) \\
+X^\prime(0)  = X^\prime(L) = 0, \\
+\end{cases}
+$$
+where $L > 0$ is a constant.
+Solve the eigenpair:
+$$
+(X_k, \lambda_k) = \left\{ \cos \left( \frac {k \pi x}{L} \right), \left(\frac {k \pi}{L} \right)^2 \right\}_{k=0}^\infty
+$$
+\textit{Solution:} \\
+We reuse much of the work for $X(x)$ from part (a), however the final steps using the boundary values will vary slightly.
+Beginning from the solution following the form
+$$
+X(x) = C_1 \cos(\sqrt \lambda x) + C_2 \sin(\sqrt \lambda x),
+$$
+we now apply boundary conditions.
+We first need this time to calculate
+$$
+X^\prime(x) = - C_1 \sqrt \lambda \sin(\sqrt \lambda x) + C_2 \sqrt \lambda \cos(\sqrt \lambda x)
+$$
+Plugging in our boundary conditions we have
+\begin{align*}
+X^\prime(0) &= - C_1 \sqrt \lambda \sin(\sqrt \lambda 0) + C_2 \sqrt \lambda \cos(\sqrt \lambda 0) \\
+0 &= C_2.
+\end{align*}
+Once more, we have
+\begin{align*}
+X^\prime(L) &= - C_1 \sqrt \lambda \sin(\sqrt \lambda L) \\
+0 &= - C_1 \sqrt \lambda \sin(\sqrt \lambda L)
+\end{align*}
+which only holds when $\sqrt \lambda = \frac {\pi k} L $ for $k \in \mathbb Z$.
+This in total gives the solution
+$$
+X(x) = C_1 \cos \left(\frac {\pi k x} L \right)
+$$
+where $\lambda = \left ( \frac {\pi k } L \right )^2$.
+\qed \\
+
+\end{enumerate}
+
+\newpage
+
+\item Consider the following IBVP in a rectangle: \\
+\begin{align*}
+\begin{cases}
+u_t = \Delta u, &(x, y) \in (0, L_1) \times (0, L_2), t > 0 \\
+\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L_1) \times (0, L_2) \big), t > 0 \\
+u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2)
+\end{cases}
+\end{align*}
+where $\bm n$ denotes the unit outer normal derivative and $L_1, L_2 > 0$ are given constants.
+Solve to get the general solution.
+Recall that $\Delta = \partial_{xx} + \partial_{yy}$. \\
+\textit{Solution:} \\
+We have
+$$
+u_t = u_{xx} + u_{yy},
+$$
+assuming we have the ability to use separation of variables we let $u(x, y, t)$ take the form
+$u(x, y, t) = X(x)Y(y)T(t)$.
+Then plugging this in we have:
+\begin{align*}
+X(x)Y(y)T^\prime(t) &= X^{\prime\prime}(x)Y(y)T(t) + X(x)Y^{\prime\prime}(y)T(t) \\
+\frac {T^\prime(t)}{T(t)} &= \frac{X^{\prime\prime}(x)}{X(x)} + \frac{Y^{\prime\prime}(y)}{Y(y)} = -\lambda.
+\end{align*}
+Where the $-\lambda$ came from following the example in class. \\
+\textbf{TODO: use 5 b) to skip the cases}
+
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
