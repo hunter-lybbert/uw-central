@@ -1,0 +1,174 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage{amssymb,amsmath,enumitem,url, bm}
+\usepackage{graphicx,subfig}
+\graphicspath{ {./images/} }
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{04-16-25} \\
+\text{AMATH 503} \\
+% header containing your name, student number, due date, course, and the homework number as a title.
+
+\title{\bf {Homework 2} }
+
+
+\maketitle
+\noindent
+Exercises come from \textit{Introduction to Partial Differential Equations by Peter J. Olver} as well as supplemented by instructor provided exercises.
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+\item Olver: 4.1.3. Consider the initial-boundary value problem
+\begin{align*}
+\frac {\partial u} {\partial t} = \frac {\partial^2 u}{ \partial x^2}, \quad &u(t, 0) = 0 = u(t, 10), \quad t > 0 \\
+	& u(0, x) = f(x), \quad 0 < x < 10
+\end{align*}
+for the heat equation where the initial data has the following form:
+\begin{align*}
+f(x) = \begin{cases}
+x - 1, \quad &1 \leq x \leq 2 \\
+11 - 5x, \quad & 2 \leq x \leq 3 \\
+5x - 19, \quad & 3 \leq x \leq 4 \\
+5 - x, \quad & 4 \leq x \leq 5 \\
+0, \quad &\text{otherwise}.
+\end{cases}
+\end{align*}
+Discuss what happens to the solution as $t$ increases.
+You do \textit{not} need to write down an explicit formula, but for full credit you must explain (sketches can help) at least three or four interesting things that happen to the solution behavior of the solution as $t \rightarrow \infty$.
+\\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\newpage
+
+\item
+\begin{enumerate}
+\item Consider the following IBVP:
+\begin{align*}
+\begin{cases}
+u_t = u_{xx}, &(x, y) \in (0, L_1) \times (0, L_2), t > 0 \\
+\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L_1) \times (0, L_2) \big), t > 0 \\
+u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2)
+\end{cases}
+\end{align*}
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\newpage
+
+
+\item Consider the following IBVP:
+\begin{align*}
+\begin{cases}
+u_t = u_{xx}, &(x, y) \in (0, L_1) \times (0, L_2), t > 0 \\
+\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L_1) \times (0, L_2) \big), t > 0 \\
+u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2)
+\end{cases}
+\end{align*}
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\end{enumerate}
+
+\newpage
+
+\item
+\begin{enumerate}
+\item Consider the following IBVP:
+\begin{align*}
+\begin{cases}
+u_t = u_{xx}, &(x, y) \in (0, L_1) \times (0, L_2), t > 0 \\
+\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L_1) \times (0, L_2) \big), t > 0 \\
+u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2)
+\end{cases}
+\end{align*}
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+\newpage
+
+
+\item Consider the following IBVP:
+\begin{align*}
+\begin{cases}
+u_t = u_{xx}, &(x, y) \in (0, L_1) \times (0, L_2), t > 0 \\
+\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L_1) \times (0, L_2) \big), t > 0 \\
+u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2)
+\end{cases}
+\end{align*}
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\end{enumerate}
+
+\newpage
+
+\item Olver 4.1.4 \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\newpage
+
+\item Olver 3.2.2 (b) and (e) \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\newpage
+
+\item Olver 3.2.3 \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\newpage
+
+\item Olver P73, Lemma 3.1 in Olver.
+To obtain full credits, please give the detailed calculation of the integrals and show how to use trigonometric identities or integration by parts (if used) step by step. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
