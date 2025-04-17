@@ -55,12 +55,12 @@ x - 1, \quad &1 \leq x \leq 2 \\
 \end{cases}
 \end{align*}
 Discuss what happens to the solution as $t$ increases.
-You do \textit{not} need to write down an explicit formula, but for full credit you must explain (sketches can help) at least three or four interesting things that happen to the solution behavior of the solution as $t \rightarrow \infty$.
+You do \textit{not} need to write down an explicit formula, but for full credit you must explain (sketches can help) at least three or four interesting things that happen to the solution as time progresses.
 \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO} \\
+Describe how things would immediately start smoothing until it is a flat line. \textbf{TODO: include visuals} 
 
 \newpage
 
@@ -69,11 +69,18 @@ You do \textit{not} need to write down an explicit formula, but for full credit 
 \item Consider the following IBVP:
 \begin{align*}
 \begin{cases}
-u_t = u_{xx}, &(x, y) \in (0, L_1) \times (0, L_2), t > 0 \\
-\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L_1) \times (0, L_2) \big), t > 0 \\
-u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2)
+u_t = u_{xx} + 2, &x \in (0, 1), t > 0 \\
+u(0, t) = u(1, t) = 0, & t > 0 \\
+u(x, 0) = \E^{x}, &x \in (0, 1)
 \end{cases}
 \end{align*}
+Solve this IBVP in terms of trigonometric series.
+Plot the solution $u(x, t)$ at time $t=0$ and $t=100$ by truncating the first 1000 terms of series.
+Please describe the behaviors, e.g. discontinuity, smoothness, of the approximate solution when $t=0$ and $t=100$.
+In addition, truncate the sin-trigonometric expansion of the function, 2,  by using the first 1000 terms and plot the approximation.
+Also, describe the discontinuity and smoothness of the approximate series.
+
+(Hint: try to expand 2 in terms of sin-trigonometric functions at first and the coefficients are determined by the inner product.) \\
 
 \noindent
 \textit{Solution:} \\
@@ -85,11 +92,14 @@ u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2
 \item Consider the following IBVP:
 \begin{align*}
 \begin{cases}
-u_t = u_{xx}, &(x, y) \in (0, L_1) \times (0, L_2), t > 0 \\
-\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L_1) \times (0, L_2) \big), t > 0 \\
-u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2)
+u_t = u_{xx} + \cos 2x, &x \in (0, \pi), t > 0 \\
+u_x(0, t) = u_x(\pi, t) = 0, & t > 0 \\
+u(x, 0) = x^2(\pi - x)^2, &x \in (0, \pi)
 \end{cases}
 \end{align*}
+Solve this IBVP in terms of trigonometric series.
+Plot the solution $u(x, t)$ at time $t=0$ and $t=100$ by truncating the first 1000 terms of series.
+Please describe the behaviors, e.g. discontinuity, smoothness, of the approximate solution when $t=0$ and $t=100$. \\
 
 \noindent
 \textit{Solution:} \\
@@ -104,11 +114,12 @@ u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2
 \item Consider the following IBVP:
 \begin{align*}
 \begin{cases}
-u_t = u_{xx}, &(x, y) \in (0, L_1) \times (0, L_2), t > 0 \\
-\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L_1) \times (0, L_2) \big), t > 0 \\
-u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2)
+u_t = u_{xx}, &x \in (0, \pi), t > 0 \\
+u(0, t) = 0, \: u(\pi, t) = \pi, & t > 0 \\
+u(x, 0) = \frac 1 2 \sin x + x, &x \in (0, \pi)
 \end{cases}
 \end{align*}
+Solve this IBVP to get the general solution. \\
 
 \noindent
 \textit{Solution:} \\
@@ -119,11 +130,12 @@ u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2
 \item Consider the following IBVP:
 \begin{align*}
 \begin{cases}
-u_t = u_{xx}, &(x, y) \in (0, L_1) \times (0, L_2), t > 0 \\
-\partial_{\bm n} u(x, y, t) = 0, &(x, y) \in \partial \big( (0, L_1) \times (0, L_2) \big), t > 0 \\
-u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2)
+u_t = u_{xx}, &x \in (0, \pi), t > 0 \\
+u_x(0, t) = 1, \quad u_x(\pi, t) = \frac 3 4, & t > 0 \\
+u(x, 0) = \frac 1 2 \cos \left( \frac x 2 \right) + x, &x \in (0, \pi)
 \end{cases}
 \end{align*}
+Introduce an intermediate function $w$ to eliminate inhomogeneous NBC and transform the problem into IBVP with homogeneous NBC and inhomogeneous source. \\
 
 \noindent
 \textit{Solution:} \\
@@ -133,7 +145,8 @@ u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2
 
 \newpage
 
-\item Olver 4.1.4 \\
+\item Olver 4.1.4. Find a series solution to the initial-boundary value problem for the heat equation $u_t = u_{xx}$ for $0 < x < 1$ when one the end of the bar is held at 0\textdegree \, and the other is insulated.
+Discuss the asymptotic behavior of the solution as $t \rightarrow \infty$. \\
 
 \noindent
 \textit{Solution:} \\
@@ -141,15 +154,38 @@ u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2
 
 \newpage
 
-\item Olver 3.2.2 (b) and (e) \\
+\item Olver 3.2.2 Find the Fourier series of the following functions:
+\begin{enumerate}
+
+\item Problem (b):
+$$
+\begin{cases}
+1, &\frac 1 2 \pi < |x| < \pi \\
+0, &\text{otherwise}
+\end{cases}
+$$ \\
 
 \noindent
 \textit{Solution:} \\
 \textbf{TODO} \\
 
+\item Problem (e)
+$$
+\begin{cases}
+\cos x, & |x| < \frac 1 2 \pi \\
+0, &\text{otherwise}
+\end{cases}
+$$ \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO} \\
+
+\end{enumerate}
 \newpage
 
-\item Olver 3.2.3 \\
+\item Olver 3.2.3 Find the Fourier series of $\sin^2 x$ and $\cos^2 x$ without directly calculating the Fourier coefficients.
+Hint: Use some standard trigonometric identities.\\
 
 \noindent
 \textit{Solution:} \\
@@ -161,7 +197,17 @@ u(x, y, 0) = u_0(x, y) \geq 0, \not \equiv 0 &(x, y) \in (0, L_1) \times (0, L_2
 To obtain full credits, please give the detailed calculation of the integrals and show how to use trigonometric identities or integration by parts (if used) step by step. \\
 
 \noindent
-\textit{Solution:} \\
+As stated in the text \\
+\textit{Lemma 3.1}: Under the rescaled $L^2$ inner product, the trigonometric functions $1, \sin x, \cos x, \sin 2 x, \cos 2x , ..., $ satisfy the following orthogonality relations:
+\begin{align*}
+\langle \cos k x, \cos \ell x \rangle = \langle \sin k x, \sin \ell x \rangle = 0, \quad &\text{for}\: k \neq \ell \\
+\langle \cos k x, \sin \ell x \rangle = 0, \quad  &\text{for all}\: k, \ell \\
+||1|| = \sqrt 2, \quad || \cos k x || = || \sin k x || = 0,  \quad &\text{for}\: k \neq 0
+\end{align*}
+where $k, \ell$ are nonnegative integers. \\
+
+\noindent
+\textit{Solution:} Now we are being asked to show the detailed calculations of the various integrals as presented in the text to prove this lemma. \\
 \textbf{TODO} \\
 
 \end{enumerate}
