@@ -10,6 +10,8 @@ __pycache__/
 **/lecture_slides/
 probability/final/
 
+# random
+temp/
 
 # data visualization data
 data_visualization/**/data/
