@@ -440,12 +440,12 @@ def get_params_initial_guess(
     Get the params for the optimization process
     """
     if foi_method == ForceOfInfectionMethod.AGE_PIECEWISE:
-        params = np.array([np.log(0.3), np.log(0.05), logit(GLOBAL_DEFAULT_A1/MAX_AGE), np.log(DEFAULT_Y_UNOBSERVED_YEARS)])
-        # params = np.array([np.log(0.1), np.log(0.1), logit(5/MAX_AGE), np.log(5)])
+        # params = np.array([np.log(0.3), np.log(0.05), logit(GLOBAL_DEFAULT_A1/MAX_AGE), np.log(DEFAULT_Y_UNOBSERVED_YEARS)])
+        params = np.array([np.log(0.1), np.log(0.1), logit(5/MAX_AGE), np.log(5)])
     
     elif foi_method == ForceOfInfectionMethod.AGE_LOG_LIN:
-        params = np.array([-1, -.1, np.log(DEFAULT_Y_UNOBSERVED_YEARS)])
-        # params = np.array([0, 0, np.log(5)])
+        # params = np.array([-1, -.1, np.log(DEFAULT_Y_UNOBSERVED_YEARS)])
+        params = np.array([0, 0, np.log(5)])
 
     if init_susc_method == InitialSusceptibleMethod.DIRECT:
         direct_init_susc = np.insert(np.ones(MAX_AGE - 1)*np.log(900), 0, np.log(POPULATION_PER_AGE))
