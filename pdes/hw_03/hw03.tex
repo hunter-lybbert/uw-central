@@ -59,10 +59,77 @@ Exercises come from \textit{Introduction to Partial Differential Equations by Pe
 
 
 \item Olver: 3.2.55 \\
+\begin{enumerate}
+\item Find the complex Fourier series for $x\E^{\I x}$ \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+First of all we define the complex Fourier series for a piecewise continuous real or complex function $f$ is the doubly infinite series
+$$
+f(x) \sim \sum_{k=-\infty}^{\infty} c_k \E^{\I k x}
+$$
+where the $c_k$ are given by
+$$
+c_k = \langle f, \E^{\I k x} \rangle = \frac 1 {2 \pi} \int_{-\pi}^{\pi} f(x) \E^{-\I k x} dx.
+$$
+Therefore, the bulk of our work here is to establish what the coefficients $c_k$ need to be.
+In other words we need to calculate
+\begin{align*}
+c_k = \langle x\E^{\I x}, \E^{\I k x} \rangle
+	&= \frac 1 {2 \pi} \int_{-\pi}^{\pi} x\E^{\I x} \E^{-\I k x} dx \\
+	&= \frac 1 {2 \pi} \int_{-\pi}^{\pi} x\E^{\I x (1 - k)}dx.
+\end{align*}
+I believe integration by parts would be useful.
+Let $u = x$ and let $dv = \E^{\I x (1 - k)}dx$ these then also give rise to $du = dx$ and $v = \frac 1 {\I(1 - k)} \E^{\I x (1 - k)}$, respectively.
+Then we have
+\begin{align*}
+\int u dv &= uv - \int v du \\
+\frac 1 {2 \pi} \int_{-\pi}^{\pi} x\E^{\I x (1 - k)}dx
+	&= \frac 1 {2 \pi} \Bigg[ \left. \frac x {\I(1 - k)} \E^{\I x (1 - k)}\right|_{-\pi}^{\pi} - \int_{-\pi}^{\pi} \frac 1 {\I(1 - k)} \E^{\I x (1 - k)} dx \Bigg] \\
+\end{align*}
+Let's take the right hand piece by piece in order to keep the calculations clean.
+First with the $uv$ term
+\begin{align*}
+uv &= \left. \frac x {\I(1 - k)} \E^{\I x (1 - k)}\right|_{-\pi}^{\pi} \\
+	&= \frac \pi {\I(1 - k)} \E^{\I \pi (1 - k)} - \frac {(-\pi)} {\I(1 - k)} \E^{- \I \pi (1 - k)} \\
+	&= \frac \pi {\I(1 - k)} \left( \E^{\I \pi (1 - k)} + \E^{- \I \pi (1 - k)} \right) \\
+	&= \frac {2 \pi \cos (\pi (1 - k)) } {\I(1 - k)} \\
+	&= - \frac {2 \pi \I \cos (\pi (1 - k)) } {1 - k}.
+\end{align*}
+Now we proceed with the integral on the right hand side
+\begin{align*}
+\int v du &= \int_{-\pi}^{\pi} \frac 1 {\I(1 - k)} \E^{\I x (1 - k)} dx \\
+	&= \left. \frac 1 {(\I(1 - k))^2} \E^{\I x (1 - k)} \right|_{-\pi}^{\pi} \\
+	&= \frac 1 {(\I(1 - k))^2} \E^{\I \pi (1 - k)} - \frac 1 {(\I(1 - k))^2} \E^{- \I \pi (1 - k)} \\
+	&= \frac 1 {\I^2(1 - k)^2} \left(  \E^{\I \pi (1 - k)} - \E^{- \I \pi (1 - k)} \right) \\
+	&= - \frac 1 {(1 - k)^2} \left(  2 \I \sin (\pi (1 - k)) \right) \\
+	&= 0
+\end{align*}
+where the final equality holds due to the fact that $\sin(\pi (1 - k))$ is always 0 since $1 - k$ is an integer.
+Using these in our initial IBP step we have
+\begin{align*}
+\frac 1 {2 \pi} \int_{-\pi}^{\pi} x\E^{\I x (1 - k)}dx
+	&= \frac 1 {2 \pi} \Bigg[ \left. \frac x {\I(1 - k)} \E^{\I x (1 - k)}\right|_{-\pi}^{\pi} - \int_{-\pi}^{\pi} \frac 1 {\I(1 - k)} \E^{\I x (1 - k)} dx \Bigg] \\
+	&= \frac 1 {2 \pi} \Bigg[ - \frac {2 \pi \I \cos (\pi (1 - k)) } {1 - k} \Bigg] \\
+	&= - \frac {\I \cos (\pi (1 - k)) } {1 - k}.
+\end{align*}
+Thus we have calculated the $c_k$ to be
+$$
+c_k = - \frac {\I \cos (\pi (1 - k)) } {1 - k}
+$$
+and thus our Fourier series of the function $x \E^{\I x}$ is given by
+$$
+f(x) \sim \sum_{k=-\infty}^{\infty} - \frac {\I \cos (\pi (1 - k)) } {1 - k} \E^{\I k x}
+$$
+\qed \\
+
+\item Use your result to write down the real Fourier series for $x\cos x$ and $x \sin s$ \\
+\noindent
+\textit{Solution:} \\
+I am not confident on how to go from part a) to the results that are requested here but I do think it will be helpful to know
+$a_k = c_k + c_{-k}$ and $b_k = \I (c_k - c_{-k})$.
+
+\end{enumerate}
 
 \newpage
 
