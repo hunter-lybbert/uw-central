@@ -50,6 +50,25 @@ Exercises come from \textit{Introduction to Partial Differential Equations by Pe
 
 
 \item Olver: 3.3.2 and 3.3.3 \\
+\begin{itemize}
+\item 3.3.2 Find the Fourier series for the function $f(x) = x^3$.
+If you differentiate your series, do you recover the Fourier series for $f^\prime(x) = 3x^2$?
+If not, explain why not. \\
+
+\noindent
+\textit{Solution:} \\
+We begin by calculating the coefficients $a_k$ and $b_k$.
+\begin{align*}
+a_k = \langle x^3, \cos kx \rangle &= \frac 1 \pi \int_{-\pi}^\pi x^3 \cos kx dx \\
+	&= \frac 1 \pi \int_{-\pi}^\pi x^3 \cos kx dx
+\end{align*}
+
+\item 3.3.3 Repeat exercise 3.3.2 but starting with $f(x) = x^4$. \\
+\noindent
+\textit{Solution:} \\
+\textbf{TODO:}
+
+\end{itemize}
 
 \noindent
 \textit{Solution:} \\
@@ -113,28 +132,74 @@ Using these in our initial IBP step we have
 	&= \frac 1 {2 \pi} \Bigg[ - \frac {2 \pi \I \cos (\pi (1 - k)) } {1 - k} \Bigg] \\
 	&= - \frac {\I \cos (\pi (1 - k)) } {1 - k}.
 \end{align*}
+Notice, since $\cos(\ell \pi) = \begin{cases} 1, &\text{if $\ell$ is even} \\ -1, &\text{if $\ell$ is odd} \end{cases}$, therefore, when $k$ is odd $1 - k$ is even but if $k$ is even then $1 - k$ is odd.
+Hence
+\begin{align*}
+- \frac {\I \cos (\pi (1 - k)) } {1 - k} &= - \frac {\I (-1)^{(1 - k)} } {1 - k} \\
+	&= \frac {\I (-1)^{(2 - k)} } {1 - k} \\
+	&= \frac {\I (-1)^{k} } {1 - k}
+\end{align*}
 Thus we have calculated the $c_k$ to be
 $$
-c_k = - \frac {\I \cos (\pi (1 - k)) } {1 - k}
+c_k = \frac {\I (-1)^{k} } {1 - k}
 $$
 and thus our Fourier series of the function $x \E^{\I x}$ is given by
 $$
-f(x) \sim \sum_{k=-\infty}^{\infty} - \frac {\I \cos (\pi (1 - k)) } {1 - k} \E^{\I k x}
+f(x) \sim \sum_{k=-\infty}^{\infty} \frac {\I (-1)^{k} } {1 - k} \E^{\I k x}
 $$
 \qed \\
 
 \item Use your result to write down the real Fourier series for $x\cos x$ and $x \sin s$ \\
 \noindent
 \textit{Solution:} \\
-I am not confident on how to go from part a) to the results that are requested here but I do think it will be helpful to know
-$a_k = c_k + c_{-k}$ and $b_k = \I (c_k - c_{-k})$.
+Notice we can rewrite the previous Fourier series as
+\begin{align*}
+f(x) &\sim \sum_{k=-\infty}^{\infty} \frac {\I (-1)^{k} } {1 - k} \E^{\I k x} \\
+x \E^{\I x} &\sim \sum_{k=-\infty}^{\infty} \frac {\I (-1)^{k} } {1 - k} \E^{\I k x} \\
+x \cos x + \I x\sin x &\sim \sum_{k=-\infty}^{\infty} \Bigg[ \frac {\I (-1)^{k} } {1 - k} \cos kx - \frac { (-1)^{k} } {1 - k}\sin kx \Bigg].
+\end{align*}
+Pairing up the real and imaginary parts of this we get
+$$
+x \cos x \sim \sum_{k=-\infty}^{\infty}  \frac { (-1)^{k + 1} } {1 - k}\sin kx
+$$
+and
+$$
+x \sin x \sim \sum_{k=-\infty}^{\infty} \frac {(-1)^{k} } {1 - k} \cos kx.
+$$
+However, for the real Fourier series we want the indices to start at $k=1$ rather than $-\infty$.
+Thus we have
+\begin{align*}
+\sum_{k=-\infty}^{\infty}  \frac { (-1)^{k + 1} } {1 - k}\sin kx
+	&= \sum_{k=1}^{\infty}  \Bigg[ \frac { (-1)^{k + 1} } {1 - k}\sin kx + \frac { (-1)^{-k + 1} } {1 + k}\sin (-kx) \Bigg] \\
+	&= \sum_{k=1}^{\infty}  \frac { (-1)^{k + 1} \Big( \sin kx (1 + k) - \sin kx (1 - k) \Big)} {1 - k^2} \\
+	&= \sum_{k=1}^{\infty}  \frac { (-1)^{k + 1} 2 k \sin kx} {1 - k^2}
+\end{align*}
+However, we actually want to exclude $k= 1$ to avoid dividing by zero.
+Also it is helpful to note that we have already removed $k = 0$ since $\sin 0 = 0$
+Thus
+$$
+x \cos x \sim \sum_{k=2}^{\infty}  \frac { (-1)^{k + 1} 2 k \sin kx} {1 - k^2}.
+$$
+Finally for $x \sin x$ we have
+\begin{align*}
+\sum_{k=-\infty}^{\infty} \frac {(-1)^{k} } {1 - k} \cos kx
+	&= 1 + \sum_{k=1}^{\infty} \Bigg( \frac {(-1)^{k} } {1 - k} \cos kx + \frac {(-1)^{-k} } {1 + k} \cos (- kx) \Bigg) \\
+	&= 1 + \sum_{k=1}^{\infty} (-1)^{k} \cos kx \Bigg( \frac {1} {1 - k}  + \frac { 1 } {1 + k} \Bigg) \\
+	&= 1 + \sum_{k=1}^{\infty} \frac {(-1)^{k} \cos kx } {1 - k^2}.
+\end{align*}
+And thus
+$$
+x \sin x \sim 1 + \sum_{k=1}^{\infty} \frac {(-1)^{k} \cos kx } {1 - k^2}.
+$$
+\textbf{TODO: revisit this and verify how to handle the $k=1$ case.}
+
 
 \end{enumerate}
 
 \newpage
 
 
-\item Olver: 3.4.6 \\
+\item Olver: 3.4.6 Write down formulas for the Fourier series of both even and odd functions on $[-\ell, \ell]$. \\
 
 \noindent
 \textit{Solution:} \\
@@ -143,7 +208,8 @@ $a_k = c_k + c_{-k}$ and $b_k = \I (c_k - c_{-k})$.
 \newpage
 
 
-\item Olver: 3.5.29 \\
+\item Olver: 3.5.29 Let $f(x) \in L^2[a, b]$ be square integrable.
+Which constant function $g(x) \equiv c$ best approximates $f$ in the least squares sense? \\
 
 \noindent
 \textit{Solution:} \\
@@ -152,7 +218,13 @@ $a_k = c_k + c_{-k}$ and $b_k = \I (c_k - c_{-k})$.
 \newpage
 
 
-\item Olver: 3.5.43 \\
+\item Olver: 3.5.43 For each $n = 1, 2, ..., $ define the function
+$$
+f_n(x) = \begin{cases} 1, \quad &\frac k m \leq x \leq \frac {k + 1} m, \\ 0, \quad & \text{otherwise}\end{cases},
+$$
+where $n = \frac 1 2 m (m + 1) + k$ and $0 \leq k \leq m$.
+Show first that $m, k$ are uniquely determined by $n$.
+Then prove that, on the interval $[0, 1]$, the sequence $f_n(x)$ converges in norm to 0 but does not converge pointwise \textit{anywhere}! \\
 
 \noindent
 \textit{Solution:} \\
@@ -178,6 +250,21 @@ $$
 
 \noindent
 \textit{Solution:} \\
+We begin by calculating the Fourier coefficient as requested
+\begin{align*}
+\langle f_a, \varphi_n \rangle &= \frac 1 {\sqrt{2 \pi}} \int_{-\pi}^{\pi} f_a(x) \E^{- \I n x} dx \\
+	&= \frac 1 {\sqrt{2 \pi}} \int_{-\pi}^{\pi} \E^{ax} \E^{- \I n x} dx \\
+	&= \frac 1 {\sqrt{2 \pi}} \int_{-\pi}^{\pi} \E^{(a - \I n) x} dx \\
+	&= \frac 1 {\sqrt{2 \pi}} \Bigg( \left. \frac 1 {(a - \I n)} \E^{(a - \I n) x} \right|_{-\pi}^{\pi} \Bigg) \\
+	&= \frac 1 {\sqrt{2 \pi}} \Bigg( \frac 1 {(a - \I n)} \E^{(a - \I n) \pi} - \frac 1 {(a - \I n)} \E^{- (a - \I n) \pi} \Bigg) \\
+	&= \frac 1 {\sqrt{2 \pi}(a - \I n)} \big( \E^{(a - \I n) \pi} - \E^{- (a - \I n) \pi} \big) \\
+	&= \frac 1 {\sqrt{2 \pi}(a - \I n)} \big( \E^a \E^{- \I n \pi} - \E^{- a} \E^{ \I n \pi} \big) \\
+	&= \frac 1 {\sqrt{2 \pi}(a - \I n)} \Bigg( \frac {\E^{2a} \E^{- \I n \pi}}{\E^a} - \frac {\E^{ \I n \pi}}{\E^{a}}\Bigg) \\
+	&= \frac 1 {\sqrt{2 \pi}(a - \I n)\E^a} \Bigg( \E^{2a} \Big( \cos{n \pi} - \cancelto{0}{\I \sin n \pi} \Big) - \Big( \cos{n \pi} + \cancelto{0}{\I \sin n \pi} \Big)\Bigg) \\
+	&= \frac {(\E^{2a} - 1)\cos n \pi }{\sqrt{2 \pi}(a - \I n)\E^a} \\
+	&= \frac {(\E^{2a} - 1)(-1)^n }{\sqrt{2 \pi}(a - \I n)\E^a}
+\end{align*}
+Next, let's prove the formula provided.
 \textbf{TODO: }
 \end{enumerate}
 
