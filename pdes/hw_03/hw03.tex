@@ -44,7 +44,12 @@ Exercises come from \textit{Introduction to Partial Differential Equations by Pe
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.55\textwidth]{pdes_hw_03.png}
+ 	\caption{A sketch of the various $2\pi$ periodic extensions of the requested functions. }\label{fig:f1}
+\end{figure}
+\qed \\
 
 \newpage
 
@@ -57,22 +62,164 @@ If not, explain why not. \\
 
 \noindent
 \textit{Solution:} \\
-We begin by calculating the coefficients $a_k$ and $b_k$.
+We begin by calculating the coefficients $a_k$ and $b_k$
+We first have,
+$$
+a_k = \langle x^3, \cos kx \rangle = \frac 1 \pi \int_{-\pi}^\pi x^3 \cos kx dx
+$$
+which leads us to use integration by parts where $u = x^3$, $dv = \cos kx dx$.
+Notice we are going to need to do this iteratively where $u$ is always set to the polynomial part of the integrand and $dv$ is always the trigonometric part.
+Therefore,
 \begin{align*}
-a_k = \langle x^3, \cos kx \rangle &= \frac 1 \pi \int_{-\pi}^\pi x^3 \cos kx dx \\
-	&= \frac 1 \pi \int_{-\pi}^\pi x^3 \cos kx dx
+\frac 1 \pi \int_{-\pi}^\pi x^3 \cos kx dx
+	&= \frac 1 \pi\left[ \left. x^3 \frac {\sin k x} k \right|_{-\pi}^\pi - \int_{-\pi}^\pi 3 x^2 \frac {\sin kx} k dx \right] \\
+	&= \frac 1 \pi\left[
+		\left. x^3 \frac {\sin k x} k \right|_{-\pi}^\pi
+		+ \Bigg( \left. 3x^2 \frac {\cos k x} {k^2} \right|_{-\pi}^\pi - \int_{-\pi}^\pi 6 x \frac {\cos kx} {k^2} dx\Bigg)
+	\right] \\
+	&= \frac 1 \pi\left[
+		\left. x^3 \frac {\sin k x} k \right|_{-\pi}^\pi
+		+ \Bigg(
+			\left. 3x^2 \frac {\cos k x} {k^2} \right|_{-\pi}^\pi
+			- \Big( \left. 6x \frac {\sin k x} {k^3} \right|_{-\pi}^\pi - \int_{-\pi}^\pi 6 \frac {\sin k x} {k^3} dx \Big)
+		\Bigg)
+	\right] \\
+	&= \frac 1 \pi\left[
+		\left. x^3 \frac {\sin k x} k \right|_{-\pi}^\pi
+		+ \Bigg(
+			\left. 3x^2 \frac {\cos k x} {k^2} \right|_{-\pi}^\pi
+			- \Big( \left. 6x \frac {\sin k x} {k^3} \right|_{-\pi}^\pi + \left. 6 \frac {\cos k x} {k^4} \right|_{-\pi}^\pi \Big)
+		\Bigg)
+	\right] \\
+	&= \frac 1 \pi \left[ \left.
+		x^3 \frac {\sin k x} k + 3x^2 \frac {\cos k x} {k^2} - 6x \frac {\sin k x} {k^3} - 6 \frac {\cos k x} {k^4} \right|_{-\pi}^\pi
+	\right] \\
+	&= \frac 1 \pi \left[
+		\Bigg( (\pi)^3 \frac {\sin k \pi} k + 3(\pi)^2 \frac {\cos k \pi} {k^2} - 6\pi \frac {\sin k \pi} {k^3} - 6 \frac {\cos k \pi} {k^4} \Bigg) \right. \\
+		&\quad\quad- \left. \Bigg( (-\pi)^3 \frac {\sin (- k \pi) } k + 3(-\pi)^2 \frac {\cos (- k \pi)} {k^2} + 6\pi \frac {\sin (- k \pi)} {k^3} - 6 \frac {\cos (- k \pi)} {k^4} \Bigg)
+	\right].
 \end{align*}
+Each of the $\sin$ terms are 0 and the $\cos$ terms of different signs end up canceling one another out.
+Thus we have
+\begin{align*}
+&= \frac 1 \pi \left[
+		3(\pi)^2 \frac {\cos k \pi} {k^2} - 6 \frac {\cos k \pi} {k^4} - 3(\pi)^2 \frac {\cos (k \pi)} {k^2} + 6 \frac {\cos (k \pi)} {k^4}
+	\right] = 0
+\end{align*}
+Which checks out since $x^3$ is an odd function, therefore it's Fourier series is going to be solely comprised of the $b_k$ and $\sin$ terms.
+Calculating $b_k$ using repeated integration by parts we have
+\begin{align*}
+\frac 1 \pi \int_{-\pi}^\pi x^3 \sin kx dx
+	&= \frac 1 \pi\left[ - \left. x^3 \frac {\cos k x} k \right|_{-\pi}^\pi + \int_{-\pi}^\pi 3 x^2 \frac {\cos kx} k dx \right] \\
+	&= \frac 1 \pi\left[
+		- \left. x^3 \frac {\cos k x} k \right|_{-\pi}^\pi
+		+ \Bigg( \left. 3x^2 \frac {\sin k x} {k^2} \right|_{-\pi}^\pi - \int_{-\pi}^\pi 6 x \frac {\sin kx} {k^2} dx\Bigg)
+	\right] \\
+	&= \frac 1 \pi\left[
+		- \left. x^3 \frac {\cos k x} k \right|_{-\pi}^\pi
+		+ \Bigg(
+			\left. 3x^2 \frac {\sin k x} {k^2} \right|_{-\pi}^\pi
+			+ \Big( \left. 6x \frac {\cos k x} {k^3} \right|_{-\pi}^\pi - \int_{-\pi}^\pi 6 \frac {\cos k x} {k^3} dx \Big)
+		\Bigg)
+	\right] \\
+	&= \frac 1 \pi\left[
+		- \left. x^3 \frac {\cos k x} k \right|_{-\pi}^\pi
+		+ \Bigg(
+			\left. 3x^2 \frac {\sin k x} {k^2} \right|_{-\pi}^\pi
+			+ \Big( \left. 6x \frac {\cos k x} {k^3} \right|_{-\pi}^\pi - \left. 6 \frac {\sin k x} {k^4} \right|_{-\pi}^\pi \Big)
+		\Bigg)
+	\right] \\
+	&= \frac 1 \pi \left[ \left.
+		- x^3 \frac {\cos k x} k + 3x^2 \frac {\sin k x} {k^2} + 6x \frac {\cos k x} {k^3} - 6 \frac {\sin k x} {k^4} \right|_{-\pi}^\pi
+	\right] \\
+	&= \frac 1 \pi \left[
+		\Bigg( - (\pi)^3 \frac {\cos k \pi} k + 3(\pi)^2 \frac {\sin k \pi} {k^2} + 6\pi \frac {\cos k \pi} {k^3} - 6 \frac {\sin k \pi} {k^4} \Bigg) \right. \\
+		&\quad\quad - \left. \Bigg( - (- \pi)^3 \frac {\cos (- k \pi)} k + 3(- \pi)^2 \frac {\sin (- k \pi)} {k^2} - 6\pi \frac {\cos (- k \pi)} {k^3} - 6 \frac {\sin (- k \pi)} {k^4} \Bigg)
+	\right].
+\end{align*}
+Once more, we utilize the fact that the $\sin$ terms are all 0, and thus we have
+\begin{align*}
+&= \frac 1 \pi \left[ - \pi^3 \frac {\cos k \pi} k + 6\pi \frac {\cos k \pi} {k^3} - \pi^3 \frac {\cos (k \pi)} k + 6\pi \frac {\cos (- k \pi)} {k^3} \right] \\
+&= \frac 1 \pi \left[ - 2 \pi^3 \frac {\cos k \pi} k + 12\pi \frac {\cos k \pi} {k^3} \right] \\
+&= - 2 \pi^2 \frac {\cos k \pi} k + 12 \frac {\cos k \pi} {k^3} \\
+&= \cos k \pi \left( \frac{12}{k^3} - \frac {2 \pi^2} k \right)  \\
+&= (-1)^k \left( \frac{12}{k^3} - \frac {2 \pi^2} k \right).
+\end{align*}
+Therefore, the Fourier series of $x^3$ is
+$$
+x^3 \sim \sum_{k=1}^{\infty} (-1)^k \left( \frac{12}{k^3} - \frac {2 \pi^2} k \right) \sin k x.
+$$
+Now we are interested in seeing if the derivative of this series is the same as the Fourier series for the derivative of $x^3$.
+\begin{align*}
+\frac d {dx} \left [ \sum_{k=1}^{\infty} (-1)^k \left( \frac{12}{k^3} - \frac {2 \pi^2} k \right) \sin k x \right]
+&=  \sum_{k=1}^{\infty} \frac d {dx} \left [ (-1)^k \left( \frac{12}{k^3} - \frac {2 \pi^2} k \right) \sin k x \right] \\
+&=  \sum_{k=1}^{\infty} (-1)^k \left( \frac{12}{k^3} - \frac {2 \pi^2} k \right) \cos k x 
+\end{align*}
+This does not match the Fourier coefficient for $2x^3$ we computed manually. \\
+\qed \\
+\newpage
 
 \item 3.3.3 Repeat exercise 3.3.2 but starting with $f(x) = x^4$. \\
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
-
+Notice, $x^4$ is an even function therefore we will forgo calculating the $b_k$ which will all be 0.
+Instead we calculate the $a_k$ coeffs
+\begin{align*}
+a_k = \langle x^4, \cos kx \rangle &= \frac 1 \pi \int_{-\pi}^\pi x^4 \cos kx dx \\
+	&= \frac 1 \pi\left[ \left. x^4 \frac {\sin k x} k \right|_{-\pi}^\pi - \int_{-\pi}^\pi 4 x^3 \frac {\sin kx} k dx \right] \\
+	&= \frac 1 \pi\left[
+		\left. x^4 \frac {\sin k x} k \right|_{-\pi}^\pi
+		+ \Bigg( \left. 4x^3 \frac {\cos k x} {k^2} \right|_{-\pi}^\pi - \int_{-\pi}^\pi 12 x^2 \frac {\cos kx} {k^2} dx\Bigg)
+	\right] \\
+	&= \frac 1 \pi\left[
+		\left. x^4 \frac {\sin k x} k \right|_{-\pi}^\pi
+		+ \Bigg(
+			\left. 4x^3 \frac {\cos k x} {k^2} \right|_{-\pi}^\pi
+			- \Big( \left. 12x^2 \frac {\sin k x} {k^3} \right|_{-\pi}^\pi - \int_{-\pi}^\pi 24x \frac {\sin k x} {k^3} dx \Big)
+		\Bigg)
+	\right] \\
+	&= \frac 1 \pi\left[
+		\left. x^4 \frac {\sin k x} k \right|_{-\pi}^\pi
+		+ \Bigg(
+			\left. 4x^3 \frac {\cos k x} {k^2} \right|_{-\pi}^\pi
+			- \Big( \left. 12x^2 \frac {\sin k x} {k^3} \right|_{-\pi}^\pi
+				+ \big(
+					\left. 24x \frac {\cos k x} {k^4} \right|_{-\pi}^\pi
+					- \int_{-\pi}^\pi 24 \frac {\cos k x} {k^4} dx
+				\big)
+			\Big)
+		\Bigg)
+	\right] \\
+	&= \frac 1 \pi \left[ \left.
+		x^4 \frac {\sin k x} k + 4x^3 \frac {\cos k x} {k^2} - 12x^2 \frac {\sin k x} {k^3} - 24x \frac {\cos k x} {k^4} + 24 \frac {\sin k x} {k^5} \right|_{-\pi}^\pi 
+	\right] \\
+	&= \frac 1 \pi \left[
+		\Bigg( (\pi)^4 \frac {\sin k \pi} k + 4(\pi)^3 \frac {\cos k \pi} {k^2} - 12\pi^2 \frac {\sin k \pi} {k^3} - 24 \pi \frac {\cos k \pi} {k^4} + 24 \frac {\sin k \pi} {k^5} \Bigg) \right. \\
+		&\quad\quad - \left.\Bigg( (- \pi)^4 \frac {\sin (- k \pi)} k + 4(- \pi)^3 \frac {\cos (- k \pi)} {k^2} - 12(-\pi)^2 \frac {\sin (- k \pi)} {k^3} + 24 \pi \frac {\cos (- k \pi)} {k^4} + 24 \frac {\sin (- k \pi)} {k^5} \Bigg)
+	\right]
+\end{align*}
+Once, again the $\sin$ terms are 0 but the $\cos$ terms won't cancel since they switch signs with odd power coefficients this time
+\begin{align*}
+&= \frac 1 \pi \left[
+		4(\pi)^3 \frac {\cos k \pi} {k^2} - 24 \pi \frac {\cos k \pi} {k^4} - \Bigg( 4(- \pi)^3 \frac {\cos (- k \pi)} {k^2} + 24 \pi \frac {\cos (- k \pi)} {k^4} \Bigg)
+	\right] \\
+&= \frac 1 \pi \left[ 4(\pi)^3 \frac {\cos k \pi} {k^2} - 24 \pi \frac {\cos k \pi} {k^4} + 4(\pi)^3 \frac {\cos (k \pi)} {k^2} - 24 \pi \frac {\cos (k \pi)} {k^4} \right] \\
+&= \cos k \pi \left( \frac {8\pi^2} {k^2} - \frac {48} {k^4} \right) \\
+&= (-1)^k \left( \frac {8\pi^2} {k^2} - \frac {48} {k^4} \right). 
+\end{align*}
+Therefore, the Fourier series of $x^4$ is
+$$
+x^4 \sim \sum_{k=1}^{\infty} (-1)^k \left( \frac {8\pi^2} {k^2} - \frac {48} {k^4} \right) \cos k x.
+$$
+Similar to part 1, we have
+\begin{align*}
+\frac d {dx} \left[ \sum_{k=1}^{\infty} (-1)^k \left( \frac {8\pi^2} {k^2} - \frac {48} {k^4} \right) \cos k x \right] 
+	&= \sum_{k=1}^{\infty} \frac d {dx} \left [ (-1)^k \left( \frac {8\pi^2} {k^2} - \frac {48} {k^4} \right) \cos k x \right] \\
+	&= \sum_{k=1}^{\infty} (-1)^{k + 1} \left( \frac {8\pi^2} {k^2} - \frac {48} {k^4} \right) \sin k x.
+\end{align*}
+Which once again does not have the right coefficients for $4x^3$. \\
+\qed \\
 \end{itemize}
-
-\noindent
-\textit{Solution:} \\
-\textbf{TODO:}
 
 \newpage
 
@@ -203,7 +350,15 @@ $$
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+When $f$ is even on $[-\ell, \ell]$ we have
+$$
+f(x) \sim \frac {a_0} 2 + \sum_{k=1}^{\infty} a_k \cos \left( \frac {k \pi x }{\ell} \right).
+$$
+Additionally, when $f$ is odd on $[-\ell, \ell]$ we have
+$$
+f(x) \sim + \sum_{k=1}^{\infty} b_k \sin \left( \frac {k \pi x }{\ell} \right).
+$$
+\qed \\
 
 \newpage
 
@@ -213,7 +368,27 @@ Which constant function $g(x) \equiv c$ best approximates $f$ in the least squar
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+In the least squares sense, we want to find $c$ which solves
+$$
+\min || f(x) - c||^2
+$$
+Given our norm for $L^2$ we have
+\begin{align*}
+\frac d {dc} || f(x) - c||^2 &= \frac d {dc} \left[ \left( \sqrt{ \langle f(x) - c, f(x) - c \rangle } \right)^2 \right] \\
+	&= \frac d {dc} \left[ \int_a^b (f(x) - c)^2 dx \right] \\
+	&= \frac d {dc} \left[ \int_a^b (f(x))^2 - 2cf(x) + c^2 dx \right] \\
+	&= \frac d {dc} \left[ \int_a^b (f(x))^2 dx - \int_a^b 2cf(x) dx + \int_a^b c^2 dx \right] \\
+	&= - \int_a^b 2f(x) dx + \int_a^b 2c dx.
+\end{align*}
+Setting this equal to zero and solving for $c$ we have
+\begin{align*}
+- \int_a^b 2f(x) dx + \int_a^b 2c dx &= 0 \\
+c &= \frac {\int_a^b 2f(x) dx}{\int_a^b 2 dx} \\
+c &= \frac {\int_a^b f(x) dx}{\int_a^b dx} \\
+c &= \frac 1 {b - a} \int_a^b 2f(x) dx.
+\end{align*}
+Therefore, this value of $c$ for the constant function $g(x) \equiv c$ best approximates $f$ in teh least squares sense. \\
+\qed \\
 
 \newpage
 
@@ -228,7 +403,46 @@ Then prove that, on the interval $[0, 1]$, the sequence $f_n(x)$ converges in no
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO:}
+We begin by showing that $n$ uniquely determines $k$ and $m$.
+First, notice
+$$
+n = \frac 1 2 m(m + 1) + k \implies 0 = \frac 1 2 m^2 + \frac 1 2 m + (k - n).
+$$
+Hence,
+$$
+m = \frac {-1/2 \pm \sqrt{\frac 1 4 - 2(k - n)} }{2 (1/2)} = -\frac 1 2 \pm \sqrt{\frac 1 4 - 2(k - n)}
+$$
+\textbf{TODO: Revisit...} \\
+
+\noindent
+Now we want to show that the sequence converges in norm to 0.
+Thus we need to show
+$$
+\lim_{n \rightarrow \infty} ||f_n(x) - 0|| = 0.
+$$
+Without further ado,
+\begin{align*}
+\lim_{n \rightarrow \infty} ||f_n(x) - 0|| &= \lim_{n \rightarrow \infty} ||f_n(x)|| \\
+	&= \lim_{n \rightarrow \infty} \sqrt{ \langle  f_n(x), f_n(x) \rangle} \\
+	&= \lim_{n \rightarrow \infty} \sqrt{ \int_0^1  f_n(x)^2 dx } \\
+	&= \lim_{n \rightarrow \infty} \sqrt{
+		\int_0^{\frac k m }  f_n(x)^2 dx
+		+ \int_{\frac k m }^{\frac {k + 1} m }  f_n(x)^2 dx 
+		+ \int_{\frac {k + 1} m }^1  f_n(x)^2 dx} \\
+	&= \lim_{n \rightarrow \infty} \sqrt{\int_{\frac k m }^{\frac {k + 1} m } dx } \\
+	&= \lim_{n \rightarrow \infty} \sqrt{ \frac {k + 1} m - \frac k m } \\
+	&= \lim_{n \rightarrow \infty} \frac 1 {\sqrt{m }} \rightarrow 0
+\end{align*}
+Where we know $m$ is going to infinity as $n$ goes to infinity since $n$ depends on $n$ and $k$.
+Therefore, $f_n$ converges to 0 in norm.
+However, we claim that it does not converge point wise \textit{anywhere}!
+The definition of point wise convergence is states as follows for all $\epsilon > 0$ and every $x \in I$ there exists $N \in \mathbb N$ depending on $\epsilon$ and $x$ such that
+$$
+| v_n(x) - v_*(x)| < \epsilon
+$$
+for all $n \geq N$.
+I think I should show this by way of contradiction. \\
+\qed \\
 
 \newpage
 
@@ -258,14 +472,54 @@ We begin by calculating the Fourier coefficient as requested
 	&= \frac 1 {\sqrt{2 \pi}} \Bigg( \left. \frac 1 {(a - \I n)} \E^{(a - \I n) x} \right|_{-\pi}^{\pi} \Bigg) \\
 	&= \frac 1 {\sqrt{2 \pi}} \Bigg( \frac 1 {(a - \I n)} \E^{(a - \I n) \pi} - \frac 1 {(a - \I n)} \E^{- (a - \I n) \pi} \Bigg) \\
 	&= \frac 1 {\sqrt{2 \pi}(a - \I n)} \big( \E^{(a - \I n) \pi} - \E^{- (a - \I n) \pi} \big) \\
-	&= \frac 1 {\sqrt{2 \pi}(a - \I n)} \big( \E^a \E^{- \I n \pi} - \E^{- a} \E^{ \I n \pi} \big) \\
-	&= \frac 1 {\sqrt{2 \pi}(a - \I n)} \Bigg( \frac {\E^{2a} \E^{- \I n \pi}}{\E^a} - \frac {\E^{ \I n \pi}}{\E^{a}}\Bigg) \\
-	&= \frac 1 {\sqrt{2 \pi}(a - \I n)\E^a} \Bigg( \E^{2a} \Big( \cos{n \pi} - \cancelto{0}{\I \sin n \pi} \Big) - \Big( \cos{n \pi} + \cancelto{0}{\I \sin n \pi} \Big)\Bigg) \\
-	&= \frac {(\E^{2a} - 1)\cos n \pi }{\sqrt{2 \pi}(a - \I n)\E^a} \\
-	&= \frac {(\E^{2a} - 1)(-1)^n }{\sqrt{2 \pi}(a - \I n)\E^a}
+	&= \frac 1 {\sqrt{2 \pi}(a - \I n)} \big( \E^{a\pi} \E^{- \I n \pi} - \E^{- a\pi} \E^{ \I n \pi} \big) \\
+	&= \frac 1 {\sqrt{2 \pi}(a - \I n)} \Bigg( \E^{a\pi} \Big( \cos{n \pi} - \cancelto{0}{\I \sin n \pi} \Big) - \E^{- a\pi} \Big( \cos{n \pi} + \cancelto{0}{\I \sin n \pi} \Big) \Bigg) \\
+	&= \frac {\cos{n \pi}} {\sqrt{2 \pi}(a - \I n)} \big( \E^{a\pi} - \E^{- a\pi} \big) \\
+	&= \frac {2 (-1)^n \sinh a \pi} {\sqrt{2 \pi}(a - \I n)}.
 \end{align*}
-Next, let's prove the formula provided.
-\textbf{TODO: }
+This is the requested coefficient.
+
+\newpage
+\noindent
+Next, let's prove the formula provided using \textbf{Theorem 3.43} from Olver, which states
+$$
+||f||^2 = \sum_{k=1}^\infty |c_k|^2 = \sum_{k=1}^{\infty} \langle f, \varphi_n \rangle^2.
+$$
+Notice, we have already calcualted $c_k = \langle f, \varphi_n \rangle$, thus
+\begin{align*}
+\sum_{k=1}^{\infty} |c_k|^2
+	&= \sum_{k=-\infty}^{\infty} \left| \frac {2 (-1)^n \sinh a \pi} {\sqrt{2 \pi}(a - \I n)} \right| ^2 \\
+	&= \sum_{k=-\infty}^{\infty} \frac {4 \sinh^2 a \pi} {2 \pi |a - \I n|^2} \\
+	&= \sum_{k=-\infty}^{\infty} \frac {4 \sinh^2 a \pi} {2 \pi |a - \I n|^2} \\
+	&= \sum_{k=-\infty}^{\infty} \frac {2 \sinh^2 a \pi} { \pi(a^2 + n^2)} \\
+	&= \frac {2 \sinh^2 a \pi} { \pi} \sum_{k=-\infty}^{\infty} \frac 1 {a^2 + n^2}
+\end{align*}
+On the other hand we can calculate
+\begin{align*}
+||f_a||^2 = \langle \E^a, \E^a \rangle = \int_{-\pi}^{\pi} \E^{2ax} dx
+	= \frac 1 {2a} \left( \E^{2a\pi} - \E^{- 2a\pi} \right) 
+	= \frac {\sinh 2a\pi} {a}
+\end{align*}
+Hence,
+\begin{align*}
+||f_a||^2 &= \sum_{k=1}^\infty |c_k|^2 \\
+\frac {\sinh 2a\pi} {a} &= \frac {2 \sinh^2 a \pi} { \pi} \sum_{k=-\infty}^{\infty} \frac 1 {a^2 + n^2} \\
+\frac { \pi} {2 \sinh^2 a \pi} \frac {\sinh 2a\pi} {a} &=\sum_{k=-\infty}^{\infty} \frac 1 {a^2 + n^2} \\
+\frac { \pi}{2a} \frac {\sinh 2a\pi} {\sinh^2 a \pi} &=\sum_{k=-\infty}^{\infty} \frac 1 {a^2 + n^2}
+\end{align*}
+We now employ the trig identity $\sinh 2x = 2\sinh x \cosh x $, thus
+\begin{align*}
+\frac { \pi}{2a} \frac {\sinh 2a\pi} {\sinh^2 a \pi} &=\sum_{k=-\infty}^{\infty} \frac 1 {a^2 + n^2} \\
+\frac { \pi}{2a} \frac {2 \cancel{\sinh a\pi} \cosh a\pi} {\sinh^{\cancel{2}^1} a \pi} &=\sum_{k=-\infty}^{\infty} \frac 1 {a^2 + n^2} \\
+\frac { \pi}{2a} \frac {2 \cosh a\pi} {\sinh a \pi} &=\sum_{k=-\infty}^{\infty} \frac 1 {a^2 + n^2} \\
+\frac { \pi}{a} \coth a\pi &= \sum_{k=-\infty}^{\infty} \frac 1 {a^2 + n^2} \\
+\frac { \pi}{a} \coth a\pi &= \frac 1 {a^2} + \sum_{\underset{k \neq 0}{k = -\infty}}^{\infty} \frac 1 {a^2 + n^2} \\
+\frac { \pi}{a} \coth a\pi &= \frac 1 {a^2} + 2\sum_{k = 1}^{\infty} \frac 1 {a^2 + n^2} \\
+\frac { \pi}{2a} \coth a\pi - \frac 1 {2a^2} &=  \sum_{k = 1}^{\infty} \frac 1 {a^2 + n^2} \\
+\end{align*}
+as requested. \\
+\qed \\
+
 \end{enumerate}
 
 \end{document}
