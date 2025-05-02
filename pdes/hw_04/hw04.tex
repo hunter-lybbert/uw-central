@@ -53,7 +53,82 @@ Solve this IBVP by using separation of variables and analyze the long-term behav
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO}
+We begin by assuming the equation $u(x, t)$ takes on the form
+$$u(x, t) = X(x)T(t)$$
+hence, we assume
+\begin{align*}
+X(x)T^\prime(t) &= X^{\prime\prime}(x)T(t) \\
+\frac{T^\prime(t)}{T(t)} &= \frac {X^{\prime\prime}(x)} {X(x)} = -\lambda.
+\end{align*}
+This gives use the equations
+\begin{align}
+T^\prime(t) + \lambda T(t) &= 0 \label{eq:eq_t}, \\
+X^{\prime\prime}(x) + \lambda X(x) &= 0 \label{eq:eq_x}.
+\end{align}
+We first solve \eqref{eq:eq_x} but have to consider common cases for $\lambda$ less than, equal to, and greater than 0.
+We begin with $\lambda = 0$ then we have $X(x) = Ax +B$.
+Our boundary conditions
+\begin{align*}
+u_x(0, t) + 2u(0, t) &= 0, \\
+u_x(1, t) - 2u(1, t) &= 0,
+\end{align*}
+where $ t > 0$.
+Using $A + 2(A(0) + B) = 0 \implies A = -2B$
+We also need $A - 2(A(1) + B) = 0 \implies - A - 2B = 0 \implies A = -2B$, again.
+Hence,
+$$X(x) = A \left( x - \frac 1 2 \right). $$
+Continuing on with the case where $\lambda >  0$.
+Then we have
+$X(x) = A\cos(\sqrt \lambda x) + B\sin(\sqrt \lambda x) $
+which using our same boundary conditions now gives
+\begin{align*}
+u_x(0, t) + 2u(0, t) &= 0 \\
+\cancel{-A \sqrt \lambda \sin(\sqrt \lambda 0)} + B \sqrt \lambda \cos(\sqrt \lambda 0) + 2 \left(  A\cos(\sqrt \lambda 0) + \cancel{ B\sin(\sqrt \lambda 0)} \right) &= 0 \\
+B \sqrt \lambda + 2A &= 0 \implies
+A &= - \frac {\sqrt \lambda} 2 B
+\end{align*}
+and then for $u_x(1, t) - 2u(1, t) = 0$ we have
+\begin{align*}
+-A \sqrt \lambda \sin(\sqrt \lambda ) + B \sqrt \lambda \cos(\sqrt \lambda ) - 2 \left(  A\cos(\sqrt \lambda) + B\sin(\sqrt \lambda ) \right) &= 0 \\
+-A \sqrt \lambda \sin(\sqrt \lambda ) + B \sqrt \lambda \cos(\sqrt \lambda ) - 2 A\cos(\sqrt \lambda) - 2B\sin(\sqrt \lambda ) &= 0 \\
+(- 2B - A \sqrt \lambda) \sin(\sqrt \lambda ) + (B \sqrt \lambda - 2A) \cos(\sqrt \lambda ) &= 0 \\
+(B \sqrt \lambda - 2A) \cos(\sqrt \lambda ) &= (2B + A \sqrt \lambda) \sin(\sqrt \lambda ) \\
+\frac {B \sqrt \lambda - 2A}{2B + A \sqrt \lambda} &= \tan(\sqrt \lambda ) \\
+\frac {2 B \sqrt \lambda}{2B + A \sqrt \lambda} &= \tan(\sqrt \lambda ) \\
+\frac {2 B \sqrt \lambda}{2B - \frac 1 2 B  \lambda} &= \tan(\sqrt \lambda ) \\
+\frac {2 \sqrt \lambda}{2 - \frac 1 2  \lambda} &= \tan(\sqrt \lambda ) \\
+\frac {4 \sqrt \lambda}{4 - \lambda} &= \tan(\sqrt \lambda ).
+\end{align*}
+
+\noindent
+Now for the final case where  $\lambda < 0$ we have $X(x) = A\E^{\sqrt \lambda x} + B \E^{ - \sqrt \lambda x}$.
+Now we have to use our boundary conditions so
+\begin{align*}
+\sqrt \lambda A\E^{\sqrt \lambda 0} - \sqrt \lambda B \E^{ - \sqrt \lambda 0} + 2\left(  A\E^{\sqrt \lambda 0} + B \E^{ - \sqrt \lambda 0} \right) &= 0 \\
+\sqrt \lambda A - \sqrt \lambda B + 2 (A + B) &= 0 \\
+(2 + \sqrt \lambda)A + (2 - \sqrt \lambda) B &= 0 \\
+A = \frac {\sqrt \lambda - 2}{\sqrt \lambda + 2} B.
+\end{align*}
+Next we get
+\begin{align*}
+\sqrt \lambda A\E^{\sqrt \lambda} - \sqrt \lambda B \E^{ - \sqrt \lambda} - 2\left(  A\E^{\sqrt \lambda} + B \E^{ - \sqrt \lambda} \right) &= 0 \\
+(\sqrt \lambda - 2)A \E^{\sqrt \lambda}  &= (\sqrt \lambda + 2) B \E^{ - \sqrt \lambda} \\
+(\sqrt \lambda - 2)\frac {\sqrt \lambda - 2}{\sqrt \lambda + 2} B \E^{\sqrt \lambda}  &= (\sqrt \lambda + 2) B \E^{ - \sqrt \lambda} \\
+(\sqrt \lambda - 2)^2 B \E^{\sqrt \lambda}  &= (\sqrt \lambda + 2)^2 B \E^{ - \sqrt \lambda}
+\end{align*}
+Next we carefully FOIL out the quadratic terms and move everything to one side
+\begin{align*}
+(\sqrt \lambda - 2)^2 B \E^{\sqrt \lambda}  &= (\sqrt \lambda + 2)^2 B \E^{ - \sqrt \lambda} \\
+(\lambda -4 \sqrt \lambda + 4) B \E^{\sqrt \lambda}  &= (\lambda +4 \sqrt \lambda + 4) B \E^{ - \sqrt \lambda} \\
+(\lambda -4 \sqrt \lambda + 4) B \E^{\sqrt \lambda} - (\lambda +4 \sqrt \lambda + 4) B \E^{ - \sqrt \lambda} &= 0 \\
+\lambda B \E^{\sqrt \lambda} - \lambda B \E^{- \sqrt \lambda} -4 \sqrt \lambda B \E^{\sqrt \lambda} - 4\sqrt \lambda B \E^{- \sqrt \lambda} + 4 B \E^{\sqrt \lambda} - 4 B \E^{- \sqrt \lambda} &= 0 \\
+\lambda B 2 \sinh \sqrt \lambda -4 \sqrt \lambda B (2\cosh \sqrt \lambda) + 4 B (2 \sinh \sqrt \lambda) &= 0 \\
+\lambda B 2 \sinh \sqrt \lambda + 4 B (2 \sinh \sqrt \lambda) &= 4 \sqrt \lambda B (2\cosh \sqrt \lambda)  \\
+(\lambda + 4 )B 2 \sinh \sqrt \lambda &= 4 \sqrt \lambda ( B 2\cosh \sqrt \lambda)  \\
+\frac{B 2 \sinh \sqrt \lambda}{B 2\cosh \sqrt \lambda} &= \frac{4 \sqrt \lambda }{\lambda + 4 }  \\
+\tanh \sqrt \lambda &= \frac{4 \sqrt \lambda }{\lambda + 4 }.
+\end{align*}
+
 
 \newpage
 
