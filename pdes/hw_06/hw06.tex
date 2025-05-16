@@ -42,21 +42,53 @@ Exercises come from \textit{Introduction to Partial Differential Equations by Pe
 \begin{enumerate}[label={\bf {\arabic*}:}]
 
 \item Solve the following wave equations by using D'Alambert's formula:
-$$u_{tt} - 4u_{xx} = 0, -\infty x < \infty, t > 0,$$
+$$u_{tt} - 4u_{xx} = 0, -\infty < x < \infty, t > 0,$$
 \begin{enumerate}
 \item $u(x, 0) = \E^x, u_t(x, 0) = \sin(x)$. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO}
+In order to use D'Alambert's formula we need to identify that
+\begin{align*}
+c &= 2, \\
+u(x, 0) &= \E^x = f(x), \\
+u_t(x, 0) &= \sin x = g(x).
+\end{align*}
+Therefore, applying the formula
+$$
+u(x, t) = \frac 1 2 \Big[ f(x - ct) + f(x + ct) \Big] + \frac 1{2c} \int_{x - ct}^{x + ct} g(z) dz
+$$
+we have
+\begin{align*}
+u(x, t) &= \frac 1 2 \Big[ f(x - ct) + f(x + ct) \Big] + \frac 1{2c} \int_{x - ct}^{x + ct} g(z) dz \\
+	&= \frac 1 2 \Big[ \E^{(x - 2t)} + \E^{(x + 2t)} \Big] + \frac 1{4} \int_{x - 2t}^{x + 2t} \sin(z) dz
+\end{align*}
+Let's now calculate the integral on the right
+\begin{align*}
+\int_{x - ct}^{x + ct} \sin(z) dz &= -\cos(z) \Big|_{x - 2t}^{x + 2t} = -\cos(x + 2t) - (-\cos(x - 2t)) = \cos(x - 2t) - \cos(x + 2t)
+\end{align*}
+Therefore our final solution is 
+$$
+u(x, t) = \frac 1 2 \Big[ \E^{(x - 2t)} + \E^{(x + 2t)} \Big] + \frac 1{4} \Big[ \cos(x - 2t) - \cos(x + 2t) \Big]
+$$
+\qed \\
 
 
 \item $u(x, 0) = \sin(x), u_t(x, 0) = \cos(2x)$. \\
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO}
-
+This time we have $f(x) = \sin(x)$ and $g(x) = \cos(2x)$ while $c = 2$ still.
+Therefore the integral we need to calculate is
+\begin{align*}
+\int_{x - ct}^{x + ct} \cos(2z) dz &= \frac 1 2 \sin (2z) \Big|_{x - 2t}^{x + 2t} \\
+	&= \frac 1 2 \Big( \sin(2x + 4t) - \sin(2x - 4t) \Big)
+\end{align*}
+Therefore, by D'Alambert's formula we have
+$$
+u(x, t) = \frac 1 2 \Big[ \sin(x - 2t) + \sin(x + 2t) \Big] + \frac 1 8 \Big[ \sin(2x + 4t) - \sin(2x - 4t) \Big]
+$$
+\qed \\
 \newpage
 
 \end{enumerate}
@@ -76,7 +108,49 @@ $$
 
 \noindent
 \textit{Solution:} \\
-\textbf{TODO}
+Similar to problem 1 we want to identify that the functions $f$, $g$, and $F$ and the constant $c$ to use \textbf{Theorem 2.18} from Olver.
+This time we also want to identify the force $F$, all together we have
+\begin{align*}
+c &= 2 \\
+f(x) &= \sin x \\
+g(x) &= \cos x \\
+F(x, t) &= \cos 2t.
+\end{align*}
+Which gives us
+\begin{align*}
+u(x, t) &= \frac 1 2 \Big[ f(x - ct) + f(x + ct) \Big] + \frac 1{2c} \int_{x - ct}^{x + ct} g(z) dz + \frac 1{2c} \int_0^t \int_{x - c (t - s)}^{x + c(t - s)} F(y, s) \: dy \: ds \\
+	&= \frac 1 2 \Big[ \sin(x - 2t) + \sin(x + 2t) \Big] + \frac 1 4 \int_{x - 2t}^{x + 2t} \cos (z) dz + \frac 1 4 \int_0^t \int_{x - 2(t - s)}^{x + 2(t - s)} \cos (2s) \: dy \: ds
+\end{align*}
+We will now calculate the necessary integrals beginning first with the integral over $\cos z$
+$$
+\int_{x - 2t}^{x + 2t} \cos (z) dz
+	= \sin z \big|_{x - 2t}^{x + 2t}
+	= \sin (x + 2t) - \sin(x - 2t)
+$$
+Next the integral over $\cos 2s$
+\begin{align*}
+\int_0^t \int_{x - 2(t - s)}^{x + 2(t - s)} \cos (2s) \: dy \: ds
+	&= \int_0^t  \cos (2s) \int_{x - 2(t - s)}^{x + 2(t - s)} \: dy \: ds \\
+	&= \int_0^t \cos (2s) y \Big|_{x - 2(t - s)}^{x + 2(t - s)} \: ds \\
+	&= \int_0^t \cos (2s)\Big[(x + 2(t - s)) - (x - 2(t - s)) \Big] \: ds \\
+	&= \int_0^t \cos (2s)\Big[ x + 2(t - s)  - x + 2(t - s) \Big] \: ds \\
+	&= \int_0^t \cos (2s)4(t - s) \: ds \\
+	&= 4\left[ t \int_0^t \cos (2s)ds - \int_0^t s \cos (2s) ds \right] \\
+	&= 4\left[ \frac t 2 \sin (2t) - \int_0^t s \cos (2s) ds \right]
+\end{align*}
+Using integration by parts on the remaining integral we have
+\begin{align*}
+\int_0^t s \cos (2s) ds
+	&= \frac 1 2 s \sin (2s) \Big|_0^t  - \int_0^t \frac 1 2 \sin (2s) ds \\
+	&= \frac 1 2 t \sin (2t)  +  \frac 1 2 \cos (2s) \Big|_0^t \\
+	&= \frac 1 2 t \sin (2t)  +  \frac 1 2 \cos (2t) - \frac 1 2 \\
+	&= \frac 1 2 \left( t \sin (2t)  +  \cos (2t) - 1 \right).
+\end{align*}
+Combining these integral back up the chain of equalities we have the final solution
+\begin{align*}
+u(x, t) = \frac 1 2 \Big[ \sin(x - 2t) + \sin(x + 2t) \Big] + \frac 1 4 \Big[ \sin (x + 2t) - \sin(x - 2t) \Big] + \frac 1 2 \Big[ 1 - \cos (2t) \Big]
+\end{align*}
+\qed \\
 
 
 \newpage
