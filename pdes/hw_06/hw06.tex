@@ -1,0 +1,552 @@
+\documentclass[10pt]{amsart}
+\usepackage[margin=1.4in]{geometry}
+\usepackage{amssymb,amsmath,enumitem,url, bm}
+\usepackage{graphicx,subfig}
+\graphicspath{ {./images/} }
+\usepackage{cancel}
+
+\newcommand{\D}{\mathrm{d}}
+\newcommand{\I}{\mathrm{i}}
+\DeclareMathOperator{\E}{e}
+\DeclareMathOperator{\OO}{O}
+\DeclareMathOperator{\oo}{o}
+\DeclareMathOperator{\erfc}{erfc}
+\DeclareMathOperator{\real}{Re}
+\DeclareMathOperator{\imag}{Im}
+\usepackage{tikz}
+\usepackage[framemethod=tikz]{mdframed}
+\theoremstyle{nonumberplain}
+
+\mdtheorem[innertopmargin=-5pt]{sol}{Solution}
+%\newmdtheoremenv[innertopmargin=-5pt]{sol}{Solution}
+
+\begin{document}
+\pagestyle{empty}
+
+\newcommand{\mline}{\vspace{.2in}\hrule\vspace{.2in}}
+
+\noindent
+\text{Hunter Lybbert} \\
+\text{Student ID: 2426454} \\
+\text{05-22-25} \\
+\text{AMATH 503} \\
+% header containing your name, student number, due date, course, and the homework number as a title.
+
+\title{\bf {Homework 6} }
+
+
+\maketitle
+\noindent
+Exercises come from \textit{Introduction to Partial Differential Equations by Peter J. Olver} as well as supplemented by instructor provided exercises.
+\mline
+\begin{enumerate}[label={\bf {\arabic*}:}]
+
+\item Solve the following wave equations by using D'Alambert's formula:
+$$u_{tt} - 4u_{xx} = 0, -\infty < x < \infty, t > 0,$$
+\begin{enumerate}
+\item $u(x, 0) = \E^x, u_t(x, 0) = \sin(x)$. \\
+
+\noindent
+\textit{Solution:} \\
+In order to use D'Alambert's formula we need to identify that
+\begin{align*}
+c &= 2, \\
+u(x, 0) &= \E^x = f(x), \\
+u_t(x, 0) &= \sin x = g(x).
+\end{align*}
+Therefore, applying the formula
+$$
+u(x, t) = \frac 1 2 \Big[ f(x - ct) + f(x + ct) \Big] + \frac 1{2c} \int_{x - ct}^{x + ct} g(z) dz
+$$
+we have
+\begin{align*}
+u(x, t) &= \frac 1 2 \Big[ f(x - ct) + f(x + ct) \Big] + \frac 1{2c} \int_{x - ct}^{x + ct} g(z) dz \\
+	&= \frac 1 2 \Big[ \E^{(x - 2t)} + \E^{(x + 2t)} \Big] + \frac 1{4} \int_{x - 2t}^{x + 2t} \sin(z) dz
+\end{align*}
+Let's now calculate the integral on the right
+\begin{align*}
+\int_{x - ct}^{x + ct} \sin(z) dz &= -\cos(z) \Big|_{x - 2t}^{x + 2t} = -\cos(x + 2t) - (-\cos(x - 2t)) = \cos(x - 2t) - \cos(x + 2t)
+\end{align*}
+Therefore our final solution is 
+$$
+u(x, t) = \frac 1 2 \Big[ \E^{(x - 2t)} + \E^{(x + 2t)} \Big] + \frac 1{4} \Big[ \cos(x - 2t) - \cos(x + 2t) \Big]
+$$
+\qed \\
+
+
+\item $u(x, 0) = \sin(x), u_t(x, 0) = \cos(2x)$. \\
+
+\noindent
+\textit{Solution:} \\
+This time we have $f(x) = \sin(x)$ and $g(x) = \cos(2x)$ while $c = 2$ still.
+Therefore the integral we need to calculate is
+\begin{align*}
+\int_{x - ct}^{x + ct} \cos(2z) dz &= \frac 1 2 \sin (2z) \Big|_{x - 2t}^{x + 2t} \\
+	&= \frac 1 2 \Big( \sin(2x + 4t) - \sin(2x - 4t) \Big)
+\end{align*}
+Therefore, by D'Alambert's formula we have
+$$
+u(x, t) = \frac 1 2 \Big[ \sin(x - 2t) + \sin(x + 2t) \Big] + \frac 1 8 \Big[ \sin(2x + 4t) - \sin(2x - 4t) \Big]
+$$
+\qed \\
+\newpage
+
+\end{enumerate}
+
+\newpage
+
+
+\item Olver: 2.4.11 (c) \\
+Solve the forced IVP
+$$
+\begin{cases}
+u_{tt} - 4 u_{xx} = \cos 2t, &-\infty < x < \infty, t \geq 0\\
+u(0, x) = \sin x, \\
+u_t(0, x) = \cos x,
+\end{cases}
+$$
+
+\noindent
+\textit{Solution:} \\
+Similar to problem 1 we want to identify that the functions $f$, $g$, and $F$ and the constant $c$ to use \textbf{Theorem 2.18} from Olver.
+This time we also want to identify the force $F$, all together we have
+\begin{align*}
+c &= 2 \\
+f(x) &= \sin x \\
+g(x) &= \cos x \\
+F(x, t) &= \cos 2t.
+\end{align*}
+Which gives us
+\begin{align*}
+u(x, t) &= \frac 1 2 \Big[ f(x - ct) + f(x + ct) \Big] + \frac 1{2c} \int_{x - ct}^{x + ct} g(z) dz + \frac 1{2c} \int_0^t \int_{x - c (t - s)}^{x + c(t - s)} F(y, s) \: dy \: ds \\
+	&= \frac 1 2 \Big[ \sin(x - 2t) + \sin(x + 2t) \Big] + \frac 1 4 \int_{x - 2t}^{x + 2t} \cos (z) dz + \frac 1 4 \int_0^t \int_{x - 2(t - s)}^{x + 2(t - s)} \cos (2s) \: dy \: ds
+\end{align*}
+We will now calculate the necessary integrals beginning first with the integral over $\cos z$
+$$
+\int_{x - 2t}^{x + 2t} \cos (z) dz
+	= \sin z \big|_{x - 2t}^{x + 2t}
+	= \sin (x + 2t) - \sin(x - 2t)
+$$
+Next the integral over $\cos 2s$
+\begin{align*}
+\int_0^t \int_{x - 2(t - s)}^{x + 2(t - s)} \cos (2s) \: dy \: ds
+	&= \int_0^t  \cos (2s) \int_{x - 2(t - s)}^{x + 2(t - s)} \: dy \: ds \\
+	&= \int_0^t \cos (2s) y \Big|_{x - 2(t - s)}^{x + 2(t - s)} \: ds \\
+	&= \int_0^t \cos (2s)\Big[(x + 2(t - s)) - (x - 2(t - s)) \Big] \: ds \\
+	&= \int_0^t \cos (2s)\Big[ x + 2(t - s)  - x + 2(t - s) \Big] \: ds \\
+	&= \int_0^t \cos (2s)4(t - s) \: ds \\
+	&= 4\left[ t \int_0^t \cos (2s)ds - \int_0^t s \cos (2s) ds \right] \\
+	&= 4\left[ \frac t 2 \sin (2t) - \int_0^t s \cos (2s) ds \right]
+\end{align*}
+Using integration by parts on the remaining integral we have
+\begin{align*}
+\int_0^t s \cos (2s) ds
+	&= \frac 1 2 s \sin (2s) \Big|_0^t  - \int_0^t \frac 1 2 \sin (2s) ds \\
+	&= \frac 1 2 t \sin (2t)  +  \frac 1 2 \cos (2s) \Big|_0^t \\
+	&= \frac 1 2 t \sin (2t)  +  \frac 1 2 \cos (2t) - \frac 1 2 \\
+	&= \frac 1 2 \left( t \sin (2t)  +  \cos (2t) - 1 \right).
+\end{align*}
+Combining these integral back up the chain of equalities we have the final solution
+\begin{align*}
+u(x, t) = \frac 1 2 \Big[ \sin(x - 2t) + \sin(x + 2t) \Big] + \frac 1 4 \Big[ \sin (x + 2t) - \sin(x - 2t) \Big] + \frac 1 2 \Big[ 1 - \cos (2t) \Big]
+\end{align*}
+\qed \\
+
+
+\newpage
+
+
+\item Separation of variables to solve
+$$
+\begin{cases}
+u_{tt} = u_{xx} + \E^{-t}\sin(x), & 0 < x < \pi, t > 0 \\
+u(x, 0) = \sin(3x), u_t(x, 0) = 0, & 0 < x < \pi, \\
+u(0, t) = 1, u(\pi, t) = 0, & t > 0.
+\end{cases}
+$$
+
+\noindent
+\textit{Solution:} \\
+Let's begin by getting homogenous DBC's.
+We do this by introducing the substitution $u = v + w$.
+Therefore we have $v = u - w$ and we need
+$$
+v(0, t) = v(\pi, t) = 0
+$$
+which implies we need
+\begin{align*}
+v(0, t) &= v(\pi, t) = 0 \\
+u(0, t) - w(0) &= u(\pi, t) - w(\pi) = 0 \\
+1 - w(0) &= - w(\pi) = 0
+\end{align*}
+Implying that $w(0) = 1$ and $w(\pi) = 0$.
+One such function which satisfies this is $w(x) = \cos(x/2)$ we could also use $w(x) = 1 - x/\pi$.
+Let's see where the $\cos(x/2)$ goes right or wrong.
+Now after this transformation we now have the IBVP with DBC as follows
+$$
+\begin{cases}
+v_{tt} + w_{tt} = v_{xx} + w_{xx} + \E^{-t}\sin(x), & 0 < x < \pi, t > 0 \\
+v(x, 0) = \sin(3x) - w(x), v_t(x, 0) = 0, & 0 < x < \pi, \\
+v(0, t) = v(\pi, t) = 0, & t > 0.
+\end{cases}
+$$
+Notice, $w_{tt} = 0$ in either case, however $w_{xx} = 0$ only if we choose $w$ to be linear in terms of $x$ rather than trigonometric.
+Therefore, we actually are motivated to choose
+$$
+w(x) = 1 - x/\pi.
+$$
+Hence, we want to solve
+$$
+\begin{cases}
+v_{tt} = v_{xx} + \E^{-t}\sin(x), & 0 < x < \pi, t > 0 \\
+v(x, 0) = \sin(3x) - 1 + \frac x \pi, v_t(x, 0) = 0, & 0 < x < \pi, \\
+v(0, t) = v(\pi, t) = 0, & t > 0.
+\end{cases}
+$$
+Now let's first solve the homogenous portion of this $\tilde v_{tt} = \tilde v_{xx}$ to help us find the basis to expand our forcing term with respect to.
+Using separation of variables we have $\tilde v(x, t) = X(x)T(t)$ which implies
+\begin{align*}
+\tilde v_{tt} &= \tilde v_{xx} \\
+XT^{\prime\prime} &= X^{\prime\prime}T \\
+\frac {T^{\prime\prime}} T &= \frac{X^{\prime\prime}} X = -\lambda
+\end{align*}
+given us both
+$$
+T^{\prime\prime} + \lambda T = 0 \quad \text{and} \quad X^{\prime\prime} + \lambda X = 0
+$$
+with $X(0) = X(\pi) = 0$.
+Since we have the DBCs for $X$ we know the portion of our solution basis with respect to $X$ will need to be in terms of the eigenpairs
+$$
+\left\{ n^2, \sin\big( n x \big) \right\}_{n=1}^\infty
+$$
+Thus, using the table from Olver 141, we have
+\begin{align*}
+\tilde v (x, t) &= \sum_{n=1}^\infty C_n(t) \sin(n x).
+\end{align*}
+We can therefore use $\sin(n x)$ to expand the inhomogeneous forcing term in the IBVP for $v$.
+Therefore we have
+$$
+\E^{-t}\sin(x) = \sum_{n=1}^\infty D_n(t) \sin(n x),
+$$
+with,
+$$
+D_n(t) = \frac 2 \pi \int_0^\pi \E^{-t}\sin(x)\sin(nx)dx = \begin{cases} 0, &n \neq 1, \\ \E^{-t}, &\text{otherwise}.\end{cases}
+$$
+We can now put this together in the original IBVP for $v$ to get
+\begin{align*}
+v_{tt} &= v_{xx} + \E^{-t}\sin(x) \\
+\left( \sum_{n=1}^\infty C_n(t) \sin(n x) \right)_{tt}
+	&= \left( \sum_{n=1}^\infty C_n(t) \sin(n x) \right)_{xx}
+	+ \sum_{n=1}^\infty D_n(t) \sin(n x) \\
+\sum_{n=1}^\infty C_n^{\prime\prime}(t) \sin(n x)
+	&= \sum_{n=1}^\infty -n^2 C_n(t) \sin(n x)
+	+ \sum_{n=1}^\infty D_n(t) \sin(n x).
+\end{align*}
+Which implies
+$$C_n^{\prime\prime}(t) = -n^2 C_n(t) + D_n(t).$$
+From our various conditions we also need
+$$
+v (x, 0) = \sum_{n=1}^\infty C_n(0) \sin(n x) = \sin(3x) - 1 + \frac x \pi
+$$
+which gives rise to
+$$
+C_n(0) = \frac 2 \pi \int_0^\pi \Big( \sin(3x) - 1 + \frac x \pi \Big) \sin(nx) dx.
+$$
+And finally, we want
+$$
+v_t(x, 0) = \sum_{n=1}^\infty C_n^\prime(0) \sin(n x) = 0 \quad \text{implying} \quad C_n^\prime(0) = \frac 2 \pi \int_0^\pi 0 \sin(nx) dx = 0.
+$$
+Let's calculate $C_n(0)$
+\begin{align*}
+C_n(0) &= \frac 2 \pi \int_0^\pi \Big( \sin(3x) - 1 + \frac x \pi \Big) \sin(nx) dx \\
+	&= \frac 2 \pi \left[ \int_0^\pi  \sin(3x) \sin(nx) dx - \int_0^\pi \sin(nx) dx + \int_0^\pi \frac x \pi \sin(nx) dx \right] \\
+	&= \frac 2 \pi \left[ I_1 - I_2 + I_3 \right].
+\end{align*}
+First, we have
+$$
+I_1 = \begin{cases} 0, &n \neq 3, \\ \pi/2, &\text{otherwise}. \end{cases}
+$$
+Next, we have 
+$$
+I_2 = \int_0^\pi \sin(nx) dx = - \frac {\cos(\pi n)} n + \frac {\cos(0)} n = \frac {1 - (-1)^n} n = \begin{cases} 2/n, & n \text{ is odd,} \\ 0, & n \text{ is even}. \end{cases}
+$$
+Finally, IBP on $I_3$ gives us
+$$
+I_3 = \frac 1 \pi \int_0^\pi  x \sin(nx) dx
+	= \frac 1 \pi \left[ -\frac{\pi \cos (n\pi)} n + \int_0^\pi \frac {\cos(nx)} n dx \right]
+	= \frac 1 \pi \left[ \frac{\pi (-1)^{n + 1}} n + \cancel{\frac {\sin(n\pi)} {n^2}} - \cancel{\frac {\sin(0)} {n^2}} \right]
+	= \frac{(-1)^{n + 1}} n.
+$$
+Notice,
+\begin{align*}
+C_n(0) &= \frac 2 \pi \left[ I_1 - I_2 + I_3 \right] \\
+	&= \frac 2 \pi \left[ I_1 - \frac {1 - (-1)^n} n + \frac{(-1)^{n + 1}} n \right] \\
+	&= \frac 2 \pi \left[ I_1 - \frac 1 n + \cancel{\frac{ (-1)^n} n} - \cancel{\frac{(-1)^{n}} n} \right] \\
+	&= \begin{cases} \frac 2 \pi \left[ \pi / 2 - \frac 1 n \right] & n = 3\\
+		\frac 2 \pi \left[ 0 - \frac 1 n \right] & n \neq 3 \end{cases} \\
+	&= \begin{cases} 1 - \frac 2 {3 \pi} & n = 3\\
+		- \frac 2 {n \pi} & n \neq 3 \end{cases}.
+\end{align*}
+Bringing these things all together, we have the following conditions for our ODE with respect to $C_n(t)$
+$$
+\begin{cases}
+C_n^{\prime\prime}(t) = -n^2 C_n(t) + D_n(t) \\
+C_n(0) = \begin{cases} 1 - \frac 2 {3 \pi} & n = 3\\
+		- \frac 2 {n \pi} & n \neq 3 \end{cases} \\
+C_n^\prime(0) = 0.
+\end{cases}
+$$
+Where $D_n(t)$ is defined as above with the condition on $n=1$ or not.
+Let's first solve it given the case that $n = 1$, therefore $D_1(t) = \E^{-t}$ and we have
+\begin{align*}
+C_1^{\prime\prime}(t) = - C_1(t) + \E^{-t} \\
+C_1^{\prime\prime}(t) + C_1(t) = \E^{-t}.
+\end{align*}
+Let's assume an ansatz of $C_1(t) = \mu\E^{-t}$, then
+\begin{align*}
+C_1^{\prime\prime}(t) + C_1(t) = \E^{-t} \\
+\mu\E^{-t} + \mu\E^{-t} = \E^{-t} \\
+2\mu\E^{-t} = \E^{-t} \\
+\mu = 1/2.
+\end{align*}
+Thus in this case we have $C_1(t) = \frac 1 2 \E^{-t} + \sigma \cos t + \eta \sin t$.
+Let's solve for these unknowns using the conditions we were given
+$$
+C_1(0) = \frac12 + \sigma = - \frac 2 { \pi} \implies \sigma = -\frac12 - \frac 2 \pi.
+$$
+And we also have
+\begin{align*}
+C_1^\prime(0) &= -\frac 1 2\E^{0} - (-1 - \frac 2 \pi) \sin 0 + \eta \cos 0 \\
+	0 &= - \frac 1 2 + \eta \\
+	\frac 1 2 &= \eta
+\end{align*}
+Thus
+$$
+C_1(t) = \frac 1 2 \E^{-t} - \left( \frac 1 2 + \frac 2 \pi \right)\cos t + \frac 1 2 \sin t.
+$$
+Now for the case where $n \neq 1$ we know $D_n(t) = 0$ therefore our ODE reduces to
+$$
+C_n^{\prime\prime}(t) = C_n(t)
+$$
+Which has the common solution of  $C_n(t) = A\cos(nt) + B\sin(nt)$.
+Let's apply the conditions.
+We get
+$$
+C_n(0) = A = \begin{cases} 1 - \frac 2 {3 \pi} & n = 3\\ - \frac 2 {n \pi} & n \neq 3 \end{cases}
+$$
+and
+\begin{align*}
+C_n^\prime(0) &= -An\sin(0) -Bn\cos(0) \\
+	0 &= -Bn \\
+	0 &= B
+\end{align*}
+Hence, when $n \neq 1$ we have
+$$
+C_n(t) = \begin{cases} \left(1 - \frac 2 {3 \pi}\right)\cos(3t) & n = 3 \\
+	- \frac 2 {n \pi}\cos(nt) & n \neq 3 \end{cases}.
+$$
+Bringing it all together then we have the solution for $u(x, t)$ is as follows
+\begin{align*}
+u(x, t) &= w(x) + v (x, t) \\
+	&= w(x) + \sum_{n=1}^\infty C_n(t) \sin(n x) \\
+	&= w(x) + C_1(t) \sin(x) + C_2(t) \sin(2x) + C_3(t) \sin(3x) + \sum_{n=4}^\infty C_n(t) \sin(n x) \\
+	&= (1 - x/\pi) + \left[ \frac 1 2 \E^{-t} - \left( \frac 1 2 + \frac 2 \pi \right)\cos t + \frac 1 2 \sin t \right] \sin(x) \\
+	&\quad - \frac 1 \pi \cos(nt) \sin(2x) + \left[ \Big(1 - \frac 2 {3 \pi}\Big)\cos(3t) \right] \sin(3x) - \sum_{n=4}^\infty \frac 2 {n \pi}\cos(nt) \sin(n x).
+\end{align*}
+\qed \\
+
+\newpage
+
+\item (Bonus question) Solve the following wave equation
+$$
+\begin{cases}
+u_{tt} - 4 u_{xx} = 0, & 0 < x < \infty, 0 < t < \infty \\
+u(0, t) = 1, & t > 0, \\
+u(x, 0) = x, u_t(x, 0) = \E^x, & x \geq 0.
+\end{cases}
+$$
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO}
+
+\newpage
+
+
+\item Separation of variables to solve
+$$
+\begin{cases}
+u_{xx} + u_{yy} = 0, & 0 < x < \pi, 0 < y < \pi \\
+u(0, y) = u_x(\pi, y) = u(x, 0) = 0 \\
+u(x, \pi) = \sin \left( \frac x 2 \right) - 2 \sin \left( \frac {3x}{2} \right).
+\end{cases}
+$$
+
+\noindent
+\textit{Solution:} \\
+In order to use separation of variables we let $u(x, y) = X(x) Y(y)$ and thus we have
+\begin{align*}
+u_{xx} + u_{yy} &= 0 \\
+X^{\prime\prime}Y + XY^{\prime\prime} &= 0 \\
+\frac {X^{\prime\prime}}X + \frac{Y^{\prime\prime}}{Y} &= 0 \\
+\frac {X^{\prime\prime}}X &= - \frac{Y^{\prime\prime}}{Y} = - \lambda
+\end{align*}
+which gives us $X^{\prime\prime} + \lambda X= 0$ and $Y^{\prime\prime} - \lambda Y = 0$.
+We also have the boundary conditions for $X$ which are $X(0) = X^\prime(\pi) = 0$.
+Using these conditions to solve for $X(x)$ we have
+$$
+X(x) = A_n \cos (\sqrt \lambda x) + B_n \sin (\sqrt \lambda x)
+$$
+Using the BCs we have, $X(0) = A = 0$, then $X^\prime(\pi) = B_n \sqrt \lambda \cos (\sqrt \lambda \pi) = 0$.
+We want $B_n \neq 0$ such that this is not a trivial solution.
+Therefore
+\begin{align*}
+\cos (\sqrt \lambda \pi) &= 0 \\
+\implies \sqrt {\lambda_n} \pi &=  \frac {(2n - 1)\pi} 2 \\
+\sqrt {\lambda_n} &=  \frac {2n - 1} 2 \\
+\lambda_n &=  \left( \frac {2n - 1} 2 \right) ^2 \\
+\lambda_n &= \left( n - \frac 1 2 \right) ^2
+\end{align*}
+Finally, we have the eigenpair
+$$\lambda_n = \left( n - \frac 1 2 \right) ^2, \quad X_n(x) = \sin \left( \Big( n - \frac 1 2\Big) x\right) $$
+for $n = 1, 2, 3, ...$.
+Now since $\lambda_n = \left( n - \frac 1 2 \right) ^2 > 0$ we know that when solving
+$$
+Y^{\prime\prime} - \lambda Y = 0
+$$
+for $Y$ we will have the solution of the form
+$$
+Y(y) = C_n \cosh (\sqrt {\lambda_n} y) + D_n \sinh (\sqrt {\lambda_n} y).
+$$
+We can apply the condition $u(x, 0) = Y(0) = 0$ to get
+$$
+Y(0) = C_n \cosh (0) + D_n \sinh (0) = C_n = 0.
+$$
+Hence,
+\begin{align*}
+Y(y) \propto \sinh (\sqrt {\lambda_n} y).
+\end{align*}
+By Superposition we have
+$$
+u(x, y) = \sum_{n=1}^\infty B_n \sinh \left( \Big( n - \frac 1 2\Big) y\right) \sin \left( \Big( n - \frac 1 2\Big) x\right).
+$$
+Now to determine the coefficients $B_n$ let's use our condition on $u(x, \pi)$ and match terms.
+\begin{align*}
+\sin \left( \frac x 2 \right) - 2 \sin \left( \frac {3x}{2} \right) = \sum_{n=1}^\infty B_n \sinh \left( \Big( n - \frac 1 2\Big) \pi\right) \sin \left( \Big( n - \frac 1 2\Big) x\right)
+\end{align*}
+Notice, we see terms on the left which line up with the components from $\sin$ when $n = 1$ and $n = 2$.
+Therefore $B_n = 0$ for all $n$ except those two.
+Hence, the previous equation reduces to
+\begin{align*}
+\sin \left( \frac x 2 \right) - 2 \sin \left( \frac {3x}{2} \right) = B_1 \sinh \left( \frac \pi 2 \right) \sin \left( \frac x 2\right) + B_2 \sinh \left( \frac {3\pi} 2\right) \sin \left( \frac {3x} 2\right).
+\end{align*}
+Now matching coefficients this implies
+\begin{align*}
+1 &= B_1\sinh \left( \frac \pi 2 \right) \\
+\frac 1 {\sinh \left( \frac \pi 2 \right)} &= B_1
+\end{align*}
+and
+\begin{align*}
+-2 &= B_2\sinh \left( \frac {3\pi} 2\right) \\
+- \frac 2 {\sinh \left( \frac {3\pi} 2\right)} &= B_2.
+\end{align*}
+Hence, our final solution is
+$$
+u(x, y) = \frac 1 {\sinh \left( \frac \pi 2 \right)} \sinh \left( \frac y 2 \right) \sin \left( \frac x 2\right) - \frac 2 {\sinh \left( \frac {3\pi} 2\right)} \sinh \left( \frac {3y} 2\right) \sin \left( \frac {3x} 2\right).
+$$
+\qed \\
+
+
+\newpage
+
+\item Olver: 4.3.34 (b) Solve the following boundary value problems for the Laplace equation on the annulus $1 < r < 2$ with
+$$
+\begin{cases}
+u_{rr} + \frac 1 ru_{r} + \frac 1 {r^2} u_{\theta\theta} = 0 &\textbf{Is this right?} \\
+u(1, \theta) = 0, u(2, \theta) = \cos \theta, \\
+1 \leq r < 2, 0 \leq \theta < 2\pi 
+\end{cases}
+$$
+
+\noindent
+\textit{Solution:} \\
+We use separation of variables with $u(r, \theta) = \Theta(\theta) R(r)$ giving us
+\begin{align*}
+u_{rr} + \frac 1 ru_{r} + \frac 1 {r^2} u_{\theta\theta} &= 0 \\
+\Theta R^{\prime\prime} + \frac 1 r \Theta R^{\prime} + \frac 1 {r^2} \Theta^{\prime\prime} R &= 0 \\
+\frac {R^{\prime\prime}} R + \frac 1 r \frac {R^{\prime}} R + \frac 1 {r^2} \frac{\Theta^{\prime\prime}} \Theta &= 0 \\
+r^2 \frac {R^{\prime\prime}} R + r \frac {R^{\prime}} R + \frac{\Theta^{\prime\prime}} \Theta &= 0 \\
+r^2 \frac {R^{\prime\prime}} R + r \frac {R^{\prime}} R &= - \frac{\Theta^{\prime\prime}} \Theta = k^2.
+\end{align*}
+Which gives us the following ODEs
+\begin{align*}
+r^2 \frac {R^{\prime\prime}} R + r \frac {R^{\prime}} R &= k^2 \\
+r^2 R^{\prime\prime} + r R^{\prime} &= k^2R \\
+r^2 R^{\prime\prime} + r R^{\prime} - k^2R &= 0
+\end{align*}
+and
+\begin{align*}
+- \frac{\Theta^{\prime\prime}} \Theta &= k^2 \\
+- \Theta^{\prime\prime} &= k^2 \Theta \\
+- \Theta^{\prime\prime} - k^2 \Theta &= 0 \\
+\Theta^{\prime\prime} + k^2 \Theta &= 0.
+\end{align*}
+These give rise to the following solutions
+$$
+\Theta_k(\theta) = A_k\cos(k\theta) + B_k\sin(k\theta) \quad \text{and} \quad R_k(r) = C_k r^k + D_k r^{-k}.
+$$
+The general solution is thus
+$$
+u(r, \theta) = A_0 + B_0 \log r + \sum_{k = 1}^\infty \Big( C_k r^k + D_k r^{-k} \Big)\Big( A_k\cos(k\theta) + B_k\sin(k\theta) \Big)
+$$
+Due to our boundary condition relying on $\cos \theta$ we only care about when $k = 1$ so thus $A_k = B_k = 0$ except for $A_1 = 1$ then
+$$
+u(r, \theta) = \big( C_1 r + D_1 r^{-1} \big)\cos(\theta).
+$$
+Based on our BC we know that we need
+\begin{align*}
+u(1, \theta) &= \big( C_1 + D_1 \big)\cos(\theta) \\
+0 &= \big( C_1 + D_1 \big) \cos(\theta) \\
+0 &= C_1 + D_1 \\
+-D_1 &= C_1.
+\end{align*}
+Furthermore, we have
+\begin{align*}
+u(2, \theta) &= \Big( C_12 + D_1\frac 1 2 \Big)\cos(\theta) \\
+\cos \theta &= \Big( C_12 + D_1\frac 1 2 \Big)\cos(\theta) \\
+1 &= \Big( C_12 - C_1\frac 1 2 \Big) \\
+1 &= C_1 \frac 3 2 \\
+\frac 2 3 &= C_1 \implies D_1 = -\frac 2 3
+\end{align*}
+Hence, our final solution is
+$$
+u(r, \theta) = \left( \frac 2 3 r -\frac 2 {3r} \right)\cos(\theta).
+$$
+\qed \\
+
+\newpage
+
+
+\item (Bonus) Consider the following Laplace equation
+$$
+\begin{cases}
+u_{rr} + \frac 1 ru_{r} + \frac 1 {r^2} u_{\theta\theta} = 0, & 0 \leq r < 1, 0 \leq \theta < 2\pi \\
+u_r(1, \theta) + u(1, \theta) = \cos(2 \theta)
+\end{cases}
+$$
+Use the method of separation of variables to find a solution. \\
+
+\noindent
+\textit{Solution:} \\
+\textbf{TODO}
+
+\newpage
+
+\end{enumerate}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
