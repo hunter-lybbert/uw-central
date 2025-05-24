@@ -16,6 +16,9 @@ temp/
 # data visualization data
 data_visualization/**/data/
 
+# Disease data
+disease_dynamics/**/data/
+
 # data_analysis data
 data_analysis/**/data/
 data_analysis/**/anim/
