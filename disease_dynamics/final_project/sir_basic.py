@@ -1,3 +1,4 @@
+"""SIR model simulation with basic structure and seasonality."""
 import numpy as np
 from scipy.special import expit
 from numpy.random import default_rng
