@@ -12,6 +12,28 @@ rng = default_rng(seed=42)
 
 
 def sir_out(params: np.ndarray, population: int = DEFAULT_POPULATION) -> np.ndarray:
+    """
+    Simulate the SIR model with given parameters.
+
+    :param params: Parameters for the SIR model in the following order:
+        - beta: Transmission rate (log scale)
+        - gamma: Recovery rate (log scale)
+        - s_init_frac: Initial susceptible fraction (logit scale)
+        - i_init_frac: Initial infected fraction (logit scale)
+        - rho: Reporting rate (logit scale)
+        - season: Seasonality factor (logit scale)
+        - peak: Peak month for seasonality (logit scale)
+    :param population: Total population size.
+
+    :return: SIR population array with columns:
+        - S: Susceptible individuals
+        - I: Infected individuals
+        - R: Recovered individuals
+        - NewI: New infections in the current step
+        - NewR: New recoveries in the current step
+        - ObsCases: Observed cases in the current step
+        - InfectionRate: Infection rate for the current step
+    """
     beta = np.exp(params[0])
     gamma = np.exp(params[1])
     s_init_frac = expit(params[2])

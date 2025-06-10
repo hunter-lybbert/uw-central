@@ -19,12 +19,28 @@ rng = default_rng(seed=42)
 proposal_standard_dev = np.array([0.05, 0.05, 0.2, 0.2, 0.2, 0.2, 0.2])
 num_params = len(proposal_standard_dev)
 
+
+# TODO: You need to update the run_one_timestep to work with multiple populations and states
 def run_one_timestep(
     current_latent_states: np.ndarray,
     which_month: int,
     params: np.ndarray
 ) -> np.ndarray:
+    """
+    Run one timestep of the SIR model with seasonal transmission.
+
+    :param current_latent_states: Current latent states of the SIR model for each particle.
+    :param which_month: The current month (0-11).
+    :param params: Parameters for the SIR model in the following order:
+        - beta: Transmission rate (log scale)
+        - gamma: Recovery rate (log scale)
+        - s_init_frac: Initial susceptible fraction (logit scale)
+        - i_init_frac: Initial infected fraction (logit scale)
+        - season: Seasonality factor (logit scale)
+        - peak: Peak month for seasonality (logit scale)
     
+    :return: Updated latent states of the SIR model for each particle.
+    """
     beta = np.exp(params[0])
     gamma = np.exp(params[1])
     season = expit(params[5])
@@ -61,16 +77,33 @@ def run_one_timestep(
     sir_pop_by_particle[:, 1, 3] = s_to_i  # new infections
 
     # next timestep
-    return sir_pop_by_particle[:, 1, :] 
+    return sir_pop_by_particle[:, 1, :]
 
-
+# TODO: determine what this function is doing exactly and adapt it to work with two populations and states
 def run_smc(
     sir_out_last_month: np.ndarray,
     current_month: int,
     params: np.ndarray,
     observed_data: np.ndarray
 ) -> dict[str, np.ndarray]:
-    
+    """
+    Run a Sequential Monte Carlo (SMC) step for the SIR model.
+
+    :param sir_out_last_month: Latent states of the SIR model for each particle from the last month.
+    :param current_month: The current month (0-11).
+    :param params: Parameters for the SIR model in the following order:
+        - beta: Transmission rate (log scale)
+        - gamma: Recovery rate (log scale)
+        - s_init_frac: Initial susceptible fraction (logit scale)
+        - i_init_frac: Initial infected fraction (logit scale)
+        - rho: Reporting rate (logit scale)
+    :param observed_data: Observed cases for the current month.
+
+    :return: A dictionary containing:
+        - new_latent_states: Updated latent states of the SIR model for each particle.
+        - new_log_likelihoods: Log likelihoods of the observed cases given predicted infections.
+        - sampled_particles: Indices of the particles that were sampled.
+    """
     rho = expit(params[4])
     
     # Run one timestep of the latent SIR model
@@ -108,7 +141,19 @@ def run_smc(
     return out
 
 
+# TODO: This is similar to the function you wrote in the sir_aug.pu file called setup_sir_pop
 def initialize_array(params: np.ndarray) -> np.ndarray:
+    """
+    Initialize the SIR population array for the first month.
+
+    :param params: Parameters for the SIR model in the following order:
+        - beta: Transmission rate (log scale)
+        - gamma: Recovery rate (log scale)
+        - s_init_frac: Initial susceptible fraction (logit scale)
+        - i_init_frac: Initial infected fraction (logit scale)
+    
+    :return: Initialized SIR population array with shape (num_particles, num_time_steps + 1, 4).
+    """
     s_init_frac = expit(params[2])
     i_init_frac = expit(params[3]) * (1 - s_init_frac)
 
@@ -127,10 +172,26 @@ def initialize_array(params: np.ndarray) -> np.ndarray:
     return sir_out_all_months
 
 
+# TODO: How to combine the log likelihood for different populations and states?
 def calc_log_likelihood(
     params: np.ndarray,
     observed_data: np.ndarray
 ) -> float:
+    """
+    Calculate the log likelihood of the SIR model given the parameters and observed data.
+
+    :param params: Parameters for the SIR model in the following order:
+        - beta: Transmission rate (log scale)
+        - gamma: Recovery rate (log scale)
+        - s_init_frac: Initial susceptible fraction (logit scale)
+        - i_init_frac: Initial infected fraction (logit scale)
+        - rho: Reporting rate (logit scale)
+        - season: Seasonality factor (logit scale)
+        - peak: Peak month for seasonality (logit scale)
+    :param observed_data: Observed cases for each month.
+
+    :return: Log likelihood of the observed data given the model parameters.
+    """
     sir_out_all_months = initialize_array(params)
     val = 0.0
 
@@ -158,7 +219,14 @@ def calc_log_likelihood(
 
 
 def proposal_draw(proposal_standard_dev: np.ndarray) -> np.ndarray:
-    # Using multivariate normal with mean 0 and diagonal covariance matrix
+    """
+    Draw a proposal vector from a multivariate normal distribution.
+     Using multivariate normal with mean 0 and diagonal covariance matrix.
+
+    :param proposal_standard_dev: Standard deviations for each parameter in the proposal distribution.
+
+    :return: A vector of proposed parameter changes.
+    """
     vec = rng.multivariate_normal(mean=np.zeros(num_params), cov=np.diag(proposal_standard_dev**2))
     return vec
 
@@ -168,6 +236,15 @@ def propose_new_val(
     proposal_standard_dev: np.ndarray,
     observed_data: np.ndarray,
 ) -> dict[str, np.ndarray]:
+    """
+    Propose a new parameter guess based on the current guess and a proposal distribution.
+
+    :param current_parameter_guess: Current guess for the parameters.
+    :param proposal_standard_dev: Standard deviations for the proposal distribution.
+    :param observed_data: Observed data to calculate the log likelihood.
+
+    :return: A dictionary containing the new parameter guess and the log likelihood of the new guess.
+    """
     new_parameter_guess = current_parameter_guess + proposal_draw(proposal_standard_dev)
     new_chain_info = calc_log_likelihood(new_parameter_guess, observed_data)
     out = {
@@ -185,6 +262,26 @@ def metropolis_hastings_step(
     current_latent: np.ndarray,
     new_latent: np.ndarray,
 ) -> dict[str, Any]:
+    """
+    Perform a Metropolis-Hastings step to decide whether to accept the new parameter guess.
+
+    :param current_parameter_guess: Current guess for the parameters.
+    :param new_parameter_guess: Proposed new guess for the parameters.
+    :param current_log_likelihood: Log likelihood of the current parameter guess.
+    :param new_log_likelihood: Log likelihood of the new parameter guess.
+    :param current_latent: Current latent states of the SIR model.
+    :param new_latent: Latent states of the SIR model for the new parameter guess.
+
+    :return: A dictionary containing:
+        - alpha: Acceptance ratio for the new parameter guess.
+        - r_num: Random number drawn to decide acceptance.
+        - accept_step: Boolean indicating whether the new guess was accepted.
+        - next_parameter_guess: The parameter guess after the step.
+        - next_latent: Latent states after the step.
+        - next_log_likelihood: Log likelihood after the step.
+        - new_parameter_guess: The proposed new parameter guess.
+        - new_log_likelihood: Log likelihood of the proposed new guess.
+    """
     alpha = np.exp(new_log_likelihood - current_log_likelihood)
     r_num = rng.uniform()  # use np.random.uniform() if not using a seeded rng
 
@@ -213,7 +310,16 @@ def metropolis_hastings_step(
     return out
 
 
-def mcmc_step(all_steps: dict, proposal_standard_dev: np.ndarray, observed_data: np.ndarray) -> dict:
+def run_one_mcmc_step(all_steps: dict, proposal_standard_dev: np.ndarray, observed_data: np.ndarray) -> dict:
+    """
+    Run one step of the MCMC algorithm using the Metropolis-Hastings method.
+
+    :param all_steps: Dictionary containing the current state of the MCMC chain, latents, acceptance chain, and log likelihood.
+    :param proposal_standard_dev: Standard deviations for the proposal distribution.
+    :param observed_data: Observed data to calculate the log likelihood.
+
+    :return: Updated dictionary with the new state of the MCMC chain, latents, acceptance chain, and log likelihood.
+    """
     chain = all_steps["chain"]
     latents = all_steps["latents"]
     accept_chain = all_steps["accept_chain"]
@@ -259,12 +365,22 @@ def mcmc_step(all_steps: dict, proposal_standard_dev: np.ndarray, observed_data:
     return out
 
 
-def mcmc_steps(
+def run_mcmc(
     n_steps: int,
     all_steps: dict,
     proposal_standard_dev: np.ndarray,
     observed_data: np.ndarray
 ) -> dict:
+    """
+    Run the MCMC algorithm for a specified number of steps.
+
+    :param n_steps: Number of MCMC steps to run.
+    :param all_steps: Dictionary containing the initial state of the MCMC chain, latents, acceptance chain, and log likelihood.
+    :param proposal_standard_dev: Standard deviations for the proposal distribution.
+    :param observed_data: Observed data to calculate the log likelihood.
+
+    :return: Updated dictionary with the final state of the MCMC chain, latents, acceptance chain, and log likelihood.
+    """
     for _ in range(n_steps):
-        all_steps = mcmc_step(all_steps, proposal_standard_dev, observed_data)
+        all_steps = run_one_mcmc_step(all_steps, proposal_standard_dev, observed_data)
     return all_steps

@@ -45,6 +45,13 @@ def setup_sir_pop(
     :param default_num_time_steps: Number of time steps for the simulation.
 
     :return: Initialized SIR population array.
+        - S: Susceptible individuals
+        - I: Infected individuals
+        - R: Recovered individuals
+        - NewI: New infections in the current step
+        - NewR: New recoveries in the current step
+        - ObsCases: Observed cases in the current step
+        - InfectionRate: Infection rate for the current step
     """
     s_init_frac = expit(s_init_frac_param)
     i_init_frac = expit(i_init_frac_param) * (1 - s_init_frac)
@@ -81,6 +88,13 @@ def run_sir_step(
     :param r_num: Current time step index.
 
     :return: Updated SIR population array after the step.
+        - S: Susceptible individuals
+        - I: Infected individuals
+        - R: Recovered individuals
+        - NewI: New infections in the current step
+        - NewR: New recoveries in the current step
+        - ObsCases: Observed cases in the current step
+        - InfectionRate: Infection rate for the current step
     """
     tmp_s = sir_pop[r_num, 0]
     tmp_i = sir_pop[r_num, 1]
