@@ -36,6 +36,16 @@ def setup_sir_pop(
     population: int = DEFAULT_POPULATION,
     default_num_time_steps: int = DEFAULT_NUM_TIME_STEPS,
 ) -> np.ndarray:
+    """
+    Initialize the SIR population array.
+
+    :param s_init_frac_param: Initial susceptible fraction parameter.
+    :param i_init_frac_param: Initial infected fraction parameter.
+    :param population: Total population size.
+    :param default_num_time_steps: Number of time steps for the simulation.
+
+    :return: Initialized SIR population array.
+    """
     s_init_frac = expit(s_init_frac_param)
     i_init_frac = expit(i_init_frac_param) * (1 - s_init_frac)
     s_init = round(s_init_frac * population)
@@ -59,6 +69,19 @@ def run_sir_step(
     rho: float,
     r_num: int,
 ) -> np.ndarray:
+    """
+    Run a single step of the SIR model simulation.
+
+    :param sir_pop: Current SIR population array.
+    :param beta: Transmission rate.
+    :param gamma: Recovery rate.
+    :param season: Seasonality factor.
+    :param peak: Peak month for seasonality.
+    :param rho: Reporting rate.
+    :param r_num: Current time step index.
+
+    :return: Updated SIR population array after the step.
+    """
     tmp_s = sir_pop[r_num, 0]
     tmp_i = sir_pop[r_num, 1]
     tmp_r = sir_pop[r_num, 2]
@@ -92,6 +115,16 @@ def sir_out(
     population_vt: int = DEFAULT_POPULATION,
     default_num_time_steps: int = DEFAULT_NUM_TIME_STEPS,
 ) -> tuple[np.ndarray, np.ndarray]:
+    """
+    SIR model simulation with augmented structure for New York and Vermont.
+
+    :param params: Parameters for the SIR model.
+    :param population_ny: Population size for New York.
+    :param population_vt: Population size for Vermont.
+    :param default_num_time_steps: Number of time steps for the simulation.
+
+    :return: Tuple of SIR population arrays for New York and Vermont.
+    """
     beta = np.exp(params[0])
     gamma = np.exp(params[1])
     season = expit(params[2])
