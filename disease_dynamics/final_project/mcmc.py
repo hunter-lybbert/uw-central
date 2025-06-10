@@ -1,6 +1,5 @@
 from typing import Any
 import numpy as np
-from scipy.special import logit
 from scipy.special import expit
 from numpy.random import default_rng
 from scipy.stats import binom
@@ -13,8 +12,6 @@ from constants import (
 
 rng = default_rng(seed=42)
 
-
-# DEFAULT_NUM_TIME_STEPS = 12 * 5
 
 proposal_standard_dev = np.array([0.05, 0.05, 0.2, 0.2, 0.2, 0.2, 0.2])
 num_params = len(proposal_standard_dev)
@@ -78,6 +75,7 @@ def run_one_timestep(
 
     # next timestep
     return sir_pop_by_particle[:, 1, :]
+
 
 # TODO: determine what this function is doing exactly and adapt it to work with two populations and states
 def run_smc(
