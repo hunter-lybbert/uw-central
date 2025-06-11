@@ -18,6 +18,7 @@ System or Locational Parameters:
 
 total_params = 10
 """
+from typing import Generator
 import numpy as np
 from scipy.special import expit
 from numpy.random import default_rng
@@ -27,14 +28,14 @@ from constants import (
     DEFAULT_NUM_TIME_STEPS,
 )
 
-rng = default_rng(seed=42)
+# rng = default_rng(seed=42)
 
 
 def setup_sir_pop(
     s_init_frac_param: float,
     i_init_frac_param: float,
     population: int = DEFAULT_POPULATION,
-    default_num_time_steps: int = DEFAULT_NUM_TIME_STEPS,
+    num_time_steps: int = DEFAULT_NUM_TIME_STEPS,
 ) -> np.ndarray:
     """
     Initialize the SIR population array.
@@ -60,7 +61,7 @@ def setup_sir_pop(
     r_init = population - (s_init + i_init)
 
     # Columns: S, I, R, NewI, NewR, ObsCases, InfectionRate
-    sir_pop = np.full((default_num_time_steps + 1, 7), np.nan)
+    sir_pop = np.full((num_time_steps + 1, 7), np.nan)
     sir_pop[0, 0] = s_init
     sir_pop[0, 1] = i_init
     sir_pop[0, 2] = r_init
@@ -75,6 +76,7 @@ def run_sir_step(
     peak: float,
     rho: float,
     r_num: int,
+    rng: Generator,
 ) -> np.ndarray:
     """
     Run a single step of the SIR model simulation.
@@ -125,6 +127,7 @@ def run_sir_step(
 
 def sir_out(
     params: np.ndarray,
+    rng: Generator,
     population_ny: int = DEFAULT_POPULATION,
     population_vt: int = DEFAULT_POPULATION,
     default_num_time_steps: int = DEFAULT_NUM_TIME_STEPS,
@@ -159,6 +162,7 @@ def sir_out(
             peak=peak,
             rho=rho_ny,
             r_num=r_num,
+            rng=rng,
         )
         sir_pop_vt = run_sir_step(
             sir_pop=sir_pop_vt,
@@ -168,6 +172,7 @@ def sir_out(
             peak=peak,
             rho=rho_vt,
             r_num=r_num,
+            rng=rng,
         )
 
     return sir_pop_ny, sir_pop_vt

@@ -1,4 +1,5 @@
-from typing import Any
+"""This module implements a basic MCMC algorithm for a SIR model with seasonal transmission."""
+from typing import Any, Generator
 import numpy as np
 from scipy.special import expit
 from numpy.random import default_rng
@@ -10,7 +11,7 @@ from constants import (
     DEFAULT_NUM_PARTICLES,
 )
 
-rng = default_rng(seed=42)
+# rng = default_rng(seed=42)
 
 
 proposal_standard_dev = np.array([0.05, 0.05, 0.2, 0.2, 0.2, 0.2, 0.2])
@@ -21,7 +22,8 @@ num_params = len(proposal_standard_dev)
 def run_one_timestep(
     current_latent_states: np.ndarray,
     which_month: int,
-    params: np.ndarray
+    params: np.ndarray,
+    rng: Generator,
 ) -> np.ndarray:
     """
     Run one timestep of the SIR model with seasonal transmission.
@@ -82,7 +84,8 @@ def run_smc(
     sir_out_last_month: np.ndarray,
     current_month: int,
     params: np.ndarray,
-    observed_data: np.ndarray
+    observed_data: np.ndarray,
+    rng: Generator,
 ) -> dict[str, np.ndarray]:
     """
     Run a Sequential Monte Carlo (SMC) step for the SIR model.
@@ -108,7 +111,8 @@ def run_smc(
     tmp_latent_states = run_one_timestep(
         current_latent_states=sir_out_last_month,
         which_month=current_month,
-        params=params
+        params=params,
+        rng=rng,
     )
     predicted_infections = tmp_latent_states[:, 3].astype(int)  # new infections
     observed_cases = int(observed_data[current_month])
@@ -173,7 +177,8 @@ def initialize_array(params: np.ndarray) -> np.ndarray:
 # TODO: How to combine the log likelihood for different populations and states?
 def calc_log_likelihood(
     params: np.ndarray,
-    observed_data: np.ndarray
+    observed_data: np.ndarray,
+    rng: Generator,
 ) -> float:
     """
     Calculate the log likelihood of the SIR model given the parameters and observed data.
@@ -198,7 +203,8 @@ def calc_log_likelihood(
             sir_out_last_month=sir_out_all_months[:, month_step - 1, :],
             current_month=month_step - 1,
             params=params, 
-            observed_data=observed_data
+            observed_data=observed_data,
+            rng=rng,
         )
 
         # Resample all history up to this month based on sampled particles
@@ -216,7 +222,7 @@ def calc_log_likelihood(
     return val, sir_out_all_months
 
 
-def proposal_draw(proposal_standard_dev: np.ndarray) -> np.ndarray:
+def proposal_draw(proposal_standard_dev: np.ndarray, rng: Generator) -> np.ndarray:
     """
     Draw a proposal vector from a multivariate normal distribution.
      Using multivariate normal with mean 0 and diagonal covariance matrix.
@@ -233,6 +239,7 @@ def propose_new_val(
     current_parameter_guess: np.ndarray,
     proposal_standard_dev: np.ndarray,
     observed_data: np.ndarray,
+    rng: Generator,
 ) -> dict[str, np.ndarray]:
     """
     Propose a new parameter guess based on the current guess and a proposal distribution.
@@ -243,8 +250,11 @@ def propose_new_val(
 
     :return: A dictionary containing the new parameter guess and the log likelihood of the new guess.
     """
-    new_parameter_guess = current_parameter_guess + proposal_draw(proposal_standard_dev)
-    new_chain_info = calc_log_likelihood(new_parameter_guess, observed_data)
+    new_parameter_guess = current_parameter_guess + proposal_draw(
+        proposal_standard_dev,
+        rng=rng
+    )
+    new_chain_info = calc_log_likelihood(new_parameter_guess, observed_data, rng=rng)
     out = {
         "new_parameter_guess": new_parameter_guess,
         "new_chain_info": new_chain_info
@@ -259,6 +269,7 @@ def metropolis_hastings_step(
     new_log_likelihood: float,
     current_latent: np.ndarray,
     new_latent: np.ndarray,
+    rng: Generator,
 ) -> dict[str, Any]:
     """
     Perform a Metropolis-Hastings step to decide whether to accept the new parameter guess.
@@ -308,7 +319,12 @@ def metropolis_hastings_step(
     return out
 
 
-def run_one_mcmc_step(all_steps: dict, proposal_standard_dev: np.ndarray, observed_data: np.ndarray) -> dict:
+def run_one_mcmc_step(
+    all_steps: dict,
+    proposal_standard_dev: np.ndarray,
+    observed_data: np.ndarray,
+    rng: Generator,
+) -> dict:
     """
     Run one step of the MCMC algorithm using the Metropolis-Hastings method.
 
@@ -330,7 +346,8 @@ def run_one_mcmc_step(all_steps: dict, proposal_standard_dev: np.ndarray, observ
     new_param_info = propose_new_val(
         current_parameter_guess=current_parameter_guess,
         proposal_standard_dev=proposal_standard_dev,
-        observed_data=observed_data
+        observed_data=observed_data,
+        rng=rng,
     )
     
     new_parameter_guess = new_param_info["new_parameter_guess"]
@@ -344,6 +361,7 @@ def run_one_mcmc_step(all_steps: dict, proposal_standard_dev: np.ndarray, observ
         new_log_likelihood=new_log_likelihood,
         current_latent=current_latent,
         new_latent=new_latent,
+        rng=rng,
     )
     
     accept_chain.append(int(metropolis_hastings_info["accept_step"]))
@@ -367,7 +385,8 @@ def run_mcmc(
     n_steps: int,
     all_steps: dict,
     proposal_standard_dev: np.ndarray,
-    observed_data: np.ndarray
+    observed_data: np.ndarray,
+    rng: Generator,
 ) -> dict:
     """
     Run the MCMC algorithm for a specified number of steps.
@@ -380,5 +399,10 @@ def run_mcmc(
     :return: Updated dictionary with the final state of the MCMC chain, latents, acceptance chain, and log likelihood.
     """
     for _ in range(n_steps):
-        all_steps = run_one_mcmc_step(all_steps, proposal_standard_dev, observed_data)
+        all_steps = run_one_mcmc_step(
+            all_steps,
+            proposal_standard_dev,
+            observed_data,
+            rng=rng,
+        )
     return all_steps

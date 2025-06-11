@@ -1,17 +1,15 @@
 """SIR model simulation with basic structure and seasonality."""
+from typing import Generator
 import numpy as np
 from scipy.special import expit
-from numpy.random import default_rng
 
 from constants import (
     DEFAULT_POPULATION,
     DEFAULT_NUM_TIME_STEPS,
 )
 
-rng = default_rng(seed=42)
 
-
-def sir_out(params: np.ndarray, population: int = DEFAULT_POPULATION) -> np.ndarray:
+def sir_out(params: np.ndarray, rng: Generator, population: int = DEFAULT_POPULATION) -> np.ndarray:
     """
     Simulate the SIR model with given parameters.
 
