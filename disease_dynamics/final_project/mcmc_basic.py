@@ -11,8 +11,6 @@ from constants import (
     DEFAULT_NUM_PARTICLES,
 )
 
-# rng = default_rng(seed=42)
-
 
 proposal_standard_dev = np.array([0.05, 0.05, 0.2, 0.2, 0.2, 0.2, 0.2])
 num_params = len(proposal_standard_dev)
