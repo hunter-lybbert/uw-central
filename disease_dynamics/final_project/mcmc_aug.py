@@ -7,16 +7,19 @@ from constants import (
     DEFAULT_POPULATION,
     DEFAULT_NUM_TIME_STEPS,
     DEFAULT_NUM_PARTICLES,
+    DEFAULT_NUM_US_STATES_IN_MODEL,
 )
 
 
-proposal_standard_dev = np.array([0.05, 0.05, 0.2, 0.2, 0.2, 0.2, 0.2])
-num_params = len(proposal_standard_dev)
+# TODO Change how the number of params is defined
+# proposal_standard_dev = np.array([0.05, 0.05, 0.2, 0.2, 0.2, 0.2, 0.2])
+# num_params = len(proposal_standard_dev)
 
 
 def initialize_sir_particles(
     current_latent_states: np.ndarray,
     num_particles: int = DEFAULT_NUM_PARTICLES,
+    num_us_states_in_model: int = DEFAULT_NUM_US_STATES_IN_MODEL,
 ) -> np.ndarray:
     """
     Initialize the SIR population for each particle.
@@ -31,20 +34,23 @@ def initialize_sir_particles(
         - Second dimension: Time step (0 for current, 1 for next)
         - Third dimension: [S, I, R, NewI]
     """
-    sir_pop_by_particle = np.full((num_particles, 2, 4), np.nan)
+    sir_pop_by_particle = np.full((num_particles, 2, 4 * num_us_states_in_model), np.nan)
 
     # Initialize current state for each particle
-    sir_pop_by_particle[:, 0, 0] = current_latent_states[:, 0]  # S
-    sir_pop_by_particle[:, 0, 1] = current_latent_states[:, 1]  # I
-    sir_pop_by_particle[:, 0, 2] = current_latent_states[:, 2]  # R
+    sir_pop_by_particle[:, 0, 0] = current_latent_states[:, 0]  # NY S
+    sir_pop_by_particle[:, 0, 1] = current_latent_states[:, 1]  # NY I
+    sir_pop_by_particle[:, 0, 2] = current_latent_states[:, 2]  # NY R
+    
+    sir_pop_by_particle[:, 0, 4] = current_latent_states[:, 4]  # VT S
+    sir_pop_by_particle[:, 0, 5] = current_latent_states[:, 5]  # VT I
+    sir_pop_by_particle[:, 0, 6] = current_latent_states[:, 6]  # VT R
 
     return sir_pop_by_particle
 
 
 # TODO: You need to update the run_one_timestep to work with multiple populations and states
 def run_one_timestep(
-    curr_latent_states_ny: np.ndarray,
-    curr_latent_states_vt: np.ndarray,
+    current_latent_states: np.ndarray,
     which_month: int,
     params: np.ndarray,
     rng: Generator,
@@ -58,10 +64,16 @@ def run_one_timestep(
     :param params: Parameters for the SIR model in the following order:
         - beta: Transmission rate (log scale)
         - gamma: Recovery rate (log scale)
-        - s_init_frac: Initial susceptible fraction (logit scale)
-        - i_init_frac: Initial infected fraction (logit scale)
         - season: Seasonality factor (logit scale)
         - peak: Peak month for seasonality (logit scale)
+        - s_init_frac_ny: Initial susceptible fraction in New York (logit scale)
+        - i_init_frac_ny: Initial infected fraction in New York (logit scale)
+        - s_init_frac_vt: Initial susceptible fraction in Vermont (logit scale)
+        - i_init_frac_vt: Initial infected fraction in Vermont (logit scale)
+        - rho_ny: Reporting rate in New York (logit scale)
+        - rho_vt: Reporting rate in Vermont (logit scale)
+    :param rng: Random number generator for reproducibility.
+    :param num_particles: Number of particles to simulate.
     
     :return: Updated latent states of the SIR model for each particle.
     """
@@ -70,37 +82,60 @@ def run_one_timestep(
     season = expit(params[2])
     peak = 12 * expit(params[3])
 
-    sir_pop_by_particle_ny = initialize_sir_particles(
-        current_latent_states=curr_latent_states_ny,
+    sir_pop_by_particle = initialize_sir_particles(
+        current_latent_states=current_latent_states,
         num_particles=num_particles,
     )
-    sir_pop_by_particle_vt = initialize_sir_particles(
-        current_latent_states=curr_latent_states_vt,
-        num_particles=num_particles,
-    )
+
+    tmp_s_ny = sir_pop_by_particle[:, 0, 0]
+    tmp_i_ny = sir_pop_by_particle[:, 0, 1]
+    tmp_r_ny = sir_pop_by_particle[:, 0, 2]
+    tmp_n_ny = tmp_s_ny + tmp_i_ny + tmp_r_ny
+
+    tmp_s_vt = sir_pop_by_particle[:, 0, 4]
+    tmp_i_vt = sir_pop_by_particle[:, 0, 5]
+    tmp_r_vt = sir_pop_by_particle[:, 0, 6]
+    tmp_n_vt = tmp_s_vt + tmp_i_vt + tmp_r_vt
 
     # Compute seasonal transmission probability
     seasonal_multiplier = 1 + season * np.sin(2 * np.pi * (which_month + peak) / 12)
-    infection_rate = beta * seasonal_multiplier * sir_pop_by_particle[:, 0, 1] / DEFAULT_POPULATION
-    infection_prob = 1 - np.exp(-infection_rate)
+    infection_rate_ny = beta * seasonal_multiplier * tmp_i_ny / tmp_n_ny
+    infection_prob_ny = 1 - np.exp(-infection_rate_ny)
+
+    infection_rate_vt = beta * seasonal_multiplier * tmp_i_vt / tmp_n_vt
+    infection_prob_vt = 1 - np.exp(-infection_rate_vt)
 
     # Draw infections and recoveries
-    s_to_i = rng.binomial(
-        n=sir_pop_by_particle[:, 0, 0].astype(int),
-        p=infection_prob
+    s_to_i_ny = rng.binomial(
+        n=tmp_s_ny.astype(int),
+        p=infection_prob_ny
+    )
+    s_to_i_vt = rng.binomial(
+        n=tmp_s_vt.astype(int),
+        p=infection_prob_vt
     )
     
     recovery_prob = 1 - np.exp(-gamma)
-    i_to_r = rng.binomial(
-        n=sir_pop_by_particle[:, 0, 1].astype(int),
+    i_to_r_ny = rng.binomial(
+        n=tmp_i_ny.astype(int),
+        p=recovery_prob
+    )
+    i_to_r_vt = rng.binomial(
+        n=tmp_i_vt.astype(int),
         p=recovery_prob
     )
 
+    # TODO: Impliment the births/deaths and other augmentations here...
     # Update states for next timestep
-    sir_pop_by_particle[:, 1, 0] = sir_pop_by_particle[:, 0, 0] - s_to_i  # Susceptible
-    sir_pop_by_particle[:, 1, 1] = sir_pop_by_particle[:, 0, 1] + s_to_i - i_to_r  # infectious
-    sir_pop_by_particle[:, 1, 2] = sir_pop_by_particle[:, 0, 2] + i_to_r  # Recovered
-    sir_pop_by_particle[:, 1, 3] = s_to_i  # new infections
+    sir_pop_by_particle[:, 1, 0] = tmp_s_ny - s_to_i_ny  # NY Susceptible
+    sir_pop_by_particle[:, 1, 1] = tmp_i_ny + s_to_i_ny - i_to_r_ny  # infectious
+    sir_pop_by_particle[:, 1, 2] = tmp_r_ny + i_to_r_ny  # Recovered
+    sir_pop_by_particle[:, 1, 3] = s_to_i_ny  # new infections
+
+    sir_pop_by_particle[:, 1, 4] = tmp_s_vt - s_to_i_vt  # Susceptible
+    sir_pop_by_particle[:, 1, 5] = tmp_i_vt + s_to_i_vt - i_to_r_vt  # infectious
+    sir_pop_by_particle[:, 1, 6] = tmp_r_vt + i_to_r_vt  # Recovered
+    sir_pop_by_particle[:, 1, 7] = s_to_i_vt  # new infections
 
     # next timestep
     return sir_pop_by_particle[:, 1, :]
@@ -141,18 +176,32 @@ def run_smc(
         params=params,
         rng=rng,
     )
-    predicted_infections = tmp_latent_states[:, 3].astype(int)  # new infections
-    observed_cases = int(observed_data[current_month])
+    predicted_infections_ny = tmp_latent_states[:, 3].astype(int)  # new infections
+    predicted_infections_vt = tmp_latent_states[:, 7].astype(int)  # new infections
+    observed_cases_ny, observed_cases_vt = (observed_data[:, current_month]).astype(int)
     
+    # TODO: Revisit this because it could be problematic to sum the tmp_likelihoods at this point...
+
     # Compute likelihood of observed cases given predicted infections
-    tmp_likelihood = np.array([
-        binom.pmf(observed_cases, pred, rho) if pred >= observed_cases else 0.0
-        for pred in predicted_infections
+    tmp_likelihood_ny = np.array([
+        binom.pmf(observed_cases_ny, pred, rho) if pred >= observed_cases_ny else 0.0
+        for pred in predicted_infections_ny
     ])
     
     # If all likelihoods are zero, reset to a small constant
-    if np.max(tmp_likelihood) == 0:
-        tmp_likelihood = np.full(DEFAULT_NUM_PARTICLES, 1e-10)
+    if np.max(tmp_likelihood_ny) == 0:
+        tmp_likelihood_ny = np.full(DEFAULT_NUM_PARTICLES, 1e-10)
+
+    tmp_likelihood_vt = np.array([
+        binom.pmf(observed_cases_vt, pred, rho) if pred >= observed_cases_vt else 0.0
+        for pred in predicted_infections_vt
+    ])
+    
+    # If all likelihoods are zero, reset to a small constant
+    if np.max(tmp_likelihood_vt) == 0:
+        tmp_likelihood_vt = np.full(DEFAULT_NUM_PARTICLES, 1e-10)
+
+    tmp_likelihood = tmp_likelihood_ny + tmp_likelihood_vt
 
     # Normalize to form a probability distribution
     weights = tmp_likelihood / np.sum(tmp_likelihood)
@@ -173,9 +222,11 @@ def run_smc(
 # TODO: This is similar to the function you wrote in the sir_aug.pu file called setup_sir_pop
 def initialize_array(
     params: np.ndarray,
-    population: int,
-    num_time_steps: int,
+    population_ny: int,
+    population_vt: int,
+    num_time_steps: int = DEFAULT_NUM_TIME_STEPS,
     num_particles: int = DEFAULT_NUM_PARTICLES,
+    num_us_states_in_model: int = DEFAULT_NUM_US_STATES_IN_MODEL,
 ) -> np.ndarray:
     """
     Initialize the SIR population array for the first month.
@@ -184,28 +235,46 @@ def initialize_array(
         TODO: Update the order of params later
         - beta: Transmission rate (log scale)
         - gamma: Recovery rate (log scale)
-        - s_init_frac: Initial susceptible fraction (logit scale)
-        - i_init_frac: Initial infected fraction (logit scale)
-    :param population: Total population size.
+        - season: Seasonality factor (logit scale)
+        - peak: Peak month for seasonality (logit scale)
+        - s_init_frac_ny: Initial susceptible fraction in New York (logit scale)
+        - i_init_frac_ny: Initial infected fraction in New York (logit scale)
+        - s_init_frac_vt: Initial susceptible fraction in Vermont (logit scale)
+        - i_init_frac_vt: Initial infected fraction in Vermont (logit scale)
+        - rho_ny: Reporting rate in New York (logit scale)
+        - rho_vt: Reporting rate in Vermont (logit scale)
+    :param population_ny: Population size for New York.
+    :param population_vt: Population size for Vermont.
     :param num_time_steps: Number of time steps for the simulation.
     :param num_particles: Number of particles for the SMC algorithm.
+    :param num_us_states_in_model: Number of US states included in the model (default is 2).
     
     :return: Initialized SIR population array with shape (num_particles, num_time_steps + 1, 4).
     """
-    s_init_frac = expit(params[2])
-    i_init_frac = expit(params[3]) * (1 - s_init_frac)
+    s_init_frac_ny = expit(params[4])
+    i_init_frac_ny = expit(params[5]) * (1 - s_init_frac_ny)
+    s_init_ny = round(s_init_frac_ny * population_ny)
+    i_init_ny = round(i_init_frac_ny * population_ny)
+    r_init_ny = population_ny - (s_init_ny + i_init_ny)
 
-    s_init = round(s_init_frac * population)
-    i_init = round(i_init_frac * population)
-    r_init = population - (s_init + i_init)
+    s_init_frac_vt = expit(params[6])
+    i_init_frac_vt = expit(params[7]) * (1 - s_init_frac_vt)
+    s_init_vt = round(s_init_frac_vt * population_vt)
+    i_init_vt = round(i_init_frac_vt * population_vt)
+    r_init_vt = population_vt - (s_init_vt + i_init_vt)
 
-    sir_out_all_months = np.full((num_particles, num_time_steps + 1, 4), np.nan)
+    sir_out_all_months = np.full((num_particles, num_time_steps + 1, 4 * num_us_states_in_model), np.nan)
 
     # Set initial state
-    sir_out_all_months[:, 0, 0] = s_init  # Susceptible
-    sir_out_all_months[:, 0, 1] = i_init  # Infected
-    sir_out_all_months[:, 0, 2] = r_init  # Recovered
+    sir_out_all_months[:, 0, 0] = s_init_ny  # Susceptible
+    sir_out_all_months[:, 0, 1] = i_init_ny  # Infected
+    sir_out_all_months[:, 0, 2] = r_init_ny  # Recovered
     sir_out_all_months[:, 0, 3] = 0    # New infections
+
+    sir_out_all_months[:, 0, 4] = s_init_vt  # Susceptible
+    sir_out_all_months[:, 0, 5] = i_init_vt  # Infected
+    sir_out_all_months[:, 0, 6] = r_init_vt  # Recovered
+    sir_out_all_months[:, 0, 7] = 0    # New infections
 
     return sir_out_all_months
 
@@ -231,14 +300,18 @@ def calc_log_likelihood(
 
     :return: Log likelihood of the observed data given the model parameters.
     """
-    sir_out_all_months = initialize_array(params)
+    sir_out_all_months = initialize_array(
+        params,
+        population_ny=DEFAULT_POPULATION,
+        population_vt=DEFAULT_POPULATION,
+    )
     val = 0.0
 
     for month_step in range(1, DEFAULT_NUM_TIME_STEPS + 1):
         tmp_out = run_smc(
             sir_out_last_month=sir_out_all_months[:, month_step - 1, :],
             current_month=month_step - 1,
-            params=params, 
+            params=params,
             observed_data=observed_data,
             rng=rng,
         )
@@ -267,6 +340,7 @@ def proposal_draw(proposal_standard_dev: np.ndarray, rng: Generator) -> np.ndarr
 
     :return: A vector of proposed parameter changes.
     """
+    num_params = len(proposal_standard_dev)
     vec = rng.multivariate_normal(mean=np.zeros(num_params), cov=np.diag(proposal_standard_dev**2))
     return vec
 
@@ -365,8 +439,17 @@ def run_one_mcmc_step(
     Run one step of the MCMC algorithm using the Metropolis-Hastings method.
 
     :param all_steps: Dictionary containing the current state of the MCMC chain, latents, acceptance chain, and log likelihood.
+        The keys should be:
+        - "chain": Current parameter guesses (shape: (num_params, n_steps)).
+        - "latents": Current latent states (list of arrays).
+        - "accept_chain": Current acceptance chain (list of integers).
+        - "log_likelihood": Current log likelihood (list of floats).
+        - "current_parameter_guess": Current parameter guess (array).
+        - "new_parameter_guess": Proposed new parameter guess (array).
+        - "MH_info": Information from the last Metropolis-Hastings step (dict).
     :param proposal_standard_dev: Standard deviations for the proposal distribution.
     :param observed_data: Observed data to calculate the log likelihood.
+    :param rng: Random number generator for reproducibility.
 
     :return: Updated dictionary with the new state of the MCMC chain, latents, acceptance chain, and log likelihood.
     """
@@ -429,8 +512,17 @@ def run_mcmc(
 
     :param n_steps: Number of MCMC steps to run.
     :param all_steps: Dictionary containing the initial state of the MCMC chain, latents, acceptance chain, and log likelihood.
+        the keys should be:
+        - "chain": Initial parameter guesses (shape: (num_params, 1)).
+        - "latents": Initial latent states (list of arrays).
+        - "accept_chain": Initial acceptance chain (list of integers).
+        - "log_likelihood": Initial log likelihood (list of floats).
+        - "current_parameter_guess": Current parameter guess (array).
+        - "new_parameter_guess": Proposed new parameter guess (array).
+        - "MH_info": Information from the last Metropolis-Hastings step (dict).
     :param proposal_standard_dev: Standard deviations for the proposal distribution.
     :param observed_data: Observed data to calculate the log likelihood.
+    :param rng: Random number generator for reproducibility.
 
     :return: Updated dictionary with the final state of the MCMC chain, latents, acceptance chain, and log likelihood.
     """
