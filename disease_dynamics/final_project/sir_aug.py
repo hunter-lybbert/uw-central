@@ -111,14 +111,16 @@ def run_sir_step(
     recovery_prob = 1 - np.exp(-gamma)
     sir_pop[r_num, 6] = infection_prob
 
-    s_deaths = rng.poisson(mu_death_rate * tmp_s/ tmp_n, )
-    # TODO: Keep going from here...
+    births = rng.poisson(sigma_birth_rate * tmp_n)
+    s_deaths = rng.poisson(mu_death_rate * tmp_s)
+    i_deaths = rng.poisson(mu_death_rate * tmp_i)
+    r_deaths = rng.poisson(mu_death_rate * tmp_r)
     s_to_i = rng.binomial(int(tmp_s), infection_prob)
     i_to_r = rng.binomial(int(tmp_i), recovery_prob)
 
-    sir_pop[r_num + 1, 0] = tmp_s - s_to_i
-    sir_pop[r_num + 1, 1] = tmp_i + s_to_i - i_to_r
-    sir_pop[r_num + 1, 2] = tmp_r + i_to_r
+    sir_pop[r_num + 1, 0] = births + tmp_s - s_to_i - s_deaths
+    sir_pop[r_num + 1, 1] = tmp_i + s_to_i - i_to_r - i_deaths
+    sir_pop[r_num + 1, 2] = tmp_r + i_to_r - r_deaths
 
     sir_pop[r_num, 3] = s_to_i
     sir_pop[r_num, 4] = i_to_r
@@ -153,13 +155,13 @@ def sir_out(
 
     sir_pop_ny = setup_sir_pop(params[4], params[5], population_ny, num_time_steps)
     rho_ny = expit(params[6])
-    mu_deaths_ny = params[7]
-    sigma_births_ny = params[8]
+    mu_deaths_ny = np.exp(params[7])
+    sigma_births_ny = np.exp(params[8])
 
     sir_pop_vt = setup_sir_pop(params[9], params[10], population_vt, num_time_steps)
     rho_vt = expit(params[11])
-    mu_deaths_vt = params[12]
-    sigma_births_vt = params[13]
+    mu_deaths_vt = np.exp(params[12])
+    sigma_births_vt = np.exp(params[13])
 
     for r_num in range(num_time_steps):
         sir_pop_ny = run_sir_step(
@@ -170,6 +172,8 @@ def sir_out(
             peak=peak,
             rho=rho_ny,
             r_num=r_num,
+            mu_death_rate=mu_deaths_ny,
+            sigma_birth_rate=sigma_births_ny,
             rng=rng,
         )
         sir_pop_vt = run_sir_step(
@@ -180,6 +184,8 @@ def sir_out(
             peak=peak,
             rho=rho_vt,
             r_num=r_num,
+            mu_death_rate=mu_deaths_vt,
+            sigma_birth_rate=sigma_births_vt,
             rng=rng,
         )
 

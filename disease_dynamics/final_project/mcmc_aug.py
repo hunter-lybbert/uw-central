@@ -116,8 +116,8 @@ def run_one_timestep(
         p=infection_prob_vt
     )
 
-    mu_deathrate_ny = params[7]
-    sigma_birthrate_ny = params[8]
+    mu_deathrate_ny = np.exp(params[7])
+    sigma_birthrate_ny = np.exp(params[8])
     s_births_ny = rng.poisson(
         lam=sigma_birthrate_ny,
         size=num_particles
@@ -145,8 +145,8 @@ def run_one_timestep(
         p=recovery_prob
     )
 
-    mu_deathrate_vt = params[12]
-    sigma_birthrate_vt = params[13]
+    mu_deathrate_vt = np.exp(params[12])
+    sigma_birthrate_vt = np.exp(params[13])
     s_births_vt = rng.poisson(
         lam=sigma_birthrate_vt,
         size=num_particles
@@ -206,7 +206,8 @@ def run_smc(
         - new_log_likelihoods: Log likelihoods of the observed cases given predicted infections.
         - sampled_particles: Indices of the particles that were sampled.
     """
-    rho = expit(params[4])
+    rho_ny = expit(params[6])
+    rho_vt = expit(params[11])
     
     # Run one timestep of the latent SIR model
     tmp_latent_states = run_one_timestep(
@@ -223,7 +224,7 @@ def run_smc(
 
     # Compute likelihood of observed cases given predicted infections
     tmp_likelihood_ny = np.array([
-        binom.pmf(observed_cases_ny, pred, rho) if pred >= observed_cases_ny else 0.0
+        binom.pmf(observed_cases_ny, pred, rho_ny) if pred >= observed_cases_ny else 0.0
         for pred in predicted_infections_ny
     ])
     
@@ -232,7 +233,7 @@ def run_smc(
         tmp_likelihood_ny = np.full(DEFAULT_NUM_PARTICLES, 1e-10)
 
     tmp_likelihood_vt = np.array([
-        binom.pmf(observed_cases_vt, pred, rho) if pred >= observed_cases_vt else 0.0
+        binom.pmf(observed_cases_vt, pred, rho_vt) if pred >= observed_cases_vt else 0.0
         for pred in predicted_infections_vt
     ])
     
@@ -296,8 +297,8 @@ def initialize_array(
     i_init_ny = round(i_init_frac_ny * population_ny)
     r_init_ny = population_ny - (s_init_ny + i_init_ny)
 
-    s_init_frac_vt = expit(params[6])
-    i_init_frac_vt = expit(params[7]) * (1 - s_init_frac_vt)
+    s_init_frac_vt = expit(params[9])
+    i_init_frac_vt = expit(params[10]) * (1 - s_init_frac_vt)
     s_init_vt = round(s_init_frac_vt * population_vt)
     i_init_vt = round(i_init_frac_vt * population_vt)
     r_init_vt = population_vt - (s_init_vt + i_init_vt)
