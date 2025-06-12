@@ -17,7 +17,9 @@ temp/
 data_visualization/**/data/
 
 # Disease data
-disease_dynamics/**/data/
+disease_dynamics/final_project/data/acute_polio_Hunter.csv
+disease_dynamics/final_project/data/paralytic_polio_Hunter.csv
+disease_dynamics/final_project/data/measles_Hunter.csv
 
 # data_analysis data
 data_analysis/**/data/
