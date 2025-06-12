@@ -115,6 +115,25 @@ def run_one_timestep(
         n=tmp_s_vt.astype(int),
         p=infection_prob_vt
     )
+
+    mu_deathrate_ny = params[7]
+    sigma_birthrate_ny = params[8]
+    s_births_ny = rng.poisson(
+        lam=sigma_birthrate_ny,
+        size=num_particles
+    )
+    s_deaths_ny = rng.poisson(
+        lam=mu_deathrate_ny * tmp_s_ny / tmp_n_ny,
+        size=num_particles
+    )
+    i_deaths_ny = rng.poisson(
+        lam=mu_deathrate_ny * tmp_i_ny / tmp_n_ny,
+        size=num_particles
+    )
+    r_deaths_ny = rng.poisson(
+        lam=mu_deathrate_ny * tmp_r_ny / tmp_n_ny,
+        size=num_particles
+    )
     
     recovery_prob = 1 - np.exp(-gamma)
     i_to_r_ny = rng.binomial(
@@ -126,16 +145,35 @@ def run_one_timestep(
         p=recovery_prob
     )
 
+    mu_deathrate_vt = params[12]
+    sigma_birthrate_vt = params[13]
+    s_births_vt = rng.poisson(
+        lam=sigma_birthrate_vt,
+        size=num_particles
+    )
+    s_deaths_vt = rng.poisson(
+        lam=mu_deathrate_vt * tmp_s_vt / tmp_n_vt,
+        size=num_particles
+    )
+    i_deaths_vt = rng.poisson(
+        lam=mu_deathrate_vt * tmp_i_vt / tmp_n_vt,
+        size=num_particles
+    )
+    r_deaths_vt = rng.poisson(
+        lam=mu_deathrate_vt * tmp_r_vt / tmp_n_vt,
+        size=num_particles
+    )
+
     # TODO: Impliment the births/deaths and other augmentations here...
     # Update states for next timestep
-    sir_pop_by_particle[:, 1, 0] = tmp_s_ny - s_to_i_ny  # NY Susceptible
-    sir_pop_by_particle[:, 1, 1] = tmp_i_ny + s_to_i_ny - i_to_r_ny  # infectious
-    sir_pop_by_particle[:, 1, 2] = tmp_r_ny + i_to_r_ny  # Recovered
+    sir_pop_by_particle[:, 1, 0] = tmp_s_ny + s_births_ny - s_to_i_ny - s_deaths_ny  # NY Susceptible
+    sir_pop_by_particle[:, 1, 1] = tmp_i_ny + s_to_i_ny - i_to_r_ny  - i_deaths_ny  # infectious
+    sir_pop_by_particle[:, 1, 2] = tmp_r_ny + i_to_r_ny - r_deaths_ny  # Recovered
     sir_pop_by_particle[:, 1, 3] = s_to_i_ny  # new infections
 
-    sir_pop_by_particle[:, 1, 4] = tmp_s_vt - s_to_i_vt  # Susceptible
-    sir_pop_by_particle[:, 1, 5] = tmp_i_vt + s_to_i_vt - i_to_r_vt  # infectious
-    sir_pop_by_particle[:, 1, 6] = tmp_r_vt + i_to_r_vt  # Recovered
+    sir_pop_by_particle[:, 1, 4] = tmp_s_vt + s_births_vt - s_to_i_vt - s_deaths_vt  # Susceptible
+    sir_pop_by_particle[:, 1, 5] = tmp_i_vt + s_to_i_vt - i_to_r_vt - i_deaths_vt  # infectious
+    sir_pop_by_particle[:, 1, 6] = tmp_r_vt + i_to_r_vt  - r_deaths_vt  # Recovered
     sir_pop_by_particle[:, 1, 7] = s_to_i_vt  # new infections
 
     # next timestep

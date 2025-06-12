@@ -76,6 +76,8 @@ def run_sir_step(
     peak: float,
     rho: float,
     r_num: int,
+    mu_death_rate: float,
+    sigma_birth_rate: float,
     rng: Generator,
 ) -> np.ndarray:
     """
@@ -109,6 +111,8 @@ def run_sir_step(
     recovery_prob = 1 - np.exp(-gamma)
     sir_pop[r_num, 6] = infection_prob
 
+    s_deaths = rng.poisson(mu_death_rate * tmp_s/ tmp_n, )
+    # TODO: Keep going from here...
     s_to_i = rng.binomial(int(tmp_s), infection_prob)
     i_to_r = rng.binomial(int(tmp_i), recovery_prob)
 
@@ -149,9 +153,13 @@ def sir_out(
 
     sir_pop_ny = setup_sir_pop(params[4], params[5], population_ny, num_time_steps)
     rho_ny = expit(params[6])
+    mu_deaths_ny = params[7]
+    sigma_births_ny = params[8]
 
-    sir_pop_vt = setup_sir_pop(params[7], params[8], population_vt, num_time_steps)
-    rho_vt = expit(params[9])
+    sir_pop_vt = setup_sir_pop(params[9], params[10], population_vt, num_time_steps)
+    rho_vt = expit(params[11])
+    mu_deaths_vt = params[12]
+    sigma_births_vt = params[13]
 
     for r_num in range(num_time_steps):
         sir_pop_ny = run_sir_step(
