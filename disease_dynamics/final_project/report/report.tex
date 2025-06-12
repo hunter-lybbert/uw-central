@@ -15,7 +15,6 @@
 \newcommand{\I}{\mathrm{i}}
 \DeclareMathOperator{\E}{e}
 
-% Title block
 \title{HMS 581 Final Project}
 \newcommand{\subtitle}{\large Modeling Measles in New York \& Vermont}
 \author{Hunter Lybbert}
@@ -23,11 +22,10 @@
 \\ \texttt{hlybbert@uw.edu}}
 \date{\today}
 
-% Add subtitle formatting
 \pretitle{\begin{center}\LARGE}
 \posttitle{\par\medskip\subtitle\end{center}}
 \preauthor{\begin{center}
-\normalsize \lineskip 0.5em%
+\normalsize \lineskip 0.5em
 \begin{tabular}[t]{c}}
 \postauthor{\end{tabular}\end{center}}
 \predate{\begin{center}\small}
@@ -47,48 +45,59 @@
 \vspace{2ex}
 \begin{quote}
 A\textsc{bstract.}
-\small We model the spread of the measles pathogen in New York and Vermont from \textbf{START\_DATE} to \textbf{END\_DATE} using an SIR model.
+\small We model the spread of the measles pathogen in New York and Vermont from January 1$^{\text{st}}$, 1930 to January 1$^{\text{st}}$ 1940 using an SIR model.
 Our model has been augmented from a basic SIR model to incorporate annual seasonality, births and deaths, and a multi-year seasonality term for the strength of the strain of the pathogen.
 To optimize and fit our model, we adapted to python, the R implementation of particle MCMC provided to us.
 \end{quote}
 
 \section{Introduction and Model Augmentations}\label{sec:augmentations}
-The standard SIR model tracks the portion of or total number of people from the population which are 
-\subsection{Seasonality}
+The standard SIR model tracks the portion of or total number of people from the population which are susceptible, infectious, and recovered.
+Our model has been augmented with parameters accounting for annual seasonality, births and deaths, and a multi year oscillating strength of the strain of the pathogen. The basic model is given by
+\begin{align*}
+\frac{dS}{dt} &= \sigma N - \beta I \frac S N - \mu S \\
+\frac{dI}{dt} &= \beta I \frac S N - \gamma I - \mu I \\
+\frac{dR}{dt} &= \gamma I - \mu R.
+\end{align*}
+\subsection{Seasonality} This one is a no brainer to add to the model because like the common flu we are familiar with measles has a higher transmission rate in certain parts of the year.
 \subsection{Birth Deaths}
-\subsection{Pathogen Strength (Multi-year oscilations)}
+I attempted to fit the model with a separate parameter for birth $\sigma$ and death $\mu$ but this did not do any better than just using $\mu$ as these equations are usually presented.
+Additionally, I tried to choose intelligent initial guesses such as the known births divided by known population in the initial year 1930.
+\subsection{Pathogen Strength (Multi-year oscilations)} In Figure \ref{fig:f1} we see the observed cases for our years of interest.
+Notice that in addition to the obvious annual seasonality there appears to also be a process of some kind governing just how strong the peak is for each year.
+This is the behavior I was striving to capture with the multi-year pathogen strain strength oscillations.
 
 \section{Model Fitting and Results}\label{sec:results}
-\textbf{TODO:} Sumarize pMCMC and present plots
+I chose to fit the model using pMCMC as implemented in class, however adapted to work in python.
+The fitting process did not go as well as we hoped.
+Often times the results were extremely sensitive to the standard deviations used in the proposal distribution draws as well as the initial guess.
+We also tried letting it run for many more pMCMC steps, without any better luck.
+See Figure \ref{fig:f2} for a sample plot of the parameters moving about in one of the pMCMC fits.
+Additionally, Figure \ref{fig:f3} shows one of the best fits we could get given the time we had to spend on the project thus far.
 
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[width=1\textwidth]{../visualizations/visualizing_dominant_frequency.png}
-% 	\caption{Visualizing each of the 3 slices including the location in our 3 dimensional average frequency object.}\label{fig:f1_0}
-%\end{figure}
-%
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[width=1\textwidth]{../visualizations/visualizing_dominant_frequency_plus.png}
-% 	\caption{Visualizing each of the 3 slices including the location in our 3 dimensional average frequency object. We also visualize a slice which does not intersect the max frequency in order to convey how drastic the location of the max frequency is. In order to show this comparison things have been rescaled here.}\label{fig:f1}
-%\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{../visuals/measles_cases_by_state_and_month_start.png}
+ 	\caption{\textbf{TODO}}\label{fig:f1}
+\end{figure}
 
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[height=2in]{../visualizations/submarine_static_3d.png}
-% 	\caption{The resulting path in 3 dimensions that we determined after applying Algorithms \ref{alg:dom_freq} and \ref{alg:filter}. In this iteration of the filter we used $\sigma=1.3$.}\label{fig:f2}
-%\end{figure}
-%
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[height=2in]{../visualizations/submarine_static_2d.png}
-% 	\caption{This is just the 2 dimensional projection of the path given in the above 3d plot. The same value of $\sigma$ was used in the filter.}\label{fig:f3}
-%\end{figure}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{../visuals/measles_ny_vt_obs_cases_model_fit.png}
+ 	\caption{\textbf{TODO}}\label{fig:f2}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{../visuals/pmcmc_parameter_chains.png}
+ 	\caption{\textbf{TODO}}\label{fig:f3}
+\end{figure}
 
 \section{Conclusion}\label{sec:conclustion}
-\textbf{TODO:} summarize, discuss possible future work
+One of the biggest challenges was determining good initial guess for the parameters and determining the best standard deviations to use in the proposal distribution while performing pMCMC.
+Our fit was not exceptionally good and I would not have trusted it as a tool to forecast future spread of the measles pathogen.
+Additional augmentations that we could use to further improve the model (though the issues with initial guess and proposal distribution in pMCMC would need to be resolved first for these to help) include migration between states, 
 
-\section*{Acknowledgements} 
+\section*{Acknowledgements}
 We would like to thank Bobby Reiner for a very instructive course and giving us ample opportunities to apply the material we learned in the classroom.
 We would like to acknowledge the assistants from Nate Ward, Jaxon Tuggle, and Hailey Sparks who were instrumental in brainstorming ideas, debugging code, and analyzing results together.
 
