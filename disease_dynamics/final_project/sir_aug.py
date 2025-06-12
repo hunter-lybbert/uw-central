@@ -24,8 +24,8 @@ from scipy.special import expit
 from numpy.random import default_rng
 
 from constants import (
-    DEFAULT_POPULATION,
-    DEFAULT_NUM_TIME_STEPS,
+    NEW_YORK_POP_1930,
+    VERMONT_POP_1930,
 )
 
 # rng = default_rng(seed=42)
@@ -34,8 +34,8 @@ from constants import (
 def setup_sir_pop(
     s_init_frac_param: float,
     i_init_frac_param: float,
-    population: int = DEFAULT_POPULATION,
-    num_time_steps: int = DEFAULT_NUM_TIME_STEPS,
+    population: int,
+    num_time_steps: int,
 ) -> np.ndarray:
     """
     Initialize the SIR population array.
@@ -128,9 +128,9 @@ def run_sir_step(
 def sir_out(
     params: np.ndarray,
     rng: Generator,
-    population_ny: int = DEFAULT_POPULATION,
-    population_vt: int = DEFAULT_POPULATION,
-    default_num_time_steps: int = DEFAULT_NUM_TIME_STEPS,
+    num_time_steps: int,
+    population_ny: int = NEW_YORK_POP_1930,
+    population_vt: int = VERMONT_POP_1930,
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     SIR model simulation with augmented structure for New York and Vermont.
@@ -147,13 +147,13 @@ def sir_out(
     season = expit(params[2])
     peak = 12 * expit(params[3])
 
-    sir_pop_ny = setup_sir_pop(params[4], params[5], population_ny, default_num_time_steps)
+    sir_pop_ny = setup_sir_pop(params[4], params[5], population_ny, num_time_steps)
     rho_ny = expit(params[6])
 
-    sir_pop_vt = setup_sir_pop(params[7], params[8], population_vt, default_num_time_steps)
+    sir_pop_vt = setup_sir_pop(params[7], params[8], population_vt, num_time_steps)
     rho_vt = expit(params[9])
 
-    for r_num in range(default_num_time_steps):
+    for r_num in range(num_time_steps):
         sir_pop_ny = run_sir_step(
             sir_pop=sir_pop_ny,
             beta=beta,

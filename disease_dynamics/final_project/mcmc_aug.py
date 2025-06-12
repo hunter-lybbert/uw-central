@@ -4,7 +4,8 @@ from scipy.special import expit
 from scipy.stats import binom
 
 from constants import (
-    DEFAULT_POPULATION,
+    NEW_YORK_POP_1930,
+    VERMONT_POP_1930,
     DEFAULT_NUM_TIME_STEPS,
     DEFAULT_NUM_PARTICLES,
     DEFAULT_NUM_US_STATES_IN_MODEL,
@@ -178,7 +179,7 @@ def run_smc(
     )
     predicted_infections_ny = tmp_latent_states[:, 3].astype(int)  # new infections
     predicted_infections_vt = tmp_latent_states[:, 7].astype(int)  # new infections
-    observed_cases_ny, observed_cases_vt = (observed_data[:, current_month]).astype(int)
+    observed_cases_ny, observed_cases_vt = (observed_data[current_month, :]).astype(int)
     
     # TODO: Revisit this because it could be problematic to sum the tmp_likelihoods at this point...
 
@@ -224,7 +225,7 @@ def initialize_array(
     params: np.ndarray,
     population_ny: int,
     population_vt: int,
-    num_time_steps: int = DEFAULT_NUM_TIME_STEPS,
+    num_time_steps: int,
     num_particles: int = DEFAULT_NUM_PARTICLES,
     num_us_states_in_model: int = DEFAULT_NUM_US_STATES_IN_MODEL,
 ) -> np.ndarray:
@@ -283,6 +284,7 @@ def initialize_array(
 def calc_log_likelihood(
     params: np.ndarray,
     observed_data: np.ndarray,
+    num_time_steps: int,
     rng: Generator,
 ) -> float:
     """
@@ -302,12 +304,13 @@ def calc_log_likelihood(
     """
     sir_out_all_months = initialize_array(
         params,
-        population_ny=DEFAULT_POPULATION,
-        population_vt=DEFAULT_POPULATION,
+        population_ny=NEW_YORK_POP_1930,
+        population_vt=VERMONT_POP_1930,
+        num_time_steps=num_time_steps,
     )
     val = 0.0
 
-    for month_step in range(1, DEFAULT_NUM_TIME_STEPS + 1):
+    for month_step in range(1, num_time_steps + 1):
         tmp_out = run_smc(
             sir_out_last_month=sir_out_all_months[:, month_step - 1, :],
             current_month=month_step - 1,
@@ -349,6 +352,7 @@ def propose_new_val(
     current_parameter_guess: np.ndarray,
     proposal_standard_dev: np.ndarray,
     observed_data: np.ndarray,
+    num_time_steps: int,
     rng: Generator,
 ) -> dict[str, np.ndarray]:
     """
@@ -364,7 +368,12 @@ def propose_new_val(
         proposal_standard_dev,
         rng=rng
     )
-    new_chain_info = calc_log_likelihood(new_parameter_guess, observed_data, rng=rng)
+    new_chain_info = calc_log_likelihood(
+        params=new_parameter_guess,
+        observed_data=observed_data,
+        num_time_steps=num_time_steps,
+        rng=rng
+    )
     out = {
         "new_parameter_guess": new_parameter_guess,
         "new_chain_info": new_chain_info
@@ -433,6 +442,7 @@ def run_one_mcmc_step(
     all_steps: dict,
     proposal_standard_dev: np.ndarray,
     observed_data: np.ndarray,
+    num_time_steps: int,
     rng: Generator,
 ) -> dict:
     """
@@ -466,6 +476,7 @@ def run_one_mcmc_step(
         current_parameter_guess=current_parameter_guess,
         proposal_standard_dev=proposal_standard_dev,
         observed_data=observed_data,
+        num_time_steps=num_time_steps,
         rng=rng,
     )
     
@@ -505,6 +516,7 @@ def run_mcmc(
     all_steps: dict,
     proposal_standard_dev: np.ndarray,
     observed_data: np.ndarray,
+    num_time_steps: int,
     rng: Generator,
 ) -> dict:
     """
@@ -531,6 +543,7 @@ def run_mcmc(
             all_steps,
             proposal_standard_dev,
             observed_data,
+            num_time_steps=num_time_steps,
             rng=rng,
         )
     return all_steps
