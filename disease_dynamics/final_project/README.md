@@ -8,3 +8,5 @@ Important files in the project:
 * Data cleaning and preparation $\rightarrow$ [data_cleaning.ipynb](data_cleaning.ipynb)
 * Model Fitting $\rightarrow$ [mcmc_seasonality.ipynb](mcmc_seasonality.ipynb)
 * pMCMC implimentation $\rightarrow$ [mcmc/](mcmc/)
+
+For further details on the project please review the [report](report/report.pdf).
