@@ -10,6 +10,7 @@
 \usepackage{algpseudocode}
 \usepackage{cite}
 \usepackage{titling}
+\usepackage{bm}
 
 % Custom math commands
 \newcommand{\I}{\mathrm{i}}
@@ -45,7 +46,7 @@
 \vspace{2ex}
 \begin{quote}
 A\textsc{bstract.}
-\small We model the spread of the measles pathogen in New York and Vermont from January 1$^{\text{st}}$, 1930 to January 1$^{\text{st}}$ 1940 using an SIR model.
+\small We model the spread of the measles pathogen in New York and Vermont from January 1$^{\text{st}}$, 1930 to January 1$^{\text{st}}$, 1940 using an SIR model.
 Our model has been augmented from a basic SIR model to incorporate annual seasonality, births and deaths, and a multi-year seasonality term for the strength of the strain of the pathogen.
 To optimize and fit our model, we adapted to python, the R implementation of particle MCMC provided to us.
 \end{quote}
@@ -64,7 +65,10 @@ I attempted to fit the model with a separate parameter for birth $\sigma$ and de
 Additionally, I tried to choose intelligent initial guesses such as the known births divided by known population in the initial year 1930.
 \subsection{Pathogen Strength (Multi-year oscilations)} In Figure \ref{fig:f1} we see the observed cases for our years of interest.
 Notice that in addition to the obvious annual seasonality there appears to also be a process of some kind governing just how strong the peak is for each year.
-This is the behavior I was striving to capture with the multi-year pathogen strain strength oscillations.
+This is the behavior I wanted to capture with the multi-year pathogen strain strength oscillations.
+However, I was unable to implement this in the time I had for this assignment.
+This was due to the fact that I spent too much time getting pMCMC to work in python.
+And then tried to get something working on the smaller number of parameters without the pathogen strength.
 
 \section{Model Fitting and Results}\label{sec:results}
 I chose to fit the model using pMCMC as implemented in class, however adapted to work in python.
@@ -77,25 +81,25 @@ Additionally, Figure \ref{fig:f3} shows one of the best fits we could get given 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\textwidth]{../visuals/measles_cases_by_state_and_month_start.png}
- 	\caption{\textbf{TODO}}\label{fig:f1}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1\textwidth]{../visuals/measles_ny_vt_obs_cases_model_fit.png}
- 	\caption{\textbf{TODO}}\label{fig:f2}
+ 	\caption{The observed cases per month from 1930 to end of 1939 for both New York and Vermont.}\label{fig:f1}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\textwidth]{../visuals/pmcmc_parameter_chains.png}
- 	\caption{\textbf{TODO}}\label{fig:f3}
+ 	\caption{The values of each parameter over the 500 pMCMC steps.}\label{fig:f2}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\textwidth]{../visuals/measles_ny_vt_obs_cases_model_fit.png}
+ 	\caption{Observed cases versus the fitted model new cases for both New York and Vermont.}\label{fig:f3}
 \end{figure}
 
 \section{Conclusion}\label{sec:conclustion}
 One of the biggest challenges was determining good initial guess for the parameters and determining the best standard deviations to use in the proposal distribution while performing pMCMC.
 Our fit was not exceptionally good and I would not have trusted it as a tool to forecast future spread of the measles pathogen.
-Additional augmentations that we could use to further improve the model (though the issues with initial guess and proposal distribution in pMCMC would need to be resolved first for these to help) include migration between states, 
+Additional augmentations that we could use to further improve the model (though the issues with initial guess and proposal distribution in pMCMC would need to be resolved first for these to help) include migration between states and actually implement the pathogen strain strength.
 
 \section*{Acknowledgements}
 We would like to thank Bobby Reiner for a very instructive course and giving us ample opportunities to apply the material we learned in the classroom.
@@ -105,13 +109,49 @@ We would like to acknowledge the assistants from Nate Ward, Jaxon Tuggle, and Ha
 \appendix
 
 \section{Best Fit Statistics}
-\textbf{TODO:} make a table of best fit parameters
+These are the resulting parameters after fitting the model with pMCMC.
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|l|l|} % 'l' for left-aligned, 'c' for center-aligned columns
+        \hline
+        \textbf{Param} & \textbf{Value} & \textbf{Description} \\ 
+        \hline
+        $\beta$ & 0.01997 & Rate of transmission \\
+        \hline
+        $\gamma$ & 0.00351 & Recovery rate \\
+	\hline
+        season & 0.99999 & The peak strength of the rate of transmission \\
+        \hline
+        peak & 2.81781 & The month where the peak strength of rate of transmission occurs \\
+        \hline
+        $S_0$ (NY) & 0.94655 & Initial fraction of New York pop. that is susceptible \\
+        \hline
+        $I_0$ (NY) & 0.27958 & Initial fraction of New York pop. that is infected \\
+        \hline
+        $\rho$ (NY) & 0.24622 & Rate that the new infections are reported at \\
+        \hline
+        $\sigma$ (NY) & 0.00144 & Birth rate in New York \\
+        \hline
+        $\mu$ (NY) & 0.01448 & Death rate in New York \\
+        \hline
+        $S_0$ (VT) & 0.92183 & Initial fraction of Vermont pop. that is susceptible \\
+        \hline
+        $I_0$ (VT) & 0.28459 & Initial fraction of Vermont pop. that is infected \\
+        \hline
+        $\rho$ (VT) & 0.25994 & Rate that the new infections are reported at \\
+        \hline
+        $\sigma$ (VT) & 0.00203 & Birth rate in Vermont \\
+        \hline
+        $\mu$ (VT) & 0.0038 & Death rate in Vermont \\
+        \hline
+    \end{tabular}
+    \caption{This is the set of best parameters using pMCMC found for fitting our model.
+    The model represented in Figure \ref{fig:f3} was produced by these parameters.}
+    \label{tab:tab0}
+\vspace*{-1mm}
+\end{table}
 
 \section{Code}
 \textbf{TODO:} Link to the github page with the code
-
-
-\bibliographystyle{abbrv}
-\bibliography{references_hw1} % make sure this matches the .bib file for your corresponding document. You also have to maintain your references in the .bib file 
 
 \end{document}
