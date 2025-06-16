@@ -5,7 +5,7 @@ from scipy.special import expit
 from numpy.random import default_rng
 from scipy.stats import binom
 
-from constants import (
+from mcmc.constants import (
     DEFAULT_POPULATION,
     DEFAULT_NUM_TIME_STEPS,
     DEFAULT_NUM_PARTICLES,
