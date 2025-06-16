@@ -3,7 +3,7 @@ from typing import Generator
 import numpy as np
 from scipy.special import expit
 
-from constants import (
+from mcmc.constants import (
     DEFAULT_POPULATION,
     DEFAULT_NUM_TIME_STEPS,
 )
